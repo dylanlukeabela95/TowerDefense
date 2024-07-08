@@ -9,6 +9,12 @@ public class TowerManager : MonoBehaviour
     public PoisonTowerStat PoisonTowerStat;
     public BombTowerStat BombTowerStat;
 
+    [Header("Towers")]
+    public GameObject DamageTower;
+    public GameObject FreezeTower;
+    public GameObject PoisonTower;
+    public GameObject BombTower;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -88,5 +94,11 @@ public class TowerManager : MonoBehaviour
             SplashDamage = 5,
             SplashRadius = 3
         };
+    }
+
+    public void PlaceTower()
+    {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Instantiate(DamageTower, mousePosition, Quaternion.identity);
     }
 }
