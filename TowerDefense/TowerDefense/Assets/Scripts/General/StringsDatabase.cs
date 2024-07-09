@@ -19,5 +19,10 @@ namespace Strings
             public const string DownButton = "DownButton";
             public const string UpButton = "UpButton";
         }
+
+        public class UI
+        {
+            public const string Canvas = "Canvas";
+        }
     }
 }

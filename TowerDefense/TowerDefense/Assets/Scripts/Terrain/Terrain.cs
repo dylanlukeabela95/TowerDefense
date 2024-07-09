@@ -1,3 +1,4 @@
+using Strings;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class Terrain : MonoBehaviour
     void Start()
     {
         ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
-        uiListener = GameObject.Find("Canvas").GetComponent<UIHoverListener>();
+        uiListener = GameObject.Find(StringsDatabase.UI.Canvas).GetComponent<UIHoverListener>();
     }
 
     // Update is called once per frame
