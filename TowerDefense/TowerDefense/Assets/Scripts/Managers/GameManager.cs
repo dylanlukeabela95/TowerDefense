@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public ReferencesManager ReferencesManager;
+
     public bool isDamageTowerSelected;
     public bool isFreezeTowerSelected;
     public bool isPoisonTowerSelected;
@@ -14,7 +16,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
     }
 
     // Update is called once per frame
@@ -29,5 +31,15 @@ public class GameManager : MonoBehaviour
         isFreezeTowerSelected = freezeTower;
         isPoisonTowerSelected = poisonTower;
         isBombTowerSelected = bombTower;
+
+        ReferencesManager.TowerManager.TowerChange();
+    }
+
+    public bool CheckIfTowerSelected()
+    {
+        if(isDamageTowerSelected || isFreezeTowerSelected || isPoisonTowerSelected || isBombTowerSelected)
+            return true;
+
+        return false;
     }
 }

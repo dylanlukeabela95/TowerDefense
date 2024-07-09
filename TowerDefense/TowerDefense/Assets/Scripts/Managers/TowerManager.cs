@@ -17,6 +17,14 @@ public class TowerManager : MonoBehaviour
     public GameObject PoisonTower;
     public GameObject BombTower;
 
+    [Header("Towers For Drag")]
+    public GameObject DamageTower_Drag;
+    public GameObject FreezeTower_Drag;
+    public GameObject PoisonTower_Drag;
+    public GameObject BombTower_Drag;
+
+    GameObject DraggedTower;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +35,7 @@ public class TowerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        DragTower();
     }
 
     void AssignStats()
@@ -97,6 +105,54 @@ public class TowerManager : MonoBehaviour
             SplashDamage = 5,
             SplashRadius = 3
         };
+    }
+
+    void ShowHideDragTowers(bool damageTower, bool freezeTower, bool poisonTower, bool bombTower)
+    {
+        DamageTower_Drag.SetActive(damageTower);
+        FreezeTower_Drag.SetActive(freezeTower);
+        PoisonTower_Drag.SetActive(poisonTower);
+        BombTower_Drag.SetActive(bombTower);
+    }
+
+    void DragTower()
+    {
+        if (DraggedTower == null)
+        {
+            var gameManager = ReferencesManager.GameManager;
+            if (gameManager.CheckIfTowerSelected())
+            {
+                if (gameManager.isDamageTowerSelected)
+                {
+                    ShowHideDragTowers(true, false, false, false);
+                    DraggedTower = DamageTower_Drag;
+                }
+                else if (gameManager.isFreezeTowerSelected)
+                {
+                    ShowHideDragTowers(false, true, false, false);
+                    DraggedTower = FreezeTower_Drag;
+                }
+                else if (gameManager.isPoisonTowerSelected)
+                {
+                    ShowHideDragTowers(false, false, true, false);
+                    DraggedTower = PoisonTower_Drag;
+                }
+                else if (gameManager.isBombTowerSelected)
+                {
+                    ShowHideDragTowers(false, false, false, true);
+                    DraggedTower = BombTower_Drag;
+                }
+            }
+        }
+        else
+        {
+            DraggedTower.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+    }
+
+    public void TowerChange()
+    {
+        DraggedTower = null;
     }
 
     public void PlaceTower()
