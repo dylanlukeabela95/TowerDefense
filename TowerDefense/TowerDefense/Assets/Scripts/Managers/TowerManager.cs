@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TowerManager : MonoBehaviour
 {
+    public ReferencesManager ReferencesManager;
+
     public TowerStat DamageTowerStat;
     public FreezeTowerStat FreezeTowerStat;
     public PoisonTowerStat PoisonTowerStat;
@@ -18,6 +20,7 @@ public class TowerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
         AssignStats();
     }
 
@@ -99,6 +102,23 @@ public class TowerManager : MonoBehaviour
     public void PlaceTower()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Instantiate(DamageTower, mousePosition, Quaternion.identity);
+        var gameManager = ReferencesManager.GameManager;
+
+        if (gameManager.isDamageTowerSelected)
+        {
+            Instantiate(DamageTower, mousePosition, Quaternion.identity);
+        }
+        else if (gameManager.isFreezeTowerSelected)
+        {
+            Instantiate(FreezeTower, mousePosition, Quaternion.identity);
+        }
+        else if (gameManager.isPoisonTowerSelected)
+        {
+            Instantiate(PoisonTower, mousePosition, Quaternion.identity);
+        }
+        else if (gameManager.isBombTowerSelected)
+        {
+            Instantiate(BombTower, mousePosition, Quaternion.identity); 
+        }
     }
 }
