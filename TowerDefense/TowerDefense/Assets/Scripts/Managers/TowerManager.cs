@@ -1,3 +1,4 @@
+using Strings;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,10 @@ public class TowerManager : MonoBehaviour
     public GameObject FreezeTower_Drag;
     public GameObject PoisonTower_Drag;
     public GameObject BombTower_Drag;
+
+    [Header("Range Indicator")]
+    public Color UnavailableSpot;
+    public Color AvailableSpot;
 
     GameObject DraggedTower;
 
@@ -115,32 +120,48 @@ public class TowerManager : MonoBehaviour
         BombTower_Drag.SetActive(bombTower);
     }
 
+    void SetRangeIndicator(float towerRange)
+    {
+        if(DraggedTower != null)
+        {
+            var rangeIndicator = DraggedTower.transform.Find(StringsDatabase.Towers.RangeIndicator);
+            rangeIndicator.localScale = new Vector3(towerRange, towerRange, 1);
+            rangeIndicator.GetComponent<SpriteRenderer>().color = AvailableSpot;
+        }
+    }
+
     void DragTower()
     {
         if (DraggedTower == null)
         {
             var gameManager = ReferencesManager.GameManager;
+            var towerManager = ReferencesManager.TowerManager;
+
             if (gameManager.CheckIfTowerSelected())
             {
                 if (gameManager.isDamageTowerSelected)
                 {
                     ShowHideDragTowers(true, false, false, false);
                     DraggedTower = DamageTower_Drag;
+                    SetRangeIndicator(towerManager.DamageTowerStat.Range);
                 }
                 else if (gameManager.isFreezeTowerSelected)
                 {
                     ShowHideDragTowers(false, true, false, false);
                     DraggedTower = FreezeTower_Drag;
+                    SetRangeIndicator(towerManager.FreezeTowerStat.TowerStats.Range);
                 }
                 else if (gameManager.isPoisonTowerSelected)
                 {
                     ShowHideDragTowers(false, false, true, false);
                     DraggedTower = PoisonTower_Drag;
+                    SetRangeIndicator(towerManager.PoisonTowerStat.TowerStats.Range);
                 }
                 else if (gameManager.isBombTowerSelected)
                 {
                     ShowHideDragTowers(false, false, false, true);
                     DraggedTower = BombTower_Drag;
+                    SetRangeIndicator(towerManager.BombTowerStat.TowerStats.Range);
                 }
             }
         }

@@ -24,5 +24,10 @@ namespace Strings
         {
             public const string Canvas = "Canvas";
         }
+
+        public class Towers
+        {
+            public const string RangeIndicator = "RangeIndicator";
+        }
     }
 }
