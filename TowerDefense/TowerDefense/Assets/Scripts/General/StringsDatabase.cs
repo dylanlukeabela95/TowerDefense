@@ -13,5 +13,11 @@ namespace Strings
             public const string PoisonTowerButton = "PoisonTowerButton";
             public const string BombTowerButton = "BombTowerButton";
         }
+
+        public class Buttons
+        {
+            public const string DownButton = "DownButton";
+            public const string UpButton = "UpButton";
+        }
     }
 }

@@ -7,16 +7,29 @@ public class UIManager_Tower : MonoBehaviour
 {
     public ReferencesManager ReferencesManager;
 
+    public GameObject DownArrow;
+    public GameObject UpArrow;
+
+    public bool isTowerMenuShown;
+
     // Start is called before the first frame update
     void Start()
     {
-        ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();    
+        ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
+
+        SwitchArrows(isTowerMenuShown, !isTowerMenuShown);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    void SwitchArrows(bool downArrowShow, bool upArrowShow)
+    {
+        DownArrow.SetActive(downArrowShow);
+        UpArrow.SetActive(upArrowShow); 
     }
 
     #region OnClick
@@ -37,6 +50,21 @@ public class UIManager_Tower : MonoBehaviour
                 break;
             case StringsDatabase.TowerButtonNames.BombTowerButton:
                 gameManager.SetBooleans(false, false, false, true);
+                break;
+        }
+    }
+
+    public void OnClick_TowerUIArrow(GameObject button)
+    {
+        switch (button.name)
+        {
+            case StringsDatabase.Buttons.DownButton:
+                isTowerMenuShown = false;
+                SwitchArrows(false, true);
+                break;
+            case StringsDatabase.Buttons.UpButton:
+                isTowerMenuShown = true;
+                SwitchArrows(true, false);
                 break;
         }
     }
