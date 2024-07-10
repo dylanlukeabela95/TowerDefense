@@ -9,15 +9,32 @@ public class UIManager_Tower : MonoBehaviour
 
     public GameObject DownArrow;
     public GameObject UpArrow;
+    
+    public RectTransform TowerSelectionUI;
+    
+    public float AnimationDuration = 0.5f;
+    
+    public bool IsPanelVisible = false;
 
-    public bool isTowerMenuShown;
+    public Vector2 OffScreenPosition;
+    public Vector2 OnScreenPosition;
+
+    public bool IsTowerMenuShown;
 
     // Start is called before the first frame update
     void Start()
     {
         ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
 
-        SwitchArrows(isTowerMenuShown, !isTowerMenuShown);
+        SwitchArrows(IsTowerMenuShown, !IsTowerMenuShown);
+
+        OffScreenPosition = new Vector2(TowerSelectionUI.anchoredPosition.x, -TowerSelectionUI.rect.height);
+
+        // Set the on-screen position to be where the panel is initially placed in the UI
+        OnScreenPosition = TowerSelectionUI.anchoredPosition;
+
+        // Move the panel to the off-screen position at the start
+        TowerSelectionUI.anchoredPosition = OffScreenPosition;
     }
 
     // Update is called once per frame
@@ -30,6 +47,45 @@ public class UIManager_Tower : MonoBehaviour
     {
         DownArrow.SetActive(downArrowShow);
         UpArrow.SetActive(upArrowShow); 
+    }
+
+    public void SlideUp()
+    {
+        StartCoroutine(Slide(TowerSelectionUI, OffScreenPosition, OnScreenPosition));
+        IsPanelVisible = true;
+    }
+
+    public void SlideDown()
+    {
+        StartCoroutine(Slide(TowerSelectionUI, OnScreenPosition, OffScreenPosition));
+        IsPanelVisible = false;
+    }
+
+    private System.Collections.IEnumerator Slide(RectTransform rectTransform, Vector2 startPos, Vector2 endPos)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < AnimationDuration)
+        {
+            rectTransform.anchoredPosition = Vector2.Lerp(startPos, endPos, (elapsedTime / AnimationDuration));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        rectTransform.anchoredPosition = endPos;
+    }
+
+    // Toggle panel visibility
+    public void TogglePanel()
+    {
+        if (IsPanelVisible)
+        {
+            SlideDown();
+        }
+        else
+        {
+            SlideUp();
+        }
     }
 
     #region OnClick
@@ -59,14 +115,16 @@ public class UIManager_Tower : MonoBehaviour
         switch (button.name)
         {
             case StringsDatabase.Buttons.DownButton:
-                isTowerMenuShown = false;
+                IsTowerMenuShown = false;
                 SwitchArrows(false, true);
                 break;
             case StringsDatabase.Buttons.UpButton:
-                isTowerMenuShown = true;
+                IsTowerMenuShown = true;
                 SwitchArrows(true, false);
                 break;
         }
+
+        TogglePanel();
     }
 
     #endregion

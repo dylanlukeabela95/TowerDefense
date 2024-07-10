@@ -1308,7 +1308,12 @@ MonoBehaviour:
   ReferencesManager: {fileID: 0}
   DownArrow: {fileID: 372246586}
   UpArrow: {fileID: 1160418013}
-  isTowerMenuShown: 1
+  TowerSelectionUI: {fileID: 0}
+  animationDuration: 0.5
+  isPanelVisible: 0
+  offScreenPosition: {x: 0, y: 0}
+  onScreenPosition: {x: 0, y: 0}
+  isTowerMenuShown: 0
 --- !u!1 &1031314936
 GameObject:
   m_ObjectHideFlags: 0
