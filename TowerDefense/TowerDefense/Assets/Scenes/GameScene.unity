@@ -333,10 +333,10 @@ RectTransform:
   m_Father: {fileID: 276168436}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4, y: -200.25499}
-  m_SizeDelta: {x: 323.2437, y: 49.49}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 16.319275}
+  m_SizeDelta: {x: 323.2437, y: 32.6386}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &155737814
 GameObject:
@@ -373,7 +373,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2, y: -0.71}
+  m_AnchoredPosition: {x: 2, y: 0.15}
   m_SizeDelta: {x: 5, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &155737816
@@ -690,10 +690,10 @@ RectTransform:
   m_Father: {fileID: 140140259}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000054043, y: 32.494}
-  m_SizeDelta: {x: 41.1949, y: 14.988}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 2.4000094, y: 59.39402}
+  m_SizeDelta: {x: 41.1949, y: 14.987999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &372246588
 MonoBehaviour:
@@ -1218,9 +1218,9 @@ RectTransform:
   m_Father: {fileID: 140140259}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 2.400004, y: 26.90002}
   m_SizeDelta: {x: 221.0139, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &921411803
@@ -1308,12 +1308,12 @@ MonoBehaviour:
   ReferencesManager: {fileID: 0}
   DownArrow: {fileID: 372246586}
   UpArrow: {fileID: 1160418013}
-  TowerSelectionUI: {fileID: 0}
-  animationDuration: 0.5
-  isPanelVisible: 0
-  offScreenPosition: {x: 0, y: 0}
-  onScreenPosition: {x: 0, y: 0}
-  isTowerMenuShown: 0
+  TowerSelectionUI: {fileID: 140140259}
+  AnimationDuration: 0.5
+  IsPanelVisible: 0
+  OffScreenPosition: {x: 0, y: 0}
+  OnScreenPosition: {x: 0, y: 0}
+  IsTowerMenuShown: 0
 --- !u!1 &1031314936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1559,10 +1559,10 @@ RectTransform:
   m_Father: {fileID: 140140259}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000054043, y: 32.494}
-  m_SizeDelta: {x: 41.1949, y: 14.9882}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 2.4000094, y: 59.39402}
+  m_SizeDelta: {x: 41.1949, y: 14.988201}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1160418015
 MonoBehaviour:
@@ -1995,9 +1995,9 @@ RectTransform:
   m_Father: {fileID: 140140259}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 2.400004, y: 26.90002}
   m_SizeDelta: {x: 319, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1349841478
@@ -2111,7 +2111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.72, y: -0.7100158}
+  m_AnchoredPosition: {x: -1.72, y: 0.15}
   m_SizeDelta: {x: 5, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1391467876
@@ -2729,9 +2729,9 @@ RectTransform:
   m_Father: {fileID: 140140259}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 2.4, y: 26.9}
   m_SizeDelta: {x: 225.4342, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1982288641
