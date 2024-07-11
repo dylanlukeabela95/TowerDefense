@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3933563551055692357, guid: b8fd08fce25ad1a4ab5ed24ddf8b80a7, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5473962130037611231, guid: b8fd08fce25ad1a4ab5ed24ddf8b80a7, type: 3}
       propertyPath: m_Layer
       value: 2
@@ -309,6 +313,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8700566191634227247, guid: c466a89ffb25d934189fa01a904b0e95, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c466a89ffb25d934189fa01a904b0e95, type: 3}
 --- !u!1 &77362495 stripped
@@ -354,7 +362,6 @@ RectTransform:
   - {fileID: 1349841477}
   - {fileID: 372246587}
   - {fileID: 1160418014}
-  - {fileID: 1113290052}
   m_Father: {fileID: 276168436}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -512,6 +519,10 @@ PrefabInstance:
     - target: {fileID: 184618531139821391, guid: 1b372f2a94e6c3047b43355344a6a056, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338735751000018288, guid: 1b372f2a94e6c3047b43355344a6a056, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4307495936437225084, guid: 1b372f2a94e6c3047b43355344a6a056, type: 3}
       propertyPath: m_Layer
@@ -1560,95 +1571,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038059189}
   m_CullTransparentMesh: 1
---- !u!1 &1113290051
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1113290052}
-  - component: {fileID: 1113290053}
-  - component: {fileID: 1113290055}
-  - component: {fileID: 1113290054}
-  m_Layer: 5
-  m_Name: MouseOverCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1113290052
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1113290051}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 140140259}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.4, y: 17.79}
-  m_SizeDelta: {x: 225.44, y: 64.419}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1113290053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1113290051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1554fd74bf5ef304f9521ee8b05387eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1113290054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1113290051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1113290055
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1113290051}
-  m_CullTransparentMesh: 1
 --- !u!1 &1160418013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2593,6 +2515,10 @@ PrefabInstance:
     - target: {fileID: 480073542724733536, guid: 479055e5ecdb43047beb782622060f2f, type: 3}
       propertyPath: m_Layer
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508380889151599664, guid: 479055e5ecdb43047beb782622060f2f, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2772352148467199123, guid: 479055e5ecdb43047beb782622060f2f, type: 3}
       propertyPath: m_RootOrder

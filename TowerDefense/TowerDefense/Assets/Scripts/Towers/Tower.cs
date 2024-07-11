@@ -11,11 +11,17 @@ public class Tower : MonoBehaviour
     public float Range;
     public int Cost;
 
+    public GameObject projectileDamage;
+    public GameObject projectileFreeze;
+    public GameObject projectilePoison;
+    public GameObject projectileBomb;
+
     public Transform Barrel;
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
     }
 
     // Update is called once per frame
@@ -52,6 +58,16 @@ public class Tower : MonoBehaviour
                 Range = ReferencesManager.TowerManager.BombTowerStat.TowerStats.Range;
                 Cost = ReferencesManager.TowerManager.BombTowerStat.TowerStats.Cost;
                 break;
+        }
+    }
+
+    public IEnumerator Shoot(GameObject projectile, int damage)
+    {
+        while(true)
+        {
+            GameObject bullet = Instantiate(projectile, Barrel.transform.position, Barrel.transform.rotation);
+            bullet.GetComponent<TowerProjectile>().Damage = damage;
+            yield return new WaitForSeconds(FireRate);
         }
     }
 }

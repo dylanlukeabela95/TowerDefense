@@ -8,6 +8,9 @@ public class DamageTower : Tower
     protected override void Start()
     {
         base.Start();
+        AssignStats(TowerEnum.DamageTower);
+
+        StartCoroutine(Shoot(projectileDamage, Damage));
     }
 
     // Update is called once per frame
