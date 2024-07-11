@@ -108,6 +108,8 @@ public class UIManager_Tower : MonoBehaviour
                 gameManager.SetBooleans(false, false, false, true);
                 break;
         }
+
+        SlideDown();
     }
 
     public void OnClick_TowerUIArrow(GameObject button)

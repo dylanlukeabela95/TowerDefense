@@ -24,11 +24,7 @@ public class Terrain : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (uiListener.isUIOverride)
-        {
-            Debug.Log("Cancelled OnMouseDown! A UI element has override this object!");
-        }
-        else
+        if (!uiListener.isUIOverride)
         {
             ReferencesManager.TowerManager.PlaceTower();
         }
