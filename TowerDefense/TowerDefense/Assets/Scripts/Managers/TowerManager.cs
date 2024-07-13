@@ -29,6 +29,7 @@ public class TowerManager : MonoBehaviour
     public Color AvailableSpot;
 
     GameObject DraggedTower;
+    public bool IsTowerSelect;
 
     // Start is called before the first frame update
     void Start()
@@ -132,42 +133,52 @@ public class TowerManager : MonoBehaviour
 
     void DragTower()
     {
-        if (DraggedTower == null)
+        if (IsTowerSelect)
         {
-            var gameManager = ReferencesManager.GameManager;
-            var towerManager = ReferencesManager.TowerManager;
-
-            if (gameManager.CheckIfTowerSelected())
+            if (DraggedTower == null)
             {
-                if (gameManager.isDamageTowerSelected)
+                var gameManager = ReferencesManager.GameManager;
+                var towerManager = ReferencesManager.TowerManager;
+
+                if (gameManager.CheckIfTowerSelected())
                 {
-                    ShowHideDragTowers(true, false, false, false);
-                    DraggedTower = DamageTower_Drag;
-                    SetRangeIndicator(towerManager.DamageTowerStat.Range);
+                    if (gameManager.isDamageTowerSelected)
+                    {
+                        ShowHideDragTowers(true, false, false, false);
+                        DraggedTower = DamageTower_Drag;
+                        SetRangeIndicator(towerManager.DamageTowerStat.Range);
+                    }
+                    else if (gameManager.isFreezeTowerSelected)
+                    {
+                        ShowHideDragTowers(false, true, false, false);
+                        DraggedTower = FreezeTower_Drag;
+                        SetRangeIndicator(towerManager.FreezeTowerStat.TowerStats.Range);
+                    }
+                    else if (gameManager.isPoisonTowerSelected)
+                    {
+                        ShowHideDragTowers(false, false, true, false);
+                        DraggedTower = PoisonTower_Drag;
+                        SetRangeIndicator(towerManager.PoisonTowerStat.TowerStats.Range);
+                    }
+                    else if (gameManager.isBombTowerSelected)
+                    {
+                        ShowHideDragTowers(false, false, false, true);
+                        DraggedTower = BombTower_Drag;
+                        SetRangeIndicator(towerManager.BombTowerStat.TowerStats.Range);
+                    }
                 }
-                else if (gameManager.isFreezeTowerSelected)
-                {
-                    ShowHideDragTowers(false, true, false, false);
-                    DraggedTower = FreezeTower_Drag;
-                    SetRangeIndicator(towerManager.FreezeTowerStat.TowerStats.Range);
-                }
-                else if (gameManager.isPoisonTowerSelected)
-                {
-                    ShowHideDragTowers(false, false, true, false);
-                    DraggedTower = PoisonTower_Drag;
-                    SetRangeIndicator(towerManager.PoisonTowerStat.TowerStats.Range);
-                }
-                else if (gameManager.isBombTowerSelected)
-                {
-                    ShowHideDragTowers(false, false, false, true);
-                    DraggedTower = BombTower_Drag;
-                    SetRangeIndicator(towerManager.BombTowerStat.TowerStats.Range);
-                }
+            }
+            else
+            {
+                DraggedTower.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                DamageTower_Drag.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                FreezeTower_Drag.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                PoisonTower_Drag.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                BombTower_Drag.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             }
         }
         else
         {
-            DraggedTower.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             DamageTower_Drag.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             FreezeTower_Drag.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             PoisonTower_Drag.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -175,9 +186,15 @@ public class TowerManager : MonoBehaviour
         }
     }
 
-    public void TowerChange()
+    public void EmptyDraggedTower()
     {
         DraggedTower = null;
+    }
+
+    public void HideAllDraggedTowers()
+    {
+        ShowHideDragTowers(false, false, false, false);
+        IsTowerSelect = false;
     }
 
     public void PlaceTower()

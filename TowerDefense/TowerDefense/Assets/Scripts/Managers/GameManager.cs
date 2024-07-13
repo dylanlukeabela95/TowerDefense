@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        HideDragTower();
     }
 
     public void SetBooleans(bool damageTower, bool freezeTower, bool poisonTower, bool bombTower)
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         isPoisonTowerSelected = poisonTower;
         isBombTowerSelected = bombTower;
 
-        ReferencesManager.TowerManager.TowerChange();
+        ReferencesManager.TowerManager.EmptyDraggedTower();
     }
 
     public bool CheckIfTowerSelected()
@@ -41,5 +41,14 @@ public class GameManager : MonoBehaviour
             return true;
 
         return false;
+    }
+
+    public void HideDragTower()
+    {
+        if(Input.GetMouseButtonDown(1))
+        {
+            ReferencesManager.TowerManager.EmptyDraggedTower();
+            ReferencesManager.TowerManager.HideAllDraggedTowers();
+        }
     }
 }

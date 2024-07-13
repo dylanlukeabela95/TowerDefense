@@ -1,6 +1,7 @@
 using Strings;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Compilation;
 using UnityEngine;
 
 public class UIManager_Tower : MonoBehaviour
@@ -108,7 +109,7 @@ public class UIManager_Tower : MonoBehaviour
                 gameManager.SetBooleans(false, false, false, true);
                 break;
         }
-
+        ReferencesManager.TowerManager.IsTowerSelect = true;
         SlideDown();
     }
 
