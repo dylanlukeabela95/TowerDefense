@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 528174883492093913}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.631, z: 0}
+  m_LocalPosition: {x: 0, y: 0.631, z: 9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -208,6 +208,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9142003872311028375}
+  - component: {fileID: 5040604821143720344}
   m_Layer: 0
   m_Name: FreezeTower
   m_TagString: Untagged
@@ -233,3 +234,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5040604821143720344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9190300702413845436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9e0b05da246c74d95de50925998704, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ReferencesManager: {fileID: 0}
+  Damage: 0
+  FireRate: 0
+  Range: 0
+  Cost: 0
+  Barrel: {fileID: 3933563551055692357}
+  projectileFreeze: {fileID: 6282616619044169572, guid: 40f8bb8f979e0fa47be005204d6f2135, type: 3}

@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageTower : Tower
+public class PoisonTower : Tower
 {
-    public GameObject projectileDamage;
+    public GameObject projectilePoison;
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        AssignStats(TowerEnum.DamageTower);
+        AssignStats(TowerEnum.PoisonTower);
 
-        StartCoroutine(Shoot(projectileDamage, Damage));
+        StartCoroutine(Shoot(projectilePoison, Damage));
     }
 
     // Update is called once per frame

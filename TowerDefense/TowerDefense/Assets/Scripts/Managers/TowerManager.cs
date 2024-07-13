@@ -168,6 +168,10 @@ public class TowerManager : MonoBehaviour
         else
         {
             DraggedTower.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            DamageTower_Drag.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            FreezeTower_Drag.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            PoisonTower_Drag.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            BombTower_Drag.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
     }
 

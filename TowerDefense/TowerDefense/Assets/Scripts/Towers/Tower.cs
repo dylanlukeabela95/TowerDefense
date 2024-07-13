@@ -11,11 +11,6 @@ public class Tower : MonoBehaviour
     public float Range;
     public int Cost;
 
-    public GameObject projectileDamage;
-    public GameObject projectileFreeze;
-    public GameObject projectilePoison;
-    public GameObject projectileBomb;
-
     public Transform Barrel;
 
     // Start is called before the first frame update
