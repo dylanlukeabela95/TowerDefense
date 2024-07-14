@@ -202,21 +202,29 @@ public class TowerManager : MonoBehaviour
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         var gameManager = ReferencesManager.GameManager;
 
-        if (gameManager.isDamageTowerSelected)
+        if (
+            (DamageTower_Drag.activeInHierarchy && DamageTower_Drag.GetComponent<TowerDrag>().canPlace) ||
+            (FreezeTower_Drag.activeInHierarchy && FreezeTower_Drag.GetComponent<TowerDrag>().canPlace) ||
+            (PoisonTower_Drag.activeInHierarchy && PoisonTower_Drag.GetComponent<TowerDrag>().canPlace) ||
+            (BombTower_Drag.activeInHierarchy && BombTower_Drag.GetComponent<TowerDrag>().canPlace)
+           )
         {
-            Instantiate(DamageTower, mousePosition, Quaternion.identity);
-        }
-        else if (gameManager.isFreezeTowerSelected)
-        {
-            Instantiate(FreezeTower, mousePosition, Quaternion.identity);
-        }
-        else if (gameManager.isPoisonTowerSelected)
-        {
-            Instantiate(PoisonTower, mousePosition, Quaternion.identity);
-        }
-        else if (gameManager.isBombTowerSelected)
-        {
-            Instantiate(BombTower, mousePosition, Quaternion.identity); 
+            if (gameManager.isDamageTowerSelected)
+            {
+                Instantiate(DamageTower, mousePosition, Quaternion.identity);
+            }
+            else if (gameManager.isFreezeTowerSelected)
+            {
+                Instantiate(FreezeTower, mousePosition, Quaternion.identity);
+            }
+            else if (gameManager.isPoisonTowerSelected)
+            {
+                Instantiate(PoisonTower, mousePosition, Quaternion.identity);
+            }
+            else if (gameManager.isBombTowerSelected)
+            {
+                Instantiate(BombTower, mousePosition, Quaternion.identity);
+            }
         }
     }
 }

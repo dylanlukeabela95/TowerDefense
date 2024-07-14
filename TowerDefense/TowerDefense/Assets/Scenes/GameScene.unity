@@ -2497,7 +2497,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5794828670013841929}
-  - component: {fileID: 7941551686452920079}
+  - component: {fileID: 5794828670013841931}
+  - component: {fileID: 5794828670013841930}
   m_Layer: 2
   m_Name: PoisonTower_Drag
   m_TagString: Untagged
@@ -2566,7 +2567,7 @@ Transform:
   m_GameObject: {fileID: 493294534015194085}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.25, y: 0, z: -2.73}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8812806269345562024}
@@ -2602,7 +2603,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 476943048686798350}
-  - component: {fileID: 8545891699076872473}
+  - component: {fileID: 493294534015194087}
+  - component: {fileID: 493294534015194086}
   m_Layer: 2
   m_Name: BombTower_Drag
   m_TagString: Untagged
@@ -2610,6 +2612,46 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!61 &493294534015194086
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493294534015194085}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &493294534015194087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493294534015194085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed2cb3db4e870f4a8ced977b113097e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canPlace: 1
+  RangeIndicator: {fileID: 1297642768}
 --- !u!1 &528174883501052740
 GameObject:
   m_ObjectHideFlags: 0
@@ -2935,7 +2977,7 @@ Transform:
   m_GameObject: {fileID: 5727464798841006418}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.1, y: 0, z: -2.73}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1748160356499442592}
@@ -3080,25 +3122,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &5040604821169495301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9190300702406033185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e9e0b05da246c74d95de50925998704, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ReferencesManager: {fileID: 0}
-  Damage: 0
-  FireRate: 0
-  Range: 0
-  Cost: 0
-  Barrel: {fileID: 3933563551046700760}
-  projectileFreeze: {fileID: 6282616619044169572, guid: 40f8bb8f979e0fa47be005204d6f2135, type: 3}
 --- !u!4 &5271785054091725582
 Transform:
   m_ObjectHideFlags: 0
@@ -3207,6 +3230,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2772352149763600137}
+  - component: {fileID: 5727464798841006420}
+  - component: {fileID: 5727464798841006419}
   m_Layer: 2
   m_Name: DamageTower_Drag
   m_TagString: Untagged
@@ -3214,6 +3239,46 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!61 &5727464798841006419
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5727464798841006418}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &5727464798841006420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5727464798841006418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed2cb3db4e870f4a8ced977b113097e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canPlace: 1
+  RangeIndicator: {fileID: 1913603997}
 --- !u!4 &5794828670013841929
 Transform:
   m_ObjectHideFlags: 0
@@ -3223,7 +3288,7 @@ Transform:
   m_GameObject: {fileID: 184618531409696493}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.34, y: 0, z: -2.73}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5354909292994403601}
@@ -3233,6 +3298,46 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &5794828670013841930
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184618531409696493}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &5794828670013841931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184618531409696493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed2cb3db4e870f4a8ced977b113097e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canPlace: 1
+  RangeIndicator: {fileID: 1918043783}
 --- !u!4 &5880911839212079576
 Transform:
   m_ObjectHideFlags: 0
@@ -3300,25 +3405,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7941551686452920079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 184618531409696493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e224a9f8cd4d7db4f90729a49a75e2a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ReferencesManager: {fileID: 0}
-  Damage: 0
-  FireRate: 0
-  Range: 0
-  Cost: 0
-  Barrel: {fileID: 1338735750729090258}
-  projectilePoison: {fileID: 5995876304203132782, guid: 04718cd98f5eb3941845444558afd9e0, type: 3}
 --- !u!4 &7983578078052856254
 Transform:
   m_ObjectHideFlags: 0
@@ -3365,25 +3451,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &8545891699076872473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 493294534015194085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05cd715ca06bf2244a3163b2d6724a21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ReferencesManager: {fileID: 0}
-  Damage: 0
-  FireRate: 0
-  Range: 0
-  Cost: 0
-  Barrel: {fileID: 8700566191577355537}
-  projectileBomb: {fileID: 2058674578671948185, guid: c074331f4a8eb6d46b6cb5702b108cac, type: 3}
 --- !u!1 &8617765487515034996
 GameObject:
   m_ObjectHideFlags: 0
@@ -3457,7 +3524,7 @@ Transform:
   m_GameObject: {fileID: 9190300702406033185}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -2.73}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1973388987871933216}
@@ -3476,7 +3543,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9142003872369305098}
-  - component: {fileID: 5040604821169495301}
+  - component: {fileID: 9190300702406033187}
+  - component: {fileID: 9190300702406033186}
   m_Layer: 2
   m_Name: FreezeTower_Drag
   m_TagString: Untagged
@@ -3484,3 +3552,43 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!61 &9190300702406033186
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9190300702406033185}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &9190300702406033187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9190300702406033185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed2cb3db4e870f4a8ced977b113097e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canPlace: 1
+  RangeIndicator: {fileID: 1210032384}
