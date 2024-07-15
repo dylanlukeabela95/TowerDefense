@@ -203,27 +203,47 @@ public class TowerManager : MonoBehaviour
         var gameManager = ReferencesManager.GameManager;
 
         if (
-            (DamageTower_Drag.activeInHierarchy && DamageTower_Drag.GetComponent<TowerDrag>().canPlace) ||
-            (FreezeTower_Drag.activeInHierarchy && FreezeTower_Drag.GetComponent<TowerDrag>().canPlace) ||
-            (PoisonTower_Drag.activeInHierarchy && PoisonTower_Drag.GetComponent<TowerDrag>().canPlace) ||
-            (BombTower_Drag.activeInHierarchy && BombTower_Drag.GetComponent<TowerDrag>().canPlace)
+            (DamageTower_Drag.activeInHierarchy && DamageTower_Drag.GetComponent<TowerDrag>().CanPlace) ||
+            (FreezeTower_Drag.activeInHierarchy && FreezeTower_Drag.GetComponent<TowerDrag>().CanPlace) ||
+            (PoisonTower_Drag.activeInHierarchy && PoisonTower_Drag.GetComponent<TowerDrag>().CanPlace) ||
+            (BombTower_Drag.activeInHierarchy && BombTower_Drag.GetComponent<TowerDrag>().CanPlace)
            )
         {
             if (gameManager.isDamageTowerSelected)
             {
-                Instantiate(DamageTower, mousePosition, Quaternion.identity);
+                if (ReferencesManager.GameManager.CanPurchase(ReferencesManager.TowerManager.DamageTowerStat.Cost))
+                {
+                    Instantiate(DamageTower, mousePosition, Quaternion.identity);
+                    ReferencesManager.GameManager.ReduceCoins(ReferencesManager.TowerManager.DamageTowerStat.Cost);
+                    ReferencesManager.UIManager_Cost.UpdateCoins();
+                }
             }
             else if (gameManager.isFreezeTowerSelected)
             {
-                Instantiate(FreezeTower, mousePosition, Quaternion.identity);
+                if (ReferencesManager.GameManager.CanPurchase(ReferencesManager.TowerManager.FreezeTowerStat.TowerStats.Cost))
+                {
+                    Instantiate(FreezeTower, mousePosition, Quaternion.identity);
+                    ReferencesManager.GameManager.ReduceCoins(ReferencesManager.TowerManager.FreezeTowerStat.TowerStats.Cost);
+                    ReferencesManager.UIManager_Cost.UpdateCoins();
+                }
             }
             else if (gameManager.isPoisonTowerSelected)
             {
-                Instantiate(PoisonTower, mousePosition, Quaternion.identity);
+                if (ReferencesManager.GameManager.CanPurchase(ReferencesManager.TowerManager.PoisonTowerStat.TowerStats.Cost))
+                {
+                    Instantiate(PoisonTower, mousePosition, Quaternion.identity);
+                    ReferencesManager.GameManager.ReduceCoins(ReferencesManager.TowerManager.PoisonTowerStat.TowerStats.Cost);
+                    ReferencesManager.UIManager_Cost.UpdateCoins();
+                }
             }
             else if (gameManager.isBombTowerSelected)
             {
-                Instantiate(BombTower, mousePosition, Quaternion.identity);
+                if (ReferencesManager.GameManager.CanPurchase(ReferencesManager.TowerManager.BombTowerStat.TowerStats.Cost))
+                {
+                    Instantiate(BombTower, mousePosition, Quaternion.identity);
+                    ReferencesManager.GameManager.ReduceCoins(ReferencesManager.TowerManager.BombTowerStat.TowerStats.Cost);
+                    ReferencesManager.UIManager_Cost.UpdateCoins();
+                }
             }
         }
     }

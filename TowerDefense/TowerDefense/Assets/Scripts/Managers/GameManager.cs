@@ -51,4 +51,19 @@ public class GameManager : MonoBehaviour
             ReferencesManager.TowerManager.HideAllDraggedTowers();
         }
     }
+
+    public void ReduceCoins(int cost)
+    {
+        coins -= cost;
+    }
+
+    public bool CanPurchase(int cost)
+    {
+        if(coins >= cost)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -9,4 +9,5 @@ public class ReferencesManager : MonoBehaviour
 
     [Header("UI Managers")]
     public UIManager_Tower UIManager_Tower;
+    public UIManager_Cost UIManager_Cost;
 }
