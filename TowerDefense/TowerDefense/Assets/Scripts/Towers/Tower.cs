@@ -13,10 +13,13 @@ public class Tower : MonoBehaviour
 
     public Transform Barrel;
 
+    public GameObject RangeIndicator;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
         ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
+        RangeIndicator.SetActive(false);
     }
 
     // Update is called once per frame
@@ -56,6 +59,23 @@ public class Tower : MonoBehaviour
         }
     }
 
+    protected virtual void OnMouseDown()
+    {
+        if (ReferencesManager.GameManager.tower == this.gameObject)
+        {
+            RangeIndicator.SetActive(false);
+            ReferencesManager.GameManager.tower = null;
+        }
+        else if(ReferencesManager.GameManager.tower == null)
+        {
+            ReferencesManager.GameManager.tower = this.gameObject;
+            RangeIndicator.SetActive(true);
+            //Debug.Log("Damage -> "+ Damage);
+            //Debug.Log("Fire Rate -> "+ FireRate);
+            //Debug.Log("Range -> "+ Range);
+        }
+    }
+
     public IEnumerator Shoot(GameObject projectile, int damage)
     {
         while(true)
@@ -65,4 +85,5 @@ public class Tower : MonoBehaviour
             yield return new WaitForSeconds(FireRate);
         }
     }
+
 }

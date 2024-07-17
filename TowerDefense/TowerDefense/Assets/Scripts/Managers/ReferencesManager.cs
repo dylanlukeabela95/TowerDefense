@@ -6,8 +6,10 @@ public class ReferencesManager : MonoBehaviour
 {
     public GameManager GameManager;
     public TowerManager TowerManager;
+    public StatsManager StatsManager;
 
     [Header("UI Managers")]
     public UIManager_Tower UIManager_Tower;
     public UIManager_Cost UIManager_Cost;
+    public UIManager_Stat UIManager_Stat;
 }

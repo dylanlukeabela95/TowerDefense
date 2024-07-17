@@ -121,9 +121,15 @@ public class TowerManager : MonoBehaviour
         BombTower_Drag.SetActive(bombTower);
     }
 
-    void SetRangeIndicator(float towerRange)
+    void SetRangeIndicator(float towerRange, GameObject tower = null)
     {
-        if(DraggedTower != null)
+        if (tower != null)
+        {
+            var rangeIndicator = tower.transform.Find(StringsDatabase.Towers.RangeIndicator);
+            rangeIndicator.localScale = new Vector3(towerRange, towerRange, 1);
+            rangeIndicator.GetComponent<SpriteRenderer>().color = AvailableSpot;
+        }
+        else if(DraggedTower != null)
         {
             var rangeIndicator = DraggedTower.transform.Find(StringsDatabase.Towers.RangeIndicator);
             rangeIndicator.localScale = new Vector3(towerRange, towerRange, 1);
@@ -199,8 +205,10 @@ public class TowerManager : MonoBehaviour
 
     public void PlaceTower()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 7.9f));
         var gameManager = ReferencesManager.GameManager;
+
+        GameObject tower = null;
 
         if (
             (DamageTower_Drag.activeInHierarchy && DamageTower_Drag.GetComponent<TowerDrag>().CanPlace) ||
@@ -213,38 +221,44 @@ public class TowerManager : MonoBehaviour
             {
                 if (ReferencesManager.GameManager.CanPurchase(ReferencesManager.TowerManager.DamageTowerStat.Cost))
                 {
-                    Instantiate(DamageTower, mousePosition, Quaternion.identity);
+                    tower = Instantiate(DamageTower, mousePosition, Quaternion.identity);
                     ReferencesManager.GameManager.ReduceCoins(ReferencesManager.TowerManager.DamageTowerStat.Cost);
                     ReferencesManager.UIManager_Cost.UpdateCoins();
+                    SetRangeIndicator(ReferencesManager.TowerManager.DamageTowerStat.Range, tower);
                 }
             }
             else if (gameManager.isFreezeTowerSelected)
             {
                 if (ReferencesManager.GameManager.CanPurchase(ReferencesManager.TowerManager.FreezeTowerStat.TowerStats.Cost))
                 {
-                    Instantiate(FreezeTower, mousePosition, Quaternion.identity);
+                    tower = Instantiate(FreezeTower, mousePosition, Quaternion.identity);
                     ReferencesManager.GameManager.ReduceCoins(ReferencesManager.TowerManager.FreezeTowerStat.TowerStats.Cost);
                     ReferencesManager.UIManager_Cost.UpdateCoins();
+                    SetRangeIndicator(ReferencesManager.TowerManager.FreezeTowerStat.TowerStats.Range, tower);
                 }
             }
             else if (gameManager.isPoisonTowerSelected)
             {
                 if (ReferencesManager.GameManager.CanPurchase(ReferencesManager.TowerManager.PoisonTowerStat.TowerStats.Cost))
                 {
-                    Instantiate(PoisonTower, mousePosition, Quaternion.identity);
+                    tower = Instantiate(PoisonTower, mousePosition, Quaternion.identity);
                     ReferencesManager.GameManager.ReduceCoins(ReferencesManager.TowerManager.PoisonTowerStat.TowerStats.Cost);
                     ReferencesManager.UIManager_Cost.UpdateCoins();
+                    SetRangeIndicator(ReferencesManager.TowerManager.PoisonTowerStat.TowerStats.Range, tower);
                 }
             }
             else if (gameManager.isBombTowerSelected)
             {
                 if (ReferencesManager.GameManager.CanPurchase(ReferencesManager.TowerManager.BombTowerStat.TowerStats.Cost))
                 {
-                    Instantiate(BombTower, mousePosition, Quaternion.identity);
+                    tower = Instantiate(BombTower, mousePosition, Quaternion.identity);
                     ReferencesManager.GameManager.ReduceCoins(ReferencesManager.TowerManager.BombTowerStat.TowerStats.Cost);
                     ReferencesManager.UIManager_Cost.UpdateCoins();
+                    SetRangeIndicator(ReferencesManager.TowerManager.BombTowerStat.TowerStats.Range, tower);
                 }
             }
         }
+
+        ReferencesManager.GameManager.AddTowerToList(tower);
     }
 }

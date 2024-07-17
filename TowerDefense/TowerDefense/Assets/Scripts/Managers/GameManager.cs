@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -12,6 +13,9 @@ public class GameManager : MonoBehaviour
     public bool isBombTowerSelected;
 
     public int coins;
+
+    public List<GameObject> allTowers = new List<GameObject>();
+    public GameObject tower;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +54,16 @@ public class GameManager : MonoBehaviour
             ReferencesManager.TowerManager.EmptyDraggedTower();
             ReferencesManager.TowerManager.HideAllDraggedTowers();
         }
+    }
+
+    public void AddTowerToList(GameObject tower)
+    {
+        allTowers.Add(tower);
+    }
+
+    public void RemoveTowerFromList(GameObject tower)
+    {
+        allTowers.Remove(tower);
     }
 
     public void ReduceCoins(int cost)
