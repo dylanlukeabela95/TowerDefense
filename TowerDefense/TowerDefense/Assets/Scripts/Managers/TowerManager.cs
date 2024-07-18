@@ -7,10 +7,10 @@ public class TowerManager : MonoBehaviour
 {
     public ReferencesManager ReferencesManager;
 
-    public TowerStat DamageTowerStat;
-    public FreezeTowerStat FreezeTowerStat;
-    public PoisonTowerStat PoisonTowerStat;
-    public BombTowerStat BombTowerStat;
+    public Dictionary<string, object> DamageStats = new Dictionary<string, object>();
+    public Dictionary<string, object> FreezeStats = new Dictionary<string, object>();
+    public Dictionary<string, object> PoisonStats = new Dictionary<string, object>();
+    public Dictionary<string, object> BombStats = new Dictionary<string, object>();
 
     [Header("Towers")]
     public GameObject DamageTower;
@@ -54,63 +54,42 @@ public class TowerManager : MonoBehaviour
 
     void AssignDamageTowerStats()
     {
-        DamageTowerStat = new TowerStat()
-        {
-            Damage = 10,
-            FireRate = 0.75f,
-            Range = 4,
-            Cost = 20
-        };
+        DamageStats.Add(StringsDatabase.Stats.Damage, 10);
+        DamageStats.Add(StringsDatabase.Stats.FireRate, 0.75f);
+        DamageStats.Add(StringsDatabase.Stats.Range, 4f);
+        DamageStats.Add(StringsDatabase.Stats.Cost, 20);
     }
 
     void AssignFreezeTowerStats()
     {
-        FreezeTowerStat = new FreezeTowerStat()
-        {
-            TowerStats = new TowerStat()
-            {
-                Damage = 5,
-                FireRate = 1,
-                Range = 6,
-                Cost = 30
-            },
-            FreezeDamage = 5, 
-            FreezeDuration = 3, 
-            FreezeSlowEffect = 20 //20% slow
-        };
+        FreezeStats.Add(StringsDatabase.Stats.Damage, 5);
+        FreezeStats.Add(StringsDatabase.Stats.FireRate, 1f);
+        FreezeStats.Add(StringsDatabase.Stats.Range, 6f);
+        FreezeStats.Add(StringsDatabase.Stats.Cost, 30);
+        FreezeStats.Add(StringsDatabase.Stats.IceDamage, 5);
+        FreezeStats.Add(StringsDatabase.Stats.SlowDuration, 3f);
+        FreezeStats.Add(StringsDatabase.Stats.SlowEffect, 20f);
     }
 
     void AssignPoisonTowerStats()
     {
-        PoisonTowerStat = new PoisonTowerStat()
-        {
-            TowerStats = new TowerStat()
-            {
-                Damage = 1,
-                FireRate = 1.2f,
-                Range = 4,
-                Cost = 35
-            },
-            PoisonDamageOverTime = 4,
-            PoisonDuration = 5,
-            PoisonTickRate = 0.8f
-        };
+        PoisonStats.Add(StringsDatabase.Stats.Damage, 1);
+        PoisonStats.Add(StringsDatabase.Stats.FireRate, 1.2f);
+        PoisonStats.Add(StringsDatabase.Stats.Range, 4f);
+        PoisonStats.Add(StringsDatabase.Stats.Cost, 35);
+        PoisonStats.Add(StringsDatabase.Stats.PoisonDamageOverTime, 4);
+        PoisonStats.Add(StringsDatabase.Stats.PoisonDuration, 5f);
+        PoisonStats.Add(StringsDatabase.Stats.PoisonTickRate, 0.8f);
     }
 
     void AssignBombTowerStats()
     {
-        BombTowerStat = new BombTowerStat()
-        {
-            TowerStats = new TowerStat()
-            {
-                Damage = 10,
-                FireRate = 1.5f,
-                Range = 10,
-                Cost = 60
-            },
-            SplashDamage = 5,
-            SplashRadius = 3
-        };
+        BombStats.Add(StringsDatabase.Stats.Damage, 10);
+        BombStats.Add(StringsDatabase.Stats.FireRate, 1.5f);
+        BombStats.Add(StringsDatabase.Stats.Range, 10f);
+        BombStats.Add(StringsDatabase.Stats.Cost, 60);
+        BombStats.Add(StringsDatabase.Stats.SplashDamage, 5);
+        BombStats.Add(StringsDatabase.Stats.SplashRadius, 3f);
     }
 
     void ShowHideDragTowers(bool damageTower, bool freezeTower, bool poisonTower, bool bombTower)
@@ -152,25 +131,25 @@ public class TowerManager : MonoBehaviour
                     {
                         ShowHideDragTowers(true, false, false, false);
                         DraggedTower = DamageTower_Drag;
-                        SetRangeIndicator(towerManager.DamageTowerStat.Range);
+                        SetRangeIndicator((float)towerManager.DamageStats[StringsDatabase.Stats.Range]);
                     }
                     else if (gameManager.isFreezeTowerSelected)
                     {
                         ShowHideDragTowers(false, true, false, false);
                         DraggedTower = FreezeTower_Drag;
-                        SetRangeIndicator(towerManager.FreezeTowerStat.TowerStats.Range);
+                        SetRangeIndicator((float)towerManager.FreezeStats[StringsDatabase.Stats.Range]);
                     }
                     else if (gameManager.isPoisonTowerSelected)
                     {
                         ShowHideDragTowers(false, false, true, false);
                         DraggedTower = PoisonTower_Drag;
-                        SetRangeIndicator(towerManager.PoisonTowerStat.TowerStats.Range);
+                        SetRangeIndicator((float)towerManager.PoisonStats[StringsDatabase.Stats.Range]);
                     }
                     else if (gameManager.isBombTowerSelected)
                     {
                         ShowHideDragTowers(false, false, false, true);
                         DraggedTower = BombTower_Drag;
-                        SetRangeIndicator(towerManager.BombTowerStat.TowerStats.Range);
+                        SetRangeIndicator((float)towerManager.BombStats[StringsDatabase.Stats.Range]);
                     }
                 }
             }
@@ -219,46 +198,48 @@ public class TowerManager : MonoBehaviour
         {
             if (gameManager.isDamageTowerSelected)
             {
-                if (ReferencesManager.GameManager.CanPurchase(ReferencesManager.TowerManager.DamageTowerStat.Cost))
+                if (ReferencesManager.GameManager.CanPurchase((int)ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Cost]))
                 {
                     tower = Instantiate(DamageTower, mousePosition, Quaternion.identity);
-                    ReferencesManager.GameManager.ReduceCoins(ReferencesManager.TowerManager.DamageTowerStat.Cost);
+                    ReferencesManager.GameManager.ReduceCoins((int)ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Cost]);
                     ReferencesManager.UIManager_Cost.UpdateCoins();
-                    SetRangeIndicator(ReferencesManager.TowerManager.DamageTowerStat.Range, tower);
+                    SetRangeIndicator((float)ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Range], tower);
+                    ReferencesManager.GameManager.AddTowerToList(tower);
                 }
             }
             else if (gameManager.isFreezeTowerSelected)
             {
-                if (ReferencesManager.GameManager.CanPurchase(ReferencesManager.TowerManager.FreezeTowerStat.TowerStats.Cost))
+                if (ReferencesManager.GameManager.CanPurchase((int)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Cost]))
                 {
                     tower = Instantiate(FreezeTower, mousePosition, Quaternion.identity);
-                    ReferencesManager.GameManager.ReduceCoins(ReferencesManager.TowerManager.FreezeTowerStat.TowerStats.Cost);
+                    ReferencesManager.GameManager.ReduceCoins((int)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Cost]);
                     ReferencesManager.UIManager_Cost.UpdateCoins();
-                    SetRangeIndicator(ReferencesManager.TowerManager.FreezeTowerStat.TowerStats.Range, tower);
+                    SetRangeIndicator((float)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Range], tower);
+                    ReferencesManager.GameManager.AddTowerToList(tower);
                 }
             }
             else if (gameManager.isPoisonTowerSelected)
             {
-                if (ReferencesManager.GameManager.CanPurchase(ReferencesManager.TowerManager.PoisonTowerStat.TowerStats.Cost))
+                if (ReferencesManager.GameManager.CanPurchase((int)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.Cost]))
                 {
                     tower = Instantiate(PoisonTower, mousePosition, Quaternion.identity);
-                    ReferencesManager.GameManager.ReduceCoins(ReferencesManager.TowerManager.PoisonTowerStat.TowerStats.Cost);
+                    ReferencesManager.GameManager.ReduceCoins((int)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.Cost]);
                     ReferencesManager.UIManager_Cost.UpdateCoins();
-                    SetRangeIndicator(ReferencesManager.TowerManager.PoisonTowerStat.TowerStats.Range, tower);
+                    SetRangeIndicator((float)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.Range], tower);
+                    ReferencesManager.GameManager.AddTowerToList(tower);
                 }
             }
             else if (gameManager.isBombTowerSelected)
             {
-                if (ReferencesManager.GameManager.CanPurchase(ReferencesManager.TowerManager.BombTowerStat.TowerStats.Cost))
+                if (ReferencesManager.GameManager.CanPurchase((int)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.Cost]))
                 {
                     tower = Instantiate(BombTower, mousePosition, Quaternion.identity);
-                    ReferencesManager.GameManager.ReduceCoins(ReferencesManager.TowerManager.BombTowerStat.TowerStats.Cost);
+                    ReferencesManager.GameManager.ReduceCoins((int)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.Cost]);
                     ReferencesManager.UIManager_Cost.UpdateCoins();
-                    SetRangeIndicator(ReferencesManager.TowerManager.BombTowerStat.TowerStats.Range, tower);
+                    SetRangeIndicator((float)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.Range], tower);
+                    ReferencesManager.GameManager.AddTowerToList(tower);
                 }
             }
         }
-
-        ReferencesManager.GameManager.AddTowerToList(tower);
     }
 }

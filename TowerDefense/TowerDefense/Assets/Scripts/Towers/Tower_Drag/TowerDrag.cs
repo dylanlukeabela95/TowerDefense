@@ -1,3 +1,4 @@
+using Strings;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,19 +34,19 @@ public class TowerDrag : MonoBehaviour
 
         if (ReferencesManager.GameManager.isDamageTowerSelected)
         {
-            enoughCoins = ReferencesManager.GameManager.CanPurchase(ReferencesManager.TowerManager.DamageTowerStat.Cost);
+            enoughCoins = ReferencesManager.GameManager.CanPurchase((int)ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Cost]);
         }
         else if (ReferencesManager.GameManager.isFreezeTowerSelected)
         {
-            enoughCoins = ReferencesManager.GameManager.CanPurchase(ReferencesManager.TowerManager.FreezeTowerStat.TowerStats.Cost);
+            enoughCoins = ReferencesManager.GameManager.CanPurchase((int)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Cost]);
         }
         else if (ReferencesManager.GameManager.isPoisonTowerSelected)
         {
-            enoughCoins = ReferencesManager.GameManager.CanPurchase(ReferencesManager.TowerManager.PoisonTowerStat.TowerStats.Cost);
+            enoughCoins = ReferencesManager.GameManager.CanPurchase((int)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.Cost]);
         } 
         else if (ReferencesManager.GameManager.isBombTowerSelected)
         {
-            enoughCoins = ReferencesManager.GameManager.CanPurchase(ReferencesManager.TowerManager.BombTowerStat.TowerStats.Cost);
+            enoughCoins = ReferencesManager.GameManager.CanPurchase((int)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.Cost]);
         }
 
         return enoughCoins;

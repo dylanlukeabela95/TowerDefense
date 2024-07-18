@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public int coins;
 
     public List<GameObject> allTowers = new List<GameObject>();
-    public GameObject tower;
+    public GameObject currentTower;
 
     // Start is called before the first frame update
     void Start()

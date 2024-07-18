@@ -1,3 +1,4 @@
+using Strings;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,46 +34,63 @@ public class Tower : MonoBehaviour
         switch(towerEnum)
         {
             case TowerEnum.DamageTower:
-                Damage = ReferencesManager.TowerManager.DamageTowerStat.Damage;
-                FireRate = ReferencesManager.TowerManager.DamageTowerStat.FireRate;
-                Range = ReferencesManager.TowerManager.DamageTowerStat.Range;
-                Cost = ReferencesManager.TowerManager.DamageTowerStat.Cost;
+                Damage = (int)ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Damage];
+                FireRate = (float)ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.FireRate];
+                Range = (float)ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Range];
+                Cost = (int)ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Cost];
                 break;
             case TowerEnum.FreezeTower:
-                Damage = ReferencesManager.TowerManager.FreezeTowerStat.TowerStats.Damage;
-                FireRate = ReferencesManager.TowerManager.FreezeTowerStat.TowerStats.FireRate;
-                Range = ReferencesManager.TowerManager.FreezeTowerStat.TowerStats.Range;
-                Cost = ReferencesManager.TowerManager.FreezeTowerStat.TowerStats.Cost;
+                Damage = (int)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Damage];
+                FireRate = (float)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.FireRate];
+                Range = (float)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Range];
+                Cost = (int)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Cost];
+
                 break;
             case TowerEnum.PoisonTower:
-                Damage = ReferencesManager.TowerManager.PoisonTowerStat.TowerStats.Damage;
-                FireRate = ReferencesManager.TowerManager.PoisonTowerStat.TowerStats.FireRate;
-                Range = ReferencesManager.TowerManager.PoisonTowerStat.TowerStats.Range;
-                Cost = ReferencesManager.TowerManager.PoisonTowerStat.TowerStats.Cost;
+                Damage = (int)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.Damage];
+                FireRate = (float)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.FireRate];
+                Range = (float)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.Range];
+                Cost = (int)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.Cost];
                 break;
             case TowerEnum.BombTower:
-                Damage = ReferencesManager.TowerManager.BombTowerStat.TowerStats.Damage;
-                FireRate = ReferencesManager.TowerManager.BombTowerStat.TowerStats.FireRate;
-                Range = ReferencesManager.TowerManager.BombTowerStat.TowerStats.Range;
-                Cost = ReferencesManager.TowerManager.BombTowerStat.TowerStats.Cost;
+                Damage = (int)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.Damage];
+                FireRate = (float)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.FireRate];
+                Range = (float)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.Range];
+                Cost = (int)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.Cost];
                 break;
         }
     }
 
     protected virtual void OnMouseDown()
     {
-        if (ReferencesManager.GameManager.tower == this.gameObject)
+        if (ReferencesManager.GameManager.currentTower == this.gameObject)
         {
             RangeIndicator.SetActive(false);
-            ReferencesManager.GameManager.tower = null;
+            ReferencesManager.GameManager.currentTower = null;
+
+            ReferencesManager.UIManager_Stat.ResetStatCointainer();
         }
-        else if(ReferencesManager.GameManager.tower == null)
+        else if(ReferencesManager.GameManager.currentTower == null)
         {
-            ReferencesManager.GameManager.tower = this.gameObject;
+            ReferencesManager.GameManager.currentTower = this.gameObject;
             RangeIndicator.SetActive(true);
-            //Debug.Log("Damage -> "+ Damage);
-            //Debug.Log("Fire Rate -> "+ FireRate);
-            //Debug.Log("Range -> "+ Range);
+
+            if (this.gameObject.name.Contains("DamageTower"))
+            {
+                ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.StatsManager.DamageTowerStats, TowerEnum.DamageTower);
+            }
+            else if(this.gameObject.name.Contains("FreezeTower"))
+            {
+                ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.StatsManager.FreezeTowerStats, TowerEnum.FreezeTower);
+            }
+            else if (this.gameObject.name.Contains("PoisonTower"))
+            {
+                ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.StatsManager.PoisonTowerStats, TowerEnum.PoisonTower);
+            }
+            else if (this.gameObject.name.Contains("BombTower"))
+            {
+                ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.StatsManager.BombTowerStats, TowerEnum.BombTower);
+            }
         }
     }
 
