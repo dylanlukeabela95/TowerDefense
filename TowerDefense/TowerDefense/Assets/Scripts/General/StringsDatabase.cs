@@ -29,6 +29,7 @@ namespace Strings
         {
             public const string StatText = "StatText";
             public const string UpgradeValue = "UpgradeValue";
+            public const string TowerTitle = "TowerTitle";
         }
 
         public class Towers
@@ -50,6 +51,14 @@ namespace Strings
             public const string PoisonTickRate = "PoisonTickRate";
             public const string SplashDamage = "SplashDamage";
             public const string SplashRadius = "SplashRadius";
+        }
+
+        public class TowerNames
+        {
+            public const string DamageTower = "Damage Tower";
+            public const string FreezeTower = "Freeze Tower";
+            public const string PoisonTower = "Poison Tower";
+            public const string BombTower = "Bomb Tower";
         }
     }
 }
