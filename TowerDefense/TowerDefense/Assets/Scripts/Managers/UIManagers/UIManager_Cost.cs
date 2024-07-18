@@ -9,7 +9,6 @@ public class UIManager_Cost : MonoBehaviour
     public TextMeshProUGUI CoinsText;
     public RectTransform CoinsSection;
 
-    public Vector2 OffScreenPosition;
     public Vector2 OnScreenPosition;
 
     // Start is called before the first frame update

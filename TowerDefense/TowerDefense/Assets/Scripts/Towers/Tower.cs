@@ -75,23 +75,22 @@ public class Tower : MonoBehaviour
             ReferencesManager.GameManager.currentTower = this.gameObject;
             RangeIndicator.SetActive(true);
 
-            if (this.gameObject.name.Contains("DamageTower"))
-            {
-                ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.StatsManager.DamageTowerStats, TowerEnum.DamageTower);
-            }
-            else if(this.gameObject.name.Contains("FreezeTower"))
-            {
-                ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.StatsManager.FreezeTowerStats, TowerEnum.FreezeTower);
-            }
-            else if (this.gameObject.name.Contains("PoisonTower"))
-            {
-                ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.StatsManager.PoisonTowerStats, TowerEnum.PoisonTower);
-            }
-            else if (this.gameObject.name.Contains("BombTower"))
-            {
-                ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.StatsManager.BombTowerStats, TowerEnum.BombTower);
-            }
+            ReferencesManager.UIManager_Stat.ShowStatDisplay(this.gameObject.name, isRight());
         }
+    }
+
+    public bool isLeft()
+    {
+        var isLeft = this.gameObject.transform.position.x <= -5.3f ? true : false;
+
+        return isLeft;
+    }
+
+    public bool isRight()
+    {
+        var isRight = this.gameObject.transform.position.x >= 5.2f ? true : false;
+
+        return isRight;
     }
 
     public IEnumerator Shoot(GameObject projectile, int damage)

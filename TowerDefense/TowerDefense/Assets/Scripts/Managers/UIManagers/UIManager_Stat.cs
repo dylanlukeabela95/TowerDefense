@@ -23,18 +23,27 @@ public class UIManager_Stat : MonoBehaviour
     public ReferencesManager ReferencesManager;
 
     public GameObject Stat;
-    public GameObject StatContainer;
+    
+    public GameObject StatContainer_L;
+    public GameObject StatDisplay_L;
+
+    public GameObject StatContainer_R;
+    public GameObject StatDisplay_R;
 
     public List<Page> Pages = new List<Page>();
     public int CurrentPage = 1;
 
-    public GameObject downArrow;
-    public GameObject upArrow;
+    public GameObject downArrow_L;
+    public GameObject upArrow_L;
+
+    public GameObject downArrow_R;
+    public GameObject upArrow_R;
 
     // Start is called before the first frame update
     void Start()
     {
         ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
+        StatDisplay_L.SetActive(false);
     }
 
     // Update is called once per frame
@@ -43,7 +52,7 @@ public class UIManager_Stat : MonoBehaviour
 
     }
 
-    public List<GameObject> SetStats(TowerEnum towerEnum, int start, int end)
+    public List<GameObject> SetStats(TowerEnum towerEnum, int start, int end, bool isRight)
     {
         List<GameObject> stats = new List<GameObject>();
 
@@ -54,41 +63,85 @@ public class UIManager_Stat : MonoBehaviour
                 case TowerEnum.DamageTower:
                     for (int i = start; i <= end; i++)
                     {
-                        GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer.transform);
-                        stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.DamageTowerStats[i];
-                        stat.name = ReferencesManager.StatsManager.DamageTowerStats[i].Replace(" ", "");
-                        stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
-                        stats.Add(stat);
+                        if (isRight)
+                        {
+                            GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_L.transform);
+                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.DamageTowerStats[i];
+                            stat.name = ReferencesManager.StatsManager.DamageTowerStats[i].Replace(" ", "");
+                            stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
+                            stats.Add(stat);
+                        }
+                        else
+                        {
+                            GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_R.transform);
+                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.DamageTowerStats[i];
+                            stat.name = ReferencesManager.StatsManager.DamageTowerStats[i].Replace(" ", "");
+                            stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
+                            stats.Add(stat);
+                        }
                     }
                     break;
                 case TowerEnum.FreezeTower:
                     for (int i = start; i <= end; i++)
                     {
-                        GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer.transform);
-                        stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.FreezeTowerStats[i];
-                        stat.name = ReferencesManager.StatsManager.FreezeTowerStats[i].Replace(" ", "");
-                        stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
-                        stats.Add(stat);
+                        if (isRight)
+                        {
+                            GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_L.transform);
+                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.FreezeTowerStats[i];
+                            stat.name = ReferencesManager.StatsManager.FreezeTowerStats[i].Replace(" ", "");
+                            stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
+                            stats.Add(stat);
+                        }
+                        else
+                        {
+                            GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_R.transform);
+                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.FreezeTowerStats[i];
+                            stat.name = ReferencesManager.StatsManager.FreezeTowerStats[i].Replace(" ", "");
+                            stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
+                            stats.Add(stat);
+                        }
                     }
                     break;
                 case TowerEnum.PoisonTower:
                     for (int i = start; i <= end; i++)
                     {
-                        GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer.transform);
-                        stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.PoisonTowerStats[i];
-                        stat.name = ReferencesManager.StatsManager.PoisonTowerStats[i].Replace(" ", "");
-                        stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
-                        stats.Add(stat);
+                        if (isRight)
+                        {
+                            GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_L.transform);
+                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.PoisonTowerStats[i];
+                            stat.name = ReferencesManager.StatsManager.PoisonTowerStats[i].Replace(" ", "");
+                            stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
+                            stats.Add(stat);
+                        }
+                        else
+                        {
+                            GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_R.transform);
+                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.PoisonTowerStats[i];
+                            stat.name = ReferencesManager.StatsManager.PoisonTowerStats[i].Replace(" ", "");
+                            stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
+                            stats.Add(stat);
+                        }
                     }
                     break;
                 case TowerEnum.BombTower:
                     for (int i = start; i <= end; i++)
                     {
-                        GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer.transform);
-                        stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.BombTowerStats[i];
-                        stat.name = ReferencesManager.StatsManager.BombTowerStats[i].Replace(" ", "");
-                        stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
-                        stats.Add(stat);
+                        if (isRight)
+                        {
+                            GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_L.transform);
+                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.BombTowerStats[i];
+                            stat.name = ReferencesManager.StatsManager.BombTowerStats[i].Replace(" ", "");
+                            stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
+                            stats.Add(stat);
+                        }
+                        else
+                        {
+                            GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_R.transform);
+                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.BombTowerStats[i];
+                            stat.name = ReferencesManager.StatsManager.BombTowerStats[i].Replace(" ", "");
+                            stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
+                            stats.Add(stat);
+                        }
                     }
                     break;
             }
@@ -97,7 +150,7 @@ public class UIManager_Stat : MonoBehaviour
         return stats;
     }
 
-    public void Pagination(List<string> stats, TowerEnum towerEnum)
+    public void Pagination(List<string> stats, TowerEnum towerEnum, bool isRight)
     {
         if (stats.Count <= 3)
         {
@@ -110,16 +163,16 @@ public class UIManager_Stat : MonoBehaviour
             switch (towerEnum)
             {
                 case TowerEnum.DamageTower:
-                    newPage.StatsInPage = SetStats(towerEnum, 0, ReferencesManager.StatsManager.DamageTowerStats.Count - 1);
+                    newPage.StatsInPage = SetStats(towerEnum, 0, ReferencesManager.StatsManager.DamageTowerStats.Count - 1, isRight);
                     break;
                 case TowerEnum.FreezeTower:
-                    newPage.StatsInPage = SetStats(towerEnum, 0, ReferencesManager.StatsManager.FreezeTowerStats.Count - 1);
+                    newPage.StatsInPage = SetStats(towerEnum, 0, ReferencesManager.StatsManager.FreezeTowerStats.Count - 1, isRight);
                     break;
                 case TowerEnum.PoisonTower:
-                    newPage.StatsInPage = SetStats(towerEnum, 0, ReferencesManager.StatsManager.PoisonTowerStats.Count - 1);
+                    newPage.StatsInPage = SetStats(towerEnum, 0, ReferencesManager.StatsManager.PoisonTowerStats.Count - 1, isRight);
                     break;
                 case TowerEnum.BombTower:
-                    newPage.StatsInPage = SetStats(towerEnum, 0, ReferencesManager.StatsManager.BombTowerStats.Count - 1);
+                    newPage.StatsInPage = SetStats(towerEnum, 0, ReferencesManager.StatsManager.BombTowerStats.Count - 1, isRight);
                     break;
 
             }
@@ -160,16 +213,16 @@ public class UIManager_Stat : MonoBehaviour
                     switch (towerEnum)
                     {
                         case TowerEnum.DamageTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, z);
+                            newPage.StatsInPage = SetStats(towerEnum, x, z, isRight);
                             break;
                         case TowerEnum.FreezeTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, z);
+                            newPage.StatsInPage = SetStats(towerEnum, x, z, isRight);
                             break;
                         case TowerEnum.PoisonTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, z);
+                            newPage.StatsInPage = SetStats(towerEnum, x, z, isRight);
                             break;
                         case TowerEnum.BombTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, z);
+                            newPage.StatsInPage = SetStats(towerEnum, x, z, isRight);
                             break;
                     }
                 }
@@ -181,16 +234,16 @@ public class UIManager_Stat : MonoBehaviour
                     switch (towerEnum)
                     {
                         case TowerEnum.DamageTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, y);
+                            newPage.StatsInPage = SetStats(towerEnum, x, y, isRight);
                             break;
                         case TowerEnum.FreezeTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, y);
+                            newPage.StatsInPage = SetStats(towerEnum, x, y, isRight);
                             break;
                         case TowerEnum.PoisonTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, y);
+                            newPage.StatsInPage = SetStats(towerEnum, x, y, isRight);
                             break;
                         case TowerEnum.BombTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, y);
+                            newPage.StatsInPage = SetStats(towerEnum, x, y, isRight);
                             break;
                     }
                 }
@@ -201,16 +254,16 @@ public class UIManager_Stat : MonoBehaviour
                     switch (towerEnum)
                     {
                         case TowerEnum.DamageTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, x);
+                            newPage.StatsInPage = SetStats(towerEnum, x, x, isRight);
                             break;
                         case TowerEnum.FreezeTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, x);
+                            newPage.StatsInPage = SetStats(towerEnum, x, x, isRight);
                             break;
                         case TowerEnum.PoisonTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, x);
+                            newPage.StatsInPage = SetStats(towerEnum, x, x, isRight);
                             break;
                         case TowerEnum.BombTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, x);
+                            newPage.StatsInPage = SetStats(towerEnum, x, x, isRight);
                             break;
                     }
                 }
@@ -219,15 +272,31 @@ public class UIManager_Stat : MonoBehaviour
             }
         }
 
-        if (Pages[Pages.Count - 1].PageNumber > CurrentPage && CurrentPage == 1)
+        if (isRight)
         {
-            upArrow.SetActive(false);
-            downArrow.SetActive(true);
+            if (Pages[Pages.Count - 1].PageNumber > CurrentPage && CurrentPage == 1)
+            {
+                upArrow_L.SetActive(false);
+                downArrow_L.SetActive(true);
+            }
+            else if (Pages[Pages.Count - 1].PageNumber == CurrentPage && CurrentPage == 1)
+            {
+                upArrow_L.SetActive(false);
+                downArrow_L.SetActive(false);
+            }
         }
-        else if (Pages[Pages.Count - 1].PageNumber == CurrentPage && CurrentPage == 1)
+        else
         {
-            upArrow.SetActive(false);
-            downArrow.SetActive(false);
+            if (Pages[Pages.Count - 1].PageNumber > CurrentPage && CurrentPage == 1)
+            {
+                upArrow_R.SetActive(false);
+                downArrow_R.SetActive(true);
+            }
+            else if (Pages[Pages.Count - 1].PageNumber == CurrentPage && CurrentPage == 1)
+            {
+                upArrow_R.SetActive(false);
+                downArrow_R.SetActive(false);
+            }
         }
 
         ShowPage();
@@ -278,16 +347,61 @@ public class UIManager_Stat : MonoBehaviour
 
     public void ResetStatCointainer()
     {
+        StatDisplay_L.SetActive(false);
+        StatDisplay_R.SetActive(false);
         Pages = new List<Page>();
-        for (int i = 0; i < StatContainer.transform.childCount; i++)
+
+        if (StatContainer_L.transform.childCount > 0)
         {
-            Destroy(StatContainer.transform.GetChild(i).gameObject);
+            for (int i = 0; i < StatContainer_L.transform.childCount; i++)
+            {
+                Destroy(StatContainer_L.transform.GetChild(i).gameObject);
+            }
+
+            upArrow_L.SetActive(false);
+            downArrow_L.SetActive(false);
+        }
+        else if(StatContainer_R.transform.childCount > 0)
+        {
+            for (int i = 0; i < StatContainer_R.transform.childCount; i++)
+            {
+                Destroy(StatContainer_R.transform.GetChild(i).gameObject);
+            }
+
+            upArrow_R.SetActive(false);
+            downArrow_R.SetActive(false);
         }
 
-        upArrow.SetActive(false);
-        downArrow.SetActive(false);
-
         CurrentPage = 1;
+    }
+
+    public void ShowStatDisplay(string towerName, bool isRight)
+    {
+        if (isRight)
+        {
+            StatDisplay_L.SetActive(true);
+        }
+        else
+        {
+            StatDisplay_R.SetActive(true);
+        }
+        
+        if (towerName.Contains("DamageTower"))
+        {
+            ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.StatsManager.DamageTowerStats, TowerEnum.DamageTower, isRight);
+        }
+        else if (towerName.Contains("FreezeTower"))
+        {
+            ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.StatsManager.FreezeTowerStats, TowerEnum.FreezeTower, isRight);
+        }
+        else if (towerName.Contains("PoisonTower"))
+        {
+            ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.StatsManager.PoisonTowerStats, TowerEnum.PoisonTower, isRight);
+        }
+        else if (towerName.Contains("BombTower"))
+        {
+            ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.StatsManager.BombTowerStats, TowerEnum.BombTower, isRight);
+        }
     }
 
     #region OnClick
@@ -302,14 +416,16 @@ public class UIManager_Stat : MonoBehaviour
             //No next pages
             if (Pages[Pages.Count - 1].PageNumber == CurrentPage)
             {
-                downArrow.SetActive(false);
+                downArrow_L.SetActive(false);
+                downArrow_R.SetActive(false);
             }
         }
 
         //We have a previous page
         if (Pages[0].PageNumber < CurrentPage)
         {
-            upArrow.SetActive(true);
+            upArrow_L.SetActive(true);
+            upArrow_R.SetActive(true);
         }
 
         ShowPage();
@@ -323,13 +439,15 @@ public class UIManager_Stat : MonoBehaviour
             CurrentPage--;
             if (Pages[0].PageNumber == CurrentPage)
             {
-                upArrow.SetActive(false);
+                upArrow_L.SetActive(false);
+                upArrow_R.SetActive(false);
             }
         }
 
         if (Pages[Pages.Count - 1].PageNumber > CurrentPage)
         {
-            downArrow.SetActive(true);
+            downArrow_L.SetActive(true);
+            downArrow_R.SetActive(true);
         }
 
         ShowPage();
