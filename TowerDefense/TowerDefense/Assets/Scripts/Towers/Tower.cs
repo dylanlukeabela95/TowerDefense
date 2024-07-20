@@ -88,7 +88,7 @@ public class Tower : MonoBehaviour
 
     public bool isRight()
     {
-        var isRight = this.gameObject.transform.position.x >= 5.2f ? true : false;
+        var isRight = this.gameObject.transform.position.x >= 4.2f ? true : false;
 
         return isRight;
     }

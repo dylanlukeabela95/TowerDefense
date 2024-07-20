@@ -44,6 +44,7 @@ public class UIManager_Stat : MonoBehaviour
     {
         ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
         StatDisplay_L.SetActive(false);
+        StatDisplay_R.SetActive(false);
     }
 
     // Update is called once per frame
