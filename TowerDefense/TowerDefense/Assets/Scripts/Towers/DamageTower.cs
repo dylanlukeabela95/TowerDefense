@@ -6,11 +6,14 @@ public class DamageTower : Tower
 {
     public GameObject projectileDamage;
 
+    public List<string> Stats = new List<string>();
+
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
         AssignStats(TowerEnum.DamageTower);
+        Stats = ReferencesManager.StatsManager.DamageTowerStats;
 
         StartCoroutine(Shoot(projectileDamage, Damage));
     }

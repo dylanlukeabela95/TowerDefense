@@ -67,8 +67,8 @@ public class UIManager_Stat : MonoBehaviour
                         {
                             StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.DamageTower;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_L.transform);
-                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.DamageTowerStats[i];
-                            stat.name = ReferencesManager.StatsManager.DamageTowerStats[i].Replace(" ", "");
+                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<DamageTower>().Stats[i];
+                            stat.name = ReferencesManager.GameManager.currentTower.GetComponent<DamageTower>().Stats[i].Replace(" ", "");
                             stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
                             stats.Add(stat);
                         }
@@ -76,8 +76,8 @@ public class UIManager_Stat : MonoBehaviour
                         {
                             StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.DamageTower;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_R.transform);
-                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.DamageTowerStats[i];
-                            stat.name = ReferencesManager.StatsManager.DamageTowerStats[i].Replace(" ", "");
+                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<DamageTower>().Stats[i];
+                            stat.name = ReferencesManager.GameManager.currentTower.GetComponent<DamageTower>().Stats[i].Replace(" ", "");
                             stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
                             stats.Add(stat);
                         }
@@ -90,8 +90,8 @@ public class UIManager_Stat : MonoBehaviour
                         {
                             StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.FreezeTower;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_L.transform);
-                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.FreezeTowerStats[i];
-                            stat.name = ReferencesManager.StatsManager.FreezeTowerStats[i].Replace(" ", "");
+                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<FreezeTower>().Stats[i];
+                            stat.name = ReferencesManager.GameManager.currentTower.GetComponent<FreezeTower>().Stats[i].Replace(" ", "");
                             stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
                             stats.Add(stat);
                         }
@@ -99,8 +99,8 @@ public class UIManager_Stat : MonoBehaviour
                         {
                             StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.FreezeTower;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_R.transform);
-                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.FreezeTowerStats[i];
-                            stat.name = ReferencesManager.StatsManager.FreezeTowerStats[i].Replace(" ", "");
+                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<FreezeTower>().Stats[i];
+                            stat.name = ReferencesManager.GameManager.currentTower.GetComponent<FreezeTower>().Stats[i].Replace(" ", "");
                             stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
                             stats.Add(stat);
                         }
@@ -113,8 +113,8 @@ public class UIManager_Stat : MonoBehaviour
                         {
                             StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.PoisonTower;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_L.transform);
-                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.PoisonTowerStats[i];
-                            stat.name = ReferencesManager.StatsManager.PoisonTowerStats[i].Replace(" ", "");
+                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<PoisonTower>().Stats[i];
+                            stat.name = ReferencesManager.GameManager.currentTower.GetComponent<PoisonTower>().Stats[i].Replace(" ", "");
                             stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
                             stats.Add(stat);
                         }
@@ -122,8 +122,8 @@ public class UIManager_Stat : MonoBehaviour
                         {
                             StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.PoisonTower;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_R.transform);
-                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.PoisonTowerStats[i];
-                            stat.name = ReferencesManager.StatsManager.PoisonTowerStats[i].Replace(" ", "");
+                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<PoisonTower>().Stats[i];
+                            stat.name = ReferencesManager.GameManager.currentTower.GetComponent<PoisonTower>().Stats[i];
                             stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
                             stats.Add(stat);
                         }
@@ -136,8 +136,8 @@ public class UIManager_Stat : MonoBehaviour
                         {
                             StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.BombTower;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_L.transform);
-                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.BombTowerStats[i];
-                            stat.name = ReferencesManager.StatsManager.BombTowerStats[i].Replace(" ", "");
+                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<BombTower>().Stats[i];
+                            stat.name = ReferencesManager.GameManager.currentTower.GetComponent<BombTower>().Stats[i].Replace(" ", "");
                             stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
                             stats.Add(stat);
                         }
@@ -145,8 +145,8 @@ public class UIManager_Stat : MonoBehaviour
                         {
                             StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.BombTower;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_R.transform);
-                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.StatsManager.BombTowerStats[i];
-                            stat.name = ReferencesManager.StatsManager.BombTowerStats[i].Replace(" ", "");
+                            stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<BombTower>().Stats[i];
+                            stat.name = ReferencesManager.GameManager.currentTower.GetComponent<BombTower>().Stats[i].Replace(" ", "");
                             stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
                             stats.Add(stat);
                         }
@@ -171,16 +171,16 @@ public class UIManager_Stat : MonoBehaviour
             switch (towerEnum)
             {
                 case TowerEnum.DamageTower:
-                    newPage.StatsInPage = SetStats(towerEnum, 0, ReferencesManager.StatsManager.DamageTowerStats.Count - 1, isRight);
+                    newPage.StatsInPage = SetStats(towerEnum, 0, stats.Count - 1, isRight);
                     break;
                 case TowerEnum.FreezeTower:
-                    newPage.StatsInPage = SetStats(towerEnum, 0, ReferencesManager.StatsManager.FreezeTowerStats.Count - 1, isRight);
+                    newPage.StatsInPage = SetStats(towerEnum, 0, stats.Count - 1, isRight);
                     break;
                 case TowerEnum.PoisonTower:
-                    newPage.StatsInPage = SetStats(towerEnum, 0, ReferencesManager.StatsManager.PoisonTowerStats.Count - 1, isRight);
+                    newPage.StatsInPage = SetStats(towerEnum, 0, stats.Count - 1, isRight);
                     break;
                 case TowerEnum.BombTower:
-                    newPage.StatsInPage = SetStats(towerEnum, 0, ReferencesManager.StatsManager.BombTowerStats.Count - 1, isRight);
+                    newPage.StatsInPage = SetStats(towerEnum, 0, stats.Count - 1, isRight);
                     break;
 
             }
@@ -396,19 +396,19 @@ public class UIManager_Stat : MonoBehaviour
         
         if (towerName.Contains("DamageTower"))
         {
-            ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.StatsManager.DamageTowerStats, TowerEnum.DamageTower, isRight);
+            ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.GameManager.currentTower.GetComponent<DamageTower>().Stats, TowerEnum.DamageTower, isRight);
         }
         else if (towerName.Contains("FreezeTower"))
         {
-            ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.StatsManager.FreezeTowerStats, TowerEnum.FreezeTower, isRight);
+            ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.GameManager.currentTower.GetComponent<FreezeTower>().Stats, TowerEnum.FreezeTower, isRight);
         }
         else if (towerName.Contains("PoisonTower"))
         {
-            ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.StatsManager.PoisonTowerStats, TowerEnum.PoisonTower, isRight);
+            ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.GameManager.currentTower.GetComponent<PoisonTower>().Stats, TowerEnum.PoisonTower, isRight);
         }
         else if (towerName.Contains("BombTower"))
         {
-            ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.StatsManager.BombTowerStats, TowerEnum.BombTower, isRight);
+            ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.GameManager.currentTower.GetComponent<BombTower>().Stats, TowerEnum.BombTower, isRight);
         }
     }
 

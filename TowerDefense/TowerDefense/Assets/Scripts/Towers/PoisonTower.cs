@@ -7,6 +7,8 @@ public class PoisonTower : Tower
 {
     public GameObject projectilePoison;
 
+    public List<string> Stats = new List<string>();
+
     public int PoisonDamageOverTime;
     public float PoisonDuration;
     public float PoisonTickRate;
@@ -17,6 +19,8 @@ public class PoisonTower : Tower
         base.Start();
         AssignStats(TowerEnum.PoisonTower);
         AssignStats();
+        Stats = ReferencesManager.StatsManager.PoisonTowerStats;
+
 
         StartCoroutine(Shoot(projectilePoison, Damage));
     }
