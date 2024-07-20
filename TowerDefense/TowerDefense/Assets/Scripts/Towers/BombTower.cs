@@ -20,6 +20,8 @@ public class BombTower : Tower
         AssignStats();
         Stats = ReferencesManager.StatsManager.BombTowerStats;
 
+        TowerEnum = TowerEnum.BombTower;
+
         StartCoroutine(Shoot(projectileBomb, Damage));
     }
 

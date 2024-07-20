@@ -60,5 +60,13 @@ namespace Strings
             public const string PoisonTower = "Poison Tower";
             public const string BombTower = "Bomb Tower";
         }
+
+        public class SkillTree
+        {
+            public const string DamageSkillTree = "Damage Tower Skill Tree";
+            public const string FreezeSkillTree = "Freeze Tower Skill Tree";
+            public const string PoisonSkillTree = "Poison Tower Skill Tree";
+            public const string BombSkillTree = "Bomb Tower Skill Tree";
+        }
     }
 }

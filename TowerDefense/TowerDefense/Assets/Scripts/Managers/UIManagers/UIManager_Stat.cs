@@ -462,6 +462,12 @@ public class UIManager_Stat : MonoBehaviour
         ShowPage();
     }
 
+    public void OnClick_UpgradesSection(GameObject panel)
+    {
+        ReferencesManager.UIManager_Upgrades.ShowSkillTree(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().TowerEnum);
+        panel.SetActive(false);
+    }
+
     #endregion
 
 }

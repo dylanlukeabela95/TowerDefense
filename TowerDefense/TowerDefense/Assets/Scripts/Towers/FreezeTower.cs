@@ -21,6 +21,8 @@ public class FreezeTower : Tower
         AssignStats();
         Stats = ReferencesManager.StatsManager.FreezeTowerStats;
 
+        TowerEnum = TowerEnum.FreezeTower;
+
         StartCoroutine(Shoot(projectileFreeze, Damage));
     }
 

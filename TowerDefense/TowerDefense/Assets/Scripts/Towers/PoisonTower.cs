@@ -21,6 +21,7 @@ public class PoisonTower : Tower
         AssignStats();
         Stats = ReferencesManager.StatsManager.PoisonTowerStats;
 
+        TowerEnum = TowerEnum.PoisonTower;
 
         StartCoroutine(Shoot(projectilePoison, Damage));
     }

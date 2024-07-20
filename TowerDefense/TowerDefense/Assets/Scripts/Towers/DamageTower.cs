@@ -15,6 +15,8 @@ public class DamageTower : Tower
         AssignStats(TowerEnum.DamageTower);
         Stats = ReferencesManager.StatsManager.DamageTowerStats;
 
+        TowerEnum = TowerEnum.DamageTower;
+
         StartCoroutine(Shoot(projectileDamage, Damage));
     }
 

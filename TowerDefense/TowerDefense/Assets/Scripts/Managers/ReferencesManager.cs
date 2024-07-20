@@ -13,4 +13,5 @@ public class ReferencesManager : MonoBehaviour
     public UIManager_Tower UIManager_Tower;
     public UIManager_Cost UIManager_Cost;
     public UIManager_Stat UIManager_Stat;
+    public UIManager_Upgrades UIManager_Upgrades;
 }

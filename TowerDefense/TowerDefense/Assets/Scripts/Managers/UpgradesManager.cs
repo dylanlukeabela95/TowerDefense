@@ -190,7 +190,7 @@ public class UpgradesManager : MonoBehaviour
     {
         PoisonTowerDamageOverTime.Add("Level 2", 1);
 
-        PoisonTowerDamage.Add("Level 3.1", 2);
+        PoisonTowerDamage.Add("Level 3.1", 4);
         PoisonTowerDamageOverTime.Add("Level 3.2", 2);
 
         PoisonTowerDamage.Add("Level 4.1", 5);

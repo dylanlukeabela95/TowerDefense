@@ -12,6 +12,8 @@ public class Tower : MonoBehaviour
     public float Range;
     public int Cost;
 
+    public TowerEnum TowerEnum;
+
     public Transform Barrel;
 
     public GameObject RangeIndicator;
