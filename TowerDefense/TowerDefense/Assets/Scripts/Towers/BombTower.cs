@@ -36,4 +36,16 @@ public class BombTower : Tower
         SplashDamage = (int)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.SplashDamage];
         SplashRadius = (float)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.SplashRadius];
     }
+
+    public void AddStat(string stat)
+    {
+        Stats = new List<string>();
+
+        foreach (var statItem in ReferencesManager.StatsManager.BombTowerStats)
+        {
+            Stats.Add(statItem);
+        }
+
+        Stats.Add(stat);
+    }
 }

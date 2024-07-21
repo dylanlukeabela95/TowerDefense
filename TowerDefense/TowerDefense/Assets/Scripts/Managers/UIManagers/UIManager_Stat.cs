@@ -353,6 +353,8 @@ public class UIManager_Stat : MonoBehaviour
                 return currentTower.GetComponent<BombTower>().SplashDamage.ToString();
             case StringsDatabase.Stats.SplashRadius:
                 return currentTower.GetComponent<BombTower>().SplashRadius.ToString() + " m";
+            case StringsDatabase.Stats.ProjectileCount:
+                return currentTower.GetComponent<DamageTower>().ProjectileCount.ToString();
             default:
                 return string.Empty;
         }

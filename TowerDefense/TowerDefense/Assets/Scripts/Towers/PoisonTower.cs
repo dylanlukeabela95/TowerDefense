@@ -38,4 +38,16 @@ public class PoisonTower : Tower
         PoisonDuration = (float)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.PoisonDuration];
         PoisonTickRate = (float)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.PoisonTickRate];
     }
+
+    public void AddStat(string stat)
+    {
+        Stats = new List<string>();
+
+        foreach (var statItem in ReferencesManager.StatsManager.PoisonTowerStats)
+        {
+            Stats.Add(statItem);
+        }
+
+        Stats.Add(stat);
+    }
 }

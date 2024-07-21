@@ -38,4 +38,16 @@ public class FreezeTower : Tower
         SlowDuration = (float)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.SlowDuration];
         SlowEffect = (float)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.SlowEffect];
     }
+
+    public void AddStat(string stat)
+    {
+        Stats = new List<string>();
+
+        foreach (var statItem in ReferencesManager.StatsManager.FreezeTowerStats)
+        {
+            Stats.Add(statItem);
+        }
+
+        Stats.Add(stat);
+    }
 }

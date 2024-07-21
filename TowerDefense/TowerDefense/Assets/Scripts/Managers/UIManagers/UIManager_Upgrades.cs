@@ -498,6 +498,7 @@ public class UIManager_Upgrades : MonoBehaviour
                         {
                             case "Projectile":
                                 currentTower.GetComponent<DamageTower>().ProjectileCount += ReferencesManager.UpgradesManager.DamageTowerProjectile["Level 3"];
+                                currentTower.GetComponent<DamageTower>().AddStat("Projectile Count");
 
                                 ApplyChangesAfterNode(node, false);
                                 MakeNextNodesAvailable(currentTower.GetComponent<Tower>().UpgradeLevel, currentTower);

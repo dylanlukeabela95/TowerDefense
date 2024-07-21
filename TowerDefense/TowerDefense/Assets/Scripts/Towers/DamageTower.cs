@@ -10,7 +10,12 @@ public class DamageTower : Tower
     public int TwoRoundBurstChance = 0;
     public int ThreeRoundBurstChance = 0;
 
-    public List<string> Stats = new List<string>();
+    public List<string> Stats;
+
+    void Awake()
+    {
+        Stats = new List<string>();
+    }
 
     // Start is called before the first frame update
     protected override void Start()
@@ -28,5 +33,17 @@ public class DamageTower : Tower
     protected override void Update()
     {
         base.Update();
+    }
+
+    public void AddStat(string stat)
+    {
+        Stats = new List<string>();
+        
+        foreach(var statItem in ReferencesManager.StatsManager.DamageTowerStats)
+        {
+            Stats.Add(statItem);
+        }
+
+        Stats.Add(stat);
     }
 }

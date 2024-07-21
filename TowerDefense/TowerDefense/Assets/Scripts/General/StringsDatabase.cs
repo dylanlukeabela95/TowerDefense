@@ -51,6 +51,7 @@ namespace Strings
             public const string PoisonTickRate = "PoisonTickRate";
             public const string SplashDamage = "SplashDamage";
             public const string SplashRadius = "SplashRadius";
+            public const string ProjectileCount = "ProjectileCount";
         }
 
         public class TowerNames
