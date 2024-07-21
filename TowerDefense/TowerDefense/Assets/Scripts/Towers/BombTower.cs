@@ -18,8 +18,10 @@ public class BombTower : Tower
         base.Start();
         AssignStats(TowerEnum.BombTower);
         AssignStats();
-        Stats = ReferencesManager.StatsManager.BombTowerStats;
-
+        foreach (var item in ReferencesManager.StatsManager.BombTowerStats)
+        {
+            Stats.Add(item);
+        }
         TowerEnum = TowerEnum.BombTower;
 
         StartCoroutine(Shoot(projectileBomb, Damage));
@@ -39,13 +41,6 @@ public class BombTower : Tower
 
     public void AddStat(string stat)
     {
-        Stats = new List<string>();
-
-        foreach (var statItem in ReferencesManager.StatsManager.BombTowerStats)
-        {
-            Stats.Add(statItem);
-        }
-
         Stats.Add(stat);
     }
 }

@@ -19,7 +19,10 @@ public class FreezeTower : Tower
         base.Start();
         AssignStats(TowerEnum.FreezeTower);
         AssignStats();
-        Stats = ReferencesManager.StatsManager.FreezeTowerStats;
+        foreach (var item in ReferencesManager.StatsManager.FreezeTowerStats)
+        {
+            Stats.Add(item);
+        }
 
         TowerEnum = TowerEnum.FreezeTower;
 
@@ -41,13 +44,6 @@ public class FreezeTower : Tower
 
     public void AddStat(string stat)
     {
-        Stats = new List<string>();
-
-        foreach (var statItem in ReferencesManager.StatsManager.FreezeTowerStats)
-        {
-            Stats.Add(statItem);
-        }
-
         Stats.Add(stat);
     }
 }

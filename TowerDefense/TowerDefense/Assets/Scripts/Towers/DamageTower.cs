@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DamageTower : Tower
@@ -22,7 +23,10 @@ public class DamageTower : Tower
     {
         base.Start();
         AssignStats(TowerEnum.DamageTower);
-        Stats = ReferencesManager.StatsManager.DamageTowerStats;
+        foreach (var item in ReferencesManager.StatsManager.DamageTowerStats)
+        {
+            Stats.Add(item);
+        }
 
         TowerEnum = TowerEnum.DamageTower;
 
@@ -37,13 +41,16 @@ public class DamageTower : Tower
 
     public void AddStat(string stat)
     {
-        Stats = new List<string>();
-        
-        foreach(var statItem in ReferencesManager.StatsManager.DamageTowerStats)
-        {
-            Stats.Add(statItem);
-        }
-
         Stats.Add(stat);
+    }
+
+    public string GetStat(int pos)
+    {
+        return Stats[pos];
+    }
+
+    public List<string> GetStats()
+    {
+        return Stats;
     }
 }

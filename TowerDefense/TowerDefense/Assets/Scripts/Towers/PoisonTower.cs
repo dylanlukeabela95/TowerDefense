@@ -19,7 +19,10 @@ public class PoisonTower : Tower
         base.Start();
         AssignStats(TowerEnum.PoisonTower);
         AssignStats();
-        Stats = ReferencesManager.StatsManager.PoisonTowerStats;
+        foreach (var item in ReferencesManager.StatsManager.PoisonTowerStats)
+        {
+            Stats.Add(item);
+        }
 
         TowerEnum = TowerEnum.PoisonTower;
 
@@ -41,13 +44,6 @@ public class PoisonTower : Tower
 
     public void AddStat(string stat)
     {
-        Stats = new List<string>();
-
-        foreach (var statItem in ReferencesManager.StatsManager.PoisonTowerStats)
-        {
-            Stats.Add(statItem);
-        }
-
         Stats.Add(stat);
     }
 }
