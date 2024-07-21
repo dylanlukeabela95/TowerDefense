@@ -41,7 +41,7 @@ public class UpgradesManager : MonoBehaviour
 
     private void Start()
     {
-        
+        AssignUpgrades();
     }
 
     public void AssignUpgrades()
@@ -221,7 +221,7 @@ public class UpgradesManager : MonoBehaviour
         BombTowerDamage.Add("Level 2", 5);
 
         BombTowerDamage.Add("Level 3.1", 5);
-        BombTowerSplashDamage.Add("Level 3.2", 5);
+        BombTowerFireRate.Add("Level 3.2", 0.5f);
 
         BombTowerDamage.Add("Level 4", 5);
 
