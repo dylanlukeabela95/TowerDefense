@@ -124,7 +124,7 @@ public class UpgradesManager : MonoBehaviour
 
         DamageTowerRange.Add("Level 4", 1);
 
-        DamageTowerRange.Add("Level 5", Mathf.Infinity);
+        DamageTowerRange.Add("Level 5", 100);
     }
 
     public void FreezeFirst()

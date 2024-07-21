@@ -348,7 +348,7 @@ public class UIManager_Upgrades : MonoBehaviour
                 switch (currentTower.GetComponent<Tower>().TowerEnum)
                 {
                     case TowerEnum.DamageTower:
-                        if (currentTower.GetComponent<Tower>().UpgradeNames[1].Contains("Level3"))
+                        if (currentTower.GetComponent<Tower>().UpgradeNames[2].Contains("Level3"))
                         {
                             string selectedNode = currentTower.GetComponent<Tower>().UpgradeNames.Find(a => a.Contains("Level3"));
 
@@ -365,6 +365,32 @@ public class UIManager_Upgrades : MonoBehaviour
                             else if (node.name == "DamageTower_Level3.1_Critical" || node.name == "DamageTower_Level3.2_Range")
                             {
                                 nextNodes = DamageTowerRightBranch.Where(a => a.name.Contains("Level4")).ToList();
+                            }
+                        }
+                        break;
+                }
+                break;
+            case 4:
+                switch (currentTower.GetComponent<Tower>().TowerEnum)
+                {
+                    case TowerEnum.DamageTower:
+                        if (currentTower.GetComponent<Tower>().UpgradeNames[3].Contains("Level4"))
+                        {
+                            string selectedNode = currentTower.GetComponent<Tower>().UpgradeNames.Find(a => a.Contains("Level4"));
+
+                            var node = DamageTowerNodes.Find(a => a.name == selectedNode);
+
+                            if (node.name == "DamageTower_Level4.1_Projectile_Damage" || node.name == "DamageTower_Level4.2_Damage")
+                            {
+                                nextNodes = DamageTowerMiddleBranch.Where(a => a.name.Contains("Level5")).ToList();
+                            }
+                            else if (node.name == "DamageTower_Level4_FireRate")
+                            {
+                                nextNodes = DamageTowerLeftBranch.Where(a => a.name.Contains("Level5")).ToList();
+                            }
+                            else if (node.name == "DamageTower_Level4_Range")
+                            {
+                                nextNodes = DamageTowerRightBranch.Where(a => a.name.Contains("Level5")).ToList();
                             }
                         }
                         break;
@@ -527,6 +553,75 @@ public class UIManager_Upgrades : MonoBehaviour
                                 ApplyChangesAfterNode(node, true, otherNodes);
                                 MakeNextNodesAvailable(currentTower.GetComponent<Tower>().UpgradeLevel, currentTower);
 
+                                ReferencesManager.TowerManager.SetRangeIndicator(currentTower.GetComponent<DamageTower>().Range, currentTower);
+                                break;
+                        }
+                        break;
+                    case "Level4":
+                        switch (nodeSplit[2])
+                        {
+                            case "FireRate":
+                                currentTower.GetComponent<DamageTower>().FireRate -= ReferencesManager.UpgradesManager.DamageTowerFireRate["Level 4"];
+
+                                ApplyChangesAfterNode(node, false);
+                                MakeNextNodesAvailable(currentTower.GetComponent<Tower>().UpgradeLevel, currentTower);
+                                break;
+
+                            case "Range":
+                                currentTower.GetComponent<DamageTower>().Range += ReferencesManager.UpgradesManager.DamageTowerRange["Level 4"];
+
+                                ApplyChangesAfterNode(node, false);
+                                MakeNextNodesAvailable(currentTower.GetComponent<Tower>().UpgradeLevel, currentTower);
+
+                                ReferencesManager.TowerManager.SetRangeIndicator(currentTower.GetComponent<DamageTower>().Range, currentTower);
+                                break;
+                        }
+                        break;
+                    case "Level4.1":
+                        switch (nodeSplit[2])
+                        {
+                            case "Projectile":
+                                currentTower.GetComponent<DamageTower>().ProjectileCount += ReferencesManager.UpgradesManager.DamageTowerProjectile["Level 4.1"];
+                                currentTower.GetComponent<DamageTower>().Damage = Mathf.FloorToInt(currentTower.GetComponent<DamageTower>().Damage * (ReferencesManager.UpgradesManager.DamageTowerDamage["Level 4.1"] * 1.0f) / 100);
+
+                                adjacentNode1 = DamageTowerMiddleBranch.Find(a => a.name.Contains("Level4.2"));
+
+                                otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                                ApplyChangesAfterNode(node, true, otherNodes);
+                                MakeNextNodesAvailable(currentTower.GetComponent<Tower>().UpgradeLevel, currentTower);
+                                break;
+                        }
+                        break;
+                    case "Level4.2":
+                        switch (nodeSplit[2])
+                        {
+                            case "Damage":
+                                currentTower.GetComponent<DamageTower>().Damage += ReferencesManager.UpgradesManager.DamageTowerDamage["Level 4.2"];
+
+                                adjacentNode1 = DamageTowerMiddleBranch.Find(a => a.name.Contains("Level4.1"));
+
+                                otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                                ApplyChangesAfterNode(node, true, otherNodes);
+                                MakeNextNodesAvailable(currentTower.GetComponent<Tower>().UpgradeLevel, currentTower);
+                                break;
+                        }
+                        break;
+                    case "Level5":
+                        switch(nodeSplit[2])
+                        {
+                            case "Damage":
+                                currentTower.GetComponent<DamageTower>().Damage += ReferencesManager.UpgradesManager.DamageTowerDamage["Level 5"];
+                                ApplyChangesAfterNode(node, false);
+                                break;
+                            case "Burst":
+                                currentTower.GetComponent<DamageTower>().ThreeRoundBurstChance -= ReferencesManager.UpgradesManager.DamageTowerBurstChance["Level 5"];
+                                ApplyChangesAfterNode(node, false);
+                                break;
+                            case "Infinity":
+                                currentTower.GetComponent<DamageTower>().Range = ReferencesManager.UpgradesManager.DamageTowerRange["Level 5"];
+                                ApplyChangesAfterNode(node, false);
                                 ReferencesManager.TowerManager.SetRangeIndicator(currentTower.GetComponent<DamageTower>().Range, currentTower);
                                 break;
                         }

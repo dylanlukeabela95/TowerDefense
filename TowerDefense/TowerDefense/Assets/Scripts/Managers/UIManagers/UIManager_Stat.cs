@@ -332,6 +332,10 @@ public class UIManager_Stat : MonoBehaviour
             case StringsDatabase.Stats.FireRate:
                 return ((1 * 1.0f) / currentTower.GetComponent<Tower>().FireRate).ToString("F2") + " / s";
             case StringsDatabase.Stats.Range:
+                if(currentTower.GetComponent<Tower>().Range >= 100)
+                {
+                    return "Infinity";
+                }
                 return currentTower.GetComponent<Tower>().Range.ToString() + " m";
             case StringsDatabase.Stats.IceDamage:
                 return currentTower.GetComponent<FreezeTower>().IceDamage.ToString();
