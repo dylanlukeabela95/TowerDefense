@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class DamageTower : Tower
 {
-    public GameObject projectileDamage;
+    public GameObject ProjectileDamage;
+    public int ProjectileCount = 1;
+    public int CriticalChance = 0;
+    public int TwoRoundBurstChance = 0;
+    public int ThreeRoundBurstChance = 0;
 
     public List<string> Stats = new List<string>();
 
@@ -17,7 +21,7 @@ public class DamageTower : Tower
 
         TowerEnum = TowerEnum.DamageTower;
 
-        StartCoroutine(Shoot(projectileDamage, Damage));
+        StartCoroutine(Shoot(ProjectileDamage, Damage));
     }
 
     // Update is called once per frame

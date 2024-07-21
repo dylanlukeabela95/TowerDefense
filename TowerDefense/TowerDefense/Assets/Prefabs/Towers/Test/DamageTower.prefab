@@ -307,9 +307,17 @@ MonoBehaviour:
   FireRate: 0
   Range: 0
   Cost: 0
+  UpgradeLevel: 0
+  UpgradeNames: []
+  TowerEnum: 0
   Barrel: {fileID: 2508380889151599664}
   RangeIndicator: {fileID: 1035330160564328052}
-  projectileDamage: {fileID: 7334246426068341823, guid: dad608fea6145d14bb93842220263ca0, type: 3}
+  ProjectileDamage: {fileID: 7334246426068341823, guid: dad608fea6145d14bb93842220263ca0, type: 3}
+  ProjectileCount: 1
+  CriticalChance: 0
+  TwoRoundBurstChance: 0
+  ThreeRoundBurstChance: 0
+  Stats: []
 --- !u!61 &7676258731999983465
 BoxCollider2D:
   m_ObjectHideFlags: 0

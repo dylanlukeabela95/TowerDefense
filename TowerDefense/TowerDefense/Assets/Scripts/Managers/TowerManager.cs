@@ -100,7 +100,7 @@ public class TowerManager : MonoBehaviour
         BombTower_Drag.SetActive(bombTower);
     }
 
-    void SetRangeIndicator(float towerRange, GameObject tower = null)
+    public void SetRangeIndicator(float towerRange, GameObject tower = null)
     {
         if (tower != null)
         {

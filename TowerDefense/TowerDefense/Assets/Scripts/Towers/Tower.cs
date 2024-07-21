@@ -49,7 +49,6 @@ public class Tower : MonoBehaviour
                 FireRate = (float)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.FireRate];
                 Range = (float)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Range];
                 Cost = (int)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Cost];
-
                 break;
             case TowerEnum.PoisonTower:
                 Damage = (int)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.Damage];
@@ -68,19 +67,22 @@ public class Tower : MonoBehaviour
 
     protected virtual void OnMouseDown()
     {
-        if (ReferencesManager.GameManager.currentTower == this.gameObject)
+        if (!ReferencesManager.UIManager_Upgrades.isInSkillTree)
         {
-            RangeIndicator.SetActive(false);
-            ReferencesManager.GameManager.currentTower = null;
+            if (ReferencesManager.GameManager.currentTower == this.gameObject)
+            {
+                RangeIndicator.SetActive(false);
+                ReferencesManager.GameManager.currentTower = null;
 
-            ReferencesManager.UIManager_Stat.ResetStatCointainer();
-        }
-        else if(ReferencesManager.GameManager.currentTower == null)
-        {
-            ReferencesManager.GameManager.currentTower = this.gameObject;
-            RangeIndicator.SetActive(true);
+                ReferencesManager.UIManager_Stat.ResetStatCointainer();
+            }
+            else if (ReferencesManager.GameManager.currentTower == null)
+            {
+                RangeIndicator.SetActive(true);
+                ReferencesManager.GameManager.currentTower = this.gameObject;
 
-            ReferencesManager.UIManager_Stat.ShowStatDisplay(this.gameObject.name, isRight());
+                ReferencesManager.UIManager_Stat.ShowStatDisplay(this.gameObject.name, isRight());
+            }
         }
     }
 

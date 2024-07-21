@@ -110,6 +110,7 @@ public class UIManager_Tower : MonoBehaviour
         }
         ReferencesManager.TowerManager.IsTowerSelect = true;
         SlideDown();
+        SwitchArrows(false, true);
     }
 
     public void OnClick_TowerUIArrow(GameObject button)
