@@ -52,6 +52,10 @@ namespace Strings
             public const string SplashDamage = "SplashDamage";
             public const string SplashRadius = "SplashRadius";
             public const string ProjectileCount = "ProjectileCount";
+            public const string TwoRoundBurstChance = "2RoundBurstChance";
+            public const string ThreeRoundBurstChance = "3RoundBurstChance";
+            public const string CriticalChance = "CriticalChance";
+            public const string CriticalDamage = "CriticalDamage";
         }
 
         public class TowerNames

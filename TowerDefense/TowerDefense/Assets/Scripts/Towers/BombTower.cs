@@ -22,6 +22,7 @@ public class BombTower : Tower
         {
             Stats.Add(item);
         }
+
         TowerEnum = TowerEnum.BombTower;
 
         StartCoroutine(Shoot(projectileBomb, Damage));

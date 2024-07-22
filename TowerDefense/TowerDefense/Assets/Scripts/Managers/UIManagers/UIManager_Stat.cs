@@ -355,6 +355,14 @@ public class UIManager_Stat : MonoBehaviour
                 return currentTower.GetComponent<BombTower>().SplashRadius.ToString() + " m";
             case StringsDatabase.Stats.ProjectileCount:
                 return currentTower.GetComponent<DamageTower>().ProjectileCount.ToString();
+            case StringsDatabase.Stats.TwoRoundBurstChance:
+                return currentTower.GetComponent<DamageTower>().TwoRoundBurstChance.ToString() + " %";
+            case StringsDatabase.Stats.ThreeRoundBurstChance:
+                return currentTower.GetComponent<DamageTower>().ThreeRoundBurstChance.ToString() + " %";
+            case StringsDatabase.Stats.CriticalChance:
+                return currentTower.GetComponent<DamageTower>().CriticalChance.ToString() + " %";
+            case StringsDatabase.Stats.CriticalDamage:
+                return (currentTower.GetComponent<DamageTower>().Damage * 2).ToString();
             default:
                 return string.Empty;
         }

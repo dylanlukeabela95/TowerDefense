@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -111,6 +112,7 @@ public class UIManager_Upgrades : MonoBehaviour
     {
         if (currentTower.GetComponent<Tower>().UpgradeNames != null && currentTower.GetComponent<Tower>().UpgradeNames.Count > 0)
         {
+            //set all nodes to false
             for (int i = 0; i < skillTree.transform.childCount; i++)
             {
                 if (skillTree.transform.GetChild(i).name != "Lines")
@@ -119,6 +121,8 @@ public class UIManager_Upgrades : MonoBehaviour
                     skillTree.transform.GetChild(i).GetComponent<Button>().enabled = false;
                 }
             }
+
+            var count = 2;
 
             foreach (var upgradeName in currentTower.GetComponent<Tower>().UpgradeNames)
             {
@@ -170,28 +174,31 @@ public class UIManager_Upgrades : MonoBehaviour
                     node.GetComponent<Image>().color = Color.green;
                     node.GetComponent<Button>().enabled = false;
                 }
-                
-                if(upgradeName.Contains("Level2"))
+                else if(upgradeName.Contains("Level"+count))
                 {
                     var nodes = new List<GameObject>();
 
                     switch(currentTower.GetComponent<Tower>().TowerEnum)
                     {
                         case TowerEnum.DamageTower:
-                            nodes = DamageTowerNodes.Where(a => a.name.Contains("Level2")).ToList();
+                            nodes = DamageTowerNodes.Where(a => a.name.Contains("Level"+count)).ToList();
                             break;
                         case TowerEnum.FreezeTower:
-                            nodes = FreezeTowerNodes.Where(a => a.name.Contains("Level2")).ToList();
+                            nodes = FreezeTowerNodes.Where(a => a.name.Contains("Level"+count)).ToList();
                             break;
                         case TowerEnum.PoisonTower:
-                            nodes = PoisonTowerNodes.Where(a => a.name.Contains("Level2")).ToList();
+                            nodes = PoisonTowerNodes.Where(a => a.name.Contains("Level" + count)).ToList();
                             break;
                         case TowerEnum.BombTower:
-                            nodes = BombTowerNodes.Where(a => a.name.Contains("Level2")).ToList();
+                            nodes = BombTowerNodes.Where(a => a.name.Contains("Level" + count)).ToList();
                             break;
                     }
 
-                    if(nodes.Count > 0)
+                    count++;
+
+                    MakeNextNodesAvailable(currentTower.GetComponent<Tower>().UpgradeLevel, currentTower);
+
+                    if (nodes.Count > 0)
                     {
                         foreach(var node in nodes)
                         {
@@ -517,6 +524,8 @@ public class UIManager_Upgrades : MonoBehaviour
 
                                 ApplyChangesAfterNode(node, true, otherNodes);
                                 MakeNextNodesAvailable(currentTower.GetComponent<Tower>().UpgradeLevel, currentTower);
+                                currentTower.GetComponent<DamageTower>().AddStat("2 Round Burst Chance");
+
                                 break;
                             case "Critical":
                                 currentTower.GetComponent<DamageTower>().CriticalChance += ReferencesManager.UpgradesManager.DamageTowerCriticalChance["Level 3.1"];
@@ -527,6 +536,8 @@ public class UIManager_Upgrades : MonoBehaviour
 
                                 ApplyChangesAfterNode(node, true, otherNodes);
                                 MakeNextNodesAvailable(currentTower.GetComponent<Tower>().UpgradeLevel, currentTower);
+                                currentTower.GetComponent<DamageTower>().AddStat("Critical Chance");
+                                currentTower.GetComponent<DamageTower>().AddStat("Critical Damage");
                                 break;
                         }
                         break;
@@ -617,8 +628,9 @@ public class UIManager_Upgrades : MonoBehaviour
                                 ApplyChangesAfterNode(node, false);
                                 break;
                             case "Burst":
-                                currentTower.GetComponent<DamageTower>().ThreeRoundBurstChance -= ReferencesManager.UpgradesManager.DamageTowerBurstChance["Level 5"];
+                                currentTower.GetComponent<DamageTower>().ThreeRoundBurstChance += ReferencesManager.UpgradesManager.DamageTowerBurstChance["Level 5"];
                                 ApplyChangesAfterNode(node, false);
+                                currentTower.GetComponent<DamageTower>().AddStat("3 Round Burst Chance");
                                 break;
                             case "Infinity":
                                 currentTower.GetComponent<DamageTower>().Range = ReferencesManager.UpgradesManager.DamageTowerRange["Level 5"];

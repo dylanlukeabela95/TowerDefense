@@ -123,7 +123,6 @@ public class TowerManager : MonoBehaviour
             if (DraggedTower == null)
             {
                 var gameManager = ReferencesManager.GameManager;
-                var towerManager = ReferencesManager.TowerManager;
 
                 if (gameManager.CheckIfTowerSelected())
                 {
@@ -131,25 +130,25 @@ public class TowerManager : MonoBehaviour
                     {
                         ShowHideDragTowers(true, false, false, false);
                         DraggedTower = DamageTower_Drag;
-                        SetRangeIndicator((float)towerManager.DamageStats[StringsDatabase.Stats.Range]);
+                        SetRangeIndicator((float)DamageStats[StringsDatabase.Stats.Range]);
                     }
                     else if (gameManager.isFreezeTowerSelected)
                     {
                         ShowHideDragTowers(false, true, false, false);
                         DraggedTower = FreezeTower_Drag;
-                        SetRangeIndicator((float)towerManager.FreezeStats[StringsDatabase.Stats.Range]);
+                        SetRangeIndicator((float)FreezeStats[StringsDatabase.Stats.Range]);
                     }
                     else if (gameManager.isPoisonTowerSelected)
                     {
                         ShowHideDragTowers(false, false, true, false);
                         DraggedTower = PoisonTower_Drag;
-                        SetRangeIndicator((float)towerManager.PoisonStats[StringsDatabase.Stats.Range]);
+                        SetRangeIndicator((float)PoisonStats[StringsDatabase.Stats.Range]);
                     }
                     else if (gameManager.isBombTowerSelected)
                     {
                         ShowHideDragTowers(false, false, false, true);
                         DraggedTower = BombTower_Drag;
-                        SetRangeIndicator((float)towerManager.BombStats[StringsDatabase.Stats.Range]);
+                        SetRangeIndicator((float)BombStats[StringsDatabase.Stats.Range]);
                     }
                 }
             }
