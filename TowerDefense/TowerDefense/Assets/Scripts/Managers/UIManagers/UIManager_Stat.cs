@@ -363,6 +363,16 @@ public class UIManager_Stat : MonoBehaviour
                 return currentTower.GetComponent<DamageTower>().CriticalChance.ToString() + " %";
             case StringsDatabase.Stats.CriticalDamage:
                 return (currentTower.GetComponent<DamageTower>().Damage * 2).ToString();
+            case StringsDatabase.Stats.FrostbiteDamage:
+                return ((currentTower.GetComponent<FreezeTower>().IceDamage * 1.0f) / 2).ToString();
+            case StringsDatabase.Stats.FrostbiteTickRate:
+                return currentTower.GetComponent<FreezeTower>().FrostbiteTickRate.ToString() + " / s";
+            case StringsDatabase.Stats.IcicleChance:
+                return currentTower.GetComponent<FreezeTower>().IcicleChance.ToString() + " %";
+            case StringsDatabase.Stats.IcicleDanage:
+                return currentTower.GetComponent<FreezeTower>().IcicleDamage.ToString();
+            case StringsDatabase.Stats.ImmobilizeChance:
+                return currentTower.GetComponent<FreezeTower>().ImmobilizeChance.ToString() + " %";
             default:
                 return string.Empty;
         }

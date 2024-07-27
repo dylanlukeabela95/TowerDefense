@@ -7,6 +7,9 @@ public class TowerProjectile : MonoBehaviour
     public float ProjectileSpeed;
 
     public int Damage;
+    public int CriticalDamage;
+
+    public bool isCritical;
 
     // Start is called before the first frame update
     void Start()

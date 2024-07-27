@@ -13,6 +13,17 @@ public class FreezeTower : Tower
     public float SlowDuration;
     public float SlowEffect;
 
+    public bool CanFrostbite;
+    public int FrostbiteDamage;
+    public float FrostbiteTickRate;
+
+    public bool CanIcicle;
+    public int IcicleDamage;
+    public int IcicleChance;
+
+    public bool CanImmobilize;
+    public int ImmobilizeChance;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -45,5 +56,10 @@ public class FreezeTower : Tower
     public void AddStat(string stat)
     {
         Stats.Add(stat);
+    }
+
+    public void RemoveStat(string stat)
+    {
+        Stats.Remove(stat);
     }
 }

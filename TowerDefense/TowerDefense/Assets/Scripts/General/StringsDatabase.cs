@@ -56,6 +56,13 @@ namespace Strings
             public const string ThreeRoundBurstChance = "3RoundBurstChance";
             public const string CriticalChance = "CriticalChance";
             public const string CriticalDamage = "CriticalDamage";
+            public const string Frostbite = "Frostbite";
+            public const string FrostbiteDamage = "FrostbiteDamage";
+            public const string FrostbiteTickRate = "FrostbiteTickRate";
+            public const string Icicle = "Icicle";
+            public const string IcicleDanage = "IcicleDamage";
+            public const string IcicleChance = "IcicleChance";
+            public const string ImmobilizeChance = "ImmobilizeChance";
         }
 
         public class TowerNames
