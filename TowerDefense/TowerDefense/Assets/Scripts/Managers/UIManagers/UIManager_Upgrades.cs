@@ -1,9 +1,22 @@
 using Strings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
+public class StatComparison
+{
+    public string StatName { get; set; }
+    public string OldStat { get; set; }
+    public string NewStat { get; set; }
+    public bool Increased { get; set; }
+    public StatComparison()
+    {
+        
+    }
+}
 
 public class UIManager_Upgrades : MonoBehaviour
 {
@@ -50,12 +63,17 @@ public class UIManager_Upgrades : MonoBehaviour
     public List<GameObject> BombTowerMiddleBranch = new List<GameObject>();
     public List<GameObject> BombTowerRightBranch = new List<GameObject>();
 
+    GameObject CurrentNode;
+    public GameObject SideMenu;
+    public GameObject UpgradeStat;
+
     // Start is called before the first frame update
     void Start()
     {
         ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();   
         UpgradesSection.SetActive(false);
         ShowHideSkillTree(false, false, false, false);
+        SideMenu.SetActive(false);
     }
 
     // Update is called once per frame
@@ -748,7 +766,7 @@ public class UIManager_Upgrades : MonoBehaviour
         {
             case "Level1":
                 damageTowerDamageDictionary = ReferencesManager.UpgradesManager.DamageTowerDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
-                AlterStat(StringsDatabase.Stats.Damage, currentTower, node, damageTowerDamageDictionary, "Level 1");
+                AlterStat(StringsDatabase.Stats.Damage, currentTower, node, damageTowerDamageDictionary, "Level1");
                 break;
             case "Level2":
                 switch (nodeSplit[2])
@@ -761,7 +779,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1, adjacentNode2 };
 
-                        AlterStat(StringsDatabase.Stats.Damage, currentTower, node, damageTowerDamageDictionary, "Level 2", true, otherNodes);
+                        AlterStat(StringsDatabase.Stats.Damage, currentTower, node, damageTowerDamageDictionary, "Level2", true, otherNodes);
                         break;
                     case "FireRate":
                         damageTowerFireRateDictionary = ReferencesManager.UpgradesManager.DamageTowerFireRate.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
@@ -771,7 +789,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1, adjacentNode2 };
 
-                        AlterStat(StringsDatabase.Stats.FireRate, currentTower, node, damageTowerFireRateDictionary, "Level 2", true, otherNodes);
+                        AlterStat(StringsDatabase.Stats.FireRate, currentTower, node, damageTowerFireRateDictionary, "Level2", true, otherNodes);
                         break;
                     case "Range":
                         damageTowerRangeDictionary = ReferencesManager.UpgradesManager.DamageTowerRange.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
@@ -781,7 +799,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1, adjacentNode2 };
 
-                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, damageTowerRangeDictionary, "Level 2", true, otherNodes);
+                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, damageTowerRangeDictionary, "Level2", true, otherNodes);
                         break;
                 }
                 break;
@@ -790,7 +808,7 @@ public class UIManager_Upgrades : MonoBehaviour
                 {
                     case "Projectile":
                         damageTowerProjectileDictionary = ReferencesManager.UpgradesManager.DamageTowerProjectile.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
-                        AlterStat(StringsDatabase.Stats.ProjectileCount, currentTower, node, damageTowerProjectileDictionary, "Level 3");
+                        AlterStat(StringsDatabase.Stats.ProjectileCount, currentTower, node, damageTowerProjectileDictionary, "Level3");
                         break;
                 }
                 break;
@@ -804,7 +822,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1 };
 
-                        AlterStat(StringsDatabase.Stats.TwoRoundBurstChance, currentTower, node, damageTowerBurstDictionary, "Level 3.1", true, otherNodes);
+                        AlterStat(StringsDatabase.Stats.TwoRoundBurstChance, currentTower, node, damageTowerBurstDictionary, "Level3.1", true, otherNodes);
 
                         break;
                     case "Critical":
@@ -814,7 +832,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1 };
 
-                        AlterStat(StringsDatabase.Stats.CriticalChance, currentTower, node, damageTowerCriticalDictionary, "Level 3.1", true, otherNodes);
+                        AlterStat(StringsDatabase.Stats.CriticalChance, currentTower, node, damageTowerCriticalDictionary, "Level3.1", true, otherNodes);
                         
                         break;
                 }
@@ -829,7 +847,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1 };
 
-                        AlterStat(StringsDatabase.Stats.FireRate, currentTower, node, damageTowerFireRateDictionary, "Level 3.2", true, otherNodes);
+                        AlterStat(StringsDatabase.Stats.FireRate, currentTower, node, damageTowerFireRateDictionary, "Level3.2", true, otherNodes);
                         break;
 
                     case "Range":
@@ -839,7 +857,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1 };
 
-                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, damageTowerRangeDictionary, "Level 3.2", true, otherNodes);
+                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, damageTowerRangeDictionary, "Level3.2", true, otherNodes);
                         break;
                 }
                 break;
@@ -849,13 +867,13 @@ public class UIManager_Upgrades : MonoBehaviour
                     case "FireRate":
                         damageTowerFireRateDictionary = ReferencesManager.UpgradesManager.DamageTowerFireRate.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
 
-                        AlterStat(StringsDatabase.Stats.FireRate, currentTower, node, damageTowerFireRateDictionary, "Level 4");
+                        AlterStat(StringsDatabase.Stats.FireRate, currentTower, node, damageTowerFireRateDictionary, "Level4");
                         break;
 
                     case "Range":
                         damageTowerRangeDictionary = ReferencesManager.UpgradesManager.DamageTowerRange.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
 
-                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, damageTowerRangeDictionary, "Level 4");
+                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, damageTowerRangeDictionary, "Level4");
                         break;
                 }
                 break;
@@ -869,8 +887,8 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1 };
 
-                        AlterStat(StringsDatabase.Stats.ProjectileCount, currentTower, node, damageTowerProjectileDictionary, "Level 4.1", true, otherNodes);
-                        currentTower.GetComponent<DamageTower>().Damage = Mathf.FloorToInt(currentTower.GetComponent<DamageTower>().Damage * (ReferencesManager.UpgradesManager.DamageTowerDamage["Level 4.1"] * 1.0f) / 100);
+                        AlterStat(StringsDatabase.Stats.ProjectileCount, currentTower, node, damageTowerProjectileDictionary, "Level4.1", true, otherNodes);
+                        currentTower.GetComponent<DamageTower>().Damage = Mathf.FloorToInt(currentTower.GetComponent<DamageTower>().Damage * (ReferencesManager.UpgradesManager.DamageTowerDamage["Level4.1"] * 1.0f) / 100);
                         break;
                 }
                 break;
@@ -884,7 +902,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1 };
 
-                        AlterStat(StringsDatabase.Stats.Damage, currentTower, node, damageTowerDamageDictionary, "Level 4.2", true, otherNodes);
+                        AlterStat(StringsDatabase.Stats.Damage, currentTower, node, damageTowerDamageDictionary, "Level4.2", true, otherNodes);
                         break;
                 }
                 break;
@@ -893,15 +911,15 @@ public class UIManager_Upgrades : MonoBehaviour
                 {
                     case "Damage":
                         damageTowerDamageDictionary = ReferencesManager.UpgradesManager.DamageTowerDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
-                        AlterStat(StringsDatabase.Stats.Damage, currentTower, node, damageTowerDamageDictionary, "Level 5");
+                        AlterStat(StringsDatabase.Stats.Damage, currentTower, node, damageTowerDamageDictionary, "Level5");
                         break;
                     case "Burst":
                         damageTowerBurstDictionary = ReferencesManager.UpgradesManager.DamageTowerBurstChance.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
-                        AlterStat(StringsDatabase.Stats.ThreeRoundBurstChance, currentTower, node, damageTowerBurstDictionary, "Level 5");
+                        AlterStat(StringsDatabase.Stats.ThreeRoundBurstChance, currentTower, node, damageTowerBurstDictionary, "Level5");
                         break;
                     case "Infinity":
                         damageTowerRangeDictionary = ReferencesManager.UpgradesManager.DamageTowerRange.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
-                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, damageTowerRangeDictionary, "Level 5");
+                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, damageTowerRangeDictionary, "Level5");
                         break;
                 }
                 break;
@@ -924,7 +942,7 @@ public class UIManager_Upgrades : MonoBehaviour
         {
             case "Level1":
                 freezeTowerIceDamageDictionary = ReferencesManager.UpgradesManager.FreezeTowerIceDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
-                AlterStat(StringsDatabase.Stats.IceDamage, currentTower, node, freezeTowerIceDamageDictionary, "Level 1");
+                AlterStat(StringsDatabase.Stats.IceDamage, currentTower, node, freezeTowerIceDamageDictionary, "Level1");
                 break;
             case "Level2":
                 switch(nodeSplit[2])
@@ -937,7 +955,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1, adjacentNode2 };
 
-                        AlterStat(StringsDatabase.Stats.IceDamage, currentTower, node, freezeTowerIceDamageDictionary, "Level 2", true, otherNodes);
+                        AlterStat(StringsDatabase.Stats.IceDamage, currentTower, node, freezeTowerIceDamageDictionary, "Level2", true, otherNodes);
                         break;
                     case "FireRate":
                         freezeTowerFireRateDictionary = ReferencesManager.UpgradesManager.FreezeTowerFireRate.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
@@ -947,7 +965,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1, adjacentNode2 };
 
-                        AlterStat(StringsDatabase.Stats.FireRate, currentTower, node, freezeTowerFireRateDictionary, "Level 2", true, otherNodes);
+                        AlterStat(StringsDatabase.Stats.FireRate, currentTower, node, freezeTowerFireRateDictionary, "Level2", true, otherNodes);
                         break;
                     case "SlowEffect":
                         freezeTowerSlowEffectDictionary = ReferencesManager.UpgradesManager.FreezeTowerSlowEffect.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
@@ -957,7 +975,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1, adjacentNode2 };
 
-                        AlterStat(StringsDatabase.Stats.SlowEffect, currentTower, node, freezeTowerSlowEffectDictionary, "Level 2", true, otherNodes);
+                        AlterStat(StringsDatabase.Stats.SlowEffect, currentTower, node, freezeTowerSlowEffectDictionary, "Level2", true, otherNodes);
                         break;
                 }
                 break;
@@ -966,7 +984,7 @@ public class UIManager_Upgrades : MonoBehaviour
                 {
                     case "Range":
                         freezeTowerRangeDictionary = ReferencesManager.UpgradesManager.FreezeTowerRange.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
-                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, freezeTowerRangeDictionary, "Level 3");
+                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, freezeTowerRangeDictionary, "Level3");
                         break;
                 }
                 break;
@@ -980,7 +998,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1 };
 
-                        AlterStat(StringsDatabase.Stats.IceDamage, currentTower, node, freezeTowerIceDamageDictionary, "Level 3.1", true, otherNodes);
+                        AlterStat(StringsDatabase.Stats.IceDamage, currentTower, node, freezeTowerIceDamageDictionary, "Level3.1", true, otherNodes);
                         break;
                     case "SlowDuration":
                         freezeTowerSlowDurationDictionary = ReferencesManager.UpgradesManager.FreezeTowerSlowDuration.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
@@ -989,7 +1007,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1 };
 
-                        AlterStat(StringsDatabase.Stats.SlowDuration, currentTower, node, freezeTowerSlowDurationDictionary, "Level 3.1", true, otherNodes);
+                        AlterStat(StringsDatabase.Stats.SlowDuration, currentTower, node, freezeTowerSlowDurationDictionary, "Level3.1", true, otherNodes);
                         break;
                 }
                 break;
@@ -1003,7 +1021,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1 };
 
-                        AlterStat(StringsDatabase.Stats.Frostbite, currentTower, node, freezeTowerFrostbiteDictionary, "Level 3.2", true, otherNodes);
+                        AlterStat(StringsDatabase.Stats.Frostbite, currentTower, node, freezeTowerFrostbiteDictionary, "Level3.2", true, otherNodes);
                         break;
                     case "FireRate":
                         freezeTowerFireRateDictionary = ReferencesManager.UpgradesManager.FreezeTowerFireRate.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
@@ -1012,7 +1030,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1 };
 
-                        AlterStat(StringsDatabase.Stats.FireRate, currentTower, node, freezeTowerFireRateDictionary, "Level 3.2", true, otherNodes);
+                        AlterStat(StringsDatabase.Stats.FireRate, currentTower, node, freezeTowerFireRateDictionary, "Level3.2", true, otherNodes);
                         break;
                 }
                 break;
@@ -1023,13 +1041,13 @@ public class UIManager_Upgrades : MonoBehaviour
                         freezeTowerIceDamageDictionary = ReferencesManager.UpgradesManager.FreezeTowerIceDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
                         freezeTowerDamageDictionary = ReferencesManager.UpgradesManager.FreezeTowerDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
 
-                        AlterStat(StringsDatabase.Stats.IceDamage, currentTower, node, freezeTowerIceDamageDictionary, "Level 4");
-                        AlterStat(StringsDatabase.Stats.Damage, currentTower, node, freezeTowerDamageDictionary, "Level 4");
+                        AlterStat(StringsDatabase.Stats.IceDamage, currentTower, node, freezeTowerIceDamageDictionary, "Level4");
+                        AlterStat(StringsDatabase.Stats.Damage, currentTower, node, freezeTowerDamageDictionary, "Level4");
                         break;
                     case "SlowDuration":
                         freezeTowerSlowDurationDictionary = ReferencesManager.UpgradesManager.FreezeTowerSlowDuration.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
 
-                        AlterStat(StringsDatabase.Stats.SlowDuration, currentTower, node, freezeTowerSlowDurationDictionary, "Level 4");
+                        AlterStat(StringsDatabase.Stats.SlowDuration, currentTower, node, freezeTowerSlowDurationDictionary, "Level4");
                         break;
                 }
                 break;
@@ -1043,7 +1061,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject> { adjacentNode1 };
 
-                        AlterStat(StringsDatabase.Stats.SlowEffect, currentTower, node, freezeTowerSlowEffectDictionary, "Level 4.1", true, otherNodes);
+                        AlterStat(StringsDatabase.Stats.SlowEffect, currentTower, node, freezeTowerSlowEffectDictionary, "Level4.1", true, otherNodes);
                         break;
                 }
                 break;
@@ -1057,7 +1075,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject> { adjacentNode1 };
 
-                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, freezeTowerRangeDictionary, "Level 4.2", true, otherNodes);
+                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, freezeTowerRangeDictionary, "Level4.2", true, otherNodes);
                         break;
                 }
                 break;
@@ -1067,32 +1085,365 @@ public class UIManager_Upgrades : MonoBehaviour
                     case "Icicle":
                         freezeTowerIcicleDictionary = ReferencesManager.UpgradesManager.FreezeTowerIcicle.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
 
-                        AlterStat(StringsDatabase.Stats.Icicle, currentTower, node, freezeTowerIcicleDictionary, "Level 5");
+                        AlterStat(StringsDatabase.Stats.Icicle, currentTower, node, freezeTowerIcicleDictionary, "Level5");
                         break;
                     case "SlowDuration":
                         freezeTowerSlowDurationDictionary = ReferencesManager.UpgradesManager.FreezeTowerSlowDuration.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
 
-                        AlterStat(StringsDatabase.Stats.SlowDuration, currentTower, node, freezeTowerSlowDurationDictionary, "Level 5");
+                        AlterStat(StringsDatabase.Stats.SlowDuration, currentTower, node, freezeTowerSlowDurationDictionary, "Level5");
                         break;
                     case "Immobilize":
                         freezeTowerImmobilizeDictionary = ReferencesManager.UpgradesManager.FreezeTowerImmobilize.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
 
-                        AlterStat(StringsDatabase.Stats.ImmobilizeChance, currentTower, node, freezeTowerImmobilizeDictionary, "Level 5");
+                        AlterStat(StringsDatabase.Stats.ImmobilizeChance, currentTower, node, freezeTowerImmobilizeDictionary, "Level5");
                         break;
                 }
                 break;
         }
     }
 
+    public void PoisonUpgrades(string[] nodeSplit, GameObject currentTower, GameObject node, GameObject adjacentNode1, GameObject adjacentNode2, List<GameObject> otherNodes)
+    {
+
+    }
+
+    public void BombUpgrades(string[] nodeSplit, GameObject currentTower, GameObject node, GameObject adjacentNode1, GameObject adjacentNode2, List<GameObject> otherNodes)
+    { 
+    }
+
+    StatComparison AddOldNewStats(object oldTowerStat, object newTowerStat, string statName, bool increased)
+    {
+        string oldStat = oldTowerStat.ToString();
+        string newStat = newTowerStat.ToString();
+
+        StatComparison statComparison = new StatComparison();
+
+        if (statName == StringsDatabase.Stats_Display.FireRate)
+        {
+            oldStat = Convert.ToDouble(oldTowerStat).ToString("F2");
+            newStat = Convert.ToDouble(newTowerStat).ToString("F2");
+
+            statComparison = new StatComparison()
+            {
+                OldStat = oldStat,
+                NewStat = newStat,
+                StatName = statName,
+                Increased = increased
+            };
+        }
+        else
+        {
+            statComparison = new StatComparison()
+            {
+                OldStat = oldStat,
+                NewStat = newStat,
+                StatName = statName,
+                Increased = increased
+            };
+        }
+
+        return statComparison;
+    }
+
+    List<StatComparison> GetNewStat(string stat, GameObject currentTower, GameObject node)
+    {
+        List<StatComparison> statsComparison = new List<StatComparison>();
+        UpgradesManager upgradesManager = ReferencesManager.UpgradesManager;
+        object oldStat;
+        object newStat;
+        string statName;
+        bool increased = true;
+
+        var split = node.name.Split('_');
+        var level = split[1];
+
+        switch (stat)
+        {
+            case StringsDatabase.Stats_Display.Damage:
+                oldStat = (int)currentTower.GetComponent<Tower>().Damage;
+                newStat = (int)0;
+                statName = StringsDatabase.Stats_Display.Damage;
+
+                if (currentTower.name.Contains("DamageTower"))
+                {
+                    if (level == "Level4.1")
+                    {
+                        newStat = (int)Mathf.FloorToInt((currentTower.GetComponent<Tower>().Damage /= 2));
+                        increased = false;
+                    }
+                    else
+                    {
+                        newStat = (int)(currentTower.GetComponent<Tower>().Damage += (int)upgradesManager.DamageTowerDamage[level]);
+                    }
+                }
+                else if (currentTower.name.Contains("FreezeTower"))
+                {
+                    newStat = (int)(currentTower.GetComponent<Tower>().Damage += (int)upgradesManager.FreezeTowerDamage[level]);
+                }
+                else if (currentTower.name.Contains("PoisonTower"))
+                {
+                    newStat = (int)(currentTower.GetComponent<Tower>().Damage += (int)upgradesManager.PoisonTowerDamage[level]);
+                }
+                else if (currentTower.name.Contains("BombTower"))
+                {
+                    newStat = (int)(currentTower.GetComponent<Tower>().Damage += (int)upgradesManager.BombTowerDamage[level]);
+                }
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+            case StringsDatabase.Stats_Display.FireRate:
+                oldStat = Mathf.Ceil((1 * 1.0f / (float)currentTower.GetComponent<Tower>().FireRate) * 100) / 100;
+                newStat = (float)0f;
+                statName = StringsDatabase.Stats_Display.FireRate;
+
+                if (currentTower.name.Contains("DamageTower"))
+                {
+                    newStat = (float)(currentTower.GetComponent<Tower>().FireRate -= (float)upgradesManager.DamageTowerFireRate[level]);
+                }
+                else if (currentTower.name.Contains("FreezeTower"))
+                {
+                    newStat = (float)(currentTower.GetComponent<Tower>().FireRate -= (float)upgradesManager.FreezeTowerFireRate[level]);
+                }
+                else if (currentTower.name.Contains("PoisonTower"))
+                {
+                    newStat = (float)(currentTower.GetComponent<Tower>().FireRate -= (float)upgradesManager.PoisonTowerFireRate[level]);
+                }
+                else if (currentTower.name.Contains("BombTower"))
+                {
+                    newStat = (float)(currentTower.GetComponent<Tower>().FireRate -= (float)upgradesManager.BombTowerFireRate[level]);
+                }
+
+                newStat = Mathf.Ceil((1 * 1.0f / (float)newStat) * 100) / 100;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+            case StringsDatabase.Stats_Display.Range:
+                oldStat = (float)currentTower.GetComponent<Tower>().Range;
+                newStat = (float)0f;
+                statName = StringsDatabase.Stats_Display.Range;
+
+                if (currentTower.name.Contains("DamageTower"))
+                {
+                    newStat = (float)(currentTower.GetComponent<Tower>().Range += (float)upgradesManager.DamageTowerRange[level]);
+                }
+                else if (currentTower.name.Contains("FreezeTower"))
+                {
+                    newStat = (float)(currentTower.GetComponent<Tower>().Range += (float)upgradesManager.FreezeTowerRange[level]);
+                }
+                else if (currentTower.name.Contains("PoisonTower"))
+                {
+                    newStat = (float)(currentTower.GetComponent<Tower>().Range += (float)upgradesManager.PoisonTowerRange[level]);
+                }
+                else if (currentTower.name.Contains("BombTower"))
+                {
+                    newStat = (float)(currentTower.GetComponent<Tower>().Range += (float)upgradesManager.BombTowerRange[level]);
+                }
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+            case StringsDatabase.Stats_Display.ProjectileCount:
+                oldStat = (int)currentTower.GetComponent<DamageTower>().ProjectileCount;
+                newStat = (int)(currentTower.GetComponent<DamageTower>().ProjectileCount += (int)upgradesManager.DamageTowerProjectile[level]);
+                statName = StringsDatabase.Stats_Display.ProjectileCount;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+            case StringsDatabase.Stats_Display.TwoRoundBurstChance:
+                oldStat = (int)currentTower.GetComponent<DamageTower>().TwoRoundBurstChance;
+                newStat = (int)(currentTower.GetComponent<DamageTower>().TwoRoundBurstChance += (int)upgradesManager.DamageTowerBurstChance[level]);
+                statName = StringsDatabase.Stats_Display.TwoRoundBurstChance;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+            case StringsDatabase.Stats_Display.ThreeRoundBurstChance:
+                oldStat = (int)currentTower.GetComponent<DamageTower>().ThreeRoundBurstChance;
+                newStat = (int)(currentTower.GetComponent<DamageTower>().ThreeRoundBurstChance += (int)upgradesManager.DamageTowerBurstChance[level]);
+                statName = StringsDatabase.Stats_Display.ThreeRoundBurstChance;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+            case StringsDatabase.Stats_Display.CriticalChance:
+                oldStat = (int)currentTower.GetComponent<DamageTower>().CriticalChance;
+                newStat = (int)(currentTower.GetComponent<DamageTower>().CriticalChance += (int)upgradesManager.DamageTowerCriticalChance[level]);
+                statName = StringsDatabase.Stats_Display.CriticalChance;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+
+                oldStat = (int)0;
+                newStat = (int)(currentTower.GetComponent<DamageTower>().Damage * 2);
+                statName = StringsDatabase.Stats_Display.CriticalDamage;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+            case StringsDatabase.Stats_Display.IceDamage:
+                oldStat = (int)currentTower.GetComponent<FreezeTower>().IceDamage;
+                newStat = (int)((currentTower.GetComponent<FreezeTower>().IceDamage += (int)upgradesManager.FreezeTowerIceDamage[level]));
+                statName = StringsDatabase.Stats_Display.IceDamage;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+            case StringsDatabase.Stats_Display.SlowDuration:
+                oldStat = (float)currentTower.GetComponent<FreezeTower>().SlowDuration;
+                newStat = (float)((currentTower.GetComponent<FreezeTower>().SlowDuration += (float)upgradesManager.FreezeTowerSlowDuration[level]));
+                statName = StringsDatabase.Stats_Display.SlowDuration;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+            case StringsDatabase.Stats_Display.SlowEffect:
+                oldStat = (float)currentTower.GetComponent<FreezeTower>().SlowEffect;
+                newStat = (float)((currentTower.GetComponent<FreezeTower>().SlowEffect += (float)upgradesManager.FreezeTowerSlowEffect[level]));
+                statName = StringsDatabase.Stats_Display.SlowEffect;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+            case StringsDatabase.Stats_Display.Frostbite:
+                oldStat = (int)currentTower.GetComponent<FreezeTower>().IceDamage;
+                newStat = (int)0;
+                statName = StringsDatabase.Stats_Display.IceDamage;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+
+                oldStat = (int)currentTower.GetComponent<FreezeTower>().FrostbiteDamage;
+                newStat = (int)((currentTower.GetComponent<FreezeTower>().FrostbiteDamage += Mathf.FloorToInt((currentTower.GetComponent<FreezeTower>().IceDamage * 1.0f) / 2)));
+                statName = StringsDatabase.Stats_Display.FrostbiteDamage;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+
+                oldStat = (float)currentTower.GetComponent<FreezeTower>().FrostbiteTickRate;
+                newStat = (float)(0.5f);
+                statName = StringsDatabase.Stats_Display.FrostbiteTickRate;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+            case StringsDatabase.Stats.Icicle:
+                oldStat = (int)currentTower.GetComponent<FreezeTower>().IcicleChance;
+                newStat = (int)((currentTower.GetComponent<FreezeTower>().IcicleChance += (int)upgradesManager.FreezeTowerIcicle[level]));
+                statName = StringsDatabase.Stats_Display.IcicleChance;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+
+                oldStat = (int)currentTower.GetComponent<FreezeTower>().IcicleDamage;
+                newStat = (int)((currentTower.GetComponent<FreezeTower>().IcicleDamage += 10));
+                statName = StringsDatabase.Stats_Display.IcicleDanage;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+
+                break;
+            case StringsDatabase.Stats_Display.ImmobilizeChance:
+                oldStat = (int)currentTower.GetComponent<FreezeTower>().ImmobilizeChance;
+                newStat = (int)((currentTower.GetComponent<FreezeTower>().ImmobilizeChance += (int)upgradesManager.FreezeTowerImmobilize[level]));
+                statName = StringsDatabase.Stats_Display.ImmobilizeChance;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+        }
+
+        return statsComparison;
+    }
+        
+
+    public void SetUpgradeStats(GameObject currentTower, GameObject node)
+    {
+        var statName = GetUpgradeTitle();
+
+        if (SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeStats).childCount > 0)
+        {
+            for(int i=0;i< SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeStats).childCount;i++)
+            {
+                Destroy(SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeStats).GetChild(i).gameObject);
+            }
+        }
+
+        SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeTitle).GetComponent<TextMeshProUGUI>().text = statName;
+        SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeDescription).GetComponent<TextMeshProUGUI>().text = "";
+
+        var towerStats = GetNewStat(statName, currentTower, node);
+
+        if(towerStats != null && towerStats.Count > 0)
+        {
+            foreach(var towerStat in towerStats)
+            {
+                GameObject upgradeStat = Instantiate(UpgradeStat, transform.position, Quaternion.identity, SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeStats));
+                upgradeStat.transform.Find(StringsDatabase.UI_Upgrades.UpgradeStatTitle).GetComponent<TextMeshProUGUI>().text = towerStat.StatName;
+                upgradeStat.transform.Find(StringsDatabase.UI_Upgrades.StatsContainer).transform.Find(StringsDatabase.UI_Upgrades.UpgradeStatChanges_Old).GetComponent<TextMeshProUGUI>().text = towerStat.OldStat;
+
+                upgradeStat.transform.Find(StringsDatabase.UI_Upgrades.StatsContainer).transform.Find(StringsDatabase.UI_Upgrades.UpgradeStatChanges_New).GetComponent<TextMeshProUGUI>().text = towerStat.NewStat;
+
+                if (towerStat.Increased)
+                {
+                    upgradeStat.transform.Find(StringsDatabase.UI_Upgrades.StatsContainer).transform.Find(StringsDatabase.UI_Upgrades.UpgradeStatChanges_New).GetComponent<TextMeshProUGUI>().color = Color.green;
+                }
+                else
+                {
+                    upgradeStat.transform.Find(StringsDatabase.UI_Upgrades.StatsContainer).transform.Find(StringsDatabase.UI_Upgrades.UpgradeStatChanges_New).GetComponent<TextMeshProUGUI>().color = Color.red;
+                }
+            }
+        }
+    }
+
+    public string GetUpgradeTitle()
+    {
+        var split = CurrentNode.transform.name.Split("_");
+
+        switch (split[2])
+        {
+            case StringsDatabase.Stats.Damage:
+                return StringsDatabase.Stats_Display.Damage;
+            case StringsDatabase.Stats.FireRate:
+                return StringsDatabase.Stats_Display.FireRate;
+            case StringsDatabase.Stats.Range:
+            case "Infinity":
+                return StringsDatabase.Stats_Display.Range;
+            case "Projectile":
+                return StringsDatabase.Stats_Display.ProjectileCount;
+            case "Burst":
+                if (split[1] == "Level3.1")
+                {
+                    return StringsDatabase.Stats_Display.TwoRoundBurstChance;
+                }
+                else
+                {
+                    return StringsDatabase.Stats_Display.ThreeRoundBurstChance;
+                }
+            case "Critical":
+                return StringsDatabase.Stats_Display.CriticalChance;
+            case StringsDatabase.Stats.IceDamage:
+                return StringsDatabase.Stats_Display.IceDamage;
+            case StringsDatabase.Stats.SlowDuration:
+                return StringsDatabase.Stats_Display.SlowDuration;
+            case StringsDatabase.Stats.SlowEffect:
+                return StringsDatabase.Stats_Display.SlowEffect;
+            case StringsDatabase.Stats.Frostbite:
+                return StringsDatabase.Stats.Frostbite;
+            case StringsDatabase.Stats.Icicle:
+                return StringsDatabase.Stats.Icicle;
+            case StringsDatabase.Stats.ImmobilizeChance:
+                return StringsDatabase.Stats_Display.ImmobilizeChance;
+            default:
+                return string.Empty;
+        }
+    }
 
 
     #region OnClick
 
     public void OnClick_UpgradeNode(GameObject node)
     {
-        var nodeName = node.name;
+        CurrentNode = node;
+        var currentTower = ReferencesManager.GameManager.currentTower;
 
-        var nodeSplit = nodeName.Split('_');
+        //Show Side Menu
+        SideMenu.SetActive(true);
+
+        var split = node.name.Split('_');
+
+        //Show which node is selected
+        SetUpgradeStats(currentTower, node);
+    }
+
+    public void OnClick_UpgradeButton()
+    {
+        var nodeSplit = CurrentNode.name.Split('_');
 
         GameObject adjacentNode1 = null;
         GameObject adjacentNode2 = null;
@@ -1104,16 +1455,25 @@ public class UIManager_Upgrades : MonoBehaviour
         switch (nodeSplit[0])
         {
             case "DamageTower":
-                DamageUpgrades(nodeSplit, currentTower, node, adjacentNode1, adjacentNode2, otherNodes);
+                DamageUpgrades(nodeSplit, currentTower, CurrentNode, adjacentNode1, adjacentNode2, otherNodes);
                 break;
             case "FreezeTower":
-                FreezeUpgrades(nodeSplit, currentTower, node, adjacentNode1, adjacentNode2, otherNodes);
+                FreezeUpgrades(nodeSplit, currentTower, CurrentNode, adjacentNode1, adjacentNode2, otherNodes);
                 break;
             case "PoisonTower":
+                PoisonUpgrades(nodeSplit, currentTower, CurrentNode, adjacentNode1, adjacentNode2, otherNodes);
                 break;
             case "BombTower":
+                BombUpgrades(nodeSplit, currentTower, CurrentNode, adjacentNode1, adjacentNode2, otherNodes);
                 break;
         }
+
+        CurrentNode = null;
+    }
+
+    public void OnClick_SideMenuClose()
+    {
+        //Hide Side Menu
     }
 
     #endregion

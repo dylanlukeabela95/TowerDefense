@@ -25,6 +25,18 @@ namespace Strings
             public const string Canvas = "Canvas";
         }
 
+        public class UI_Upgrades
+        {
+            public const string UpgradeTitle = "UpgradeTitle";
+            public const string UpgradeDescription = "UpgradeDescription";
+            public const string UpgradeStats = "UpgradeStats";
+
+            public const string UpgradeStatTitle = "UpgradeStatTitle";
+            public const string StatsContainer = "Stats";
+            public const string UpgradeStatChanges_Old = "UpgradeStatChanges_Old";
+            public const string UpgradeStatChanges_New = "UpgradeStatChanges_New";
+        }
+
         public class UI_Stats
         {
             public const string StatText = "StatText";
@@ -63,6 +75,33 @@ namespace Strings
             public const string IcicleDanage = "IcicleDamage";
             public const string IcicleChance = "IcicleChance";
             public const string ImmobilizeChance = "ImmobilizeChance";
+        }
+
+        public class Stats_Display
+        {
+            public const string Damage = "Damage";
+            public const string FireRate = "Fire Rate";
+            public const string Range = "Range";
+            public const string Cost = "Cost";
+            public const string IceDamage = "Ice Damage";
+            public const string SlowDuration = "Slow Duration";
+            public const string SlowEffect = "Slow Effect";
+            public const string PoisonDamageOverTime = "Poison Damage Over Time";
+            public const string PoisonDuration = "Poison Duration";
+            public const string PoisonTickRate = "Poison Tick Rate";
+            public const string SplashDamage = "Splash Damage";
+            public const string SplashRadius = "Splash Radius";
+            public const string ProjectileCount = "Projectile Count";
+            public const string TwoRoundBurstChance = "Two Round Burst Chance";
+            public const string ThreeRoundBurstChance = "Three Round Burst Chance";
+            public const string CriticalChance = "Critical Chance";
+            public const string CriticalDamage = "Critical Damage";
+            public const string Frostbite = "Frostbite";
+            public const string FrostbiteDamage = "Frostbite Damage";
+            public const string FrostbiteTickRate = "Frostbite Tick Rate";
+            public const string IcicleDanage = "Icicle Damage";
+            public const string IcicleChance = "Icicle Chance";
+            public const string ImmobilizeChance = "Immobilize Chance";
         }
 
         public class TowerNames

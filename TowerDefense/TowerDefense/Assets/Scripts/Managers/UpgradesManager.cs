@@ -86,172 +86,172 @@ public class UpgradesManager : MonoBehaviour
 
     public void DamageFirst()
     {
-        DamageTowerDamage.Add("Level 1", 5);
+        DamageTowerDamage.Add("Level1", 5);
     }
 
     public void DamageLeftBranch()
     {
-        DamageTowerFireRate.Add("Level 2", 0.1f);
+        DamageTowerFireRate.Add("Level2", 0.1f);
 
-        DamageTowerBurstChance.Add("Level 3.1", 15); // 15% for 2 burst
-        DamageTowerFireRate.Add("Level 3.2", 0.1f);
+        DamageTowerBurstChance.Add("Level3.1", 15); // 15% for 2 burst
+        DamageTowerFireRate.Add("Level3.2", 0.1f);
 
-        DamageTowerFireRate.Add("Level 4", 0.1f);
+        DamageTowerFireRate.Add("Level4", 0.1f);
 
-        DamageTowerBurstChance.Add("Level 5", 10); // 10% for 3 burst
+        DamageTowerBurstChance.Add("Level5", 10); // 10% for 3 burst
     }
 
     public void DamageMiddleBranch()
     {
-        DamageTowerDamage.Add("Level 2", 5);
+        DamageTowerDamage.Add("Level2", 5);
 
-        DamageTowerProjectile.Add("Level 3", 1);
+        DamageTowerProjectile.Add("Level3", 1);
 
-        DamageTowerDamage.Add("Level 4.1", 50); // 50% reduction
-        DamageTowerProjectile.Add("Level 4.1", 1);
+        DamageTowerDamage.Add("Level4.1", 50); // 50% reduction
+        DamageTowerProjectile.Add("Level4.1", 1);
 
-        DamageTowerDamage.Add("Level 4.2", 10);
+        DamageTowerDamage.Add("Level4.2", 10);
 
-        DamageTowerDamage.Add("Level 5", 10);
+        DamageTowerDamage.Add("Level5", 10);
     }
 
     public void DamageRightBranch()
     {
-        DamageTowerRange.Add("Level 2", 1);
+        DamageTowerRange.Add("Level2", 1);
 
-        DamageTowerCriticalChance.Add("Level 3.1", 10);
-        DamageTowerRange.Add("Level 3.2", 1);
+        DamageTowerCriticalChance.Add("Level3.1", 10);
+        DamageTowerRange.Add("Level3.2", 1);
 
-        DamageTowerRange.Add("Level 4", 1);
+        DamageTowerRange.Add("Level4", 1);
 
-        DamageTowerRange.Add("Level 5", 100);
+        DamageTowerRange.Add("Level5", 100);
     }
 
     public void FreezeFirst()
     {
-        FreezeTowerIceDamage.Add("Level 1", 2);
+        FreezeTowerIceDamage.Add("Level1", 2);
     }
 
     public void FreezeLeftBranch()
     {
-        FreezeTowerFireRate.Add("Level 2", 0.1f);
+        FreezeTowerFireRate.Add("Level2", 0.1f);
 
-        FreezeTowerSlowDuration.Add("Level 3.1", 0.5f);
-        FreezeTowerFireRate.Add("Level 3.2", 0.1f);
+        FreezeTowerSlowDuration.Add("Level3.1", 0.5f);
+        FreezeTowerFireRate.Add("Level3.2", 0.1f);
 
-        FreezeTowerSlowDuration.Add("Level 4", 0.5f);
+        FreezeTowerSlowDuration.Add("Level4", 0.5f);
 
-        FreezeTowerSlowDuration.Add("Level 5", 1f);
+        FreezeTowerSlowDuration.Add("Level5", 1f);
     }
 
     public void FreezeMiddleBranch()
     {
-        FreezeTowerIceDamage.Add("Level 2", 3);
+        FreezeTowerIceDamage.Add("Level2", 3);
 
-        FreezeTowerIceDamage.Add("Level 3.1", 5);
-        FreezeTowerFrostbite.Add("Level 3.2", true);
+        FreezeTowerIceDamage.Add("Level3.1", 5);
+        FreezeTowerFrostbite.Add("Level3.2", true);
 
-        FreezeTowerDamage.Add("Level 4", 5);
-        FreezeTowerIceDamage.Add("Level 4", 5);
+        FreezeTowerDamage.Add("Level4", 5);
+        FreezeTowerIceDamage.Add("Level4", 5);
 
-        FreezeTowerIcicle.Add("Level 5", 10); //10% chance to shoot icicle dealing 10
+        FreezeTowerIcicle.Add("Level5", 10); //10% chance to shoot icicle dealing 10
     }
 
     public void FreezeRightBranch()
     {
-        FreezeTowerSlowEffect.Add("Level 2", 5f);
+        FreezeTowerSlowEffect.Add("Level2", 5f);
 
-        FreezeTowerRange.Add("Level 3", 1);
+        FreezeTowerRange.Add("Level3", 1);
 
-        FreezeTowerSlowEffect.Add("Level 4.1", 5f);
-        FreezeTowerRange.Add("Level 4.2", 1);
+        FreezeTowerSlowEffect.Add("Level4.1", 5f);
+        FreezeTowerRange.Add("Level4.2", 1);
 
-        FreezeTowerImmobilize.Add("Level 5", 5); //5% to immobilize movement for the duration of the slow
+        FreezeTowerImmobilize.Add("Level5", 5); //5% to immobilize movement for the duration of the slow
     }
 
     public void PoisonFirst()
     {
-        PoisonTowerDamageOverTime.Add("Level 1", 1);
+        PoisonTowerDamageOverTime.Add("Level1", 1);
     }
 
     public void PoisonLeftBranch()
     {
-        PoisonTowerDuration.Add("Level 2", 1);
+        PoisonTowerDuration.Add("Level2", 1);
 
-        PoisonTowerDuration.Add("Level 3.1", 1);
-        PoisonTowerTickRate.Add("Level 3.2", 0.5f);
+        PoisonTowerDuration.Add("Level3.1", 1);
+        PoisonTowerTickRate.Add("Level3.2", 0.5f);
 
-        PoisonTowerDuration.Add("Level 4", 1);
+        PoisonTowerDuration.Add("Level4", 1);
 
-        PoisonTowerDuration.Add("Level 5", 1);
+        PoisonTowerDuration.Add("Level5", 1);
     }
 
     public void PoisonMiddleBranch()
     {
-        PoisonTowerDamageOverTime.Add("Level 2", 1);
+        PoisonTowerDamageOverTime.Add("Level2", 1);
 
-        PoisonTowerDamage.Add("Level 3.1", 4);
-        PoisonTowerDamageOverTime.Add("Level 3.2", 2);
+        PoisonTowerDamage.Add("Level3.1", 4);
+        PoisonTowerDamageOverTime.Add("Level3.2", 2);
 
-        PoisonTowerDamage.Add("Level 4.1", 5);
-        PoisonTowerTickRate.Add("Level 4.2", 1);
+        PoisonTowerDamage.Add("Level4.1", 5);
+        PoisonTowerTickRate.Add("Level4.2", 1);
 
-        PoisonTowerPoisonCriticalChance.Add("Level 5", 10); //10% for poison damage to crit
+        PoisonTowerPoisonCriticalChance.Add("Level5", 10); //10% for poison damage to crit
     }
 
     public void PoisonRightBranch()
     {
-        PoisonTowerRange.Add("Level 2", 1);
+        PoisonTowerRange.Add("Level2", 1);
 
-        PoisonTowerFireRate.Add("Level 3.1", 0.2f);
-        PoisonTowerRange.Add("Level 3.2", 1);
+        PoisonTowerFireRate.Add("Level3.1", 0.2f);
+        PoisonTowerRange.Add("Level3.2", 1);
 
-        PoisonTowerRange.Add("Level 4", 1);
+        PoisonTowerRange.Add("Level4", 1);
 
-        PoisonTowerSplashPoison.Add("Level 5", true);
+        PoisonTowerSplashPoison.Add("Level5", true);
     }
 
     public void BombFirst()
     {
-        BombTowerSplashDamage.Add("Level 1", 2);
+        BombTowerSplashDamage.Add("Level1", 2);
     }
 
     public void BombLeftBranch()
     {
-        BombTowerDamage.Add("Level 2", 5);
+        BombTowerDamage.Add("Level2", 5);
 
-        BombTowerDamage.Add("Level 3.1", 5);
-        BombTowerFireRate.Add("Level 3.2", 0.5f);
+        BombTowerDamage.Add("Level3.1", 5);
+        BombTowerFireRate.Add("Level3.2", 0.5f);
 
-        BombTowerDamage.Add("Level 4", 5);
+        BombTowerDamage.Add("Level4", 5);
 
-        BombTowerRocket.Add("Level 5", true);
-        BombTowerRocketChance.Add("Level 5", 10);
+        BombTowerRocket.Add("Level5", true);
+        BombTowerRocketChance.Add("Level5", 10);
     }
 
     public void BombMiddleBranch()
     {
-        BombTowerSplashDamage.Add("Level 2", 3);
+        BombTowerSplashDamage.Add("Level2", 3);
 
-        BombTowerDoubleExplosionChance.Add("Level 3.1", 5);
-        BombTowerSplashDamage.Add("Level 3.2", 5);
+        BombTowerDoubleExplosionChance.Add("Level3.1", 5);
+        BombTowerSplashDamage.Add("Level3.2", 5);
 
-        BombTowerDoubleExplosionChance.Add("Level 4.1", 5);
-        BombTowerSplashDamage.Add("Level 4.2", 5);
+        BombTowerDoubleExplosionChance.Add("Level4.1", 5);
+        BombTowerSplashDamage.Add("Level4.2", 5);
 
-        BombTowerSplashDamage.Add("Level 5", 10);
+        BombTowerSplashDamage.Add("Level5", 10);
     }
 
     public void BombRightBranch()
     {
-        BombTowerRange.Add("Level 2", 1);
+        BombTowerRange.Add("Level2", 1);
 
-        BombTowerSplashRadius.Add("Level 3.1", 1);
-        BombTowerRange.Add("Level 3.2", 1);
+        BombTowerSplashRadius.Add("Level3.1", 1);
+        BombTowerRange.Add("Level3.2", 1);
 
-        BombTowerSplashRadius.Add("Level 4.1", 1);
-        BombTowerRange.Add("Level 4.2", 1);
+        BombTowerSplashRadius.Add("Level4.1", 1);
+        BombTowerRange.Add("Level4.2", 1);
 
-        BombTowerFireRate.Add("Level 5", 1);
+        BombTowerFireRate.Add("Level5", 1);
     }    
 }
