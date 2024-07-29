@@ -371,7 +371,7 @@ public class UIManager_Stat : MonoBehaviour
                 return currentTower.GetComponent<FreezeTower>().IcicleChance.ToString() + " %";
             case StringsDatabase.Stats.IcicleDanage:
                 return currentTower.GetComponent<FreezeTower>().IcicleDamage.ToString();
-            case StringsDatabase.Stats.ImmobilizeChance:
+            case StringsDatabase.Stats.Immobilize:
                 return currentTower.GetComponent<FreezeTower>().ImmobilizeChance.ToString() + " %";
             default:
                 return string.Empty;

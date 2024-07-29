@@ -74,7 +74,7 @@ namespace Strings
             public const string Icicle = "Icicle";
             public const string IcicleDanage = "IcicleDamage";
             public const string IcicleChance = "IcicleChance";
-            public const string ImmobilizeChance = "ImmobilizeChance";
+            public const string Immobilize = "Immobilize";
         }
 
         public class Stats_Display

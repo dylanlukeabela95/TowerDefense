@@ -206,7 +206,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3492269}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1344703542}
+        m_TargetAssemblyTypeName: UIManager_Upgrades, Assembly-CSharp
+        m_MethodName: OnClick_UpgradeButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3492269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2214,8 +2226,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000053406, y: -66.14542}
-  m_SizeDelta: {x: 223, y: 132.2909}
+  m_AnchoredPosition: {x: -0.000053406, y: -41.385}
+  m_SizeDelta: {x: 223, y: 181.81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &262925063
 MonoBehaviour:
@@ -19308,8 +19320,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -20831,8 +20843,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 74.249985}
-  m_SizeDelta: {x: 223, y: 148.5}
+  m_AnchoredPosition: {x: 0, y: 99.011}
+  m_SizeDelta: {x: 223, y: 98.9786}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2109472015
 MonoBehaviour:
