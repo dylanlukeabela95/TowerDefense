@@ -66,6 +66,7 @@ public class UIManager_Upgrades : MonoBehaviour
     GameObject CurrentNode;
     public GameObject SideMenu;
     public GameObject UpgradeStat;
+    public GameObject SelectedNode;
 
     // Start is called before the first frame update
     void Start()
@@ -1482,11 +1483,17 @@ public class UIManager_Upgrades : MonoBehaviour
 
     public void OnClick_UpgradeNode(GameObject node)
     {
+        if(CurrentNode != null)
+        {
+            Destroy(CurrentNode.transform.GetChild(0).gameObject);
+        }
+
         CurrentNode = node;
         var currentTower = ReferencesManager.GameManager.currentTower;
 
         //Show Side Menu
         SideMenu.SetActive(true);
+        Instantiate(SelectedNode, node.transform.position, Quaternion.identity, node.transform);
 
         //Show which node is selected
         SetUpgradeStats(currentTower, node);
@@ -1495,6 +1502,7 @@ public class UIManager_Upgrades : MonoBehaviour
     public void OnClick_UpgradeButton()
     {
         SideMenu.SetActive(false);
+        Destroy(CurrentNode.transform.GetChild(0).gameObject);
         var nodeSplit = CurrentNode.name.Split('_');
 
         GameObject adjacentNode1 = null;
@@ -1525,7 +1533,9 @@ public class UIManager_Upgrades : MonoBehaviour
 
     public void OnClick_SideMenuClose()
     {
-        //Hide Side Menu
+        SideMenu.SetActive(false);
+        Destroy(CurrentNode.transform.GetChild(0).gameObject);
+        CurrentNode = null;
     }
 
     #endregion

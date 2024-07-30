@@ -23,6 +23,7 @@ namespace Strings
         public class UI
         {
             public const string Canvas = "Canvas";
+            public const string SelectedNode = "SelectedNode";
         }
 
         public class UI_Upgrades

@@ -13249,6 +13249,7 @@ MonoBehaviour:
   - {fileID: 425263605}
   SideMenu: {fileID: 1480428250}
   UpgradeStat: {fileID: 673002756811308555, guid: 5a1db20fce48361479e47d825591b894, type: 3}
+  SelectedNode: {fileID: 3383321952504899602, guid: bab22b1b894a20f4b8f2e7c5af68ffd9, type: 3}
 --- !u!4 &1344703543
 Transform:
   m_ObjectHideFlags: 0
