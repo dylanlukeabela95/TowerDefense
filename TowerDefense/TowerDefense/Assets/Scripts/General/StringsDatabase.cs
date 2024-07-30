@@ -76,6 +76,9 @@ namespace Strings
             public const string IcicleDanage = "IcicleDamage";
             public const string IcicleChance = "IcicleChance";
             public const string Immobilize = "Immobilize";
+            public const string ImmobilizeChance = "ImmobilizeChance";
+            public const string PoisonCriticalChance = "PoisonCriticalChance";
+            public const string PoisonSpread = "PoisonSpread";
         }
 
         public class Stats_Display
@@ -103,6 +106,8 @@ namespace Strings
             public const string IcicleDanage = "Icicle Damage";
             public const string IcicleChance = "Icicle Chance";
             public const string ImmobilizeChance = "Immobilize Chance";
+            public const string PoisonCriticalChance = "Poison Critical Chance";
+            public const string PoisonSpread = "Poison Spread";
         }
 
         public class TowerNames

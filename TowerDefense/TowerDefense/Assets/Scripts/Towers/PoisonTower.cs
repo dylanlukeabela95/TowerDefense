@@ -12,6 +12,7 @@ public class PoisonTower : Tower
     public int PoisonDamageOverTime;
     public float PoisonDuration;
     public float PoisonTickRate;
+    public bool PoisonSpread;
 
     // Start is called before the first frame update
     protected override void Start()

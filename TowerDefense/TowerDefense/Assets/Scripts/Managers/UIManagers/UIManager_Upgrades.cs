@@ -2,6 +2,7 @@ using Strings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -739,7 +740,26 @@ public class UIManager_Upgrades : MonoBehaviour
                     currentTower.GetComponent<FreezeTower>().AddStat("Immobilize Chance");
                 }
                 break;
-
+            case StringsDatabase.Stats.PoisonDamageOverTime:
+                currentTower.GetComponent<PoisonTower>().PoisonDamageOverTime += (int)upgradeCollection[key];
+                break;
+            case StringsDatabase.Stats.PoisonDuration:
+                currentTower.GetComponent<PoisonTower>().PoisonDuration += (int)upgradeCollection[key];
+                break;
+            case StringsDatabase.Stats.PoisonTickRate:
+                currentTower.GetComponent<PoisonTower>().PoisonTickRate -= (int)upgradeCollection[key];
+                break;
+            case StringsDatabase.Stats.PoisonCriticalChance:
+                ReferencesManager.GameManager.PoisonCriticalChance += (int)upgradeCollection[key];
+                
+                if(ReferencesManager.GameManager.PoisonCriticalChance > 0 && !ReferencesManager.StatsManager.PoisonTowerStats.Contains("Poison Critical Chance"))
+                {
+                    ReferencesManager.StatsManager.AddToList(ReferencesManager.StatsManager.PoisonTowerStats, StringsDatabase.Stats_Display.PoisonCriticalChance);
+                }
+                break;
+            case StringsDatabase.Stats.PoisonSpread:
+                currentTower.GetComponent<PoisonTower>().PoisonSpread = (bool)upgradeCollection[key];
+                break;
         }
 
         if (hasOtherNodes)
@@ -1115,7 +1135,179 @@ public class UIManager_Upgrades : MonoBehaviour
 
     public void PoisonUpgrades(string[] nodeSplit, GameObject currentTower, GameObject node, GameObject adjacentNode1, GameObject adjacentNode2, List<GameObject> otherNodes)
     {
+        Dictionary<string, object> poisonTowerDamageOverTimeDictionary = new Dictionary<string, object>();
+        Dictionary<string, object> poisonTowerDurationDictionary = new Dictionary<string, object>();
+        Dictionary<string, object> poisonTowerRangeDictionary = new Dictionary<string, object>();
+        Dictionary<string, object> poisonTowerDamageDictionary = new Dictionary<string, object>();
+        Dictionary<string, object> poisonTowerFireRateDictionary = new Dictionary<string, object>();
+        Dictionary<string, object> poisonTowerTickRateDictionary = new Dictionary<string, object>();
+        Dictionary<string, object> poisonTowerPoisonCriticalChanceDictionary = new Dictionary<string, object>();
+        Dictionary<string, object> poisonTowerSpreadDictionary = new Dictionary<string, object>();
 
+        switch (nodeSplit[1])
+        {
+            case "Level1":
+                poisonTowerDamageOverTimeDictionary = ReferencesManager.UpgradesManager.PoisonTowerDamageOverTime.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                AlterStat(StringsDatabase.Stats.PoisonDamageOverTime, currentTower, node, poisonTowerDamageOverTimeDictionary, "Level1");
+                break;
+            case "Level2":
+                switch (nodeSplit[2])
+                {
+                    case "PoisonDamageOverTime":
+                        poisonTowerDamageOverTimeDictionary = ReferencesManager.UpgradesManager.PoisonTowerDamageOverTime.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        adjacentNode1 = PoisonTowerLeftBranch.Find(a => a.name.Contains("Level2"));
+                        adjacentNode2 = PoisonTowerRightBranch.Find(a => a.name.Contains("Level2"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1, adjacentNode2 };
+
+                        AlterStat(StringsDatabase.Stats.PoisonDamageOverTime, currentTower, node, poisonTowerDamageOverTimeDictionary, "Level2", true, otherNodes);
+                        break;
+                    case "PoisonDuration":
+                        poisonTowerDurationDictionary = ReferencesManager.UpgradesManager.PoisonTowerDuration.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        adjacentNode1 = PoisonTowerMiddleBranch.Find(a => a.name.Contains("Level2"));
+                        adjacentNode2 = PoisonTowerRightBranch.Find(a => a.name.Contains("Level2"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1, adjacentNode2 };
+
+                        AlterStat(StringsDatabase.Stats.PoisonDuration, currentTower, node, poisonTowerDurationDictionary, "Level2", true, otherNodes);
+                        break;
+                    case "Range":
+                        poisonTowerRangeDictionary = ReferencesManager.UpgradesManager.PoisonTowerRange.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        adjacentNode1 = PoisonTowerLeftBranch.Find(a => a.name.Contains("Level2"));
+                        adjacentNode2 = PoisonTowerMiddleBranch.Find(a => a.name.Contains("Level2"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1, adjacentNode2 };
+
+                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, poisonTowerRangeDictionary, "Level2", true, otherNodes);
+                        break;
+                }
+                break;
+            case "Level3.1":
+                switch(nodeSplit[2])
+                {
+                    case "Damage":
+                        poisonTowerDamageDictionary = ReferencesManager.UpgradesManager.PoisonTowerDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        adjacentNode1 = PoisonTowerMiddleBranch.Find(a => a.name.Contains("Level3.2"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.Damage, currentTower, node, poisonTowerDamageDictionary, "Level3.1", true, otherNodes);
+                        break;
+                    case "PoisonDuration":
+                        poisonTowerDurationDictionary = ReferencesManager.UpgradesManager.PoisonTowerDuration.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        adjacentNode1 = PoisonTowerLeftBranch.Find(a => a.name.Contains("Level3.2"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.PoisonDuration, currentTower, node, poisonTowerDurationDictionary, "Level3.1", true, otherNodes);
+                        break;
+                    case "FireRate":
+                        poisonTowerFireRateDictionary = ReferencesManager.UpgradesManager.PoisonTowerFireRate.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        adjacentNode1 = PoisonTowerRightBranch.Find(a => a.name.Contains("Level3.2"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.FireRate, currentTower, node, poisonTowerFireRateDictionary, "Level3.1", true, otherNodes);
+                        break;
+                }
+                break;
+            case "Level3.2":
+                switch (nodeSplit[2])
+                {
+                    case "PoisonDamageOverTime":
+                        poisonTowerDamageOverTimeDictionary = ReferencesManager.UpgradesManager.PoisonTowerDamageOverTime.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        adjacentNode1 = PoisonTowerMiddleBranch.Find(a => a.name.Contains("Level3.1"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.PoisonDamageOverTime, currentTower, node, poisonTowerDamageOverTimeDictionary, "Level3.2", true, otherNodes);
+                        break;
+                    case "PoisonTickRate":
+                        poisonTowerTickRateDictionary = ReferencesManager.UpgradesManager.PoisonTowerTickRate.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        adjacentNode1 = PoisonTowerLeftBranch.Find(a => a.name.Contains("Level3.1"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.PoisonTickRate, currentTower, node, poisonTowerTickRateDictionary, "Level3.2", true, otherNodes);
+                        break;
+                    case "Range":
+                        poisonTowerRangeDictionary = ReferencesManager.UpgradesManager.PoisonTowerRange.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        adjacentNode1 = PoisonTowerRightBranch.Find(a => a.name.Contains("Level3.1"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, poisonTowerRangeDictionary, "Level3.2", true, otherNodes);
+                        break;
+                }
+                break;
+            case "Level4":
+                switch(nodeSplit[2])
+                {
+                    case "PoisonDuration":
+                        poisonTowerDurationDictionary = ReferencesManager.UpgradesManager.PoisonTowerDuration.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        AlterStat(StringsDatabase.Stats.PoisonDuration, currentTower, node, poisonTowerDurationDictionary, "Level4");
+                        break;
+                    case "FireRate":
+                        poisonTowerRangeDictionary = ReferencesManager.UpgradesManager.PoisonTowerRange.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, poisonTowerRangeDictionary, "Level4");
+                        break;
+                }
+                break;
+            case "Level4.1":
+                switch(nodeSplit[2])
+                {
+                    case "Damage":
+                        poisonTowerDamageDictionary = ReferencesManager.UpgradesManager.PoisonTowerDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        adjacentNode1 = PoisonTowerMiddleBranch.Find(a => a.name.Contains("Level4.2"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.Damage, currentTower, node, poisonTowerDamageDictionary, "Level4.1", true, otherNodes);
+                        break;
+                }
+                break;
+            case "Level4.2":
+                switch (nodeSplit[2])
+                {
+                    case "PoisonTickRate":
+                        poisonTowerTickRateDictionary = ReferencesManager.UpgradesManager.PoisonTowerTickRate.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        adjacentNode1 = PoisonTowerMiddleBranch.Find(a => a.name.Contains("Level4.1"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.PoisonTickRate, currentTower, node, poisonTowerTickRateDictionary, "Level4.2", true, otherNodes);
+                        break;
+                }
+                break;
+            case "Level5":
+                switch(nodeSplit[2])
+                {
+                    case "PoisonDOTCrit":
+                        poisonTowerPoisonCriticalChanceDictionary = ReferencesManager.UpgradesManager.PoisonTowerPoisonCriticalChance.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        AlterStat(StringsDatabase.Stats.PoisonCriticalChance, currentTower, node, poisonTowerPoisonCriticalChanceDictionary, "Level5");
+                        break;
+                    case "PoisonDuration":
+                        poisonTowerDurationDictionary = ReferencesManager.UpgradesManager.PoisonTowerDuration.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        AlterStat(StringsDatabase.Stats.PoisonDuration, currentTower, node, poisonTowerDurationDictionary, "Level5");
+                        break;
+                    case "PoisonSpread":
+                        poisonTowerSpreadDictionary = ReferencesManager.UpgradesManager.PoisonTowerSplashPoison.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        AlterStat(StringsDatabase.Stats.PoisonSpread, currentTower, node, poisonTowerSpreadDictionary, "Level5");
+                        break;
+                }
+                break;
+        }
     }
 
     public void BombUpgrades(string[] nodeSplit, GameObject currentTower, GameObject node, GameObject adjacentNode1, GameObject adjacentNode2, List<GameObject> otherNodes)
@@ -1390,6 +1582,13 @@ public class UIManager_Upgrades : MonoBehaviour
 
                 statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
                 break;
+            case StringsDatabase.Stats_Display.PoisonDamageOverTime:
+                oldStat = (int)currentTower.GetComponent<PoisonTower>().PoisonDamageOverTime;
+                newStat = (int)((currentTower.GetComponent<PoisonTower>().PoisonDamageOverTime + (int)upgradesManager.PoisonTowerDamageOverTime[level]));
+                statName = StringsDatabase.Stats_Display.PoisonDamageOverTime;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
         }
 
         return statsComparison;
@@ -1473,6 +1672,8 @@ public class UIManager_Upgrades : MonoBehaviour
                 return StringsDatabase.Stats.Icicle;
             case StringsDatabase.Stats.Immobilize:
                 return StringsDatabase.Stats_Display.ImmobilizeChance;
+            case StringsDatabase.Stats.PoisonDamageOverTime:
+                return StringsDatabase.Stats_Display.PoisonDamageOverTime;
             default:
                 return string.Empty;
         }

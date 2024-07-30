@@ -9,5 +9,13 @@ public class StatsManager : MonoBehaviour
     public List<string> PoisonTowerStats = new List<string>() { "Damage", "Fire Rate", "Range", "Poison Damage Over Time", "Poison Duration" , "Poison Tick Rate"};
     public List<string> BombTowerStats = new List<string>() { "Damage", "Fire Rate", "Range", "Splash Damage", "Splash Radius" };
 
-    
+    public void AddToList(List<string> statsList, string newStat)
+    {
+        statsList.Add(newStat);
+    }
+
+    public void RemoveFromList(List<string> statsList, string statToBeRemoved)
+    {
+        statsList.Remove(statToBeRemoved);
+    }
 }

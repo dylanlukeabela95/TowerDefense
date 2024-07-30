@@ -330,6 +330,7 @@ public class UIManager_Stat : MonoBehaviour
             case StringsDatabase.Stats.Damage:
                 return currentTower.GetComponent<Tower>().Damage.ToString();
             case StringsDatabase.Stats.FireRate:
+            case StringsDatabase.Stats_Display.FireRate:
                 return ((1 * 1.0f) / currentTower.GetComponent<Tower>().FireRate).ToString("F2") + " / s";
             case StringsDatabase.Stats.Range:
                 if(currentTower.GetComponent<Tower>().Range >= 100)
@@ -338,41 +339,62 @@ public class UIManager_Stat : MonoBehaviour
                 }
                 return currentTower.GetComponent<Tower>().Range.ToString() + " m";
             case StringsDatabase.Stats.IceDamage:
+            case StringsDatabase.Stats_Display.IceDamage:
                 return currentTower.GetComponent<FreezeTower>().IceDamage.ToString();
             case StringsDatabase.Stats.SlowDuration:
+            case StringsDatabase.Stats_Display.SlowDuration:
                 return currentTower.GetComponent<FreezeTower>().SlowDuration.ToString() + " s";
             case StringsDatabase.Stats.SlowEffect:
+            case StringsDatabase.Stats_Display.SlowEffect:
                 return currentTower.GetComponent <FreezeTower>().SlowEffect.ToString() + " %";
             case StringsDatabase.Stats.PoisonDamageOverTime:
+            case StringsDatabase.Stats_Display.PoisonDamageOverTime:
                 return currentTower.GetComponent<PoisonTower>().PoisonDamageOverTime.ToString();
             case StringsDatabase.Stats.PoisonDuration:
+            case StringsDatabase.Stats_Display.PoisonDuration:
                 return currentTower.GetComponent<PoisonTower>().PoisonDuration.ToString() + " s";
             case StringsDatabase.Stats.PoisonTickRate:
-                return currentTower.GetComponent<PoisonTower>().PoisonTickRate.ToString() + " / s";
+            case StringsDatabase.Stats_Display.PoisonTickRate:
+                return (1 * 1.0f / currentTower.GetComponent<PoisonTower>().PoisonTickRate).ToString() + " / s";
             case StringsDatabase.Stats.SplashDamage:
+            case StringsDatabase.Stats_Display.SplashDamage:
                 return currentTower.GetComponent<BombTower>().SplashDamage.ToString();
             case StringsDatabase.Stats.SplashRadius:
+            case StringsDatabase.Stats_Display.SplashRadius:
                 return currentTower.GetComponent<BombTower>().SplashRadius.ToString() + " m";
             case StringsDatabase.Stats.ProjectileCount:
+            case StringsDatabase.Stats_Display.ProjectileCount:
                 return currentTower.GetComponent<DamageTower>().ProjectileCount.ToString();
             case StringsDatabase.Stats.TwoRoundBurstChance:
+            case StringsDatabase.Stats_Display.TwoRoundBurstChance:
                 return currentTower.GetComponent<DamageTower>().TwoRoundBurstChance.ToString() + " %";
             case StringsDatabase.Stats.ThreeRoundBurstChance:
+            case StringsDatabase.Stats_Display.ThreeRoundBurstChance:
                 return currentTower.GetComponent<DamageTower>().ThreeRoundBurstChance.ToString() + " %";
             case StringsDatabase.Stats.CriticalChance:
+            case StringsDatabase.Stats_Display.CriticalChance:
                 return currentTower.GetComponent<DamageTower>().CriticalChance.ToString() + " %";
             case StringsDatabase.Stats.CriticalDamage:
+            case StringsDatabase.Stats_Display.CriticalDamage:
                 return (currentTower.GetComponent<DamageTower>().Damage * 2).ToString();
             case StringsDatabase.Stats.FrostbiteDamage:
+            case StringsDatabase.Stats_Display.FrostbiteDamage:
                 return ((currentTower.GetComponent<FreezeTower>().IceDamage * 1.0f) / 2).ToString();
             case StringsDatabase.Stats.FrostbiteTickRate:
-                return currentTower.GetComponent<FreezeTower>().FrostbiteTickRate.ToString() + " / s";
+            case StringsDatabase.Stats_Display.FrostbiteTickRate:
+                return (1 * 1.0f / currentTower.GetComponent<FreezeTower>().FrostbiteTickRate).ToString() + " / s";
             case StringsDatabase.Stats.IcicleChance:
+            case StringsDatabase.Stats_Display.IcicleChance:
                 return currentTower.GetComponent<FreezeTower>().IcicleChance.ToString() + " %";
             case StringsDatabase.Stats.IcicleDanage:
+            case StringsDatabase.Stats_Display.IcicleDanage:
                 return currentTower.GetComponent<FreezeTower>().IcicleDamage.ToString();
-            case StringsDatabase.Stats.Immobilize:
+            case StringsDatabase.Stats.ImmobilizeChance:
+            case StringsDatabase.Stats_Display.ImmobilizeChance:
                 return currentTower.GetComponent<FreezeTower>().ImmobilizeChance.ToString() + " %";
+            case StringsDatabase.Stats.PoisonCriticalChance:
+            case StringsDatabase.Stats_Display.PoisonCriticalChance:
+                return ReferencesManager.GameManager.PoisonCriticalChance.ToString() + " %";
             default:
                 return string.Empty;
         }
