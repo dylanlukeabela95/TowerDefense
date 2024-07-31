@@ -484,9 +484,13 @@ public class UIManager_Upgrades : MonoBehaviour
 
                             var node = PoisonTowerNodes.Find(a => a.name == selectedNode);
 
-                            if (node.name == "PoisonTower_Level3.1_Damage" || node.name == "PoisonTower_Level3.2_PoisonDamageOverTime")
+                            if (node.name == "PoisonTower_Level3.1_Damage")
                             {
-                                nextNodes = PoisonTowerMiddleBranch.Where(a => a.name.Contains("Level4")).ToList();
+                                nextNodes = PoisonTowerMiddleBranch.Where(a => a.name.Contains("Level4.1")).ToList();
+                            }
+                            else if(node.name == "PoisonTower_Level3.2_PoisonDamageOverTime")
+                            {
+                                nextNodes = PoisonTowerMiddleBranch.Where(a => a.name.Contains("Level4.2")).ToList();
                             }
                             else if (node.name == "PoisonTower_Level3.1_PoisonDuration" || node.name == "PoisonTower_Level3.2_PoisonTickRate")
                             {
@@ -744,10 +748,10 @@ public class UIManager_Upgrades : MonoBehaviour
                 currentTower.GetComponent<PoisonTower>().PoisonDamageOverTime += (int)upgradeCollection[key];
                 break;
             case StringsDatabase.Stats.PoisonDuration:
-                currentTower.GetComponent<PoisonTower>().PoisonDuration += (int)upgradeCollection[key];
+                currentTower.GetComponent<PoisonTower>().PoisonDuration += (float)upgradeCollection[key];
                 break;
             case StringsDatabase.Stats.PoisonTickRate:
-                currentTower.GetComponent<PoisonTower>().PoisonTickRate -= (int)upgradeCollection[key];
+                currentTower.GetComponent<PoisonTower>().PoisonTickRate -= (float)upgradeCollection[key];
                 break;
             case StringsDatabase.Stats.PoisonCriticalChance:
                 ReferencesManager.GameManager.PoisonCriticalChance += (int)upgradeCollection[key];
@@ -1321,7 +1325,10 @@ public class UIManager_Upgrades : MonoBehaviour
 
         StatComparison statComparison = new StatComparison();
 
-        if (statName == StringsDatabase.Stats_Display.FireRate)
+        if (
+                statName == StringsDatabase.Stats_Display.FireRate ||
+                statName == StringsDatabase.Stats_Display.PoisonTickRate
+           )
         {
             oldStat = Convert.ToDouble(oldTowerStat).ToString("F2");
             newStat = Convert.ToDouble(newTowerStat).ToString("F2");
@@ -1589,6 +1596,27 @@ public class UIManager_Upgrades : MonoBehaviour
 
                 statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
                 break;
+            case StringsDatabase.Stats_Display.PoisonDuration:
+                oldStat = (float)currentTower.GetComponent<PoisonTower>().PoisonDuration;
+                newStat = (float)((currentTower.GetComponent<PoisonTower>().PoisonDuration + (float)upgradesManager.PoisonTowerDuration[level]));
+                statName = StringsDatabase.Stats_Display.PoisonDuration;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+            case StringsDatabase.Stats_Display.PoisonTickRate:
+                oldStat = (1 * 1.0f) / (float)currentTower.GetComponent<PoisonTower>().PoisonTickRate;
+                newStat = (1 * 1.0f) / (float)((currentTower.GetComponent<PoisonTower>().PoisonTickRate - (float)upgradesManager.PoisonTowerTickRate[level]));
+                statName = StringsDatabase.Stats_Display.PoisonTickRate;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+            case StringsDatabase.Stats_Display.PoisonCriticalChance:
+                oldStat = ReferencesManager.GameManager.PoisonCriticalChance;
+                newStat = ReferencesManager.GameManager.PoisonCriticalChance + (int)upgradesManager.PoisonTowerPoisonCriticalChance[level];
+                statName = StringsDatabase.Stats_Display.PoisonCriticalChance;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
         }
 
         return statsComparison;
@@ -1674,6 +1702,12 @@ public class UIManager_Upgrades : MonoBehaviour
                 return StringsDatabase.Stats_Display.ImmobilizeChance;
             case StringsDatabase.Stats.PoisonDamageOverTime:
                 return StringsDatabase.Stats_Display.PoisonDamageOverTime;
+            case StringsDatabase.Stats.PoisonDuration:
+                return StringsDatabase.Stats_Display.PoisonDuration;
+            case StringsDatabase.Stats.PoisonTickRate:
+                return StringsDatabase.Stats_Display.PoisonTickRate;
+            case "PoisonDOTCrit":
+                return StringsDatabase.Stats_Display.PoisonCriticalChance;
             default:
                 return string.Empty;
         }

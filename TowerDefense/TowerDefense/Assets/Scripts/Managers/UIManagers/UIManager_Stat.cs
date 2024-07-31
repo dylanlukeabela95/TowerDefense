@@ -355,7 +355,7 @@ public class UIManager_Stat : MonoBehaviour
                 return currentTower.GetComponent<PoisonTower>().PoisonDuration.ToString() + " s";
             case StringsDatabase.Stats.PoisonTickRate:
             case StringsDatabase.Stats_Display.PoisonTickRate:
-                return (1 * 1.0f / currentTower.GetComponent<PoisonTower>().PoisonTickRate).ToString() + " / s";
+                return (1 * 1.0f / currentTower.GetComponent<PoisonTower>().PoisonTickRate).ToString("F2") + " / s";
             case StringsDatabase.Stats.SplashDamage:
             case StringsDatabase.Stats_Display.SplashDamage:
                 return currentTower.GetComponent<BombTower>().SplashDamage.ToString();

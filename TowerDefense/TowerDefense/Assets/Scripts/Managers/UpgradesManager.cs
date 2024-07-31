@@ -179,7 +179,7 @@ public class UpgradesManager : MonoBehaviour
         PoisonTowerDuration.Add("Level2", 1);
 
         PoisonTowerDuration.Add("Level3.1", 1);
-        PoisonTowerTickRate.Add("Level3.2", 0.5f);
+        PoisonTowerTickRate.Add("Level3.2", 0.3f);
 
         PoisonTowerDuration.Add("Level4", 1);
 
@@ -194,7 +194,7 @@ public class UpgradesManager : MonoBehaviour
         PoisonTowerDamageOverTime.Add("Level3.2", 2);
 
         PoisonTowerDamage.Add("Level4.1", 5);
-        PoisonTowerTickRate.Add("Level4.2", 1);
+        PoisonTowerTickRate.Add("Level4.2", 0.3f);
 
         PoisonTowerPoisonCriticalChance.Add("Level5", 10); //10% for poison damage to crit
     }
