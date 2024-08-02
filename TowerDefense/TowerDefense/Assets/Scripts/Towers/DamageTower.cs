@@ -11,11 +11,8 @@ public class DamageTower : Tower
     public int TwoRoundBurstChance = 0;
     public int ThreeRoundBurstChance = 0;
 
-    public List<string> Stats;
-
     void Awake()
     {
-        Stats = new List<string>();
     }
 
     // Start is called before the first frame update
@@ -23,10 +20,7 @@ public class DamageTower : Tower
     {
         base.Start();
         AssignStats(TowerEnum.DamageTower);
-        foreach (var item in ReferencesManager.StatsManager.DamageTowerStats)
-        {
-            Stats.Add(item);
-        }
+        SetStats(ReferencesManager.StatsManager.DamageTowerStats);
 
         TowerEnum = TowerEnum.DamageTower;
 

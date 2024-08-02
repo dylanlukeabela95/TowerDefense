@@ -7,12 +7,12 @@ public class PoisonTower : Tower
 {
     public GameObject projectilePoison;
 
-    public List<string> Stats = new List<string>();
-
     public int PoisonDamageOverTime;
     public float PoisonDuration;
     public float PoisonTickRate;
+    
     public bool PoisonSpread;
+    public float PoisonSpreadRadius;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -20,10 +20,7 @@ public class PoisonTower : Tower
         base.Start();
         AssignStats(TowerEnum.PoisonTower);
         AssignStats();
-        foreach (var item in ReferencesManager.StatsManager.PoisonTowerStats)
-        {
-            Stats.Add(item);
-        }
+        SetStats(ReferencesManager.StatsManager.PoisonTowerStats);
 
         TowerEnum = TowerEnum.PoisonTower;
 

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     public int coins;
 
-    public List<GameObject> allTowers = new List<GameObject>();
+    public List<GameObject> AllTowers = new List<GameObject>();
     public GameObject currentTower;
 
     public int PoisonCriticalChance = 0;
@@ -60,12 +60,12 @@ public class GameManager : MonoBehaviour
 
     public void AddTowerToList(GameObject tower)
     {
-        allTowers.Add(tower);
+        AllTowers.Add(tower);
     }
 
     public void RemoveTowerFromList(GameObject tower)
     {
-        allTowers.Remove(tower);
+        AllTowers.Remove(tower);
     }
 
     public void ReduceCoins(int cost)

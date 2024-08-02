@@ -14,6 +14,7 @@ public class Tower : MonoBehaviour
 
     public int UpgradeLevel = 0;
     public List<string> UpgradeNames = new List<string>();
+    public List<string> Stats = new List<string>();
 
     public TowerEnum TowerEnum;
 
@@ -98,6 +99,14 @@ public class Tower : MonoBehaviour
         var isRight = this.gameObject.transform.position.x >= 4.2f ? true : false;
 
         return isRight;
+    }
+
+    public void SetStats(List<string> statsManagerStats)
+    {
+        foreach (var item in statsManagerStats)
+        {
+            Stats.Add(item);
+        }
     }
 
     public IEnumerator Shoot(GameObject projectile, int damage)

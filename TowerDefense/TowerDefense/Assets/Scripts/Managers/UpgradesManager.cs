@@ -28,7 +28,8 @@ public class UpgradesManager : MonoBehaviour
     public Dictionary<string, float> PoisonTowerDuration = new Dictionary<string, float>();
     public Dictionary<string, float> PoisonTowerTickRate = new Dictionary<string, float>();
     public Dictionary<string, int> PoisonTowerPoisonCriticalChance = new Dictionary<string, int>();
-    public Dictionary<string, bool> PoisonTowerSplashPoison = new Dictionary<string, bool>();
+    public Dictionary<string, bool> PoisonTowerPoisonSpread = new Dictionary<string, bool>();
+    public Dictionary<string, float> PoisonTowerPoisonSpreadRadius = new Dictionary<string, float>();
 
     public Dictionary<string, int> BombTowerDamage = new Dictionary<string, int>();
     public Dictionary<string, float> BombTowerFireRate = new Dictionary<string, float>();
@@ -208,7 +209,8 @@ public class UpgradesManager : MonoBehaviour
 
         PoisonTowerRange.Add("Level4", 1);
 
-        PoisonTowerSplashPoison.Add("Level5", true);
+        PoisonTowerPoisonSpread.Add("Level5", true);
+        PoisonTowerPoisonSpreadRadius.Add("Level5", 4);
     }
 
     public void BombFirst()

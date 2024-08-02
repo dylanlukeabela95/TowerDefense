@@ -7,8 +7,6 @@ public class FreezeTower : Tower
 {
     public GameObject projectileFreeze;
 
-    public List<string> Stats = new List<string>();
-
     public int IceDamage;
     public float SlowDuration;
     public float SlowEffect;
@@ -30,10 +28,7 @@ public class FreezeTower : Tower
         base.Start();
         AssignStats(TowerEnum.FreezeTower);
         AssignStats();
-        foreach (var item in ReferencesManager.StatsManager.FreezeTowerStats)
-        {
-            Stats.Add(item);
-        }
+        SetStats(ReferencesManager.StatsManager.FreezeTowerStats);
 
         TowerEnum = TowerEnum.FreezeTower;
 

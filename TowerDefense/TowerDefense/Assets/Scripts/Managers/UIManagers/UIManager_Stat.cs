@@ -392,9 +392,14 @@ public class UIManager_Stat : MonoBehaviour
             case StringsDatabase.Stats.ImmobilizeChance:
             case StringsDatabase.Stats_Display.ImmobilizeChance:
                 return currentTower.GetComponent<FreezeTower>().ImmobilizeChance.ToString() + " %";
-            case StringsDatabase.Stats.PoisonCriticalChance:
+            case StringsDatabase.Stats.PoisonCriticalDamage:
+            case StringsDatabase.Stats_Display.PoisonCriticalDamage:
+                return (currentTower.GetComponent<PoisonTower>().PoisonDamageOverTime * 2).ToString();
             case StringsDatabase.Stats_Display.PoisonCriticalChance:
                 return ReferencesManager.GameManager.PoisonCriticalChance.ToString() + " %";
+            case StringsDatabase.Stats.PoisonSpread:
+            case StringsDatabase.Stats_Display.PoisonSpreadRadius:
+                return currentTower.GetComponent<PoisonTower>().PoisonSpreadRadius.ToString() + " m";
             default:
                 return string.Empty;
         }
@@ -443,7 +448,7 @@ public class UIManager_Stat : MonoBehaviour
         
         if (towerName.Contains("DamageTower"))
         {
-            ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.GameManager.currentTower.GetComponent<DamageTower>().GetStats(), TowerEnum.DamageTower, isRight);
+            ReferencesManager.UIManager_Stat.Pagination(ReferencesManager.GameManager.currentTower.GetComponent<DamageTower>().Stats, TowerEnum.DamageTower, isRight);
         }
         else if (towerName.Contains("FreezeTower"))
         {

@@ -48,6 +48,10 @@ namespace Strings
         public class Towers
         {
             public const string RangeIndicator = "RangeIndicator";
+            public const string DamageTower = "DamageTower";
+            public const string FreezeTower = "FreezeTower";
+            public const string PoisonTower = "PoisonTower";
+            public const string BombTower = "BombTower";
         }
 
         public class Stats
@@ -78,6 +82,7 @@ namespace Strings
             public const string Immobilize = "Immobilize";
             public const string ImmobilizeChance = "ImmobilizeChance";
             public const string PoisonCriticalChance = "PoisonCriticalChance";
+            public const string PoisonCriticalDamage = "PoisonCriticalDamage";
             public const string PoisonSpread = "PoisonSpread";
         }
 
@@ -107,7 +112,8 @@ namespace Strings
             public const string IcicleChance = "Icicle Chance";
             public const string ImmobilizeChance = "Immobilize Chance";
             public const string PoisonCriticalChance = "Poison Critical Chance";
-            public const string PoisonSpread = "Poison Spread";
+            public const string PoisonCriticalDamage = "Poison Critical Damage";
+            public const string PoisonSpreadRadius = "Poison Spread Radius";
         }
 
         public class TowerNames

@@ -7,8 +7,6 @@ public class BombTower : Tower
 {
     public GameObject projectileBomb;
 
-    public List<string> Stats = new List<string>();
-
     public int SplashDamage;
     public float SplashRadius;
 
@@ -18,10 +16,7 @@ public class BombTower : Tower
         base.Start();
         AssignStats(TowerEnum.BombTower);
         AssignStats();
-        foreach (var item in ReferencesManager.StatsManager.BombTowerStats)
-        {
-            Stats.Add(item);
-        }
+        SetStats(ReferencesManager.StatsManager.BombTowerStats);
 
         TowerEnum = TowerEnum.BombTower;
 

@@ -756,13 +756,27 @@ public class UIManager_Upgrades : MonoBehaviour
             case StringsDatabase.Stats.PoisonCriticalChance:
                 ReferencesManager.GameManager.PoisonCriticalChance += (int)upgradeCollection[key];
                 
-                if(ReferencesManager.GameManager.PoisonCriticalChance > 0 && !ReferencesManager.StatsManager.PoisonTowerStats.Contains("Poison Critical Chance"))
+                if(ReferencesManager.GameManager.PoisonCriticalChance > 0 && !ReferencesManager.StatsManager.PoisonTowerStats.Contains(StringsDatabase.Stats_Display.PoisonCriticalChance))
                 {
                     ReferencesManager.StatsManager.AddToList(ReferencesManager.StatsManager.PoisonTowerStats, StringsDatabase.Stats_Display.PoisonCriticalChance);
+                    ReferencesManager.StatsManager.AddToList(ReferencesManager.StatsManager.PoisonTowerStats, StringsDatabase.Stats_Display.PoisonCriticalDamage);
+
+                    var poisonTowers = ReferencesManager.GameManager.AllTowers.Where(a => a.name.Contains("PoisonTower"));
+                    foreach(var poisonTower in poisonTowers)
+                    {
+                        poisonTower.GetComponent<PoisonTower>().Stats.Add(StringsDatabase.Stats_Display.PoisonCriticalChance);
+                        poisonTower.GetComponent<PoisonTower>().Stats.Add(StringsDatabase.Stats_Display.PoisonCriticalDamage);
+                    }
                 }
                 break;
             case StringsDatabase.Stats.PoisonSpread:
-                currentTower.GetComponent<PoisonTower>().PoisonSpread = (bool)upgradeCollection[key];
+                currentTower.GetComponent<PoisonTower>().PoisonSpread = true;
+                currentTower.GetComponent<PoisonTower>().PoisonSpreadRadius = (float)upgradeCollection[key];
+
+                if (!currentTower.GetComponent<PoisonTower>().Stats.Contains(StringsDatabase.Stats_Display.PoisonSpreadRadius))
+                {
+                    currentTower.GetComponent<PoisonTower>().AddStat(StringsDatabase.Stats_Display.PoisonSpreadRadius);
+                }
                 break;
         }
 
@@ -1260,7 +1274,7 @@ public class UIManager_Upgrades : MonoBehaviour
                         poisonTowerDurationDictionary = ReferencesManager.UpgradesManager.PoisonTowerDuration.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
                         AlterStat(StringsDatabase.Stats.PoisonDuration, currentTower, node, poisonTowerDurationDictionary, "Level4");
                         break;
-                    case "FireRate":
+                    case "Range":
                         poisonTowerRangeDictionary = ReferencesManager.UpgradesManager.PoisonTowerRange.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
                         AlterStat(StringsDatabase.Stats.Range, currentTower, node, poisonTowerRangeDictionary, "Level4");
                         break;
@@ -1306,7 +1320,7 @@ public class UIManager_Upgrades : MonoBehaviour
                         AlterStat(StringsDatabase.Stats.PoisonDuration, currentTower, node, poisonTowerDurationDictionary, "Level5");
                         break;
                     case "PoisonSpread":
-                        poisonTowerSpreadDictionary = ReferencesManager.UpgradesManager.PoisonTowerSplashPoison.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        poisonTowerSpreadDictionary = ReferencesManager.UpgradesManager.PoisonTowerPoisonSpreadRadius.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
                         AlterStat(StringsDatabase.Stats.PoisonSpread, currentTower, node, poisonTowerSpreadDictionary, "Level5");
                         break;
                 }
@@ -1357,7 +1371,10 @@ public class UIManager_Upgrades : MonoBehaviour
             statComparison.OldStat += " / s";
             statComparison.NewStat += " / s";
         }
-        else if(statName == StringsDatabase.Stats_Display.Range)
+        else if(
+                    statName == StringsDatabase.Stats_Display.Range ||
+                    statName.Contains("Radius")
+               )
         {
             int range = int.Parse(newStat);
 
@@ -1616,6 +1633,19 @@ public class UIManager_Upgrades : MonoBehaviour
                 statName = StringsDatabase.Stats_Display.PoisonCriticalChance;
 
                 statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+
+                oldStat = 0;
+                newStat = currentTower.GetComponent<PoisonTower>().PoisonDamageOverTime * 2;
+                statName = StringsDatabase.Stats_Display.PoisonCriticalDamage;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+            case StringsDatabase.Stats_Display.PoisonSpreadRadius:
+                oldStat = 0;
+                newStat = 4;
+                statName = StringsDatabase.Stats_Display.PoisonSpreadRadius;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
                 break;
         }
 
@@ -1708,6 +1738,8 @@ public class UIManager_Upgrades : MonoBehaviour
                 return StringsDatabase.Stats_Display.PoisonTickRate;
             case "PoisonDOTCrit":
                 return StringsDatabase.Stats_Display.PoisonCriticalChance;
+            case StringsDatabase.Stats.PoisonSpread:
+                return StringsDatabase.Stats_Display.PoisonSpreadRadius;
             default:
                 return string.Empty;
         }
