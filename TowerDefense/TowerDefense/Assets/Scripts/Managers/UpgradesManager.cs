@@ -40,6 +40,8 @@ public class UpgradesManager : MonoBehaviour
     public Dictionary<string, int> BombTowerRocketChance = new Dictionary<string, int>();
     public Dictionary<string, int> BombTowerDoubleExplosionChance = new Dictionary<string, int>();
 
+    public int RocketDamage = 15;
+
     private void Start()
     {
         AssignUpgrades();

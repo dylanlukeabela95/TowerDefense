@@ -15,7 +15,7 @@ public class StatComparison
     public bool Increased { get; set; }
     public StatComparison()
     {
-        
+
     }
 }
 
@@ -72,7 +72,7 @@ public class UIManager_Upgrades : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();   
+        ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
         UpgradesSection.SetActive(false);
         ShowHideSkillTree(false, false, false, false);
         SideMenu.SetActive(false);
@@ -81,7 +81,7 @@ public class UIManager_Upgrades : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             UpgradesSection.SetActive(false);
             isInSkillTree = false;
@@ -144,7 +144,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
             foreach (var upgradeName in currentTower.GetComponent<Tower>().UpgradeNames)
             {
-                if(upgradeName.Contains("Level1"))
+                if (upgradeName.Contains("Level1"))
                 {
                     GameObject node = null;
                     List<GameObject> nextNodes = new List<GameObject>();
@@ -152,7 +152,7 @@ public class UIManager_Upgrades : MonoBehaviour
                     {
                         case TowerEnum.DamageTower:
                             node = DamageTowerNodes.Find(a => a.name.Contains("Level1"));
-                            if(currentTower.GetComponent<Tower>().UpgradeLevel == 1)
+                            if (currentTower.GetComponent<Tower>().UpgradeLevel == 1)
                             {
                                 nextNodes = DamageTowerNodes.Where(a => a.name.Contains("Level2")).ToList();
                             }
@@ -192,17 +192,17 @@ public class UIManager_Upgrades : MonoBehaviour
                     node.GetComponent<Image>().color = Color.green;
                     node.GetComponent<Button>().enabled = false;
                 }
-                else if(upgradeName.Contains("Level"+count))
+                else if (upgradeName.Contains("Level" + count))
                 {
                     var nodes = new List<GameObject>();
 
-                    switch(currentTower.GetComponent<Tower>().TowerEnum)
+                    switch (currentTower.GetComponent<Tower>().TowerEnum)
                     {
                         case TowerEnum.DamageTower:
-                            nodes = DamageTowerNodes.Where(a => a.name.Contains("Level"+count)).ToList();
+                            nodes = DamageTowerNodes.Where(a => a.name.Contains("Level" + count)).ToList();
                             break;
                         case TowerEnum.FreezeTower:
-                            nodes = FreezeTowerNodes.Where(a => a.name.Contains("Level"+count)).ToList();
+                            nodes = FreezeTowerNodes.Where(a => a.name.Contains("Level" + count)).ToList();
                             break;
                         case TowerEnum.PoisonTower:
                             nodes = PoisonTowerNodes.Where(a => a.name.Contains("Level" + count)).ToList();
@@ -218,9 +218,9 @@ public class UIManager_Upgrades : MonoBehaviour
 
                     if (nodes.Count > 0)
                     {
-                        foreach(var node in nodes)
+                        foreach (var node in nodes)
                         {
-                            if(node.name == upgradeName)
+                            if (node.name == upgradeName)
                             {
                                 node.GetComponent<Image>().color = Color.green;
                             }
@@ -237,10 +237,10 @@ public class UIManager_Upgrades : MonoBehaviour
         }
         else
         {
-            switch(currentTower.GetComponent<Tower>().TowerEnum)
+            switch (currentTower.GetComponent<Tower>().TowerEnum)
             {
                 case TowerEnum.DamageTower:
-                    foreach(var child in DamageTowerNodes)
+                    foreach (var child in DamageTowerNodes)
                     {
                         if (child.name.Contains("Level1"))
                         {
@@ -310,9 +310,9 @@ public class UIManager_Upgrades : MonoBehaviour
         node.GetComponent<Image>().color = Color.green;
         node.GetComponent<Button>().enabled = false;
 
-        if(areThereNodes)
+        if (areThereNodes)
         {
-            foreach(var adjacentNode in otherNodes)
+            foreach (var adjacentNode in otherNodes)
             {
                 adjacentNode.GetComponent<Button>().enabled = false;
                 adjacentNode.GetComponent<Image>().color = Color.gray;
@@ -344,7 +344,7 @@ public class UIManager_Upgrades : MonoBehaviour
                 }
                 break;
             case 2:
-                switch(currentTower.GetComponent<Tower>().TowerEnum)
+                switch (currentTower.GetComponent<Tower>().TowerEnum)
                 {
                     case TowerEnum.DamageTower:
                         if (currentTower.GetComponent<Tower>().UpgradeNames[1].Contains("Level2"))
@@ -353,15 +353,15 @@ public class UIManager_Upgrades : MonoBehaviour
 
                             var node = DamageTowerNodes.Find(a => a.name == selectedNode);
 
-                            if(node.name == "DamageTower_Level2_Damage")
+                            if (node.name == "DamageTower_Level2_Damage")
                             {
                                 nextNodes = DamageTowerMiddleBranch.Where(a => a.name.Contains("Level3")).ToList();
                             }
-                            else if(node.name == "DamageTower_Level2_FireRate")
+                            else if (node.name == "DamageTower_Level2_FireRate")
                             {
                                 nextNodes = DamageTowerLeftBranch.Where(a => a.name.Contains("Level3")).ToList();
                             }
-                            else if(node.name == "DamageTower_Level2_Range")
+                            else if (node.name == "DamageTower_Level2_Range")
                             {
                                 nextNodes = DamageTowerRightBranch.Where(a => a.name.Contains("Level3")).ToList();
                             }
@@ -422,7 +422,7 @@ public class UIManager_Upgrades : MonoBehaviour
                             }
                             else if (node.name == "BombTower_Level2_Damage")
                             {
-                                nextNodes =BombTowerLeftBranch.Where(a => a.name.Contains("Level3")).ToList();
+                                nextNodes = BombTowerLeftBranch.Where(a => a.name.Contains("Level3")).ToList();
                             }
                             else if (node.name == "BombTower_Level2_Range")
                             {
@@ -488,7 +488,7 @@ public class UIManager_Upgrades : MonoBehaviour
                             {
                                 nextNodes = PoisonTowerMiddleBranch.Where(a => a.name.Contains("Level4.1")).ToList();
                             }
-                            else if(node.name == "PoisonTower_Level3.2_PoisonDamageOverTime")
+                            else if (node.name == "PoisonTower_Level3.2_PoisonDamageOverTime")
                             {
                                 nextNodes = PoisonTowerMiddleBranch.Where(a => a.name.Contains("Level4.2")).ToList();
                             }
@@ -509,17 +509,25 @@ public class UIManager_Upgrades : MonoBehaviour
 
                             var node = BombTowerNodes.Find(a => a.name == selectedNode);
 
-                            if (node.name == "BombTower_Level3.1_DoubleExplosionChance" || node.name == "BombTower_Level3.2_SplashDamage")
+                            if (node.name == "BombTower_Level3.1_DoubleExplosionChance")
                             {
-                                nextNodes = BombTowerMiddleBranch.Where(a => a.name.Contains("Level4")).ToList();
+                                nextNodes = BombTowerMiddleBranch.Where(a => a.name.Contains("Level4.1")).ToList();
+                            }
+                            else if (node.name == "BombTower_Level3.2_SplashDamage")
+                            {
+                                nextNodes = BombTowerMiddleBranch.Where(a => a.name.Contains("Level4.2")).ToList();
                             }
                             else if (node.name == "BombTower_Level3.1_Damage" || node.name == "BombTower_Level3.2_FireRate")
                             {
                                 nextNodes = BombTowerLeftBranch.Where(a => a.name.Contains("Level4")).ToList();
                             }
-                            else if (node.name == "BombTower_Level3.1_SplashRadius" || node.name == "BombTower_Level3.2_Range")
+                            else if (node.name == "BombTower_Level3.1_SplashRadius")
                             {
-                                nextNodes = BombTowerRightBranch.Where(a => a.name.Contains("Level4")).ToList();
+                                nextNodes = BombTowerRightBranch.Where(a => a.name.Contains("Level4.1")).ToList();
+                            }
+                            else if (node.name == "BombTower_Level3.2_Range")
+                            {
+                                nextNodes = BombTowerRightBranch.Where(a => a.name.Contains("Level4.2")).ToList();
                             }
                         }
                         break;
@@ -634,11 +642,11 @@ public class UIManager_Upgrades : MonoBehaviour
         {
             return FreezeTowerSkillTree;
         }
-        else if(currentTower.GetComponent<PoisonTower>())
+        else if (currentTower.GetComponent<PoisonTower>())
         {
-             return PoisonTowerSkillTree;
+            return PoisonTowerSkillTree;
         }
-        else if(currentTower.GetComponent<BombTower>())
+        else if (currentTower.GetComponent<BombTower>())
         {
             return BombTowerSkillTree;
         }
@@ -648,7 +656,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
     void AlterStat(string stat, GameObject currentTower, GameObject node, Dictionary<string, object> upgradeCollection, string key, bool hasOtherNodes = false, List<GameObject> otherNodes = null)
     {
-        switch(stat)
+        switch (stat)
         {
             case StringsDatabase.Stats.Damage:
                 currentTower.GetComponent<Tower>().Damage += (int)upgradeCollection[key];
@@ -664,7 +672,7 @@ public class UIManager_Upgrades : MonoBehaviour
                 currentTower.GetComponent<DamageTower>().ProjectileCount += (int)upgradeCollection[key];
 
                 if (!currentTower.GetComponent<DamageTower>().Stats.Contains("Projectile Count"))
-                { 
+                {
                     currentTower.GetComponent<DamageTower>().AddStat("Projectile Count");
                 }
                 break;
@@ -678,7 +686,7 @@ public class UIManager_Upgrades : MonoBehaviour
                 break;
             case StringsDatabase.Stats.ThreeRoundBurstChance:
                 currentTower.GetComponent<DamageTower>().ThreeRoundBurstChance += (int)upgradeCollection[key];
-               
+
                 if (!currentTower.GetComponent<DamageTower>().Stats.Contains("Three Round Burst Chance"))
                 {
                     currentTower.GetComponent<DamageTower>().AddStat("Three Round Burst Chance");
@@ -755,14 +763,14 @@ public class UIManager_Upgrades : MonoBehaviour
                 break;
             case StringsDatabase.Stats.PoisonCriticalChance:
                 ReferencesManager.GameManager.PoisonCriticalChance += (int)upgradeCollection[key];
-                
-                if(ReferencesManager.GameManager.PoisonCriticalChance > 0 && !ReferencesManager.StatsManager.PoisonTowerStats.Contains(StringsDatabase.Stats_Display.PoisonCriticalChance))
+
+                if (ReferencesManager.GameManager.PoisonCriticalChance > 0 && !ReferencesManager.StatsManager.PoisonTowerStats.Contains(StringsDatabase.Stats_Display.PoisonCriticalChance))
                 {
                     ReferencesManager.StatsManager.AddToList(ReferencesManager.StatsManager.PoisonTowerStats, StringsDatabase.Stats_Display.PoisonCriticalChance);
                     ReferencesManager.StatsManager.AddToList(ReferencesManager.StatsManager.PoisonTowerStats, StringsDatabase.Stats_Display.PoisonCriticalDamage);
 
                     var poisonTowers = ReferencesManager.GameManager.AllTowers.Where(a => a.name.Contains("PoisonTower"));
-                    foreach(var poisonTower in poisonTowers)
+                    foreach (var poisonTower in poisonTowers)
                     {
                         poisonTower.GetComponent<PoisonTower>().Stats.Add(StringsDatabase.Stats_Display.PoisonCriticalChance);
                         poisonTower.GetComponent<PoisonTower>().Stats.Add(StringsDatabase.Stats_Display.PoisonCriticalDamage);
@@ -776,6 +784,30 @@ public class UIManager_Upgrades : MonoBehaviour
                 if (!currentTower.GetComponent<PoisonTower>().Stats.Contains(StringsDatabase.Stats_Display.PoisonSpreadRadius))
                 {
                     currentTower.GetComponent<PoisonTower>().AddStat(StringsDatabase.Stats_Display.PoisonSpreadRadius);
+                }
+                break;
+            case StringsDatabase.Stats.SplashDamage:
+                currentTower.GetComponent<BombTower>().SplashDamage += (int)upgradeCollection[key];
+                break;
+            case StringsDatabase.Stats.SplashRadius:
+                currentTower.GetComponent<BombTower>().SplashRadius += (float)upgradeCollection[key];
+                break;
+            case StringsDatabase.Stats.DoubleExplosionChance:
+                currentTower.GetComponent<BombTower>().DoubleExplosionChance += (int)upgradeCollection[key];
+
+                if (!currentTower.GetComponent<BombTower>().Stats.Contains(StringsDatabase.Stats_Display.DoubleExplosionChance))
+                {
+                    currentTower.GetComponent<BombTower>().Stats.Add(StringsDatabase.Stats_Display.DoubleExplosionChance);
+                }
+                break;
+            case StringsDatabase.Stats.Rocket:
+                currentTower.GetComponent<BombTower>().RocketChance = (int)upgradeCollection[key];
+                currentTower.GetComponent<BombTower>().RocketDamage = ReferencesManager.UpgradesManager.RocketDamage;
+                
+                if (!currentTower.GetComponent<BombTower>().Stats.Contains(StringsDatabase.Stats_Display.RocketChance))
+                {
+                    currentTower.GetComponent<BombTower>().Stats.Add(StringsDatabase.Stats_Display.RocketChance);
+                    currentTower.GetComponent<BombTower>().Stats.Add(StringsDatabase.Stats_Display.RocketDamage);
                 }
                 break;
         }
@@ -872,7 +904,7 @@ public class UIManager_Upgrades : MonoBehaviour
                         otherNodes = new List<GameObject>() { adjacentNode1 };
 
                         AlterStat(StringsDatabase.Stats.CriticalChance, currentTower, node, damageTowerCriticalDictionary, "Level3.1", true, otherNodes);
-                        
+
                         break;
                 }
                 break;
@@ -984,7 +1016,7 @@ public class UIManager_Upgrades : MonoBehaviour
                 AlterStat(StringsDatabase.Stats.IceDamage, currentTower, node, freezeTowerIceDamageDictionary, "Level1");
                 break;
             case "Level2":
-                switch(nodeSplit[2])
+                switch (nodeSplit[2])
                 {
                     case "IceDamage":
                         freezeTowerIceDamageDictionary = ReferencesManager.UpgradesManager.FreezeTowerIceDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
@@ -1019,7 +1051,7 @@ public class UIManager_Upgrades : MonoBehaviour
                 }
                 break;
             case "Level3":
-                switch(nodeSplit[2])
+                switch (nodeSplit[2])
                 {
                     case "Range":
                         freezeTowerRangeDictionary = ReferencesManager.UpgradesManager.FreezeTowerRange.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
@@ -1051,7 +1083,7 @@ public class UIManager_Upgrades : MonoBehaviour
                 }
                 break;
             case "Level3.2":
-                switch(nodeSplit[2])
+                switch (nodeSplit[2])
                 {
                     case "Frostbite":
                         freezeTowerFrostbiteDictionary = ReferencesManager.UpgradesManager.FreezeTowerFrostbite.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
@@ -1076,11 +1108,11 @@ public class UIManager_Upgrades : MonoBehaviour
                 }
                 break;
             case "Level4":
-                switch(nodeSplit[2])
+                switch (nodeSplit[2])
                 {
                     case "IceDamage":
                         freezeTowerIceDamageDictionary = ReferencesManager.UpgradesManager.FreezeTowerIceDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
-                        
+
                         if (currentTower.GetComponent<FreezeTower>().IceDamage > 0)
                         {
                             AlterStat(StringsDatabase.Stats.IceDamage, currentTower, node, freezeTowerIceDamageDictionary, "Level4");
@@ -1101,7 +1133,7 @@ public class UIManager_Upgrades : MonoBehaviour
                 }
                 break;
             case "Level4.1":
-                switch(nodeSplit[2])
+                switch (nodeSplit[2])
                 {
                     case "SlowEffect":
                         freezeTowerSlowEffectDictionary = ReferencesManager.UpgradesManager.FreezeTowerSlowEffect.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
@@ -1204,7 +1236,7 @@ public class UIManager_Upgrades : MonoBehaviour
                 }
                 break;
             case "Level3.1":
-                switch(nodeSplit[2])
+                switch (nodeSplit[2])
                 {
                     case "Damage":
                         poisonTowerDamageDictionary = ReferencesManager.UpgradesManager.PoisonTowerDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
@@ -1268,7 +1300,7 @@ public class UIManager_Upgrades : MonoBehaviour
                 }
                 break;
             case "Level4":
-                switch(nodeSplit[2])
+                switch (nodeSplit[2])
                 {
                     case "PoisonDuration":
                         poisonTowerDurationDictionary = ReferencesManager.UpgradesManager.PoisonTowerDuration.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
@@ -1281,7 +1313,7 @@ public class UIManager_Upgrades : MonoBehaviour
                 }
                 break;
             case "Level4.1":
-                switch(nodeSplit[2])
+                switch (nodeSplit[2])
                 {
                     case "Damage":
                         poisonTowerDamageDictionary = ReferencesManager.UpgradesManager.PoisonTowerDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
@@ -1309,7 +1341,7 @@ public class UIManager_Upgrades : MonoBehaviour
                 }
                 break;
             case "Level5":
-                switch(nodeSplit[2])
+                switch (nodeSplit[2])
                 {
                     case "PoisonDOTCrit":
                         poisonTowerPoisonCriticalChanceDictionary = ReferencesManager.UpgradesManager.PoisonTowerPoisonCriticalChance.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
@@ -1329,7 +1361,178 @@ public class UIManager_Upgrades : MonoBehaviour
     }
 
     public void BombUpgrades(string[] nodeSplit, GameObject currentTower, GameObject node, GameObject adjacentNode1, GameObject adjacentNode2, List<GameObject> otherNodes)
-    { 
+    {
+        Dictionary<string, object> bombTowerSplashDamageDictionary = new Dictionary<string, object>();
+        Dictionary<string, object> bombTowerDamageDictionary = new Dictionary<string, object>();
+        Dictionary<string, object> bombTowerRangeDictionary = new Dictionary<string, object>();
+        Dictionary<string, object> bombTowerDoubleExplosionChanceDictionary = new Dictionary<string, object>();
+        Dictionary<string, object> bombTowerSplashRadiusDictionary = new Dictionary<string, object>();
+        Dictionary<string, object> bombTowerFireRateDictionary = new Dictionary<string, object>();
+        Dictionary<string, object> bombTowerRocketDictionary = new Dictionary<string, object>();
+
+        switch (nodeSplit[1])
+        {
+            case "Level1":
+                bombTowerSplashDamageDictionary = ReferencesManager.UpgradesManager.BombTowerSplashDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                AlterStat(StringsDatabase.Stats.SplashDamage, currentTower, node, bombTowerSplashDamageDictionary, "Level1");
+                break;
+            case "Level2":
+                switch (nodeSplit[2])
+                {
+                    case "SplashDamage":
+                        bombTowerSplashDamageDictionary = ReferencesManager.UpgradesManager.BombTowerSplashDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        adjacentNode1 = BombTowerLeftBranch.Find(a => a.name.Contains("Level2"));
+                        adjacentNode2 = BombTowerRightBranch.Find(a => a.name.Contains("Level2"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1, adjacentNode2 };
+
+                        AlterStat(StringsDatabase.Stats.SplashDamage, currentTower, node, bombTowerSplashDamageDictionary, "Level2", true, otherNodes);
+                        break;
+                    case "Damage":
+                        bombTowerDamageDictionary = ReferencesManager.UpgradesManager.BombTowerDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        adjacentNode1 = BombTowerMiddleBranch.Find(a => a.name.Contains("Level2"));
+                        adjacentNode2 = BombTowerRightBranch.Find(a => a.name.Contains("Level2"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1, adjacentNode2 };
+
+                        AlterStat(StringsDatabase.Stats.Damage, currentTower, node, bombTowerDamageDictionary, "Level2", true, otherNodes);
+                        break;
+                    case "Range":
+                        bombTowerRangeDictionary = ReferencesManager.UpgradesManager.BombTowerRange.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        adjacentNode1 = BombTowerLeftBranch.Find(a => a.name.Contains("Level2"));
+                        adjacentNode2 = BombTowerMiddleBranch.Find(a => a.name.Contains("Level2"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1, adjacentNode2 };
+
+                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, bombTowerRangeDictionary, "Level2", true, otherNodes);
+                        break;
+                }
+                break;
+            case "Level3.1":
+                switch (nodeSplit[2])
+                {
+                    case "DoubleExplosionChance":
+                        bombTowerDoubleExplosionChanceDictionary = ReferencesManager.UpgradesManager.BombTowerDoubleExplosionChance.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        adjacentNode1 = BombTowerMiddleBranch.Find(a => a.name.Contains("Level3.2"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.DoubleExplosionChance, currentTower, node, bombTowerDoubleExplosionChanceDictionary, "Level3.1", true, otherNodes);
+                        break;
+                    case "SplashRadius":
+                        bombTowerSplashRadiusDictionary = ReferencesManager.UpgradesManager.BombTowerSplashRadius.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        adjacentNode1 = BombTowerRightBranch.Find(a => a.name.Contains("Level3.2"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.SplashRadius, currentTower, node, bombTowerSplashRadiusDictionary, "Level3.1", true, otherNodes);
+                        break;
+                    case "Damage":
+                        bombTowerDamageDictionary = ReferencesManager.UpgradesManager.BombTowerDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        adjacentNode1 = BombTowerLeftBranch.Find(a => a.name.Contains("Level3.2"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.Damage, currentTower, node, bombTowerDamageDictionary, "Level3.1", true, otherNodes);
+                        break;
+                }
+                break;
+            case "Level3.2":
+                switch (nodeSplit[2])
+                {
+                    case "SplashDamage":
+                        bombTowerSplashDamageDictionary = ReferencesManager.UpgradesManager.BombTowerSplashDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        adjacentNode1 = BombTowerMiddleBranch.Find(a => a.name.Contains("Level3.1"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.SplashDamage, currentTower, node, bombTowerSplashDamageDictionary, "Level3.2", true, otherNodes);
+                        break;
+                    case "Range":
+                        bombTowerRangeDictionary = ReferencesManager.UpgradesManager.BombTowerRange.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        adjacentNode1 = BombTowerRightBranch.Find(a => a.name.Contains("Level3.1"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, bombTowerRangeDictionary, "Level3.2", true, otherNodes);
+                        break;
+                    case "FireRate":
+                        bombTowerFireRateDictionary = ReferencesManager.UpgradesManager.BombTowerFireRate.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        adjacentNode1 = BombTowerLeftBranch.Find(a => a.name.Contains("Level3.1"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.FireRate, currentTower, node, bombTowerFireRateDictionary, "Level3.2", true, otherNodes);
+                        break;
+                }
+                break;
+            case "Level4":
+                bombTowerDamageDictionary = ReferencesManager.UpgradesManager.BombTowerDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                AlterStat(StringsDatabase.Stats.Damage, currentTower, node, bombTowerDamageDictionary, "Level4");
+                break;
+            case "Level4.1":
+                switch (nodeSplit[2])
+                {
+                    case "DoubleExplosionChance":
+                        bombTowerDoubleExplosionChanceDictionary = ReferencesManager.UpgradesManager.BombTowerDoubleExplosionChance.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        adjacentNode1 = BombTowerMiddleBranch.Find(a => a.name.Contains("Level4.2"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.DoubleExplosionChance, currentTower, node, bombTowerDoubleExplosionChanceDictionary, "Level4.1", true, otherNodes);
+                        break;
+                    case "SplashRadius":
+                        bombTowerSplashRadiusDictionary = ReferencesManager.UpgradesManager.BombTowerSplashRadius.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        adjacentNode1 = BombTowerRightBranch.Find(a => a.name.Contains("Level4.2"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.SplashRadius, currentTower, node, bombTowerSplashRadiusDictionary, "Level4.1", true, otherNodes);
+                        break;
+                }
+                break;
+            case "Level4.2":
+                switch (nodeSplit[2])
+                {
+                    case "SplashDamage":
+                        bombTowerSplashDamageDictionary = ReferencesManager.UpgradesManager.BombTowerSplashDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        adjacentNode1 = BombTowerMiddleBranch.Find(a => a.name.Contains("Level4.1"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.SplashDamage, currentTower, node, bombTowerSplashDamageDictionary, "Level4.2", true, otherNodes);
+                        break;
+                    case "Range":
+                        bombTowerRangeDictionary = ReferencesManager.UpgradesManager.BombTowerRange.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        adjacentNode1 = BombTowerRightBranch.Find(a => a.name.Contains("Level4.1"));
+
+                        otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        AlterStat(StringsDatabase.Stats.Range, currentTower, node, bombTowerRangeDictionary, "Level4.2", true, otherNodes);
+                        break;
+                }
+                break;
+            case "Level5":
+                switch (nodeSplit[2])
+                {
+                    case "SplashDamage":
+                        bombTowerSplashDamageDictionary = ReferencesManager.UpgradesManager.BombTowerSplashDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        AlterStat(StringsDatabase.Stats.SplashDamage, currentTower, node, bombTowerSplashDamageDictionary, "Level5");
+                        break;
+                    case "FireRate":
+                        bombTowerFireRateDictionary = ReferencesManager.UpgradesManager.BombTowerFireRate.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        AlterStat(StringsDatabase.Stats.FireRate, currentTower, node, bombTowerFireRateDictionary, "Level5");
+                        break;
+                    case "Rocket":
+                        bombTowerRocketDictionary = ReferencesManager.UpgradesManager.BombTowerRocketChance.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+                        AlterStat(StringsDatabase.Stats.Rocket, currentTower, node, bombTowerRocketDictionary, "Level5");
+                        break;
+                }
+                break;
+        }
     }
 
     StatComparison AddOldNewStats(object oldTowerStat, object newTowerStat, string statName, bool increased)
@@ -1366,12 +1569,12 @@ public class UIManager_Upgrades : MonoBehaviour
             };
         }
 
-        if(statName.Contains("Rate"))
+        if (statName.Contains("Rate"))
         {
             statComparison.OldStat += " / s";
             statComparison.NewStat += " / s";
         }
-        else if(
+        else if (
                     statName == StringsDatabase.Stats_Display.Range ||
                     statName.Contains("Radius")
                )
@@ -1388,12 +1591,12 @@ public class UIManager_Upgrades : MonoBehaviour
                 statComparison.NewStat += " m";
             }
         }
-        else if(statName.Contains("Duration"))
+        else if (statName.Contains("Duration"))
         {
             statComparison.OldStat += " s";
             statComparison.NewStat += " s";
         }
-        else if(statName.Contains("Chance") || statName == StringsDatabase.Stats_Display.SlowEffect)
+        else if (statName.Contains("Chance") || statName == StringsDatabase.Stats_Display.SlowEffect)
         {
             statComparison.OldStat += " %";
             statComparison.NewStat += " %";
@@ -1647,11 +1850,45 @@ public class UIManager_Upgrades : MonoBehaviour
 
                 statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
                 break;
+            case StringsDatabase.Stats_Display.SplashDamage:
+                oldStat = currentTower.GetComponent<BombTower>().SplashDamage;
+                newStat = currentTower.GetComponent<BombTower>().SplashDamage + (int)upgradesManager.BombTowerSplashDamage[level];
+                statName = StringsDatabase.Stats_Display.SplashDamage;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+            case StringsDatabase.Stats_Display.SplashRadius:
+                oldStat = currentTower.GetComponent<BombTower>().SplashRadius;
+                newStat = currentTower.GetComponent<BombTower>().SplashRadius + (float)upgradesManager.BombTowerSplashRadius[level];
+                statName = StringsDatabase.Stats_Display.SplashRadius;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+            case StringsDatabase.Stats_Display.DoubleExplosionChance:
+                oldStat = currentTower.GetComponent<BombTower>().DoubleExplosionChance;
+                newStat = currentTower.GetComponent<BombTower>().DoubleExplosionChance + (int)upgradesManager.BombTowerDoubleExplosionChance[level];
+                statName = StringsDatabase.Stats_Display.DoubleExplosionChance;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
+            case StringsDatabase.Stats.Rocket:
+                oldStat = currentTower.GetComponent<BombTower>().RocketChance;
+                newStat = currentTower.GetComponent<BombTower>().RocketChance + (int)upgradesManager.BombTowerRocketChance[level];
+                statName = StringsDatabase.Stats_Display.RocketChance;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+
+                oldStat = currentTower.GetComponent<BombTower>().RocketDamage;
+                newStat = (int)upgradesManager.RocketDamage;
+                statName = StringsDatabase.Stats_Display.RocketDamage;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                break;
         }
 
         return statsComparison;
     }
-        
+    
 
     public void SetUpgradeStats(GameObject currentTower, GameObject node)
     {
@@ -1659,7 +1896,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
         if (SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeStats).childCount > 0)
         {
-            for(int i=0;i< SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeStats).childCount;i++)
+            for (int i = 0; i < SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeStats).childCount; i++)
             {
                 Destroy(SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeStats).GetChild(i).gameObject);
             }
@@ -1670,9 +1907,9 @@ public class UIManager_Upgrades : MonoBehaviour
 
         var towerStats = GetNewStat(statName, currentTower, node);
 
-        if(towerStats != null && towerStats.Count > 0)
+        if (towerStats != null && towerStats.Count > 0)
         {
-            foreach(var towerStat in towerStats)
+            foreach (var towerStat in towerStats)
             {
                 GameObject upgradeStat = Instantiate(UpgradeStat, transform.position, Quaternion.identity, SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeStats));
                 upgradeStat.transform.Find(StringsDatabase.UI_Upgrades.UpgradeStatTitle).GetComponent<TextMeshProUGUI>().text = towerStat.StatName;
@@ -1740,6 +1977,14 @@ public class UIManager_Upgrades : MonoBehaviour
                 return StringsDatabase.Stats_Display.PoisonCriticalChance;
             case StringsDatabase.Stats.PoisonSpread:
                 return StringsDatabase.Stats_Display.PoisonSpreadRadius;
+            case StringsDatabase.Stats.SplashDamage:
+                return StringsDatabase.Stats_Display.SplashDamage;
+            case StringsDatabase.Stats.SplashRadius:
+                return StringsDatabase.Stats_Display.SplashRadius;
+            case StringsDatabase.Stats.DoubleExplosionChance:
+                return StringsDatabase.Stats_Display.DoubleExplosionChance;
+            case StringsDatabase.Stats.Rocket:
+                return StringsDatabase.Stats.Rocket;
             default:
                 return string.Empty;
         }
@@ -1750,7 +1995,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
     public void OnClick_UpgradeNode(GameObject node)
     {
-        if(CurrentNode != null)
+        if (CurrentNode != null)
         {
             Destroy(CurrentNode.transform.GetChild(0).gameObject);
         }

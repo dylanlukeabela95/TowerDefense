@@ -10,6 +10,11 @@ public class BombTower : Tower
     public int SplashDamage;
     public float SplashRadius;
 
+    public int DoubleExplosionChance;
+
+    public int RocketChance;
+    public int RocketDamage;
+
     // Start is called before the first frame update
     protected override void Start()
     {

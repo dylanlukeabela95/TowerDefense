@@ -400,6 +400,13 @@ public class UIManager_Stat : MonoBehaviour
             case StringsDatabase.Stats.PoisonSpread:
             case StringsDatabase.Stats_Display.PoisonSpreadRadius:
                 return currentTower.GetComponent<PoisonTower>().PoisonSpreadRadius.ToString() + " m";
+            case StringsDatabase.Stats.DoubleExplosionChance:
+            case StringsDatabase.Stats_Display.DoubleExplosionChance:
+                return currentTower.GetComponent<BombTower>().DoubleExplosionChance.ToString() + " %";
+            case StringsDatabase.Stats.RocketChance:
+                return currentTower.GetComponent<BombTower>().RocketChance.ToString() + " %";
+            case StringsDatabase.Stats.RocketDamage:
+                return currentTower.GetComponent<BombTower>().RocketDamage.ToString();
             default:
                 return string.Empty;
         }

@@ -84,6 +84,10 @@ namespace Strings
             public const string PoisonCriticalChance = "PoisonCriticalChance";
             public const string PoisonCriticalDamage = "PoisonCriticalDamage";
             public const string PoisonSpread = "PoisonSpread";
+            public const string DoubleExplosionChance = "DoubleExplosionChance";
+            public const string Rocket = "Rocket";
+            public const string RocketChance = "RocketChance";
+            public const string RocketDamage = "RocketDamage";
         }
 
         public class Stats_Display
@@ -114,6 +118,9 @@ namespace Strings
             public const string PoisonCriticalChance = "Poison Critical Chance";
             public const string PoisonCriticalDamage = "Poison Critical Damage";
             public const string PoisonSpreadRadius = "Poison Spread Radius";
+            public const string DoubleExplosionChance = "Double Explosion Chance";
+            public const string RocketChance = "Rocket Chance";
+            public const string RocketDamage = "Rocket Damage";
         }
 
         public class TowerNames
