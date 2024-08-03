@@ -1,3 +1,4 @@
+using Stats_Descriptions;
 using Strings;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using UnityEngine.UI;
 public class StatComparison
 {
     public string StatName { get; set; }
+    public string StatDescription { get; set; }
     public string OldStat { get; set; }
     public string NewStat { get; set; }
     public bool Increased { get; set; }
@@ -1535,7 +1537,7 @@ public class UIManager_Upgrades : MonoBehaviour
         }
     }
 
-    StatComparison AddOldNewStats(object oldTowerStat, object newTowerStat, string statName, bool increased)
+    private StatComparison AddOldNewStats(object oldTowerStat, object newTowerStat, string statName, string statDescription, bool increased)
     {
         string oldStat = oldTowerStat.ToString();
         string newStat = newTowerStat.ToString();
@@ -1602,6 +1604,8 @@ public class UIManager_Upgrades : MonoBehaviour
             statComparison.NewStat += " %";
         }
 
+        statComparison.StatDescription = statDescription;
+
         return statComparison;
     }
 
@@ -1612,6 +1616,7 @@ public class UIManager_Upgrades : MonoBehaviour
         object oldStat;
         object newStat;
         string statName;
+        string statDescription;
         bool increased = true;
 
         var split = node.name.Split('_');
@@ -1623,6 +1628,7 @@ public class UIManager_Upgrades : MonoBehaviour
                 oldStat = (int)currentTower.GetComponent<Tower>().Damage;
                 newStat = (int)0;
                 statName = StringsDatabase.Stats_Display.Damage;
+                statDescription = StatsDescriptions_General.DamageStatDescription;
 
                 if (currentTower.name.Contains("DamageTower"))
                 {
@@ -1641,12 +1647,13 @@ public class UIManager_Upgrades : MonoBehaviour
                     newStat = (int)(currentTower.GetComponent<Tower>().Damage + (int)upgradesManager.BombTowerDamage[level]);
                 }
 
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
                 break;
             case StringsDatabase.Stats_Display.FireRate:
                 oldStat = Mathf.Ceil((1 * 1.0f / (float)currentTower.GetComponent<Tower>().FireRate) * 100) / 100;
                 newStat = (float)0f;
                 statName = StringsDatabase.Stats_Display.FireRate;
+                statDescription = StatsDescriptions_General.FireRateStatDescription;
 
                 if (currentTower.name.Contains("DamageTower"))
                 {
@@ -1667,16 +1674,21 @@ public class UIManager_Upgrades : MonoBehaviour
 
                 newStat = Mathf.Ceil((1 * 1.0f / (float)newStat) * 100) / 100;
 
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
                 break;
             case StringsDatabase.Stats_Display.Range:
                 oldStat = (float)currentTower.GetComponent<Tower>().Range;
                 newStat = (float)0f;
                 statName = StringsDatabase.Stats_Display.Range;
+                statDescription = StatsDescriptions_General.RangeStatDescription;
 
                 if (currentTower.name.Contains("DamageTower"))
                 {
                     newStat = (float)(currentTower.GetComponent<Tower>().Range + (float)upgradesManager.DamageTowerRange[level]);
+                    if(level == "Level5")
+                    {
+                        statDescription = StatsDescriptions_DamageTower.RangeInfiniteStatDescription;
+                    }
                 }
                 else if (currentTower.name.Contains("FreezeTower"))
                 {
@@ -1691,54 +1703,57 @@ public class UIManager_Upgrades : MonoBehaviour
                     newStat = (float)(currentTower.GetComponent<Tower>().Range + (float)upgradesManager.BombTowerRange[level]);
                 }
 
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
                 break;
             case StringsDatabase.Stats_Display.ProjectileCount:
                 oldStat = (int)currentTower.GetComponent<DamageTower>().ProjectileCount;
                 newStat = (int)(currentTower.GetComponent<DamageTower>().ProjectileCount + (int)upgradesManager.DamageTowerProjectile[level]);
                 statName = StringsDatabase.Stats_Display.ProjectileCount;
+                statDescription = StatsDescriptions_DamageTower.ProjectileStatDescription;
 
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
 
                 if (level == "Level4.1")
                 {
+                    statDescription = StatsDescriptions_DamageTower.ProjectileDamageStatDescription;
+                    statsComparison[0].StatDescription = statDescription;
+
                     oldStat = (int)currentTower.GetComponent<DamageTower>().Damage;
                     newStat = (int)Mathf.FloorToInt((currentTower.GetComponent<Tower>().Damage * 1.0f / 2));
                     statName = StringsDatabase.Stats_Display.Damage;
                     increased = false;
 
-                    statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                    statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, "",  increased));
                 }
                 break;
             case StringsDatabase.Stats_Display.TwoRoundBurstChance:
                 oldStat = (int)currentTower.GetComponent<DamageTower>().TwoRoundBurstChance;
                 newStat = (int)(currentTower.GetComponent<DamageTower>().TwoRoundBurstChance + (int)upgradesManager.DamageTowerBurstChance[level]);
                 statName = StringsDatabase.Stats_Display.TwoRoundBurstChance;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StatsDescriptions_DamageTower.TwoBurstStatDescription;
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
                 break;
             case StringsDatabase.Stats_Display.ThreeRoundBurstChance:
                 oldStat = (int)currentTower.GetComponent<DamageTower>().ThreeRoundBurstChance;
                 newStat = (int)(currentTower.GetComponent<DamageTower>().ThreeRoundBurstChance + (int)upgradesManager.DamageTowerBurstChance[level]);
                 statName = StringsDatabase.Stats_Display.ThreeRoundBurstChance;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StatsDescriptions_DamageTower.ThreeBurstStatDescription;
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
                 break;
             case StringsDatabase.Stats_Display.CriticalChance:
                 oldStat = (int)currentTower.GetComponent<DamageTower>().CriticalChance;
                 newStat = (int)(currentTower.GetComponent<DamageTower>().CriticalChance + (int)upgradesManager.DamageTowerCriticalChance[level]);
                 statName = StringsDatabase.Stats_Display.CriticalChance;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StatsDescriptions_DamageTower.CriticalStatDescription;
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName,statDescription, increased));
 
                 oldStat = (int)0;
                 newStat = (int)(currentTower.GetComponent<DamageTower>().Damage * 2);
                 statName = StringsDatabase.Stats_Display.CriticalDamage;
 
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
                 break;
             case StringsDatabase.Stats_Display.IceDamage:
-
                 if ((int)currentTower.GetComponent<FreezeTower>().IceDamage > 0)
                 {
                     oldStat = (int)currentTower.GetComponent<FreezeTower>().IceDamage;
@@ -1751,14 +1766,16 @@ public class UIManager_Upgrades : MonoBehaviour
                     newStat = (int)((currentTower.GetComponent<FreezeTower>().FrostbiteDamage + Mathf.CeilToInt((int)upgradesManager.FreezeTowerIceDamage[level]) * 1.0f / 2));
                     statName = StringsDatabase.Stats_Display.Frostbite;
                 }
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StringsDatabase.Stats_Display.IceDamage;
+
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription,  increased));
                 break;
             case StringsDatabase.Stats_Display.SlowDuration:
                 oldStat = (float)currentTower.GetComponent<FreezeTower>().SlowDuration;
                 newStat = (float)((currentTower.GetComponent<FreezeTower>().SlowDuration + (float)upgradesManager.FreezeTowerSlowDuration[level]));
                 statName = StringsDatabase.Stats_Display.SlowDuration;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StatsDescriptions_FreezeTower.SlowDurationStatDescription;
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription,  increased));
                 break;
             case StringsDatabase.Stats_Display.SlowEffect:
                 oldStat = (float)currentTower.GetComponent<FreezeTower>().SlowEffect;
