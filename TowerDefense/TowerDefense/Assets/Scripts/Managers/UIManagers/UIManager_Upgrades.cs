@@ -2068,7 +2068,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
         ReferencesManager.GameManager.currentTower.GetComponent<Tower>().DeselectTower();
 
-        if(SideMenu.activeInHierarchy)
+        if(SideMenu.activeSelf)
         {
             OnClick_SideMenuClose();
         }
