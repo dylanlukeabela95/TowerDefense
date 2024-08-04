@@ -57,7 +57,7 @@ public class TowerManager : MonoBehaviour
         DamageStats.Add(StringsDatabase.Stats.Damage, 10);
         DamageStats.Add(StringsDatabase.Stats.FireRate, 0.75f);
         DamageStats.Add(StringsDatabase.Stats.Range, 4f);
-        DamageStats.Add(StringsDatabase.Stats.Cost, 20);
+        DamageStats.Add(StringsDatabase.Stats.Cost, ReferencesManager.CostManager.DamageTowerCost);
     }
 
     void AssignFreezeTowerStats()
@@ -65,7 +65,7 @@ public class TowerManager : MonoBehaviour
         FreezeStats.Add(StringsDatabase.Stats.Damage, 5);
         FreezeStats.Add(StringsDatabase.Stats.FireRate, 1f);
         FreezeStats.Add(StringsDatabase.Stats.Range, 6f);
-        FreezeStats.Add(StringsDatabase.Stats.Cost, 30);
+        FreezeStats.Add(StringsDatabase.Stats.Cost, ReferencesManager.CostManager.FreezeTowerCost);
         FreezeStats.Add(StringsDatabase.Stats.IceDamage, 5);
         FreezeStats.Add(StringsDatabase.Stats.SlowDuration, 3f);
         FreezeStats.Add(StringsDatabase.Stats.SlowEffect, 20f);
@@ -76,7 +76,7 @@ public class TowerManager : MonoBehaviour
         PoisonStats.Add(StringsDatabase.Stats.Damage, 1);
         PoisonStats.Add(StringsDatabase.Stats.FireRate, 1.2f);
         PoisonStats.Add(StringsDatabase.Stats.Range, 4f);
-        PoisonStats.Add(StringsDatabase.Stats.Cost, 35);
+        PoisonStats.Add(StringsDatabase.Stats.Cost, ReferencesManager.CostManager.PoisonTowerCost);
         PoisonStats.Add(StringsDatabase.Stats.PoisonDamageOverTime, 4);
         PoisonStats.Add(StringsDatabase.Stats.PoisonDuration, 5f);
         PoisonStats.Add(StringsDatabase.Stats.PoisonTickRate, 0.8f);
@@ -87,7 +87,7 @@ public class TowerManager : MonoBehaviour
         BombStats.Add(StringsDatabase.Stats.Damage, 10);
         BombStats.Add(StringsDatabase.Stats.FireRate, 1.5f);
         BombStats.Add(StringsDatabase.Stats.Range, 10f);
-        BombStats.Add(StringsDatabase.Stats.Cost, 60);
+        BombStats.Add(StringsDatabase.Stats.Cost, ReferencesManager.CostManager.BombTowerCost);
         BombStats.Add(StringsDatabase.Stats.SplashDamage, 5);
         BombStats.Add(StringsDatabase.Stats.SplashRadius, 3f);
     }

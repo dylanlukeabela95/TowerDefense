@@ -8,6 +8,7 @@ public class ReferencesManager : MonoBehaviour
     public TowerManager TowerManager;
     public StatsManager StatsManager;
     public UpgradesManager UpgradesManager;
+    public CostManager CostManager;
 
     [Header("UI Managers")]
     public UIManager_Tower UIManager_Tower;
