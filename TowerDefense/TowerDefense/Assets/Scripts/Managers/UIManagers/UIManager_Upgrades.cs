@@ -83,12 +83,6 @@ public class UIManager_Upgrades : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            UpgradesSection.SetActive(false);
-            isInSkillTree = false;
-        }
-
         if (UpgradesSection.activeSelf && !isInSkillTree)
         {
             isInSkillTree = true;
@@ -1781,125 +1775,125 @@ public class UIManager_Upgrades : MonoBehaviour
                 oldStat = (float)currentTower.GetComponent<FreezeTower>().SlowEffect;
                 newStat = (float)((currentTower.GetComponent<FreezeTower>().SlowEffect + (float)upgradesManager.FreezeTowerSlowEffect[level]));
                 statName = StringsDatabase.Stats_Display.SlowEffect;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StatsDescriptions_FreezeTower.SlowEffectStatDescription;
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
                 break;
             case StringsDatabase.Stats_Display.Frostbite:
                 oldStat = (int)currentTower.GetComponent<FreezeTower>().IceDamage;
                 newStat = (int)0;
                 statName = StringsDatabase.Stats_Display.IceDamage;
                 increased = false;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StatsDescriptions_FreezeTower.FrostbiteStatDescription;
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
 
                 oldStat = (int)currentTower.GetComponent<FreezeTower>().FrostbiteDamage;
                 newStat = (int)((currentTower.GetComponent<FreezeTower>().FrostbiteDamage + Mathf.FloorToInt((currentTower.GetComponent<FreezeTower>().IceDamage * 1.0f) / 2)));
                 statName = StringsDatabase.Stats_Display.FrostbiteDamage;
                 increased = true;
 
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, "", increased));
 
                 oldStat = (float)currentTower.GetComponent<FreezeTower>().FrostbiteTickRate;
                 newStat = (float)(0.5f);
                 statName = StringsDatabase.Stats_Display.FrostbiteTickRate;
 
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, "", increased));
                 break;
             case StringsDatabase.Stats.Icicle:
                 oldStat = (int)currentTower.GetComponent<FreezeTower>().IcicleChance;
                 newStat = (int)((currentTower.GetComponent<FreezeTower>().IcicleChance + (int)upgradesManager.FreezeTowerIcicle[level]));
                 statName = StringsDatabase.Stats_Display.IcicleChance;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StatsDescriptions_FreezeTower.IcicleStatDescription;
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
 
                 oldStat = (int)currentTower.GetComponent<FreezeTower>().IcicleDamage;
                 newStat = (int)((currentTower.GetComponent<FreezeTower>().IcicleDamage + 10));
                 statName = StringsDatabase.Stats_Display.IcicleDanage;
 
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, "", increased));
 
                 break;
             case StringsDatabase.Stats_Display.ImmobilizeChance:
                 oldStat = (int)currentTower.GetComponent<FreezeTower>().ImmobilizeChance;
                 newStat = (int)((currentTower.GetComponent<FreezeTower>().ImmobilizeChance + (int)upgradesManager.FreezeTowerImmobilize[level]));
                 statName = StringsDatabase.Stats_Display.ImmobilizeChance;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StatsDescriptions_FreezeTower.ImmobilizeStatDescription;
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
                 break;
             case StringsDatabase.Stats_Display.PoisonDamageOverTime:
                 oldStat = (int)currentTower.GetComponent<PoisonTower>().PoisonDamageOverTime;
                 newStat = (int)((currentTower.GetComponent<PoisonTower>().PoisonDamageOverTime + (int)upgradesManager.PoisonTowerDamageOverTime[level]));
                 statName = StringsDatabase.Stats_Display.PoisonDamageOverTime;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StatsDescriptions_PoisonTower.PoisonDamageOverTimeStatDescription;
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
                 break;
             case StringsDatabase.Stats_Display.PoisonDuration:
                 oldStat = (float)currentTower.GetComponent<PoisonTower>().PoisonDuration;
                 newStat = (float)((currentTower.GetComponent<PoisonTower>().PoisonDuration + (float)upgradesManager.PoisonTowerDuration[level]));
                 statName = StringsDatabase.Stats_Display.PoisonDuration;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StatsDescriptions_PoisonTower.PoisonDurationStatDescription;
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
                 break;
             case StringsDatabase.Stats_Display.PoisonTickRate:
                 oldStat = (1 * 1.0f) / (float)currentTower.GetComponent<PoisonTower>().PoisonTickRate;
                 newStat = (1 * 1.0f) / (float)((currentTower.GetComponent<PoisonTower>().PoisonTickRate - (float)upgradesManager.PoisonTowerTickRate[level]));
                 statName = StringsDatabase.Stats_Display.PoisonTickRate;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StatsDescriptions_PoisonTower.PoisonTickRateStatDescription;
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
                 break;
             case StringsDatabase.Stats_Display.PoisonCriticalChance:
                 oldStat = ReferencesManager.GameManager.PoisonCriticalChance;
                 newStat = ReferencesManager.GameManager.PoisonCriticalChance + (int)upgradesManager.PoisonTowerPoisonCriticalChance[level];
                 statName = StringsDatabase.Stats_Display.PoisonCriticalChance;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StatsDescriptions_PoisonTower.PoisonDOTCriticalStatDescription;
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
 
                 oldStat = 0;
                 newStat = currentTower.GetComponent<PoisonTower>().PoisonDamageOverTime * 2;
                 statName = StringsDatabase.Stats_Display.PoisonCriticalDamage;
 
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, "", increased));
                 break;
             case StringsDatabase.Stats_Display.PoisonSpreadRadius:
                 oldStat = 0;
                 newStat = 4;
                 statName = StringsDatabase.Stats_Display.PoisonSpreadRadius;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StatsDescriptions_PoisonTower.PoisonSpreadStatDescription;
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
                 break;
             case StringsDatabase.Stats_Display.SplashDamage:
                 oldStat = currentTower.GetComponent<BombTower>().SplashDamage;
                 newStat = currentTower.GetComponent<BombTower>().SplashDamage + (int)upgradesManager.BombTowerSplashDamage[level];
                 statName = StringsDatabase.Stats_Display.SplashDamage;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StatsDescriptions_BombTower.SplashDamageStatDescription;
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
                 break;
             case StringsDatabase.Stats_Display.SplashRadius:
                 oldStat = currentTower.GetComponent<BombTower>().SplashRadius;
                 newStat = currentTower.GetComponent<BombTower>().SplashRadius + (float)upgradesManager.BombTowerSplashRadius[level];
                 statName = StringsDatabase.Stats_Display.SplashRadius;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StatsDescriptions_BombTower.SplashRadiusStatDescription;
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
                 break;
             case StringsDatabase.Stats_Display.DoubleExplosionChance:
                 oldStat = currentTower.GetComponent<BombTower>().DoubleExplosionChance;
                 newStat = currentTower.GetComponent<BombTower>().DoubleExplosionChance + (int)upgradesManager.BombTowerDoubleExplosionChance[level];
                 statName = StringsDatabase.Stats_Display.DoubleExplosionChance;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StatsDescriptions_BombTower.DoubleExplosionChanceStatDescription;
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
                 break;
             case StringsDatabase.Stats.Rocket:
                 oldStat = currentTower.GetComponent<BombTower>().RocketChance;
                 newStat = currentTower.GetComponent<BombTower>().RocketChance + (int)upgradesManager.BombTowerRocketChance[level];
                 statName = StringsDatabase.Stats_Display.RocketChance;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statDescription = StatsDescriptions_BombTower.RocketStatDescription;
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
 
                 oldStat = currentTower.GetComponent<BombTower>().RocketDamage;
                 newStat = (int)upgradesManager.RocketDamage;
                 statName = StringsDatabase.Stats_Display.RocketDamage;
 
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, increased));
+                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, "", increased));
                 break;
         }
 
@@ -1919,15 +1913,14 @@ public class UIManager_Upgrades : MonoBehaviour
             }
         }
 
-        SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeTitle).GetComponent<TextMeshProUGUI>().text = statName;
-        SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeDescription).GetComponent<TextMeshProUGUI>().text = "";
-
         var towerStats = GetNewStat(statName, currentTower, node);
 
         if (towerStats != null && towerStats.Count > 0)
         {
             foreach (var towerStat in towerStats)
             {
+                SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeTitle).GetComponent<TextMeshProUGUI>().text = towerStat.StatName;
+                SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeDescription).GetComponent<TextMeshProUGUI>().text = towerStat.StatDescription;
                 GameObject upgradeStat = Instantiate(UpgradeStat, transform.position, Quaternion.identity, SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeStats));
                 upgradeStat.transform.Find(StringsDatabase.UI_Upgrades.UpgradeStatTitle).GetComponent<TextMeshProUGUI>().text = towerStat.StatName;
                 upgradeStat.transform.Find(StringsDatabase.UI_Upgrades.StatsContainer).transform.Find(StringsDatabase.UI_Upgrades.UpgradeStatChanges_Old).GetComponent<TextMeshProUGUI>().text = towerStat.OldStat;
@@ -2065,6 +2058,20 @@ public class UIManager_Upgrades : MonoBehaviour
         SideMenu.SetActive(false);
         Destroy(CurrentNode.transform.GetChild(0).gameObject);
         CurrentNode = null;
+    }
+
+    public void OnClick_SkillTreeClose()
+    {
+        ShowHideSkillTree(false, false, false, false);
+        UpgradesSection.SetActive(false);
+        isInSkillTree = false;
+
+        ReferencesManager.GameManager.currentTower.GetComponent<Tower>().DeselectTower();
+
+        if(SideMenu.activeInHierarchy)
+        {
+            OnClick_SideMenuClose();
+        }
     }
 
     #endregion

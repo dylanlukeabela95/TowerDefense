@@ -72,17 +72,11 @@ public class Tower : MonoBehaviour
         {
             if (ReferencesManager.GameManager.currentTower == this.gameObject)
             {
-                RangeIndicator.SetActive(false);
-                ReferencesManager.GameManager.currentTower = null;
-
-                ReferencesManager.UIManager_Stat.ResetStatCointainer();
+                DeselectTower();
             }
             else if (ReferencesManager.GameManager.currentTower == null)
             {
-                RangeIndicator.SetActive(true);
-                ReferencesManager.GameManager.currentTower = this.gameObject;
-
-                ReferencesManager.UIManager_Stat.ShowStatDisplay(this.gameObject.name, isRight());
+                SelectTower();
             }
         }
     }
@@ -99,6 +93,22 @@ public class Tower : MonoBehaviour
         var isRight = this.gameObject.transform.position.x >= 4.2f ? true : false;
 
         return isRight;
+    }
+
+    public void DeselectTower()
+    {
+        RangeIndicator.SetActive(false);
+        ReferencesManager.GameManager.currentTower = null;
+
+        ReferencesManager.UIManager_Stat.ResetStatCointainer();
+    }
+
+    public void SelectTower()
+    {
+        RangeIndicator.SetActive(true);
+        ReferencesManager.GameManager.currentTower = this.gameObject;
+
+        ReferencesManager.UIManager_Stat.ShowStatDisplay(this.gameObject.name, isRight());
     }
 
     public void SetStats(List<string> statsManagerStats)
