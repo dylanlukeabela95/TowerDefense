@@ -13,9 +13,11 @@ public enum UpgradesEnum_Level
 {
     Level1 = 0,
     Level2 = 1,
-    Level3_1 = 2,
-    Level3_2 = 3,
-    Level4_1 = 4,
-    Level4_2 = 5,
-    Level5 = 6,
+    Level3 = 2,
+    Level3_1 = 3,
+    Level3_2 = 4,
+    Level4 = 5,
+    Level4_1 = 6,
+    Level4_2 = 7,
+    Level5 = 8,
 }
