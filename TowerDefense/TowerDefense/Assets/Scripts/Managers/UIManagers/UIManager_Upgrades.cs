@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -2000,16 +2001,8 @@ public class UIManager_Upgrades : MonoBehaviour
         }
     }
 
-
-    #region OnClick
-
-    public void OnClick_UpgradeNode(GameObject node)
+    void DisplaySideMenuOnNodeClick(GameObject node)
     {
-        if (CurrentNode != null)
-        {
-            Destroy(CurrentNode.transform.GetChild(0).gameObject);
-        }
-
         CurrentNode = node;
         var currentTower = ReferencesManager.GameManager.currentTower;
 
@@ -2019,6 +2012,24 @@ public class UIManager_Upgrades : MonoBehaviour
 
         //Show which node is selected
         SetUpgradeStats(currentTower, node);
+    }
+
+
+    #region OnClick
+
+    public void OnClick_UpgradeNode(GameObject node)
+    {
+        if (CurrentNode != null && CurrentNode != node)
+        {
+            Destroy(CurrentNode.transform.GetChild(0).gameObject);
+
+            DisplaySideMenuOnNodeClick(node);
+        }
+        else if(CurrentNode == null)
+        {
+            DisplaySideMenuOnNodeClick(node);
+        }
+        
     }
 
     public void OnClick_UpgradeButton()

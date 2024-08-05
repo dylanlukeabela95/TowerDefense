@@ -37,7 +37,7 @@ public class CostManager : MonoBehaviour
 
     public int SetUpDamageTowerNodeCost(UpgradesEnum_Branch branch, UpgradesEnum_Level level)
     {
-        int cost = 0
+        int cost = 0;
         switch(branch)
         {
             case UpgradesEnum_Branch.LeftBranch:
@@ -56,7 +56,7 @@ public class CostManager : MonoBehaviour
 
     public int SetUpFreezeTowerCost(UpgradesEnum_Branch branch, UpgradesEnum_Level level)
     {
-        int cost = 0
+        int cost = 0;
         switch (branch)
         {
             case UpgradesEnum_Branch.LeftBranch:
@@ -75,7 +75,7 @@ public class CostManager : MonoBehaviour
 
     public int SetupPoisonTowerCost(UpgradesEnum_Branch branch, UpgradesEnum_Level level)
     {
-        int cost = 0
+        int cost = 0;
         switch (branch)
         {
             case UpgradesEnum_Branch.LeftBranch:
@@ -94,7 +94,7 @@ public class CostManager : MonoBehaviour
 
     public int SetUpBombTowerCost(UpgradesEnum_Branch branch, UpgradesEnum_Level level)
     {
-        int cost = 0
+        int cost = 0;
         switch (branch)
         {
             case UpgradesEnum_Branch.LeftBranch:
