@@ -197,17 +197,81 @@ public class CostManager : MonoBehaviour
     public int SetupPoisonTowerCost(UpgradesEnum_Branch branch, UpgradesEnum_Level level)
     {
         int cost = 0;
-        switch (branch)
+        if (level == UpgradesEnum_Level.Level1)
         {
-            case UpgradesEnum_Branch.LeftBranch:
-                break;
-            case UpgradesEnum_Branch.MiddleBranch:
-                break;
-            case UpgradesEnum_Branch.RightBranch:
-                break;
-            default:
-                cost = -1;
-                break;
+            cost = 30;
+        }
+        else
+        {
+            switch (branch)
+            {
+                case UpgradesEnum_Branch.LeftBranch:
+                    switch (level)
+                    {
+                        case UpgradesEnum_Level.Level2:
+                            cost = 45;
+                            break;
+                        case UpgradesEnum_Level.Level3_1:
+                            cost = 70;
+                            break;
+                        case UpgradesEnum_Level.Level3_2:
+                            cost = 80;
+                            break;
+                        case UpgradesEnum_Level.Level4:
+                            cost = 90;
+                            break;
+                        case UpgradesEnum_Level.Level5:
+                            cost = 110;
+                            break;
+                    }
+                    break;
+                case UpgradesEnum_Branch.MiddleBranch:
+                    switch (level)
+                    {
+                        case UpgradesEnum_Level.Level2:
+                            cost = 45;
+                            break;
+                        case UpgradesEnum_Level.Level3_1:
+                            cost = 50;
+                            break;
+                        case UpgradesEnum_Level.Level3_2:
+                            cost = 60;
+                            break;
+                        case UpgradesEnum_Level.Level4_1:
+                            cost = 70;
+                            break;
+                        case UpgradesEnum_Level.Level4_2:
+                            cost = 85;
+                            break;
+                        case UpgradesEnum_Level.Level5:
+                            cost = 140;
+                            break;
+                    }
+                    break;
+                case UpgradesEnum_Branch.RightBranch:
+                    switch (level)
+                    {
+                        case UpgradesEnum_Level.Level2:
+                            cost = 45;
+                            break;
+                        case UpgradesEnum_Level.Level3_1:
+                            cost = 55;
+                            break;
+                        case UpgradesEnum_Level.Level3_2:
+                            cost = 60;
+                            break;
+                        case UpgradesEnum_Level.Level4:
+                            cost = 80;
+                            break;
+                        case UpgradesEnum_Level.Level5:
+                            cost = 110;
+                            break;
+                    }
+                    break;
+                default:
+                    cost = -1;
+                    break;
+            }
         }
 
         return cost;
@@ -216,17 +280,84 @@ public class CostManager : MonoBehaviour
     public int SetUpBombTowerCost(UpgradesEnum_Branch branch, UpgradesEnum_Level level)
     {
         int cost = 0;
-        switch (branch)
+        if (level == UpgradesEnum_Level.Level1)
         {
-            case UpgradesEnum_Branch.LeftBranch:
-                break;
-            case UpgradesEnum_Branch.MiddleBranch:
-                break;
-            case UpgradesEnum_Branch.RightBranch:
-                break;
-            default:
-                cost = -1;
-                break;
+            cost = 30;
+        }
+        else
+        {
+            switch (branch)
+            {
+                case UpgradesEnum_Branch.LeftBranch:
+                    switch (level)
+                    {
+                        case UpgradesEnum_Level.Level2:
+                            cost = 45;
+                            break;
+                        case UpgradesEnum_Level.Level3_1:
+                            cost = 65;
+                            break;
+                        case UpgradesEnum_Level.Level3_2:
+                            cost = 85;
+                            break;
+                        case UpgradesEnum_Level.Level4:
+                            cost = 90;
+                            break;
+                        case UpgradesEnum_Level.Level5:
+                            cost = 120;
+                            break;
+                    }
+                    break;
+                case UpgradesEnum_Branch.MiddleBranch:
+                    switch (level)
+                    {
+                        case UpgradesEnum_Level.Level2:
+                            cost = 45;
+                            break;
+                        case UpgradesEnum_Level.Level3_1:
+                            cost = 70;
+                            break;
+                        case UpgradesEnum_Level.Level3_2:
+                            cost = 60;
+                            break;
+                        case UpgradesEnum_Level.Level4_1:
+                            cost = 90;
+                            break;
+                        case UpgradesEnum_Level.Level4_2:
+                            cost = 80;
+                            break;
+                        case UpgradesEnum_Level.Level5:
+                            cost = 100;
+                            break;
+                    }
+                    break;
+                case UpgradesEnum_Branch.RightBranch:
+                    switch (level)
+                    {
+                        case UpgradesEnum_Level.Level2:
+                            cost = 45;
+                            break;
+                        case UpgradesEnum_Level.Level3_1:
+                            cost = 65;
+                            break;
+                        case UpgradesEnum_Level.Level3_2:
+                            cost = 60;
+                            break;
+                        case UpgradesEnum_Level.Level4_1:
+                            cost = 80;
+                            break;
+                        case UpgradesEnum_Level.Level4_2:
+                            cost = 75;
+                            break;
+                        case UpgradesEnum_Level.Level5:
+                            cost = 100;
+                            break;
+                    }
+                    break;
+                default:
+                    cost = -1;
+                    break;
+            }
         }
 
         return cost;
