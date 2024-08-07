@@ -36,6 +36,9 @@ namespace Strings
             public const string StatsContainer = "Stats";
             public const string UpgradeStatChanges_Old = "UpgradeStatChanges_Old";
             public const string UpgradeStatChanges_New = "UpgradeStatChanges_New";
+
+            public const string UpgradeButton = "UpgradeButton";
+            public const string UpgradeText = "UpgradeText";
         }
 
         public class UI_Stats

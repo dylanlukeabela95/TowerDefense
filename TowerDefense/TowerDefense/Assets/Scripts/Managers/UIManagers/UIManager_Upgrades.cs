@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -830,10 +829,16 @@ public class UIManager_Upgrades : MonoBehaviour
         Dictionary<string, object> damageTowerBurstDictionary = new Dictionary<string, object>();
         Dictionary<string, object> damageTowerCriticalDictionary = new Dictionary<string, object>();
 
+        int cost = 0;
+
         switch (nodeSplit[1])
         {
             case "Level1":
                 damageTowerDamageDictionary = ReferencesManager.UpgradesManager.DamageTowerDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                cost = ReferencesManager.CostManager.GetUpgradeCost(TowerEnum.DamageTower, UpgradesEnum_Level.Level1);
+                SetUpgradeCostValue(cost);
+
                 AlterStat(StringsDatabase.Stats.Damage, currentTower, node, damageTowerDamageDictionary, "Level1");
                 break;
             case "Level2":
@@ -847,6 +852,9 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1, adjacentNode2 };
 
+                        cost = ReferencesManager.CostManager.GetUpgradeCost(TowerEnum.DamageTower, UpgradesEnum_Level.Level2, UpgradesEnum_Branch.MiddleBranch);
+                        SetUpgradeCostValue(cost);
+
                         AlterStat(StringsDatabase.Stats.Damage, currentTower, node, damageTowerDamageDictionary, "Level2", true, otherNodes);
                         break;
                     case "FireRate":
@@ -856,6 +864,9 @@ public class UIManager_Upgrades : MonoBehaviour
                         adjacentNode2 = DamageTowerRightBranch.Find(a => a.name.Contains("Level2"));
 
                         otherNodes = new List<GameObject>() { adjacentNode1, adjacentNode2 };
+
+                        cost = ReferencesManager.CostManager.GetUpgradeCost(TowerEnum.DamageTower, UpgradesEnum_Level.Level2, UpgradesEnum_Branch.LeftBranch);
+                        SetUpgradeCostValue(cost);
 
                         AlterStat(StringsDatabase.Stats.FireRate, currentTower, node, damageTowerFireRateDictionary, "Level2", true, otherNodes);
                         break;
@@ -867,6 +878,9 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1, adjacentNode2 };
 
+                        cost = ReferencesManager.CostManager.GetUpgradeCost(TowerEnum.DamageTower, UpgradesEnum_Level.Level2, UpgradesEnum_Branch.RightBranch);
+                        SetUpgradeCostValue(cost);
+
                         AlterStat(StringsDatabase.Stats.Range, currentTower, node, damageTowerRangeDictionary, "Level2", true, otherNodes);
                         break;
                 }
@@ -876,6 +890,10 @@ public class UIManager_Upgrades : MonoBehaviour
                 {
                     case "Projectile":
                         damageTowerProjectileDictionary = ReferencesManager.UpgradesManager.DamageTowerProjectile.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        cost = ReferencesManager.CostManager.GetUpgradeCost(TowerEnum.DamageTower, UpgradesEnum_Level.Level3, UpgradesEnum_Branch.MiddleBranch);
+                        SetUpgradeCostValue(cost);
+
                         AlterStat(StringsDatabase.Stats.ProjectileCount, currentTower, node, damageTowerProjectileDictionary, "Level3");
                         break;
                 }
@@ -890,6 +908,9 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1 };
 
+                        cost = ReferencesManager.CostManager.GetUpgradeCost(TowerEnum.DamageTower, UpgradesEnum_Level.Level3_1, UpgradesEnum_Branch.LeftBranch);
+                        SetUpgradeCostValue(cost);
+
                         AlterStat(StringsDatabase.Stats.TwoRoundBurstChance, currentTower, node, damageTowerBurstDictionary, "Level3.1", true, otherNodes);
 
                         break;
@@ -899,6 +920,9 @@ public class UIManager_Upgrades : MonoBehaviour
                         adjacentNode1 = DamageTowerRightBranch.Find(a => a.name.Contains("Level3.2"));
 
                         otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        cost = ReferencesManager.CostManager.GetUpgradeCost(TowerEnum.DamageTower, UpgradesEnum_Level.Level3_1, UpgradesEnum_Branch.RightBranch);
+                        SetUpgradeCostValue(cost);
 
                         AlterStat(StringsDatabase.Stats.CriticalChance, currentTower, node, damageTowerCriticalDictionary, "Level3.1", true, otherNodes);
 
@@ -915,6 +939,9 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1 };
 
+                        cost = ReferencesManager.CostManager.GetUpgradeCost(TowerEnum.DamageTower, UpgradesEnum_Level.Level3_2, UpgradesEnum_Branch.LeftBranch);
+                        SetUpgradeCostValue(cost);
+
                         AlterStat(StringsDatabase.Stats.FireRate, currentTower, node, damageTowerFireRateDictionary, "Level3.2", true, otherNodes);
                         break;
 
@@ -924,6 +951,9 @@ public class UIManager_Upgrades : MonoBehaviour
                         adjacentNode1 = DamageTowerRightBranch.Find(a => a.name.Contains("Level3.1"));
 
                         otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        cost = ReferencesManager.CostManager.GetUpgradeCost(TowerEnum.DamageTower, UpgradesEnum_Level.Level3_2, UpgradesEnum_Branch.RightBranch);
+                        SetUpgradeCostValue(cost);
 
                         AlterStat(StringsDatabase.Stats.Range, currentTower, node, damageTowerRangeDictionary, "Level3.2", true, otherNodes);
                         break;
@@ -935,11 +965,17 @@ public class UIManager_Upgrades : MonoBehaviour
                     case "FireRate":
                         damageTowerFireRateDictionary = ReferencesManager.UpgradesManager.DamageTowerFireRate.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
 
+                        cost = ReferencesManager.CostManager.GetUpgradeCost(TowerEnum.DamageTower, UpgradesEnum_Level.Level4, UpgradesEnum_Branch.LeftBranch);
+                        SetUpgradeCostValue(cost);
+
                         AlterStat(StringsDatabase.Stats.FireRate, currentTower, node, damageTowerFireRateDictionary, "Level4");
                         break;
 
                     case "Range":
                         damageTowerRangeDictionary = ReferencesManager.UpgradesManager.DamageTowerRange.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        cost = ReferencesManager.CostManager.GetUpgradeCost(TowerEnum.DamageTower, UpgradesEnum_Level.Level4, UpgradesEnum_Branch.RightBranch);
+                        SetUpgradeCostValue(cost);
 
                         AlterStat(StringsDatabase.Stats.Range, currentTower, node, damageTowerRangeDictionary, "Level4");
                         break;
@@ -954,6 +990,9 @@ public class UIManager_Upgrades : MonoBehaviour
                         adjacentNode1 = DamageTowerMiddleBranch.Find(a => a.name.Contains("Level4.2"));
 
                         otherNodes = new List<GameObject>() { adjacentNode1 };
+
+                        cost = ReferencesManager.CostManager.GetUpgradeCost(TowerEnum.DamageTower, UpgradesEnum_Level.Level4_1, UpgradesEnum_Branch.MiddleBranch);
+                        SetUpgradeCostValue(cost);
 
                         AlterStat(StringsDatabase.Stats.ProjectileCount, currentTower, node, damageTowerProjectileDictionary, "Level4.1", true, otherNodes);
                         currentTower.GetComponent<DamageTower>().Damage = Mathf.FloorToInt(currentTower.GetComponent<DamageTower>().Damage * (ReferencesManager.UpgradesManager.DamageTowerDamage["Level4.1"] * 1.0f) / 100);
@@ -970,6 +1009,9 @@ public class UIManager_Upgrades : MonoBehaviour
 
                         otherNodes = new List<GameObject>() { adjacentNode1 };
 
+                        cost = ReferencesManager.CostManager.GetUpgradeCost(TowerEnum.DamageTower, UpgradesEnum_Level.Level4_2, UpgradesEnum_Branch.MiddleBranch);
+                        SetUpgradeCostValue(cost);
+
                         AlterStat(StringsDatabase.Stats.Damage, currentTower, node, damageTowerDamageDictionary, "Level4.2", true, otherNodes);
                         break;
                 }
@@ -979,14 +1021,26 @@ public class UIManager_Upgrades : MonoBehaviour
                 {
                     case "Damage":
                         damageTowerDamageDictionary = ReferencesManager.UpgradesManager.DamageTowerDamage.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        cost = ReferencesManager.CostManager.GetUpgradeCost(TowerEnum.DamageTower, UpgradesEnum_Level.Level5, UpgradesEnum_Branch.MiddleBranch);
+                        SetUpgradeCostValue(cost);
+
                         AlterStat(StringsDatabase.Stats.Damage, currentTower, node, damageTowerDamageDictionary, "Level5");
                         break;
                     case "Burst":
                         damageTowerBurstDictionary = ReferencesManager.UpgradesManager.DamageTowerBurstChance.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        cost = ReferencesManager.CostManager.GetUpgradeCost(TowerEnum.DamageTower, UpgradesEnum_Level.Level5, UpgradesEnum_Branch.LeftBranch);
+                        SetUpgradeCostValue(cost);
+
                         AlterStat(StringsDatabase.Stats.ThreeRoundBurstChance, currentTower, node, damageTowerBurstDictionary, "Level5");
                         break;
                     case "Infinity":
                         damageTowerRangeDictionary = ReferencesManager.UpgradesManager.DamageTowerRange.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                        cost = ReferencesManager.CostManager.GetUpgradeCost(TowerEnum.DamageTower, UpgradesEnum_Level.Level5, UpgradesEnum_Branch.RightBranch);
+                        SetUpgradeCostValue(cost);
+
                         AlterStat(StringsDatabase.Stats.Range, currentTower, node, damageTowerRangeDictionary, "Level5");
                         break;
                 }
@@ -1999,6 +2053,11 @@ public class UIManager_Upgrades : MonoBehaviour
             default:
                 return string.Empty;
         }
+    }
+
+    private void SetUpgradeCostValue(int cost)
+    {
+        SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeButton).transform.Find(StringsDatabase.UI_Upgrades.UpgradeText).GetComponent<TextMeshProUGUI>().text = cost.ToString();
     }
 
     void DisplaySideMenuOnNodeClick(GameObject node)

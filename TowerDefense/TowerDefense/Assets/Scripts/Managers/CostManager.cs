@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CostManager : MonoBehaviour
@@ -35,7 +37,31 @@ public class CostManager : MonoBehaviour
         BombTowerCost = 60;
     }
 
-    public int SetUpDamageTowerNodeCost(UpgradesEnum_Branch branch, UpgradesEnum_Level level)
+    public int GetUpgradeCost(TowerEnum towerEnum, UpgradesEnum_Level level, UpgradesEnum_Branch? branch = null)
+    {
+        var cost = 0;
+
+        switch (towerEnum)
+        {
+            case TowerEnum.DamageTower:
+                cost = GetDamageTowerNodeCost(branch, level);
+                break;
+            case TowerEnum.FreezeTower:
+                cost = GetFreezeTowerCost(branch, level);
+                break;
+            case TowerEnum.PoisonTower:
+                cost = GetPoisonTowerCost(branch, level);
+                break;
+            case TowerEnum.BombTower:
+                cost = GetBombTowerCost(branch, level);
+                break;
+        }
+
+        return cost;
+    }
+
+
+    public int GetDamageTowerNodeCost(UpgradesEnum_Branch? branch, UpgradesEnum_Level level)
     {
         int cost = 0;
         if (level == UpgradesEnum_Level.Level1)
@@ -115,7 +141,7 @@ public class CostManager : MonoBehaviour
         return cost;
     }
 
-    public int SetUpFreezeTowerCost(UpgradesEnum_Branch branch, UpgradesEnum_Level level)
+    public int GetFreezeTowerCost(UpgradesEnum_Branch? branch, UpgradesEnum_Level level)
     {
         int cost = 0;
         if (level == UpgradesEnum_Level.Level1)
@@ -194,7 +220,7 @@ public class CostManager : MonoBehaviour
         return cost;
     }
 
-    public int SetupPoisonTowerCost(UpgradesEnum_Branch branch, UpgradesEnum_Level level)
+    public int GetPoisonTowerCost(UpgradesEnum_Branch? branch, UpgradesEnum_Level level)
     {
         int cost = 0;
         if (level == UpgradesEnum_Level.Level1)
@@ -277,7 +303,7 @@ public class CostManager : MonoBehaviour
         return cost;
     }
 
-    public int SetUpBombTowerCost(UpgradesEnum_Branch branch, UpgradesEnum_Level level)
+    public int GetBombTowerCost(UpgradesEnum_Branch? branch, UpgradesEnum_Level level)
     {
         int cost = 0;
         if (level == UpgradesEnum_Level.Level1)
