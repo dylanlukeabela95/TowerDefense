@@ -37,7 +37,7 @@ public class CostManager : MonoBehaviour
         BombTowerCost = 60;
     }
 
-    public int GetUpgradeCost(TowerEnum towerEnum, UpgradesEnum_Level level, UpgradesEnum_Branch? branch = null)
+    public int GetUpgradeCost(TowerEnum? towerEnum, UpgradesEnum_Level? level, UpgradesEnum_Branch? branch = null)
     {
         var cost = 0;
 
@@ -61,7 +61,7 @@ public class CostManager : MonoBehaviour
     }
 
 
-    public int GetDamageTowerNodeCost(UpgradesEnum_Branch? branch, UpgradesEnum_Level level)
+    public int GetDamageTowerNodeCost(UpgradesEnum_Branch? branch, UpgradesEnum_Level? level)
     {
         int cost = 0;
         if (level == UpgradesEnum_Level.Level1)
@@ -141,7 +141,7 @@ public class CostManager : MonoBehaviour
         return cost;
     }
 
-    public int GetFreezeTowerCost(UpgradesEnum_Branch? branch, UpgradesEnum_Level level)
+    public int GetFreezeTowerCost(UpgradesEnum_Branch? branch, UpgradesEnum_Level? level)
     {
         int cost = 0;
         if (level == UpgradesEnum_Level.Level1)
@@ -220,7 +220,7 @@ public class CostManager : MonoBehaviour
         return cost;
     }
 
-    public int GetPoisonTowerCost(UpgradesEnum_Branch? branch, UpgradesEnum_Level level)
+    public int GetPoisonTowerCost(UpgradesEnum_Branch? branch, UpgradesEnum_Level? level)
     {
         int cost = 0;
         if (level == UpgradesEnum_Level.Level1)
@@ -303,7 +303,7 @@ public class CostManager : MonoBehaviour
         return cost;
     }
 
-    public int GetBombTowerCost(UpgradesEnum_Branch? branch, UpgradesEnum_Level level)
+    public int GetBombTowerCost(UpgradesEnum_Branch? branch, UpgradesEnum_Level? level)
     {
         int cost = 0;
         if (level == UpgradesEnum_Level.Level1)

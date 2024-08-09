@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -1941,6 +1942,8 @@ public class UIManager_Upgrades : MonoBehaviour
                 }
             }
         }
+
+        SetCostText(node);
     }
 
     public string GetUpgradeTitle()
@@ -2006,7 +2009,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
     private void SetUpgradeCostValue(int cost)
     {
-        SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeButton).transform.Find(StringsDatabase.UI_Upgrades.UpgradeText).GetComponent<TextMeshProUGUI>().text = cost.ToString();
+        SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeButton).transform.Find(StringsDatabase.UI_Upgrades.CostUpgrade).transform.Find(StringsDatabase.UI_Upgrades.CoinAmount).GetComponent<TextMeshProUGUI>().text = cost.ToString();
     }
 
     void DisplaySideMenuOnNodeClick(GameObject node)
@@ -2020,6 +2023,35 @@ public class UIManager_Upgrades : MonoBehaviour
 
         //Show which node is selected
         SetUpgradeStats(currentTower, node);
+    }
+
+    private void SetCostText(GameObject node)
+    {
+        TowerEnum? towerEnum = TowerEnum.DamageTower;
+        UpgradesEnum_Level? level = UpgradesEnum_Level.Level1;
+        UpgradesEnum_Branch? branch = UpgradesEnum_Branch.MiddleBranch;
+        int cost = 0;
+
+        List<List<GameObject>> leftBranches = new List<List<GameObject>>() { DamageTowerLeftBranch, FreezeTowerLeftBranch, PoisonTowerLeftBranch, BombTowerLeftBranch };
+        List<List<GameObject>> middleBranches = new List<List<GameObject>>() { DamageTowerMiddleBranch, FreezeTowerMiddleBranch, PoisonTowerMiddleBranch, BombTowerMiddleBranch };
+        List<List<GameObject>> rightBranches = new List<List<GameObject>>() { DamageTowerRightBranch, FreezeTowerRightBranch, PoisonTowerRightBranch, BombTowerRightBranch };
+
+        towerEnum = TowerEnumHandler.GetTowerEnum(node);
+
+        level = UpgradeEnum_LevelHandler.GetLevel(node);
+
+        branch = UpgradeEnum_BranchHandler.GetBranch(node, leftBranches, middleBranches, rightBranches);
+
+        if (level == UpgradesEnum_Level.Level1)
+        {
+            cost = ReferencesManager.CostManager.GetUpgradeCost(towerEnum, UpgradesEnum_Level.Level1);
+        }
+        else
+        {
+            cost = ReferencesManager.CostManager.GetUpgradeCost(towerEnum, level, branch);
+        }
+
+        SetUpgradeCostValue(cost);
     }
 
 

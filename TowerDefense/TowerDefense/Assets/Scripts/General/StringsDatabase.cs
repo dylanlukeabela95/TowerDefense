@@ -38,7 +38,8 @@ namespace Strings
             public const string UpgradeStatChanges_New = "UpgradeStatChanges_New";
 
             public const string UpgradeButton = "UpgradeButton";
-            public const string UpgradeText = "UpgradeText";
+            public const string CostUpgrade = "CostUpgrade";
+            public const string CoinAmount = "CoinAmount";
         }
 
         public class UI_Stats
