@@ -2009,7 +2009,17 @@ public class UIManager_Upgrades : MonoBehaviour
 
     private void SetUpgradeCostValue(int cost)
     {
-        SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeButton).transform.Find(StringsDatabase.UI_Upgrades.CostUpgrade).transform.Find(StringsDatabase.UI_Upgrades.CoinAmount).GetComponent<TextMeshProUGUI>().text = cost.ToString();
+        TextMeshProUGUI coinAmount = SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeButton).transform.Find(StringsDatabase.UI_Upgrades.CostUpgrade).transform.Find(StringsDatabase.UI_Upgrades.CoinAmount).GetComponent<TextMeshProUGUI>();
+        coinAmount.text = cost.ToString();
+
+        if (ReferencesManager.GameManager.coins < cost)
+        {
+            coinAmount.color = Color.red;
+        }
+        else
+        {
+            coinAmount.color = Color.black;
+        }
     }
 
     void DisplaySideMenuOnNodeClick(GameObject node)
@@ -2054,7 +2064,6 @@ public class UIManager_Upgrades : MonoBehaviour
         SetUpgradeCostValue(cost);
     }
 
-
     #region OnClick
 
     public void OnClick_UpgradeNode(GameObject node)
@@ -2069,39 +2078,53 @@ public class UIManager_Upgrades : MonoBehaviour
         {
             DisplaySideMenuOnNodeClick(node);
         }
-        
+
+        TextMeshProUGUI sideMenuCoins = SideMenu.transform.Find(StringsDatabase.UI_Upgrades.CostSection).transform.Find(StringsDatabase.UI_Upgrades.CoinsText).GetComponent<TextMeshProUGUI>();
+
+        if (sideMenuCoins.text == "9999" || (sideMenuCoins.text != "9999" && sideMenuCoins.text != ReferencesManager.GameManager.coins.ToString()))
+        {
+            ReferencesManager.UIManager_Cost.UpdateCoins(sideMenuCoins, ReferencesManager.GameManager.coins);
+        }
     }
 
     public void OnClick_UpgradeButton()
     {
-        SideMenu.SetActive(false);
-        Destroy(CurrentNode.transform.GetChild(0).gameObject);
-        var nodeSplit = CurrentNode.name.Split('_');
+        int cost = int.Parse(SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeButton).transform.Find(StringsDatabase.UI_Upgrades.CostUpgrade).transform.Find(StringsDatabase.UI_Upgrades.CoinAmount).GetComponent<TextMeshProUGUI>().text);
 
-        GameObject adjacentNode1 = null;
-        GameObject adjacentNode2 = null;
-
-        List<GameObject> otherNodes = new List<GameObject>();
-
-        var currentTower = ReferencesManager.GameManager.currentTower;
-
-        switch (nodeSplit[0])
+        if (ReferencesManager.GameManager.coins >= cost)
         {
-            case "DamageTower":
-                DamageUpgrades(nodeSplit, currentTower, CurrentNode, adjacentNode1, adjacentNode2, otherNodes);
-                break;
-            case "FreezeTower":
-                FreezeUpgrades(nodeSplit, currentTower, CurrentNode, adjacentNode1, adjacentNode2, otherNodes);
-                break;
-            case "PoisonTower":
-                PoisonUpgrades(nodeSplit, currentTower, CurrentNode, adjacentNode1, adjacentNode2, otherNodes);
-                break;
-            case "BombTower":
-                BombUpgrades(nodeSplit, currentTower, CurrentNode, adjacentNode1, adjacentNode2, otherNodes);
-                break;
-        }
+            SideMenu.SetActive(false);
+            Destroy(CurrentNode.transform.GetChild(0).gameObject);
+            var nodeSplit = CurrentNode.name.Split('_');
 
-        CurrentNode = null;
+            GameObject adjacentNode1 = null;
+            GameObject adjacentNode2 = null;
+
+            List<GameObject> otherNodes = new List<GameObject>();
+
+            var currentTower = ReferencesManager.GameManager.currentTower;
+
+            switch (nodeSplit[0])
+            {
+                case "DamageTower":
+                    DamageUpgrades(nodeSplit, currentTower, CurrentNode, adjacentNode1, adjacentNode2, otherNodes);
+                    break;
+                case "FreezeTower":
+                    FreezeUpgrades(nodeSplit, currentTower, CurrentNode, adjacentNode1, adjacentNode2, otherNodes);
+                    break;
+                case "PoisonTower":
+                    PoisonUpgrades(nodeSplit, currentTower, CurrentNode, adjacentNode1, adjacentNode2, otherNodes);
+                    break;
+                case "BombTower":
+                    BombUpgrades(nodeSplit, currentTower, CurrentNode, adjacentNode1, adjacentNode2, otherNodes);
+                    break;
+            }
+
+            CurrentNode = null;
+
+            ReferencesManager.GameManager.ReduceCoins(cost);
+            ReferencesManager.UIManager_Cost.UpdateCoins();
+        }
     }
 
     public void OnClick_SideMenuClose()

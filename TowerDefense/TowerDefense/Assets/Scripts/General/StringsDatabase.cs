@@ -40,6 +40,9 @@ namespace Strings
             public const string UpgradeButton = "UpgradeButton";
             public const string CostUpgrade = "CostUpgrade";
             public const string CoinAmount = "CoinAmount";
+
+            public const string CostSection = "CostSection";
+            public const string CoinsText = "CoinsText";
         }
 
         public class UI_Stats

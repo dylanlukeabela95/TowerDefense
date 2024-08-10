@@ -30,4 +30,9 @@ public class UIManager_Cost : MonoBehaviour
     {
         CoinsText.text = ReferencesManager.GameManager.coins.ToString();
     }
+
+    public void UpdateCoins(TextMeshProUGUI coinsText, int coins)
+    {
+        coinsText.text = coins.ToString();
+    }
 }
