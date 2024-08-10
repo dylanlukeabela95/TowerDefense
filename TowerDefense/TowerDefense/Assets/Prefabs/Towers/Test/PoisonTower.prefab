@@ -33,7 +33,6 @@ Transform:
   m_Children:
   - {fileID: 5354909293264278707}
   - {fileID: 7983578077781669916}
-  - {fileID: 1338735751000018288}
   - {fileID: 7619524983387408349}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -55,9 +54,18 @@ MonoBehaviour:
   FireRate: 0
   Range: 0
   Cost: 0
+  UpgradeLevel: 0
+  UpgradeNames: []
+  Stats: []
+  TowerEnum: 0
   Barrel: {fileID: 1338735751000018288}
   RangeIndicator: {fileID: 3238779004573156399}
   projectilePoison: {fileID: 5995876304203132782, guid: 04718cd98f5eb3941845444558afd9e0, type: 3}
+  PoisonDamageOverTime: 0
+  PoisonDuration: 0
+  PoisonTickRate: 0
+  PoisonSpread: 0
+  PoisonSpreadRadius: 0
 --- !u!61 &1063141810183867926
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -129,12 +137,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403973468994479536}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.631, z: 9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.85574573, z: 6.276091}
+  m_LocalScale: {x: 8.278145, y: 2.716653, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5794828669742918571}
-  m_RootOrder: 2
+  m_Father: {fileID: 7983578077781669916}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3238779004573156399
 GameObject:
@@ -166,7 +174,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5794828669742918571}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &570448834561178143
 SpriteRenderer:
@@ -248,7 +256,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.316, z: 2.723909}
   m_LocalScale: {x: 0.1208, y: 0.3681, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1338735751000018288}
   m_Father: {fileID: 5794828669742918571}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

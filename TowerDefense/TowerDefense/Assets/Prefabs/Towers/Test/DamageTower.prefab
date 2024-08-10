@@ -114,7 +114,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2772352148467199123}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2289552506559002277
 SpriteRenderer:
@@ -196,7 +196,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.316, z: 2.723909}
   m_LocalScale: {x: 0.1208, y: 0.3681, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2508380889151599664}
   m_Father: {fileID: 2772352148467199123}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -285,7 +286,6 @@ Transform:
   m_Children:
   - {fileID: 1748160357996644410}
   - {fileID: 8350541965376428699}
-  - {fileID: 2508380889151599664}
   - {fileID: 2219788794838508768}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -309,6 +309,7 @@ MonoBehaviour:
   Cost: 0
   UpgradeLevel: 0
   UpgradeNames: []
+  Stats: []
   TowerEnum: 0
   Barrel: {fileID: 2508380889151599664}
   RangeIndicator: {fileID: 1035330160564328052}
@@ -317,7 +318,9 @@ MonoBehaviour:
   CriticalChance: 0
   TwoRoundBurstChance: 0
   ThreeRoundBurstChance: 0
-  Stats: []
+  Barrels: []
+  BarrelToAdd: {fileID: 3568838442184806197}
+  WhenTwoBarrels: {x: -0.108, y: 0.316, z: 2.72}
 --- !u!61 &7676258731999983465
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -389,10 +392,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8400419447374636406}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.631, z: 9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.85574573, z: 6.276091}
+  m_LocalScale: {x: 8.278145, y: 2.716653, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2772352148467199123}
-  m_RootOrder: 2
+  m_Father: {fileID: 8350541965376428699}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

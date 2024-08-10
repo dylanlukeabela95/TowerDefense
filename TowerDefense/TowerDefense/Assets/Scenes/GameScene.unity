@@ -16717,7 +16717,7 @@ MonoBehaviour:
   isFreezeTowerSelected: 0
   isPoisonTowerSelected: 0
   isBombTowerSelected: 0
-  coins: 100
+  coins: 500
   AllTowers: []
   currentTower: {fileID: 0}
   PoisonCriticalChance: 0

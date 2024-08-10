@@ -679,6 +679,8 @@ public class UIManager_Upgrades : MonoBehaviour
                 {
                     currentTower.GetComponent<DamageTower>().AddStat("Projectile Count");
                 }
+
+                currentTower.GetComponent<DamageTower>().AddBarrel();
                 break;
             case StringsDatabase.Stats.TwoRoundBurstChance:
                 currentTower.GetComponent<DamageTower>().TwoRoundBurstChance += (int)upgradeCollection[key];

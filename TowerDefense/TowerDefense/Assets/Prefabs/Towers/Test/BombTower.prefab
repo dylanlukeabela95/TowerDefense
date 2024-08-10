@@ -33,7 +33,6 @@ Transform:
   m_Children:
   - {fileID: 8812806269270296726}
   - {fileID: 5271785054165909040}
-  - {fileID: 8700566191634227247}
   - {fileID: 7970380339173626326}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -55,9 +54,18 @@ MonoBehaviour:
   FireRate: 0
   Range: 0
   Cost: 0
+  UpgradeLevel: 0
+  UpgradeNames: []
+  Stats: []
+  TowerEnum: 0
   Barrel: {fileID: 8700566191634227247}
   RangeIndicator: {fileID: 5802289077546875427}
   projectileBomb: {fileID: 2058674578671948185, guid: c074331f4a8eb6d46b6cb5702b108cac, type: 3}
+  SplashDamage: 0
+  SplashRadius: 0
+  DoubleExplosionChance: 0
+  RocketChance: 0
+  RocketDamage: 0
 --- !u!61 &8446938902415877453
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -128,13 +136,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1655611517444690765}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.631, z: 9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.85574573, z: 6.276091}
+  m_LocalScale: {x: 8.278145, y: 2.716653, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 476943048762061616}
-  m_RootOrder: 2
+  m_Father: {fileID: 5271785054165909040}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4449503026730763764
 GameObject:
@@ -164,7 +172,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.316, z: 2.723909}
   m_LocalScale: {x: 0.1208, y: 0.3681, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8700566191634227247}
   m_Father: {fileID: 476943048762061616}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -334,7 +343,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 476943048762061616}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8624748856485327316
 SpriteRenderer:

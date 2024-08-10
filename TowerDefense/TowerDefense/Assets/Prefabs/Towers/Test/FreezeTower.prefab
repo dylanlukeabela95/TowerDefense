@@ -24,12 +24,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 528174883492093913}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.631, z: 9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.85574573, z: 6.276091}
+  m_LocalScale: {x: 8.278145, y: 2.716653, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 9142003872311028375}
-  m_RootOrder: 2
+  m_Father: {fileID: 5880911839153964357}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2867358426880141643
 GameObject:
@@ -61,7 +61,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9142003872311028375}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5749599587090015583
 SpriteRenderer:
@@ -227,7 +227,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.316, z: 2.723909}
   m_LocalScale: {x: 0.1208, y: 0.3681, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3933563551055692357}
   m_Father: {fileID: 9142003872311028375}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -316,7 +317,6 @@ Transform:
   m_Children:
   - {fileID: 1973388987880931261}
   - {fileID: 5880911839153964357}
-  - {fileID: 3933563551055692357}
   - {fileID: 3715633372698693246}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -338,9 +338,24 @@ MonoBehaviour:
   FireRate: 0
   Range: 0
   Cost: 0
+  UpgradeLevel: 0
+  UpgradeNames: []
+  Stats: []
+  TowerEnum: 0
   Barrel: {fileID: 3933563551055692357}
   RangeIndicator: {fileID: 2867358426880141643}
   projectileFreeze: {fileID: 6282616619044169572, guid: 40f8bb8f979e0fa47be005204d6f2135, type: 3}
+  IceDamage: 0
+  SlowDuration: 0
+  SlowEffect: 0
+  CanFrostbite: 0
+  FrostbiteDamage: 0
+  FrostbiteTickRate: 0
+  CanIcicle: 0
+  IcicleDamage: 0
+  IcicleChance: 0
+  CanImmobilize: 0
+  ImmobilizeChance: 0
 --- !u!61 &4632902437883730588
 BoxCollider2D:
   m_ObjectHideFlags: 0

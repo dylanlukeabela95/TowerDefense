@@ -119,11 +119,11 @@ public class Tower : MonoBehaviour
         }
     }
 
-    public IEnumerator Shoot(GameObject projectile, int damage)
+    public virtual IEnumerator Shoot(GameObject projectile, int damage)
     {
         while(true)
         {
-            GameObject bullet = Instantiate(projectile, Barrel.transform.position, Barrel.transform.rotation);
+            GameObject bullet = Instantiate(projectile, Barrel.position, Barrel.rotation);
             bullet.GetComponent<TowerProjectile>().Damage = damage;
             yield return new WaitForSeconds(FireRate);
         }
