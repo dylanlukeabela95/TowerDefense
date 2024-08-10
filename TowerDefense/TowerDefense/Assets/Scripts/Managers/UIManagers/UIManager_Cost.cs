@@ -9,7 +9,9 @@ public class UIManager_Cost : MonoBehaviour
     public TextMeshProUGUI CoinsText;
     public RectTransform CoinsSection;
 
-    public Vector2 OnScreenPosition;
+    public GameObject CostSection_SkillTree;
+
+    private Vector2 OnScreenPosition;
 
     // Start is called before the first frame update
     void Start()

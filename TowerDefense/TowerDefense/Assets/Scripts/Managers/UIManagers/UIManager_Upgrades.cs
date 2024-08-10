@@ -71,7 +71,6 @@ public class UIManager_Upgrades : MonoBehaviour
     public GameObject SideMenu;
     public GameObject UpgradeStat;
     public GameObject SelectedNode;
-    public GameObject CostSection;
 
     // Start is called before the first frame update
     void Start()
@@ -80,7 +79,7 @@ public class UIManager_Upgrades : MonoBehaviour
         UpgradesSection.SetActive(false);
         ShowHideSkillTree(false, false, false, false);
 
-        TextMeshProUGUI sideMenuCoins = CostSection.transform.Find(StringsDatabase.UI_Upgrades.CoinsText).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI sideMenuCoins = ReferencesManager.UIManager_Cost.CostSection_SkillTree.transform.Find(StringsDatabase.UI_Upgrades.CoinsText).GetComponent<TextMeshProUGUI>();
         if (sideMenuCoins.text == "9999" || (sideMenuCoins.text != "9999" && sideMenuCoins.text != ReferencesManager.GameManager.coins.ToString()))
         {
             ReferencesManager.UIManager_Cost.UpdateCoins(sideMenuCoins, ReferencesManager.GameManager.coins);
@@ -2131,7 +2130,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
             ReferencesManager.GameManager.ReduceCoins(cost);
             ReferencesManager.UIManager_Cost.UpdateCoins();
-            ReferencesManager.UIManager_Cost.UpdateCoins(CostSection.transform.Find(StringsDatabase.UI_Upgrades.CoinsText).GetComponent<TextMeshProUGUI>(), ReferencesManager.GameManager.coins);
+            ReferencesManager.UIManager_Cost.UpdateCoins(ReferencesManager.UIManager_Cost.CostSection_SkillTree.transform.Find(StringsDatabase.UI_Upgrades.CoinsText).GetComponent<TextMeshProUGUI>(), ReferencesManager.GameManager.coins);
         }
     }
 

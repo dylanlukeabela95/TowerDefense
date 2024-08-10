@@ -1,4 +1,3 @@
-using JetBrains.Rider.Unity.Editor;
 using Strings;
 using System.Collections;
 using System.Collections.Generic;
@@ -526,6 +525,7 @@ public class UIManager_Stat : MonoBehaviour
         ReferencesManager.UIManager_Upgrades.ShowSkillTree(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().TowerEnum);
         panel.SetActive(false);
         ReferencesManager.UIManager_Upgrades.SetUpSkillTreeOptions(ReferencesManager.GameManager.currentTower, ReferencesManager.UIManager_Upgrades.ReturnTypeSkillTree(ReferencesManager.GameManager.currentTower));
+        ReferencesManager.UIManager_Cost.UpdateCoins(ReferencesManager.UIManager_Cost.CostSection_SkillTree.transform.Find(StringsDatabase.UI_Upgrades.CoinsText).GetComponent<TextMeshProUGUI>(), ReferencesManager.GameManager.coins);
     }
 
     #endregion
