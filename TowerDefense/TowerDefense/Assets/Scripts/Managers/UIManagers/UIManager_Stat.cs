@@ -1,3 +1,4 @@
+using JetBrains.Rider.Unity.Editor;
 using Strings;
 using System.Collections;
 using System.Collections.Generic;

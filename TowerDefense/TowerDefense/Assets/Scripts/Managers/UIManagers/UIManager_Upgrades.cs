@@ -71,6 +71,7 @@ public class UIManager_Upgrades : MonoBehaviour
     public GameObject SideMenu;
     public GameObject UpgradeStat;
     public GameObject SelectedNode;
+    public GameObject CostSection;
 
     // Start is called before the first frame update
     void Start()
@@ -78,6 +79,13 @@ public class UIManager_Upgrades : MonoBehaviour
         ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
         UpgradesSection.SetActive(false);
         ShowHideSkillTree(false, false, false, false);
+
+        TextMeshProUGUI sideMenuCoins = CostSection.transform.Find(StringsDatabase.UI_Upgrades.CoinsText).GetComponent<TextMeshProUGUI>();
+        if (sideMenuCoins.text == "9999" || (sideMenuCoins.text != "9999" && sideMenuCoins.text != ReferencesManager.GameManager.coins.ToString()))
+        {
+            ReferencesManager.UIManager_Cost.UpdateCoins(sideMenuCoins, ReferencesManager.GameManager.coins);
+        }
+
         SideMenu.SetActive(false);
     }
 
@@ -2009,15 +2017,21 @@ public class UIManager_Upgrades : MonoBehaviour
 
     private void SetUpgradeCostValue(int cost)
     {
+        Button upgradeButton = SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeButton).GetComponent<Button>();
+        TextMeshProUGUI upgradeText = SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeButton).transform.Find(StringsDatabase.UI_Upgrades.UpgradeText).GetComponent<TextMeshProUGUI>();   
         TextMeshProUGUI coinAmount = SideMenu.transform.Find(StringsDatabase.UI_Upgrades.UpgradeButton).transform.Find(StringsDatabase.UI_Upgrades.CostUpgrade).transform.Find(StringsDatabase.UI_Upgrades.CoinAmount).GetComponent<TextMeshProUGUI>();
         coinAmount.text = cost.ToString();
 
         if (ReferencesManager.GameManager.coins < cost)
         {
+            upgradeButton.interactable = false;
+            upgradeText.color = Color.red;
             coinAmount.color = Color.red;
         }
         else
         {
+            upgradeButton.interactable = true;
+            upgradeText.color = Color.black;
             coinAmount.color = Color.black;
         }
     }
@@ -2027,12 +2041,12 @@ public class UIManager_Upgrades : MonoBehaviour
         CurrentNode = node;
         var currentTower = ReferencesManager.GameManager.currentTower;
 
+        //Show which node is selected
+        SetUpgradeStats(currentTower, node);
+
         //Show Side Menu
         SideMenu.SetActive(true);
         Instantiate(SelectedNode, node.transform.position, Quaternion.identity, node.transform);
-
-        //Show which node is selected
-        SetUpgradeStats(currentTower, node);
     }
 
     private void SetCostText(GameObject node)
@@ -2078,13 +2092,6 @@ public class UIManager_Upgrades : MonoBehaviour
         {
             DisplaySideMenuOnNodeClick(node);
         }
-
-        TextMeshProUGUI sideMenuCoins = SideMenu.transform.Find(StringsDatabase.UI_Upgrades.CostSection).transform.Find(StringsDatabase.UI_Upgrades.CoinsText).GetComponent<TextMeshProUGUI>();
-
-        if (sideMenuCoins.text == "9999" || (sideMenuCoins.text != "9999" && sideMenuCoins.text != ReferencesManager.GameManager.coins.ToString()))
-        {
-            ReferencesManager.UIManager_Cost.UpdateCoins(sideMenuCoins, ReferencesManager.GameManager.coins);
-        }
     }
 
     public void OnClick_UpgradeButton()
@@ -2124,6 +2131,7 @@ public class UIManager_Upgrades : MonoBehaviour
 
             ReferencesManager.GameManager.ReduceCoins(cost);
             ReferencesManager.UIManager_Cost.UpdateCoins();
+            ReferencesManager.UIManager_Cost.UpdateCoins(CostSection.transform.Find(StringsDatabase.UI_Upgrades.CoinsText).GetComponent<TextMeshProUGUI>(), ReferencesManager.GameManager.coins);
         }
     }
 
