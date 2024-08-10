@@ -13,6 +13,12 @@ public class UIManager_Cost : MonoBehaviour
 
     private Vector2 OnScreenPosition;
 
+    [Header("Tower List Cost")]
+    public TextMeshProUGUI DamageTowerCost;
+    public TextMeshProUGUI FreezeTowerCost;
+    public TextMeshProUGUI PoisonTowerCost;
+    public TextMeshProUGUI BombTowerCost;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +26,8 @@ public class UIManager_Cost : MonoBehaviour
 
         // Set the on-screen position to be where the panel is initially placed in the UI
         OnScreenPosition = CoinsSection.anchoredPosition;
+
+        SetupTowerCost_UI();
     }
 
     // Update is called once per frame
@@ -33,8 +41,16 @@ public class UIManager_Cost : MonoBehaviour
         CoinsText.text = ReferencesManager.GameManager.coins.ToString();
     }
 
-    public void UpdateCoins(TextMeshProUGUI coinsText, int coins)
+    public void UpdateCoins(TextMeshProUGUI coinsText, int cost)
     {
-        coinsText.text = coins.ToString();
+        coinsText.text = cost.ToString();
+    }
+
+    public void SetupTowerCost_UI()
+    {
+        UpdateCoins(DamageTowerCost, ReferencesManager.CostManager.DamageTowerCost);
+        UpdateCoins(FreezeTowerCost, ReferencesManager.CostManager.FreezeTowerCost);
+        UpdateCoins(PoisonTowerCost, ReferencesManager.CostManager.PoisonTowerCost);
+        UpdateCoins(BombTowerCost, ReferencesManager.CostManager.BombTowerCost);
     }
 }
