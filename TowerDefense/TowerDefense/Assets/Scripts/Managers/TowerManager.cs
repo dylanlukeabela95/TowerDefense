@@ -200,6 +200,7 @@ public class TowerManager : MonoBehaviour
                 if (ReferencesManager.GameManager.CanPurchase((int)ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Cost]))
                 {
                     tower = Instantiate(DamageTower, mousePosition, Quaternion.identity);
+                    tower.name = StringsDatabase.Towers.DamageTower;
                     ReferencesManager.GameManager.ReduceCoins((int)ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Cost]);
                     ReferencesManager.UIManager_Cost.UpdateCoins();
                     SetRangeIndicator((float)ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Range], tower);
@@ -211,6 +212,7 @@ public class TowerManager : MonoBehaviour
                 if (ReferencesManager.GameManager.CanPurchase((int)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Cost]))
                 {
                     tower = Instantiate(FreezeTower, mousePosition, Quaternion.identity);
+                    tower.name = StringsDatabase.Towers.FreezeTower;
                     ReferencesManager.GameManager.ReduceCoins((int)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Cost]);
                     ReferencesManager.UIManager_Cost.UpdateCoins();
                     SetRangeIndicator((float)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Range], tower);
@@ -222,6 +224,7 @@ public class TowerManager : MonoBehaviour
                 if (ReferencesManager.GameManager.CanPurchase((int)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.Cost]))
                 {
                     tower = Instantiate(PoisonTower, mousePosition, Quaternion.identity);
+                    tower.name = StringsDatabase.Towers.PoisonTower;
                     ReferencesManager.GameManager.ReduceCoins((int)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.Cost]);
                     ReferencesManager.UIManager_Cost.UpdateCoins();
                     SetRangeIndicator((float)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.Range], tower);
@@ -233,6 +236,7 @@ public class TowerManager : MonoBehaviour
                 if (ReferencesManager.GameManager.CanPurchase((int)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.Cost]))
                 {
                     tower = Instantiate(BombTower, mousePosition, Quaternion.identity);
+                    tower.name = StringsDatabase.Towers.BombTower;
                     ReferencesManager.GameManager.ReduceCoins((int)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.Cost]);
                     ReferencesManager.UIManager_Cost.UpdateCoins();
                     SetRangeIndicator((float)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.Range], tower);

@@ -53,6 +53,14 @@ namespace Strings
             public const string TowerTitle = "TowerTitle";
         }
 
+        public class UI_TowerList
+        {
+            public const string DamageTowerButton = "DamageTowerButton";
+            public const string FreezeTowerButton = "FreezeTowerButton";
+            public const string PoisonTowerButton = "PoisonTowerButton";
+            public const string BombTowerButton = "BombTowerButton";
+        }
+
         public class Towers
         {
             public const string RangeIndicator = "RangeIndicator";
@@ -137,6 +145,14 @@ namespace Strings
             public const string FreezeTower = "Freeze Tower";
             public const string PoisonTower = "Poison Tower";
             public const string BombTower = "Bomb Tower";
+        }
+
+        public class TowerDescriptions
+        {
+            public const string DamageTowerDescription = "A tower that shoots at the first target at decent damage and fire rate";
+            public const string FreezeTowerDescription = "A tower that fires a projectile that slows down enemies";
+            public const string PoisonTowerDescription = "A tower that fires a projectile that poisons enemies, having them take poison damage over time";
+            public const string BombTowerDescription = "A tower that fires a projectile that deals damage to nearby enemies";
         }
 
         public class SkillTree
