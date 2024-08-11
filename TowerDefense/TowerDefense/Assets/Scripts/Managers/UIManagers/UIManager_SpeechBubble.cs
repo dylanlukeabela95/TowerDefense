@@ -21,7 +21,8 @@ public class UIManager_SpeechBubble : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Vector3 pos = new Vector3(Input.mousePosition.x - 110, Input.mousePosition.y + 110, Input.mousePosition.z);
+        SpeechBubble.transform.position = pos;
     }
 
     public void ShowHideSpeechBubble(bool canShow)
