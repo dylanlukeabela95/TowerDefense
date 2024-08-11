@@ -8,8 +8,10 @@ public class DamageTower : Tower
     public GameObject ProjectileDamage;
     public int ProjectileCount = 1;
     public int CriticalChance = 0;
+
     public int TwoRoundBurstChance = 0;
     public int ThreeRoundBurstChance = 0;
+    public float BurstFireRate = 0.1f;
 
     public List<Transform> Barrels = new List<Transform>();
 
@@ -102,25 +104,74 @@ public class DamageTower : Tower
         }
     }
 
+    public bool ShootInBurst(int burstChance)
+    {
+        var random = Random.Range(0, 100);
+
+        if(burstChance != 0 && random <= burstChance)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public void ShootProjectile(GameObject projectile, int damage)
+    {
+        if (ProjectileCount > 1)
+        {
+            for (int i = 0; i < ProjectileCount; i++)
+            {
+                GameObject bullet = Instantiate(projectile, Barrels[i].position, Barrels[i].rotation);
+                bullet.GetComponent<TowerProjectile>().Damage = damage;
+            }
+        }
+        else
+        {
+            GameObject bullet = Instantiate(projectile, Barrel.position, Barrel.rotation);
+            bullet.GetComponent<TowerProjectile>().Damage = damage;
+        }
+    }
+
     public override IEnumerator Shoot(GameObject projectile, int damage)
     {
         while (true)
         {
-            if (ProjectileCount > 1)
+            var canTwoRoundBurst = ShootInBurst(TwoRoundBurstChance);
+            var canThreeRoundBurst = ShootInBurst(ThreeRoundBurstChance);
+
+            if(
+                (canTwoRoundBurst && canThreeRoundBurst) ||
+                (!canTwoRoundBurst && canThreeRoundBurst)
+              )
             {
-                for (int i = 0; i < ProjectileCount; i++)
+                //Do three round burst
+                for(int i = 0;i < 3; i++)
                 {
-                    GameObject bullet = Instantiate(projectile, Barrels[i].position, Barrels[i].rotation);
-                    bullet.GetComponent<TowerProjectile>().Damage = damage;
+                    ShootProjectile(projectile, damage);
+                    yield return new WaitForSeconds(BurstFireRate);
+                }
+                yield return new WaitForSeconds(FireRate);
+
+            }
+            else if(canTwoRoundBurst && !canThreeRoundBurst)
+            {
+                //Do two round burst
+                for (int i = 0; i < 2; i++)
+                {
+                    ShootProjectile(projectile, damage);
+                    yield return new WaitForSeconds(BurstFireRate);
                 }
                 yield return new WaitForSeconds(FireRate);
             }
-            else
+            else if(!canTwoRoundBurst && !canThreeRoundBurst)
             {
-                GameObject bullet = Instantiate(projectile, Barrel.position, Barrel.rotation);
-                bullet.GetComponent<TowerProjectile>().Damage = damage;
+                //Shoot normally
+                ShootProjectile(projectile, damage);
                 yield return new WaitForSeconds(FireRate);
             }
+
+            yield return null;
         }
     }
 }
