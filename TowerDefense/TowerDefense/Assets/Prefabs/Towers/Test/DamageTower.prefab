@@ -94,6 +94,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2219788794838508768}
   - component: {fileID: 2289552506559002277}
+  - component: {fileID: 636885566050368473}
+  - component: {fileID: 8483945594103046898}
+  - component: {fileID: 4959398242485785159}
   m_Layer: 2
   m_Name: RangeIndicator
   m_TagString: Untagged
@@ -168,6 +171,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &636885566050368473
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035330160564328052}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!50 &8483945594103046898
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035330160564328052}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &4959398242485785159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035330160564328052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdc12c392d413f541af22b566347e818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5727464799422802632
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,11 +280,13 @@ MonoBehaviour:
   TowerEnum: 0
   Barrel: {fileID: 2508380889151599664}
   RangeIndicator: {fileID: 1035330160564328052}
+  EnemiesInRange: []
   ProjectileDamage: {fileID: 7334246426068341823, guid: dad608fea6145d14bb93842220263ca0, type: 3}
   ProjectileCount: 1
   CriticalChance: 0
   TwoRoundBurstChance: 0
   ThreeRoundBurstChance: 0
+  BurstFireRate: 0.1
   Barrels: []
   BarrelToAdd: {fileID: 7991205547944227146, guid: 55dc1a80eda817b4abd1b5ddf5fb6f70, type: 3}
   WhenTwoBarrels: {x: -0.108, y: 0.316, z: 2.72}

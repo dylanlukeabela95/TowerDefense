@@ -20,6 +20,8 @@ public class DamageTower : Tower
     public Vector3 WhenTwoBarrels = new Vector3(-0.108f, 0.316f, 2.72f);
     public Vector3 WhenThreeBarrels = new Vector3(-0.168f, 0.316f, 2.72f);
 
+    bool canTwoRoundBurst;
+    bool canThreeRoundBurst;
     void Awake()
     {
 
@@ -137,40 +139,42 @@ public class DamageTower : Tower
     {
         while (true)
         {
-            var canTwoRoundBurst = ShootInBurst(TwoRoundBurstChance);
-            var canThreeRoundBurst = ShootInBurst(ThreeRoundBurstChance);
-
-            if(
-                (canTwoRoundBurst && canThreeRoundBurst) ||
-                (!canTwoRoundBurst && canThreeRoundBurst)
-              )
+            if (EnemiesInRange.Count > 0)
             {
-                //Do three round burst
-                for(int i = 0;i < 3; i++)
+                canTwoRoundBurst = ShootInBurst(TwoRoundBurstChance);
+                canThreeRoundBurst = ShootInBurst(ThreeRoundBurstChance);
+
+                if (
+                    (canTwoRoundBurst && canThreeRoundBurst) ||
+                    (!canTwoRoundBurst && canThreeRoundBurst)
+                  )
                 {
-                    ShootProjectile(projectile, damage);
-                    yield return new WaitForSeconds(BurstFireRate);
-                }
-                yield return new WaitForSeconds(FireRate);
+                    //Do three round burst
+                    for (int i = 0; i < 3; i++)
+                    {
+                        ShootProjectile(projectile, damage);
+                        yield return new WaitForSeconds(BurstFireRate);
+                    }
+                    yield return new WaitForSeconds(FireRate);
 
-            }
-            else if(canTwoRoundBurst && !canThreeRoundBurst)
-            {
-                //Do two round burst
-                for (int i = 0; i < 2; i++)
+                }
+                else if (canTwoRoundBurst && !canThreeRoundBurst)
                 {
-                    ShootProjectile(projectile, damage);
-                    yield return new WaitForSeconds(BurstFireRate);
+                    //Do two round burst
+                    for (int i = 0; i < 2; i++)
+                    {
+                        ShootProjectile(projectile, damage);
+                        yield return new WaitForSeconds(BurstFireRate);
+                    }
+                    yield return new WaitForSeconds(FireRate);
                 }
-                yield return new WaitForSeconds(FireRate);
+                else if (!canTwoRoundBurst && !canThreeRoundBurst)
+                {
+                    //Shoot normally
+                    ShootProjectile(projectile, damage);
+                    yield return new WaitForSeconds(FireRate);
+                }
             }
-            else if(!canTwoRoundBurst && !canThreeRoundBurst)
-            {
-                //Shoot normally
-                ShootProjectile(projectile, damage);
-                yield return new WaitForSeconds(FireRate);
-            }
-
             yield return null;
         }
     }

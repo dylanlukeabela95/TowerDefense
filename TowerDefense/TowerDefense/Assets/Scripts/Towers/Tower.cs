@@ -1,7 +1,9 @@
 using Strings;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Tower : MonoBehaviour
 {
@@ -22,17 +24,30 @@ public class Tower : MonoBehaviour
 
     public GameObject RangeIndicator;
 
+    public List<GameObject> EnemiesInRange = new List<GameObject>();
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
         ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
-        RangeIndicator.SetActive(false);
+        RangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
-        
+        if (EnemiesInRange.Count > 0)
+        {
+            LookAt_Horizontally(this.gameObject, EnemiesInRange[0].gameObject);
+        }
+    }
+
+    public void LookAt_Horizontally(GameObject prefab, GameObject target)
+    {
+        Vector2 directionToTarget = target.transform.position - prefab.transform.position;
+        float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+
+        prefab.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
     }
 
     public void AssignStats(TowerEnum towerEnum)
@@ -97,7 +112,7 @@ public class Tower : MonoBehaviour
 
     public void DeselectTower()
     {
-        RangeIndicator.SetActive(false);
+        RangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
         ReferencesManager.GameManager.currentTower = null;
 
         ReferencesManager.UIManager_Stat.ResetStatCointainer();
@@ -105,7 +120,7 @@ public class Tower : MonoBehaviour
 
     public void SelectTower()
     {
-        RangeIndicator.SetActive(true);
+        RangeIndicator.GetComponent<SpriteRenderer>().enabled = true;
         ReferencesManager.GameManager.currentTower = this.gameObject;
 
         ReferencesManager.UIManager_Stat.ShowStatDisplay(this.gameObject.name, isRight());
@@ -129,9 +144,13 @@ public class Tower : MonoBehaviour
     {
         while(true)
         {
-            GameObject bullet = Instantiate(projectile, Barrel.position, Barrel.rotation);
-            bullet.GetComponent<TowerProjectile>().Damage = damage;
-            yield return new WaitForSeconds(FireRate);
+            if (EnemiesInRange.Count > 0)
+            {
+                GameObject bullet = Instantiate(projectile, Barrel.position, Barrel.rotation);
+                bullet.GetComponent<TowerProjectile>().Damage = damage;
+                yield return new WaitForSeconds(FireRate);
+            }
+            yield return null;
         }
     }
 

@@ -162,5 +162,10 @@ namespace Strings
             public const string PoisonSkillTree = "Poison Tower Skill Tree";
             public const string BombSkillTree = "Bomb Tower Skill Tree";
         }
+
+        public class Tag
+        {
+            public const string EnemyTag = "Enemy";
+        }
     }
 }
