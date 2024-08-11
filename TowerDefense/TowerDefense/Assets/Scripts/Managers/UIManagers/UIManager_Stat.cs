@@ -528,6 +528,23 @@ public class UIManager_Stat : MonoBehaviour
         ReferencesManager.UIManager_Cost.UpdateCoins(ReferencesManager.UIManager_Cost.CostSection_SkillTree.transform.Find(StringsDatabase.UI_Upgrades.CoinsText).GetComponent<TextMeshProUGUI>(), ReferencesManager.GameManager.coins);
     }
 
+    public void OnClick_SellButton()
+    {
+        if(StatDisplay_L.activeSelf)
+        {
+            StatDisplay_L.SetActive(false);
+        }
+
+        if(StatDisplay_R.activeSelf)
+        {
+            StatDisplay_R.SetActive(false);
+        }
+
+        ReferencesManager.GameManager.currentTower.GetComponent<Tower>().SellTower();
+        ReferencesManager.GameManager.currentTower.GetComponent<Tower>().DeselectTower();
+        ReferencesManager.UIManager_Cost.UpdateCoins();
+    }
+
     #endregion
 
 }

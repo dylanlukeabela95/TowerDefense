@@ -119,6 +119,12 @@ public class Tower : MonoBehaviour
         }
     }
 
+    public virtual void SellTower()
+    {
+        ReferencesManager.GameManager.coins += Mathf.CeilToInt(Cost / 2);
+        Destroy(this.gameObject);
+    }
+
     public virtual IEnumerator Shoot(GameObject projectile, int damage)
     {
         while(true)

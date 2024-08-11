@@ -14,6 +14,8 @@ public class PoisonTower : Tower
     public bool PoisonSpread;
     public float PoisonSpreadRadius;
 
+    public bool CanPoisonCrit;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -43,5 +45,14 @@ public class PoisonTower : Tower
     public void AddStat(string stat)
     {
         Stats.Add(stat);
+    }
+
+    public override void SellTower()
+    {
+        if (CanPoisonCrit)
+        {
+            ReferencesManager.GameManager.PoisonCriticalChance -= (int)ReferencesManager.UpgradesManager.PoisonTowerPoisonCriticalChance["Level5"];
+        }
+        base.SellTower();
     }
 }
