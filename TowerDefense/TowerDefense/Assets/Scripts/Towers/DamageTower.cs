@@ -16,6 +16,7 @@ public class DamageTower : Tower
     public GameObject BarrelToAdd;
 
     public Vector3 WhenTwoBarrels = new Vector3(-0.108f, 0.316f, 2.72f);
+    public Vector3 WhenThreeBarrels = new Vector3(-0.168f, 0.316f, 2.72f);
 
     void Awake()
     {
@@ -57,7 +58,17 @@ public class DamageTower : Tower
 
     public void AddBarrel()
     {
-        Destroy(Barrel.transform.parent.gameObject);
+        if(Barrels.Count == 0) 
+        {
+            Destroy(Barrel.transform.parent.gameObject);
+        }
+        else
+        {
+            foreach(var barrel in Barrels)
+            {
+                Destroy(barrel.gameObject);
+            }
+        }
         Barrels = new List<Transform>();
 
         if (ProjectileCount == 2)
@@ -71,6 +82,23 @@ public class DamageTower : Tower
             barrel2.transform.localPosition = new Vector3(-WhenTwoBarrels.x, WhenTwoBarrels.y, WhenTwoBarrels.z);
             barrel2.name = "Barrel";
             Barrels.Add(barrel2.transform);
+        }
+        else if(ProjectileCount == 3)
+        {
+            GameObject barrel = Instantiate(BarrelToAdd, transform.position, Quaternion.identity, this.gameObject.transform);
+            barrel.transform.localPosition = new Vector3(0, WhenThreeBarrels.y, WhenThreeBarrels.z);
+            barrel.name = "Barrel";
+            Barrels.Add(barrel.transform);
+
+            GameObject barrel2 = Instantiate(BarrelToAdd, transform.position, Quaternion.identity, this.gameObject.transform);
+            barrel2.transform.localPosition = new Vector3(-WhenThreeBarrels.x, WhenThreeBarrels.y, WhenThreeBarrels.z);
+            barrel2.name = "Barrel";
+            Barrels.Add(barrel2.transform);
+
+            GameObject barrel3 = Instantiate(BarrelToAdd, transform.position, Quaternion.identity, this.gameObject.transform);
+            barrel3.transform.localPosition = WhenThreeBarrels;
+            barrel3.name = "Barrel";
+            Barrels.Add(barrel3.transform);
         }
     }
 
