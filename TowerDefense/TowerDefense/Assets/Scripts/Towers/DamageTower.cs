@@ -125,12 +125,22 @@ public class DamageTower : Tower
             for (int i = 0; i < ProjectileCount; i++)
             {
                 GameObject bullet = Instantiate(projectile, Barrels[i].position, Barrels[i].rotation);
+                bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
+                if(Range > 100)
+                {
+                    bullet.GetComponent<TowerProjectile>().isInfinityRange = true;
+                }
                 bullet.GetComponent<TowerProjectile>().Damage = damage;
             }
         }
         else
         {
             GameObject bullet = Instantiate(projectile, Barrel.position, Barrel.rotation);
+            bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
+            if (Range > 100)
+            {
+                bullet.GetComponent<TowerProjectile>().isInfinityRange = true;
+            }
             bullet.GetComponent<TowerProjectile>().Damage = damage;
         }
     }

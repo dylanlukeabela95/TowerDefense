@@ -147,6 +147,7 @@ public class Tower : MonoBehaviour
             if (EnemiesInRange.Count > 0)
             {
                 GameObject bullet = Instantiate(projectile, Barrel.position, Barrel.rotation);
+                bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
                 bullet.GetComponent<TowerProjectile>().Damage = damage;
                 yield return new WaitForSeconds(FireRate);
             }
