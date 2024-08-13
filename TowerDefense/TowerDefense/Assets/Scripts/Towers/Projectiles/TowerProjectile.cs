@@ -1,10 +1,13 @@
 using Strings;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TowerProjectile : MonoBehaviour
 {
+    public TextMeshPro DamageText;
+
     public float ProjectileSpeed;
 
     public int Damage;
@@ -47,6 +50,9 @@ public class TowerProjectile : MonoBehaviour
         {
             Debug.Log("Hit");
             Destroy(this.gameObject);
+
+            GameObject text = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
+            text.GetComponent<TextMeshPro>().text = Damage.ToString();
         }
     }
 }
