@@ -55,4 +55,23 @@ public class PoisonTower : Tower
         }
         base.SellTower();
     }
+
+    public override IEnumerator Shoot(GameObject projectile, int damage)
+    {
+        while (true)
+        {
+            if (EnemiesInRange.Count > 0)
+            {
+                GameObject bullet = Instantiate(projectile, Barrel.position, Barrel.rotation);
+                bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
+                bullet.GetComponent<TowerProjectile>().Damage = damage;
+                bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;
+                bullet.GetComponent<PoisonTowerProjectile>().poisonDamageOverTime = PoisonDamageOverTime;
+                bullet.GetComponent<PoisonTowerProjectile>().poisonDuration = PoisonDuration;
+                bullet.GetComponent<PoisonTowerProjectile>().poisonTickRate = PoisonTickRate;
+                yield return new WaitForSeconds(FireRate);
+            }
+            yield return null;
+        }
+    }
 }

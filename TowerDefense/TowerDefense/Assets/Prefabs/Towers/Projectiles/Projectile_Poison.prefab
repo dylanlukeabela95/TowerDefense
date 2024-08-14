@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4630503527787972613}
   - component: {fileID: 3330574483298060206}
-  - component: {fileID: 8364071082142570194}
   - component: {fileID: 8231103328632749518}
   - component: {fileID: 6368587520562582959}
+  - component: {fileID: -6163731691359471115}
   m_Layer: 0
   m_Name: Projectile_Poison
   m_TagString: Untagged
@@ -87,25 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8364071082142570194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5995876304203132782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f35e52db8cd34454cae64f28c83bd774, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageText: {fileID: 2213591993939883431, guid: b8ba5d80bbc671946b50fbc7a99bfe00, type: 3}
-  ProjectileSpeed: 10
-  Damage: 0
-  CriticalDamage: 0
-  isCritical: 0
-  target: {fileID: 0}
-  isInfinityRange: 0
 --- !u!58 &8231103328632749518
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -143,3 +124,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &-6163731691359471115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5995876304203132782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87934ded41a1f024291ec36bbc00e9c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageText: {fileID: 2213591993939883431, guid: b8ba5d80bbc671946b50fbc7a99bfe00, type: 3}
+  ProjectileSpeed: 10
+  Damage: 0
+  CriticalDamage: 0
+  isCritical: 0
+  target: {fileID: 0}
+  isInfinityRange: 0
+  FromTower: 
+  poisonDamageOverTime: 0
+  poisonDuration: 0
+  poisonTickRate: 0
