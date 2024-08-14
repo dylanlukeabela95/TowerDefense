@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2101354084995639514}
   - component: {fileID: 8226606319478977338}
-  - component: {fileID: 1392714805679475113}
   - component: {fileID: 1492781785959065325}
   - component: {fileID: 8832314420992690464}
+  - component: {fileID: 3045141091155343958}
   m_Layer: 0
   m_Name: Projectile_Freeze
   m_TagString: Untagged
@@ -87,25 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1392714805679475113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6282616619044169572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f35e52db8cd34454cae64f28c83bd774, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageText: {fileID: 2213591993939883431, guid: b8ba5d80bbc671946b50fbc7a99bfe00, type: 3}
-  ProjectileSpeed: 10
-  Damage: 0
-  CriticalDamage: 0
-  isCritical: 0
-  target: {fileID: 0}
-  isInfinityRange: 0
 --- !u!58 &1492781785959065325
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -143,3 +124,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &3045141091155343958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6282616619044169572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c34e93637a23ec4cbc59c0c84bad220, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageText: {fileID: 2213591993939883431, guid: b8ba5d80bbc671946b50fbc7a99bfe00, type: 3}
+  ProjectileSpeed: 10
+  Damage: 0
+  CriticalDamage: 0
+  isCritical: 0
+  target: {fileID: 0}
+  isInfinityRange: 0
+  FromTower: 
+  IceDamage: 0

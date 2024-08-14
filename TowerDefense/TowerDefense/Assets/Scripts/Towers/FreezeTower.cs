@@ -57,4 +57,21 @@ public class FreezeTower : Tower
     {
         Stats.Remove(stat);
     }
+
+    public override IEnumerator Shoot(GameObject projectile, int damage)
+    {
+        while (true)
+        {
+            if (EnemiesInRange.Count > 0)
+            {
+                GameObject bullet = Instantiate(projectile, Barrel.position, Barrel.rotation);
+                bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
+                bullet.GetComponent<TowerProjectile>().Damage = damage;
+                bullet.GetComponent<FreezeTowerProjectile>().IceDamage = IceDamage;
+                bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;
+                yield return new WaitForSeconds(FireRate);
+            }
+            yield return null;
+        }
+    }
 }

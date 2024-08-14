@@ -131,6 +131,7 @@ public class DamageTower : Tower
                     bullet.GetComponent<TowerProjectile>().isInfinityRange = true;
                 }
                 bullet.GetComponent<TowerProjectile>().Damage = damage;
+                bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;
             }
         }
         else
@@ -142,6 +143,7 @@ public class DamageTower : Tower
                 bullet.GetComponent<TowerProjectile>().isInfinityRange = true;
             }
             bullet.GetComponent<TowerProjectile>().Damage = damage;
+            bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;
         }
     }
 

@@ -18,9 +18,10 @@ public class TowerProjectile : MonoBehaviour
     public GameObject target;
 
     public bool isInfinityRange;
+    public string FromTower;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         if (!isInfinityRange)
         {
@@ -34,7 +35,7 @@ public class TowerProjectile : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         transform.Translate(Vector3.up * Time.deltaTime * ProjectileSpeed);   
 
@@ -44,11 +45,10 @@ public class TowerProjectile : MonoBehaviour
         }    
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.CompareTag(StringsDatabase.Tag.EnemyTag))
         {
-            Debug.Log("Hit");
             Destroy(this.gameObject);
 
             GameObject text = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
