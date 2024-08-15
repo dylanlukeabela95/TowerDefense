@@ -167,5 +167,10 @@ namespace Strings
         {
             public const string EnemyTag = "Enemy";
         }
+
+        public class Enemy
+        {
+            public const string Waypoints = "Waypoints";
+        }
     }
 }

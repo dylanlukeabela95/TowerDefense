@@ -100,12 +100,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DamageText: {fileID: 2213591993939883431, guid: b8ba5d80bbc671946b50fbc7a99bfe00, type: 3}
-  ProjectileSpeed: 10
+  ProjectileSpeed: 12
   Damage: 0
   CriticalDamage: 0
   isCritical: 0
   target: {fileID: 0}
   isInfinityRange: 0
+  FromTower: 
 --- !u!58 &3232703336658505948
 CircleCollider2D:
   m_ObjectHideFlags: 0
