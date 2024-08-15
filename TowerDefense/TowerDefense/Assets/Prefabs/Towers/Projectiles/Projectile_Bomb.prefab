@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3218823558120804350}
   - component: {fileID: 5439662763576414745}
-  - component: {fileID: -4345533095361789410}
   - component: {fileID: 202491353653852392}
   - component: {fileID: 6135370428247931300}
+  - component: {fileID: 5539935107109723799}
   m_Layer: 0
   m_Name: Projectile_Bomb
   m_TagString: Untagged
@@ -87,25 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-4345533095361789410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2058674578671948185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f35e52db8cd34454cae64f28c83bd774, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageText: {fileID: 2213591993939883431, guid: b8ba5d80bbc671946b50fbc7a99bfe00, type: 3}
-  ProjectileSpeed: 10
-  Damage: 0
-  CriticalDamage: 0
-  isCritical: 0
-  target: {fileID: 0}
-  isInfinityRange: 0
 --- !u!58 &202491353653852392
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -143,3 +124,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &5539935107109723799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058674578671948185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33b29d2b7b0fbed47b010b9cc689aa2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageText: {fileID: 2213591993939883431, guid: b8ba5d80bbc671946b50fbc7a99bfe00, type: 3}
+  ProjectileSpeed: 10
+  Damage: 0
+  CriticalDamage: 0
+  isCritical: 0
+  target: {fileID: 0}
+  isInfinityRange: 0
+  FromTower: 
+  splashDamage: 0
+  splashRadius: 0
+  explosionEffect: {fileID: 0}
+  circle: {fileID: 6461692161428076827, guid: feba8851b92a5d04b878a02b2d316021, type: 3}

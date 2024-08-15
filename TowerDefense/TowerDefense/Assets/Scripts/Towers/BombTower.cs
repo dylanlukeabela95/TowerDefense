@@ -44,4 +44,22 @@ public class BombTower : Tower
     {
         Stats.Add(stat);
     }
+
+    public override IEnumerator Shoot(GameObject projectile, int damage)
+    {
+        while (true)
+        {
+            if (EnemiesInRange.Count > 0)
+            {
+                GameObject bullet = Instantiate(projectile, Barrel.position, Barrel.rotation);
+                bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
+                bullet.GetComponent<TowerProjectile>().Damage = damage;
+                bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;
+                bullet.GetComponent<BombTowerProjectile>().splashDamage = SplashDamage;
+                bullet.GetComponent<BombTowerProjectile>().splashRadius = SplashRadius;
+                yield return new WaitForSeconds(FireRate);
+            }
+            yield return null;
+        }
+    }
 }
