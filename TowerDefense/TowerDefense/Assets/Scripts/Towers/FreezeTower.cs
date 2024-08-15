@@ -68,7 +68,16 @@ public class FreezeTower : Tower
                 bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
                 bullet.GetComponent<TowerProjectile>().Damage = damage;
                 bullet.GetComponent<FreezeTowerProjectile>().IceDamage = IceDamage;
+                bullet.GetComponent<FreezeTowerProjectile>().SlowDuration = SlowDuration;
+                bullet.GetComponent<FreezeTowerProjectile>().SlowEffect = SlowEffect;
                 bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;
+
+                if(CanFrostbite)
+                {
+                    bullet.GetComponent<FreezeTowerProjectile>().canFrostbite = true;
+                    bullet.GetComponent<FreezeTowerProjectile>().frostbiteDamageOverTime = FrostbiteDamage;
+                    bullet.GetComponent<FreezeTowerProjectile>().frostbiteTickRate = FrostbiteTickRate;
+                }
                 yield return new WaitForSeconds(FireRate);
             }
             yield return null;

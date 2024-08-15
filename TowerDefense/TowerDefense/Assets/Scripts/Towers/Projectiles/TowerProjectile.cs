@@ -23,22 +23,15 @@ public class TowerProjectile : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        if (!isInfinityRange)
-        {
-            ProjectileSpeed = 10;
-        }
-        else
-        {
-            ProjectileSpeed = 30;
-        }
         Destroy(this.gameObject, 1);
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
-        transform.Translate(Vector3.up * Time.deltaTime * ProjectileSpeed);   
+        //transform.Translate(Vector3.up * Time.deltaTime * ProjectileSpeed);   
 
+        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * ProjectileSpeed);
         if(target == null)
         {
             Destroy(this.gameObject);

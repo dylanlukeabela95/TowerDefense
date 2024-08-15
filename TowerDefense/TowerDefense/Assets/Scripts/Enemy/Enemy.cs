@@ -19,8 +19,18 @@ public class Enemy : MonoBehaviour
     public float poisonTimer;
     public int poisonDamage;
     public float poisonTickRate;
-    private float dummyTickRate;
+    private float dummyTickRate_Poison;
     private bool firstSetPoison;
+
+    [Header("Freeze")]
+    public bool isFrozen;
+    public float freezeTimer;
+    public float slowEffect;
+    public float slowEffectMovementSpeed;
+    public int frostbiteDamage;
+    public float frostbiteTickRate;
+    public float dummyTickRate_Frostbite;
+    public bool firstSetFrostbite;
 
     [Header("Waypoints")]
     public List<GameObject> waypoints = new List<GameObject>();
@@ -37,10 +47,17 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(currentWaypointToGo);
-        GoToWaypoint();
+        if (isFrozen)
+        {
+            GoToWaypoint(slowEffectMovementSpeed);
+        }
+        else
+        {
+            GoToWaypoint(movementSpeed);
+        }
 
         Poisoned();
+        Slow();
     }
 
     void SetWaypoints()
@@ -59,36 +76,73 @@ public class Enemy : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().color = Color.green;
             //If target is poisoned and dummyTickRate is still 0, set it and decrease from it
-            if (dummyTickRate <= 0 && isPoisoned && !firstSetPoison)
+            if (dummyTickRate_Poison <= 0 && isPoisoned && !firstSetPoison)
             {
-                dummyTickRate = poisonTickRate;
+                dummyTickRate_Poison = poisonTickRate;
                 firstSetPoison = true;
             }
-            else if (dummyTickRate <= 0 && isPoisoned)
+            else if (dummyTickRate_Poison <= 0 && isPoisoned)
             {
-                dummyTickRate = poisonTickRate;
+                dummyTickRate_Poison = poisonTickRate;
                 TextMeshPro damageText = Instantiate(DamageText, transform.position, Quaternion.identity);
                 damageText.text = poisonDamage.ToString();
                 damageText.color = Color.green;
             }
 
-            dummyTickRate -= Time.deltaTime;
+            dummyTickRate_Poison -= Time.deltaTime;
             poisonTimer -= Time.deltaTime;
 
             if (poisonTimer <= 0)
             {
                 isPoisoned = false;
+                dummyTickRate_Poison = 0;
+                firstSetPoison = false;
+                GetComponent<SpriteRenderer>().color = Color.white;
             }
-        }
-        else
-        {
-            dummyTickRate = 0;
-            firstSetPoison = false;
-            GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 
-    void GoToWaypoint()
+    void Slow()
+    {
+        if (isFrozen)
+        {
+            //can frostbite
+            if(frostbiteDamage != 0)
+            {
+                if (dummyTickRate_Frostbite <= 0 && isFrozen && !firstSetFrostbite)
+                {
+                    dummyTickRate_Frostbite = frostbiteTickRate;
+                    firstSetFrostbite = true;
+                }
+                else if (dummyTickRate_Frostbite <= 0 && isFrozen)
+                {
+                    dummyTickRate_Frostbite = frostbiteTickRate;
+                    TextMeshPro damageText = Instantiate(DamageText, transform.position, Quaternion.identity);
+                    damageText.text = frostbiteDamage.ToString();
+                    damageText.color = Color.cyan;
+                }
+
+                dummyTickRate_Frostbite -= Time.deltaTime;
+            }
+
+            freezeTimer -= Time.deltaTime;
+
+            if (slowEffectMovementSpeed == 0)
+            {
+                slowEffectMovementSpeed = movementSpeed - (movementSpeed * 2 * ((slowEffect * 1.0f) / 100));
+            }
+
+            if (freezeTimer <= 0)
+            {
+                isFrozen = false;
+                slowEffectMovementSpeed = 0;
+                dummyTickRate_Frostbite = 0;
+                firstSetFrostbite = false;
+            }
+        }
+    }
+
+    void GoToWaypoint(float movementSpeed)
     {
         if (currentWaypointToGo == Vector3.zero)
         {
