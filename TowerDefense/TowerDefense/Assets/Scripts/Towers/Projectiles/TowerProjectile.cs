@@ -17,7 +17,6 @@ public class TowerProjectile : MonoBehaviour
 
     public GameObject target;
 
-    public bool isInfinityRange;
     public string FromTower;
 
     // Start is called before the first frame update
@@ -44,8 +43,17 @@ public class TowerProjectile : MonoBehaviour
         {
             Destroy(this.gameObject);
 
-            GameObject text = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
-            text.GetComponent<TextMeshPro>().text = Damage.ToString();
+            if (isCritical)
+            {
+                GameObject text = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
+                text.GetComponent<TextMeshPro>().text = CriticalDamage.ToString();
+                text.GetComponent<TextMeshPro>().color = Color.yellow;
+            }
+            else
+            {
+                GameObject text = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
+                text.GetComponent<TextMeshPro>().text = Damage.ToString();
+            }
         }
     }
 }

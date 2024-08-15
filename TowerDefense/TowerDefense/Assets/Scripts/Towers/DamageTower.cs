@@ -120,30 +120,46 @@ public class DamageTower : Tower
 
     public void ShootProjectile(GameObject projectile, int damage)
     {
+        var random = -1;
+        if (CriticalChance > 0)
+        {
+            random = Random.Range(0, 101);
+        }
+
         if (ProjectileCount > 1)
         {
             for (int i = 0; i < ProjectileCount; i++)
             {
                 GameObject bullet = Instantiate(projectile, Barrels[i].position, Barrels[i].rotation);
                 bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
-                if(Range > 100)
-                {
-                    bullet.GetComponent<TowerProjectile>().isInfinityRange = true;
-                }
-                bullet.GetComponent<TowerProjectile>().Damage = damage;
                 bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;
+
+                if (random != -1 && random <= CriticalChance)
+                {
+                    bullet.GetComponent<TowerProjectile>().isCritical = true;
+                    bullet.GetComponent<TowerProjectile>().CriticalDamage = damage * 2;
+                }
+                else
+                {
+                    bullet.GetComponent<TowerProjectile>().Damage = damage;
+                }
             }
         }
         else
         {
             GameObject bullet = Instantiate(projectile, Barrel.position, Barrel.rotation);
             bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
-            if (Range > 100)
-            {
-                bullet.GetComponent<TowerProjectile>().isInfinityRange = true;
-            }
-            bullet.GetComponent<TowerProjectile>().Damage = damage;
             bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;
+
+            if (random != -1 && random <= CriticalChance)
+            {
+                bullet.GetComponent<TowerProjectile>().isCritical = true;
+                bullet.GetComponent<TowerProjectile>().CriticalDamage = damage * 2;
+            }
+            else
+            {
+                bullet.GetComponent<TowerProjectile>().Damage = damage;
+            }
         }
     }
 
