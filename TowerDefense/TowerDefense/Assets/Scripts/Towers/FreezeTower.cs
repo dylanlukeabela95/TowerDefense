@@ -7,18 +7,23 @@ public class FreezeTower : Tower
 {
     public GameObject projectileFreeze;
 
+    [Header("Stats")]
     public int IceDamage;
     public float SlowDuration;
     public float SlowEffect;
 
+    [Header("Frostbite")]
     public bool CanFrostbite;
     public int FrostbiteDamage;
     public float FrostbiteTickRate;
 
+    [Header("Icicle")]
     public bool CanIcicle;
+    public GameObject Icicle;
     public int IcicleDamage;
     public int IcicleChance;
 
+    [Header("Immobilize")]
     public bool CanImmobilize;
     public int ImmobilizeChance;
 
@@ -60,6 +65,7 @@ public class FreezeTower : Tower
 
     public override IEnumerator Shoot(GameObject projectile, int damage)
     {
+        GameObject icicle = null;
         while (true)
         {
             if (EnemiesInRange.Count > 0)
@@ -72,7 +78,25 @@ public class FreezeTower : Tower
                 bullet.GetComponent<FreezeTowerProjectile>().SlowEffect = SlowEffect;
                 bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;
 
-                if(CanFrostbite)
+                if (CanIcicle)
+                {
+                    var random = Random.Range(0, 101);
+                    if (random <= IcicleChance)
+                    {
+                        icicle = Instantiate(Icicle, transform.position, Quaternion.identity);
+                        icicle.GetComponent<Icicle>().icicleDamage = IcicleDamage;
+                        icicle.GetComponent<Icicle>().slowDuration = SlowDuration;
+                        icicle.GetComponent<Icicle>().slowEffect = SlowEffect;
+
+                        if(CanFrostbite)
+                        {
+                            icicle.GetComponent<Icicle>().frostbiteDamage = FrostbiteDamage;
+                            icicle.GetComponent<Icicle>().frostbiteTickRate = FrostbiteTickRate;
+                        }
+                    }
+                }
+
+                if (CanFrostbite)
                 {
                     bullet.GetComponent<FreezeTowerProjectile>().canFrostbite = true;
                     bullet.GetComponent<FreezeTowerProjectile>().frostbiteDamageOverTime = FrostbiteDamage;

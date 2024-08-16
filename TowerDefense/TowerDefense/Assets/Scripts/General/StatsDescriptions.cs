@@ -28,7 +28,7 @@ namespace Stats_Descriptions
         public const string SlowDurationStatDescription = "Increases Slow Duration";
         public const string SlowEffectStatDescription = "Increases Slow Effect";
         public const string FrostbiteStatDescription = "Ice Damage will no longer be applied. Instead, it applies Frostbite to a target, dealing Ice Damage Over Time. Frostbite Damage Over Time is half the Ice Damage";
-        public const string IcicleStatDescription = "Gain a chance to shoot an icicle at a random enemy on the field, dealing damage and slowing down the enemy";
+        public const string IcicleStatDescription = "Gain a chance to shoot an icicle at a random enemy on the field, dealing damage and slowing down the enemy. Deals double damage if target is already frozen";
         public const string ImmobilizeStatDescription = "Gain a chance to immobilize the target instead of slowing it down";
     }
 

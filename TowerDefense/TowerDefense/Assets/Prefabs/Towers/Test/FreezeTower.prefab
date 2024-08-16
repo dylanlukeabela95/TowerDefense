@@ -405,6 +405,7 @@ MonoBehaviour:
   FrostbiteDamage: 0
   FrostbiteTickRate: 0
   CanIcicle: 0
+  Icicle: {fileID: 6306303990634715229, guid: d6b32f09653559445b14c0babee36bfb, type: 3}
   IcicleDamage: 0
   IcicleChance: 0
   CanImmobilize: 0

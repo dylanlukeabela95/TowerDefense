@@ -1,3 +1,4 @@
+using Strings;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +14,19 @@ public class GameManager : MonoBehaviour
     public bool isBombTowerSelected;
 
     public int coins;
+    public int PoisonCriticalChance = 0;
 
     public List<GameObject> AllTowers = new List<GameObject>();
-    public GameObject currentTower;
+    public List<GameObject> enemiesInScreen = new List<GameObject>();
 
-    public int PoisonCriticalChance = 0;
+    public GameObject currentTower;
 
     // Start is called before the first frame update
     void Start()
     {
         ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
+
+        enemiesInScreen = GameObject.FindGameObjectsWithTag(StringsDatabase.Tag.EnemyTag).ToList();
     }
 
     // Update is called once per frame
@@ -81,5 +85,15 @@ public class GameManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void AddEnemyToList(GameObject enemy)
+    {
+        enemiesInScreen.Add(enemy);
+    }
+
+    public void RemoveEnemyFromList(GameObject enemy)
+    {
+        enemiesInScreen.Remove(enemy);  
     }
 }

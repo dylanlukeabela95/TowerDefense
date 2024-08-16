@@ -157,7 +157,7 @@ public class Enemy : MonoBehaviour
         {
             waypointCounter++;
 
-            if(waypointCounter >= 2)
+            if(waypointCounter >= 3)
             {
                 waypointCounter = 0;
             }

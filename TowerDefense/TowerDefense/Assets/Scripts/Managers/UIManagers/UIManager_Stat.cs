@@ -379,7 +379,7 @@ public class UIManager_Stat : MonoBehaviour
                 return (currentTower.GetComponent<DamageTower>().Damage * 2).ToString();
             case StringsDatabase.Stats.FrostbiteDamage:
             case StringsDatabase.Stats_Display.FrostbiteDamage:
-                return ((currentTower.GetComponent<FreezeTower>().IceDamage * 1.0f) / 2).ToString();
+                return currentTower.GetComponent<FreezeTower>().FrostbiteDamage.ToString();
             case StringsDatabase.Stats.FrostbiteTickRate:
             case StringsDatabase.Stats_Display.FrostbiteTickRate:
                 return (1 * 1.0f / currentTower.GetComponent<FreezeTower>().FrostbiteTickRate).ToString() + " / s";

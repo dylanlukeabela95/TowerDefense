@@ -30,8 +30,11 @@ public class TowerProjectile : MonoBehaviour
     {
         //transform.Translate(Vector3.up * Time.deltaTime * ProjectileSpeed);   
 
-        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * ProjectileSpeed);
-        if(target == null)
+        if (target != null)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * ProjectileSpeed);
+        }
+        else
         {
             Destroy(this.gameObject);
         }    

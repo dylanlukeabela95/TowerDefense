@@ -741,7 +741,7 @@ public class UIManager_Upgrades : MonoBehaviour
             case StringsDatabase.Stats.Icicle:
                 currentTower.GetComponent<FreezeTower>().CanIcicle = true;
                 currentTower.GetComponent<FreezeTower>().IcicleChance = (int)upgradeCollection[key];
-                currentTower.GetComponent<FreezeTower>().IcicleDamage = 10;
+                currentTower.GetComponent<FreezeTower>().IcicleDamage = 15;
 
                 if (!currentTower.GetComponent<FreezeTower>().Stats.Contains("Icicle Damage"))
                 {
@@ -1823,7 +1823,7 @@ public class UIManager_Upgrades : MonoBehaviour
                 statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
 
                 oldStat = (int)currentTower.GetComponent<FreezeTower>().IcicleDamage;
-                newStat = (int)((currentTower.GetComponent<FreezeTower>().IcicleDamage + 10));
+                newStat = (int)((currentTower.GetComponent<FreezeTower>().IcicleDamage + 15));
                 statName = StringsDatabase.Stats_Display.IcicleDanage;
 
                 statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, "", increased));
