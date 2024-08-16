@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public ReferencesManager ReferencesManager;
+
     [Header("Enemy Stats")]
     public float movementSpeed;
 
@@ -40,6 +42,8 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
+
         SetWaypoints();
         transform.position = waypoints[0].transform.position;
     }
@@ -85,7 +89,22 @@ public class Enemy : MonoBehaviour
             {
                 dummyTickRate_Poison = poisonTickRate;
                 TextMeshPro damageText = Instantiate(DamageText, transform.position, Quaternion.identity);
-                damageText.text = poisonDamage.ToString();
+                if (ReferencesManager.GameManager.PoisonCriticalChance != 0)
+                {
+                    var random = Random.Range(0, 101);
+                    if (random <= ReferencesManager.GameManager.PoisonCriticalChance)
+                    {
+                        damageText.text = (poisonDamage * 2).ToString();
+                    }
+                    else
+                    {
+                        damageText.text = poisonDamage.ToString();
+                    }
+                }
+                else
+                {
+                    damageText.text = poisonDamage.ToString();
+                }
                 damageText.color = Color.green;
             }
 
