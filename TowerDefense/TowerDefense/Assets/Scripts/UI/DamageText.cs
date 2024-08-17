@@ -8,6 +8,8 @@ public class DamageText : MonoBehaviour
     private float x;
     private int y = 1;
 
+    public bool goDown = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,13 @@ public class DamageText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-        transform.Translate(new Vector3(x, y, 0) * Time.deltaTime * MovementSpeed);
+        if (!goDown)
+        {
+            transform.Translate(new Vector3(x, y, 0) * Time.deltaTime * MovementSpeed);
+        }
+        else
+        {
+            transform.Translate(new Vector3(x, -y, 0) * Time.deltaTime * MovementSpeed);
+        }
     }
 }

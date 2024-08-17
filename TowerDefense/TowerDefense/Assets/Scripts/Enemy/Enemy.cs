@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
     public float frostbiteTickRate;
     public float dummyTickRate_Frostbite;
     public bool firstSetFrostbite;
+    public bool isImmobilize;
 
     [Header("Waypoints")]
     public List<GameObject> waypoints = new List<GameObject>();
@@ -44,8 +45,8 @@ public class Enemy : MonoBehaviour
     {
         ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
 
-        //SetWaypoints();
-        //transform.position = waypoints[0].transform.position;
+        SetWaypoints();
+        transform.position = waypoints[0].transform.position;
     }
 
     // Update is called once per frame
@@ -53,7 +54,14 @@ public class Enemy : MonoBehaviour
     {
         if (isFrozen)
         {
-            GoToWaypoint(slowEffectMovementSpeed);
+            if (isImmobilize)
+            {
+                GoToWaypoint(0);
+            }
+            else
+            {
+                GoToWaypoint(slowEffectMovementSpeed);
+            }
         }
         else
         {
@@ -157,6 +165,11 @@ public class Enemy : MonoBehaviour
                 slowEffectMovementSpeed = 0;
                 dummyTickRate_Frostbite = 0;
                 firstSetFrostbite = false;
+
+                if(isImmobilize)
+                {
+                    isImmobilize = false;
+                }
             }
         }
     }

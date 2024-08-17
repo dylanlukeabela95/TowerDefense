@@ -14,6 +14,9 @@ public class FreezeTowerProjectile : TowerProjectile
     public int frostbiteDamageOverTime;
     public float frostbiteTickRate;
 
+    public bool canImmobilize;
+    public int immobilizeChance;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -30,7 +33,7 @@ public class FreezeTowerProjectile : TowerProjectile
     {
         base.OnTriggerEnter2D(other);
 
-        if(other.gameObject.CompareTag(StringsDatabase.Tag.EnemyTag))
+        if (other.gameObject.CompareTag(StringsDatabase.Tag.EnemyTag))
         {
             if (IceDamage > 0)
             {
@@ -44,13 +47,29 @@ public class FreezeTowerProjectile : TowerProjectile
                 other.GetComponent<Enemy>().isFrozen = true;
                 other.GetComponent<Enemy>().freezeTimer = SlowDuration;
                 other.GetComponent<Enemy>().slowEffect = SlowEffect;
-                
-                if(canFrostbite)
+
+                if (canFrostbite)
                 {
                     other.GetComponent<Enemy>().frostbiteDamage = frostbiteDamageOverTime;
                     other.GetComponent<Enemy>().frostbiteTickRate = frostbiteTickRate;
+                }
+
+                if (canImmobilize)
+                {
+                    var random = Random.Range(0, 101);
+
+                    if (random <= immobilizeChance)
+                    {
+                        other.GetComponent<Enemy>().isImmobilize = true;
+
+                        GameObject text = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
+                        text.GetComponent<TextMeshPro>().text = "Immobilized";
+                        text.GetComponent<TextMeshPro>().color = Color.cyan;
+                        text.GetComponent<DamageText>().goDown = true;
+                    }
                 }
             }
         }
     }
 }
+

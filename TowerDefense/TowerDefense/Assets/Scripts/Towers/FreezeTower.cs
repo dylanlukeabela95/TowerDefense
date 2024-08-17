@@ -102,6 +102,13 @@ public class FreezeTower : Tower
                     bullet.GetComponent<FreezeTowerProjectile>().frostbiteDamageOverTime = FrostbiteDamage;
                     bullet.GetComponent<FreezeTowerProjectile>().frostbiteTickRate = FrostbiteTickRate;
                 }
+
+                if(CanImmobilize)
+                {
+                    bullet.GetComponent<FreezeTowerProjectile>().canImmobilize = true;
+                    bullet.GetComponent<FreezeTowerProjectile>().immobilizeChance = ImmobilizeChance;
+                }
+
                 yield return new WaitForSeconds(FireRate);
             }
             yield return null;
