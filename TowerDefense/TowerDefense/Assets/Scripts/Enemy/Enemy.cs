@@ -45,8 +45,8 @@ public class Enemy : MonoBehaviour
     {
         ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
 
-        SetWaypoints();
-        transform.position = waypoints[0].transform.position;
+        //SetWaypoints();
+        //transform.position = waypoints[0].transform.position;
     }
 
     // Update is called once per frame

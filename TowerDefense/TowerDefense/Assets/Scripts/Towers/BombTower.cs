@@ -57,6 +57,13 @@ public class BombTower : Tower
                 bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;
                 bullet.GetComponent<BombTowerProjectile>().splashDamage = SplashDamage;
                 bullet.GetComponent<BombTowerProjectile>().splashRadius = SplashRadius;
+
+                if(DoubleExplosionChance != 0)
+                {
+                    bullet.GetComponent<BombTowerProjectile>().canDoubleExplosion = true;
+                    bullet.GetComponent<BombTowerProjectile>().doubleExplosionChance = DoubleExplosionChance;
+                }
+
                 yield return new WaitForSeconds(FireRate);
             }
             yield return null;

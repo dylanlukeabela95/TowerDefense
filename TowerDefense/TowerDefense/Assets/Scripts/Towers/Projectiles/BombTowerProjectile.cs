@@ -10,6 +10,9 @@ public class BombTowerProjectile : TowerProjectile
     public float splashRadius;
     public GameObject explosionEffect;
 
+    public bool canDoubleExplosion;
+    public int doubleExplosionChance;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -41,18 +44,62 @@ public class BombTowerProjectile : TowerProjectile
     void ApplySplashDamage()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, splashRadius/2);
-        foreach (Collider2D collider in colliders)
-        {
-            Enemy enemy = collider.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                //enemy.TakeDamage(damage);
 
-                TextMeshPro damageText = Instantiate(DamageText, enemy.transform.position, Quaternion.identity);
-                damageText.text = splashDamage.ToString();
-                damageText.color = new Color32(255, 211, 0, 255);
+        if (canDoubleExplosion)
+        {
+            var random = Random.Range(0, 101);
+
+            if (random <= doubleExplosionChance)
+            {
+                foreach (Collider2D collider in colliders)
+                {
+                    Enemy enemy = collider.GetComponent<Enemy>();
+                    if (enemy != null)
+                    {
+                        //enemy.TakeDamage(damage);
+
+                        TextMeshPro damageText = Instantiate(DamageText, enemy.transform.position, Quaternion.identity);
+                        damageText.text = splashDamage.ToString();
+                        damageText.color = new Color32(255, 211, 0, 255);
+
+                        TextMeshPro damageText2 = Instantiate(DamageText, enemy.transform.position, Quaternion.identity);
+                        damageText2.text = splashDamage.ToString();
+                        damageText2.color = new Color32(255, 211, 0, 255);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Collider2D collider in colliders)
+                {
+                    Enemy enemy = collider.GetComponent<Enemy>();
+                    if (enemy != null)
+                    {
+                        //enemy.TakeDamage(damage);
+
+                        TextMeshPro damageText = Instantiate(DamageText, enemy.transform.position, Quaternion.identity);
+                        damageText.text = splashDamage.ToString();
+                        damageText.color = new Color32(255, 211, 0, 255);
+                    }
+                }
             }
         }
+        else
+        {
+            foreach (Collider2D collider in colliders)
+            {
+                Enemy enemy = collider.GetComponent<Enemy>();
+                if (enemy != null)
+                {
+                    //enemy.TakeDamage(damage);
+
+                    TextMeshPro damageText = Instantiate(DamageText, enemy.transform.position, Quaternion.identity);
+                    damageText.text = splashDamage.ToString();
+                    damageText.color = new Color32(255, 211, 0, 255);
+                }
+            }
+        }
+
     }
 
 }
