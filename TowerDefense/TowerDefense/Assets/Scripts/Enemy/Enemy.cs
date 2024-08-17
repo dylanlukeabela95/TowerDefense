@@ -103,17 +103,19 @@ public class Enemy : MonoBehaviour
                     if (random <= ReferencesManager.GameManager.PoisonCriticalChance)
                     {
                         damageText.text = (poisonDamage * 2).ToString();
+                        damageText.color = new Color32(206, 250, 5, 255);
                     }
                     else
                     {
                         damageText.text = poisonDamage.ToString();
+                        damageText.color = Color.green;
                     }
                 }
                 else
                 {
                     damageText.text = poisonDamage.ToString();
+                    damageText.color = Color.green;
                 }
-                damageText.color = Color.green;
             }
 
             dummyTickRate_Poison -= Time.deltaTime;
