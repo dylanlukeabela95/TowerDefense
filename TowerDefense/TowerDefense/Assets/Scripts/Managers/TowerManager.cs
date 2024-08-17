@@ -197,49 +197,53 @@ public class TowerManager : MonoBehaviour
         {
             if (gameManager.isDamageTowerSelected)
             {
-                if (ReferencesManager.GameManager.CanPurchase((int)ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Cost]))
+                if (ReferencesManager.GameManager.CanPurchase((int)DamageStats[StringsDatabase.Stats.Cost]))
                 {
                     tower = Instantiate(DamageTower, mousePosition, Quaternion.identity);
                     tower.name = StringsDatabase.Towers.DamageTower;
-                    ReferencesManager.GameManager.ReduceCoins((int)ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Cost]);
+                    tower.GetComponent<Tower>().SellingCost = Mathf.CeilToInt((int)DamageStats[StringsDatabase.Stats.Cost] * 1.0f / 2);
+                    ReferencesManager.GameManager.ReduceCoins((int)DamageStats[StringsDatabase.Stats.Cost]);
                     ReferencesManager.UIManager_Cost.UpdateCoins();
-                    SetRangeIndicator((float)ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Range], tower);
+                    SetRangeIndicator((float)DamageStats[StringsDatabase.Stats.Range], tower);
                     ReferencesManager.GameManager.AddTowerToList(tower);
                 }
             }
             else if (gameManager.isFreezeTowerSelected)
             {
-                if (ReferencesManager.GameManager.CanPurchase((int)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Cost]))
+                if (ReferencesManager.GameManager.CanPurchase((int)FreezeStats[StringsDatabase.Stats.Cost]))
                 {
                     tower = Instantiate(FreezeTower, mousePosition, Quaternion.identity);
                     tower.name = StringsDatabase.Towers.FreezeTower;
-                    ReferencesManager.GameManager.ReduceCoins((int)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Cost]);
+                    tower.GetComponent<Tower>().SellingCost = Mathf.CeilToInt((int)FreezeStats[StringsDatabase.Stats.Cost] * 1.0f / 2);
+                    ReferencesManager.GameManager.ReduceCoins((int)FreezeStats[StringsDatabase.Stats.Cost]);
                     ReferencesManager.UIManager_Cost.UpdateCoins();
-                    SetRangeIndicator((float)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Range], tower);
+                    SetRangeIndicator((float)FreezeStats[StringsDatabase.Stats.Range], tower);
                     ReferencesManager.GameManager.AddTowerToList(tower);
                 }
             }
             else if (gameManager.isPoisonTowerSelected)
             {
-                if (ReferencesManager.GameManager.CanPurchase((int)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.Cost]))
+                if (ReferencesManager.GameManager.CanPurchase((int)PoisonStats[StringsDatabase.Stats.Cost]))
                 {
                     tower = Instantiate(PoisonTower, mousePosition, Quaternion.identity);
                     tower.name = StringsDatabase.Towers.PoisonTower;
-                    ReferencesManager.GameManager.ReduceCoins((int)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.Cost]);
+                    tower.GetComponent<Tower>().SellingCost = Mathf.CeilToInt((int)PoisonStats[StringsDatabase.Stats.Cost] * 1.0f / 2);
+                    ReferencesManager.GameManager.ReduceCoins((int)PoisonStats[StringsDatabase.Stats.Cost]);
                     ReferencesManager.UIManager_Cost.UpdateCoins();
-                    SetRangeIndicator((float)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.Range], tower);
+                    SetRangeIndicator((float)PoisonStats[StringsDatabase.Stats.Range], tower);
                     ReferencesManager.GameManager.AddTowerToList(tower);
                 }
             }
             else if (gameManager.isBombTowerSelected)
             {
-                if (ReferencesManager.GameManager.CanPurchase((int)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.Cost]))
+                if (ReferencesManager.GameManager.CanPurchase((int)BombStats[StringsDatabase.Stats.Cost]))
                 {
                     tower = Instantiate(BombTower, mousePosition, Quaternion.identity);
                     tower.name = StringsDatabase.Towers.BombTower;
-                    ReferencesManager.GameManager.ReduceCoins((int)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.Cost]);
+                    tower.GetComponent<Tower>().SellingCost = Mathf.CeilToInt((int)BombStats[StringsDatabase.Stats.Cost] * 1.0f / 2);
+                    ReferencesManager.GameManager.ReduceCoins((int)BombStats[StringsDatabase.Stats.Cost]);
                     ReferencesManager.UIManager_Cost.UpdateCoins();
-                    SetRangeIndicator((float)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.Range], tower);
+                    SetRangeIndicator((float)BombStats[StringsDatabase.Stats.Range], tower);
                     ReferencesManager.GameManager.AddTowerToList(tower);
                 }
             }

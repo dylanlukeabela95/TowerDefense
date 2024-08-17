@@ -2078,6 +2078,8 @@ public class UIManager_Upgrades : MonoBehaviour
             cost = ReferencesManager.CostManager.GetUpgradeCost(towerEnum, level, branch);
         }
 
+        ReferencesManager.GameManager.currentTower.GetComponent<Tower>().SellingCost += Mathf.CeilToInt(cost / 2);
+
         SetUpgradeCostValue(cost);
     }
 

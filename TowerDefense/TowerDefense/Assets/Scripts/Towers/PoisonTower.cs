@@ -69,6 +69,12 @@ public class PoisonTower : Tower
                 bullet.GetComponent<PoisonTowerProjectile>().poisonDamageOverTime = PoisonDamageOverTime;
                 bullet.GetComponent<PoisonTowerProjectile>().poisonDuration = PoisonDuration;
                 bullet.GetComponent<PoisonTowerProjectile>().poisonTickRate = PoisonTickRate;
+
+                if(PoisonSpread)
+                {
+                    bullet.GetComponent<PoisonTowerProjectile>().poisonSpread = true;
+                    bullet.GetComponent<PoisonTowerProjectile>().poisonSpreadRadius = PoisonSpreadRadius;
+                }
                 yield return new WaitForSeconds(FireRate);
             }
             yield return null;

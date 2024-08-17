@@ -44,8 +44,8 @@ public class Enemy : MonoBehaviour
     {
         ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
 
-        SetWaypoints();
-        transform.position = waypoints[0].transform.position;
+        //SetWaypoints();
+        //transform.position = waypoints[0].transform.position;
     }
 
     // Update is called once per frame
@@ -163,25 +163,28 @@ public class Enemy : MonoBehaviour
 
     void GoToWaypoint(float movementSpeed)
     {
-        if (currentWaypointToGo == Vector3.zero)
+        if (waypoints != null && waypoints.Count > 2)
         {
-            currentWaypointToGo = waypoints[1].transform.position;
-        }
-
-        if (transform.position != currentWaypointToGo)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, currentWaypointToGo, movementSpeed * Time.deltaTime);
-        }
-        else
-        {
-            waypointCounter++;
-
-            if(waypointCounter >= 3)
+            if (currentWaypointToGo == Vector3.zero)
             {
-                waypointCounter = 0;
+                currentWaypointToGo = waypoints[1].transform.position;
             }
 
-            currentWaypointToGo = waypoints[waypointCounter].transform.position;
+            if (transform.position != currentWaypointToGo)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, currentWaypointToGo, movementSpeed * Time.deltaTime);
+            }
+            else
+            {
+                waypointCounter++;
+
+                if (waypointCounter >= 3)
+                {
+                    waypointCounter = 0;
+                }
+
+                currentWaypointToGo = waypoints[waypointCounter].transform.position;
+            }
         }
     }
 }

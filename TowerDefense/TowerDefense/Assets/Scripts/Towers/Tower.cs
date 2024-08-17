@@ -9,13 +9,17 @@ public class Tower : MonoBehaviour
 {
     public ReferencesManager ReferencesManager;
 
+    [Header("Main Stats")]
     public int Damage;
     public float FireRate;
     public float Range;
     public int Cost;
 
+    [Header("Upgrades")]
     public int UpgradeLevel = 0;
     public List<string> UpgradeNames = new List<string>();
+
+    [Header("All Stats On Tower")]
     public List<string> Stats = new List<string>();
 
     public TowerEnum TowerEnum;
@@ -25,6 +29,9 @@ public class Tower : MonoBehaviour
     public GameObject RangeIndicator;
 
     public List<GameObject> EnemiesInRange = new List<GameObject>();
+
+    [Header("Selling Cost")]
+    public int SellingCost;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -136,7 +143,7 @@ public class Tower : MonoBehaviour
 
     public virtual void SellTower()
     {
-        ReferencesManager.GameManager.coins += Mathf.CeilToInt(Cost / 2);
+        ReferencesManager.GameManager.coins += SellingCost;
         Destroy(this.gameObject);
     }
 
