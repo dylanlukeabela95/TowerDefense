@@ -147,7 +147,7 @@ public class Tower : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    public virtual IEnumerator Shoot(GameObject projectile, int damage)
+    public virtual IEnumerator Shoot(GameObject projectile)
     {
         while(true)
         {
@@ -155,7 +155,7 @@ public class Tower : MonoBehaviour
             {
                 GameObject bullet = Instantiate(projectile, Barrel.position, Barrel.rotation);
                 bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
-                bullet.GetComponent<TowerProjectile>().Damage = damage;
+                bullet.GetComponent<TowerProjectile>().Damage = Damage;
                 bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;
                 yield return new WaitForSeconds(FireRate);
             }

@@ -26,7 +26,7 @@ public class PoisonTower : Tower
 
         TowerEnum = TowerEnum.PoisonTower;
 
-        StartCoroutine(Shoot(projectilePoison, Damage));
+        StartCoroutine(Shoot(projectilePoison));
     }
 
     // Update is called once per frame
@@ -56,7 +56,7 @@ public class PoisonTower : Tower
         base.SellTower();
     }
 
-    public override IEnumerator Shoot(GameObject projectile, int damage)
+    public override IEnumerator Shoot(GameObject projectile)
     {
         while (true)
         {
@@ -64,7 +64,7 @@ public class PoisonTower : Tower
             {
                 GameObject bullet = Instantiate(projectile, Barrel.position, Barrel.rotation);
                 bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
-                bullet.GetComponent<TowerProjectile>().Damage = damage;
+                bullet.GetComponent<TowerProjectile>().Damage = Damage;
                 bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;
                 bullet.GetComponent<PoisonTowerProjectile>().poisonDamageOverTime = PoisonDamageOverTime;
                 bullet.GetComponent<PoisonTowerProjectile>().poisonDuration = PoisonDuration;

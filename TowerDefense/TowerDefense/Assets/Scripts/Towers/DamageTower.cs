@@ -36,7 +36,7 @@ public class DamageTower : Tower
 
         TowerEnum = TowerEnum.DamageTower;
 
-        StartCoroutine(Shoot(ProjectileDamage, Damage));
+        StartCoroutine(Shoot(ProjectileDamage));
     }
 
     // Update is called once per frame
@@ -118,7 +118,7 @@ public class DamageTower : Tower
         return false;
     }
 
-    public void ShootProjectile(GameObject projectile, int damage)
+    public void ShootProjectile(GameObject projectile)
     {
         var random = -1;
         if (CriticalChance > 0)
@@ -137,11 +137,11 @@ public class DamageTower : Tower
                 if (random != -1 && random <= CriticalChance)
                 {
                     bullet.GetComponent<TowerProjectile>().isCritical = true;
-                    bullet.GetComponent<TowerProjectile>().CriticalDamage = damage * 2;
+                    bullet.GetComponent<TowerProjectile>().CriticalDamage = Damage * 2;
                 }
                 else
                 {
-                    bullet.GetComponent<TowerProjectile>().Damage = damage;
+                    bullet.GetComponent<TowerProjectile>().Damage = Damage;
                 }
             }
         }
@@ -154,16 +154,16 @@ public class DamageTower : Tower
             if (random != -1 && random <= CriticalChance)
             {
                 bullet.GetComponent<TowerProjectile>().isCritical = true;
-                bullet.GetComponent<TowerProjectile>().CriticalDamage = damage * 2;
+                bullet.GetComponent<TowerProjectile>().CriticalDamage = Damage * 2;
             }
             else
             {
-                bullet.GetComponent<TowerProjectile>().Damage = damage;
+                bullet.GetComponent<TowerProjectile>().Damage = Damage;
             }
         }
     }
 
-    public override IEnumerator Shoot(GameObject projectile, int damage)
+    public override IEnumerator Shoot(GameObject projectile)
     {
         while (true)
         {
@@ -180,7 +180,7 @@ public class DamageTower : Tower
                     //Do three round burst
                     for (int i = 0; i < 3; i++)
                     {
-                        ShootProjectile(projectile, damage);
+                        ShootProjectile(projectile);
                         yield return new WaitForSeconds(BurstFireRate);
                     }
                     yield return new WaitForSeconds(FireRate);
@@ -191,7 +191,7 @@ public class DamageTower : Tower
                     //Do two round burst
                     for (int i = 0; i < 2; i++)
                     {
-                        ShootProjectile(projectile, damage);
+                        ShootProjectile(projectile);
                         yield return new WaitForSeconds(BurstFireRate);
                     }
                     yield return new WaitForSeconds(FireRate);
@@ -199,7 +199,7 @@ public class DamageTower : Tower
                 else if (!canTwoRoundBurst && !canThreeRoundBurst)
                 {
                     //Shoot normally
-                    ShootProjectile(projectile, damage);
+                    ShootProjectile(projectile);
                     yield return new WaitForSeconds(FireRate);
                 }
             }

@@ -37,7 +37,7 @@ public class FreezeTower : Tower
 
         TowerEnum = TowerEnum.FreezeTower;
 
-        StartCoroutine(Shoot(projectileFreeze, Damage));
+        StartCoroutine(Shoot(projectileFreeze));
     }
 
     // Update is called once per frame
@@ -63,7 +63,7 @@ public class FreezeTower : Tower
         Stats.Remove(stat);
     }
 
-    public override IEnumerator Shoot(GameObject projectile, int damage)
+    public override IEnumerator Shoot(GameObject projectile)
     {
         GameObject icicle = null;
         while (true)
@@ -72,7 +72,7 @@ public class FreezeTower : Tower
             {
                 GameObject bullet = Instantiate(projectile, Barrel.position, Barrel.rotation);
                 bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
-                bullet.GetComponent<TowerProjectile>().Damage = damage;
+                bullet.GetComponent<TowerProjectile>().Damage = Damage;
                 bullet.GetComponent<FreezeTowerProjectile>().IceDamage = IceDamage;
                 bullet.GetComponent<FreezeTowerProjectile>().SlowDuration = SlowDuration;
                 bullet.GetComponent<FreezeTowerProjectile>().SlowEffect = SlowEffect;

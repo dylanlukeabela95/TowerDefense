@@ -12,6 +12,7 @@ public class BombTower : Tower
 
     public int DoubleExplosionChance;
 
+    public GameObject Rocket;
     public int RocketChance;
     public int RocketDamage;
 
@@ -25,7 +26,7 @@ public class BombTower : Tower
 
         TowerEnum = TowerEnum.BombTower;
 
-        StartCoroutine(Shoot(projectileBomb, Damage));
+        StartCoroutine(Shoot(projectileBomb));
     }
 
     // Update is called once per frame
@@ -45,7 +46,7 @@ public class BombTower : Tower
         Stats.Add(stat);
     }
 
-    public override IEnumerator Shoot(GameObject projectile, int damage)
+    public override IEnumerator Shoot(GameObject projectile)
     {
         while (true)
         {
@@ -53,7 +54,7 @@ public class BombTower : Tower
             {
                 GameObject bullet = Instantiate(projectile, Barrel.position, Barrel.rotation);
                 bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
-                bullet.GetComponent<TowerProjectile>().Damage = damage;
+                bullet.GetComponent<TowerProjectile>().Damage = Damage;
                 bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;
                 bullet.GetComponent<BombTowerProjectile>().splashDamage = SplashDamage;
                 bullet.GetComponent<BombTowerProjectile>().splashRadius = SplashRadius;
@@ -62,6 +63,25 @@ public class BombTower : Tower
                 {
                     bullet.GetComponent<BombTowerProjectile>().canDoubleExplosion = true;
                     bullet.GetComponent<BombTowerProjectile>().doubleExplosionChance = DoubleExplosionChance;
+                }
+
+                if(RocketChance != 0)
+                {
+                    var random = Random.Range(0, 101);
+                    if (random <= RocketChance)
+                    {
+                        GameObject rocket = Instantiate(Rocket, transform.position, Quaternion.identity);
+                        rocket.GetComponent<Rocket>().rocketDamage = RocketDamage;
+                        rocket.GetComponent<Rocket>().splashDamage = SplashDamage;
+                        rocket.GetComponent<Rocket>().splashRadius = SplashRadius;
+
+                        if(DoubleExplosionChance != 0)
+                        {
+                            rocket.GetComponent<Rocket>().canDoubleExplosion = true;
+                            rocket.GetComponent<Rocket>().doubleExplosionChance = DoubleExplosionChance;
+                        }
+                    }
+                    
                 }
 
                 yield return new WaitForSeconds(FireRate);
