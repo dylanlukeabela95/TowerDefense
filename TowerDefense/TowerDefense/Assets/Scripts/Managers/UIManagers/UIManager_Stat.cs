@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Page
 {
@@ -67,6 +68,7 @@ public class UIManager_Stat : MonoBehaviour
                         if (isRight)
                         {
                             StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.DamageTower;
+                            StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.DamageTowerSprite;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_L.transform);
                             stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<DamageTower>().GetStat(i);
                             stat.name = ReferencesManager.GameManager.currentTower.GetComponent<DamageTower>().GetStat(i).Replace(" ", "");
@@ -76,6 +78,7 @@ public class UIManager_Stat : MonoBehaviour
                         else
                         {
                             StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.DamageTower;
+                            StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.DamageTowerSprite;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_R.transform);
                             stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<DamageTower>().GetStat(i);
                             stat.name = ReferencesManager.GameManager.currentTower.GetComponent<DamageTower>().GetStat(i).Replace(" ", "");
@@ -90,6 +93,7 @@ public class UIManager_Stat : MonoBehaviour
                         if (isRight)
                         {
                             StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.FreezeTower;
+                            StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.FreezeTowerSprite;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_L.transform);
                             stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<FreezeTower>().Stats[i];
                             stat.name = ReferencesManager.GameManager.currentTower.GetComponent<FreezeTower>().Stats[i].Replace(" ", "");
@@ -99,6 +103,7 @@ public class UIManager_Stat : MonoBehaviour
                         else
                         {
                             StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.FreezeTower;
+                            StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.FreezeTowerSprite;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_R.transform);
                             stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<FreezeTower>().Stats[i];
                             stat.name = ReferencesManager.GameManager.currentTower.GetComponent<FreezeTower>().Stats[i].Replace(" ", "");
@@ -113,6 +118,7 @@ public class UIManager_Stat : MonoBehaviour
                         if (isRight)
                         {
                             StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.PoisonTower;
+                            StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.PoisonTowerSprite;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_L.transform);
                             stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<PoisonTower>().Stats[i];
                             stat.name = ReferencesManager.GameManager.currentTower.GetComponent<PoisonTower>().Stats[i].Replace(" ", "");
@@ -122,6 +128,7 @@ public class UIManager_Stat : MonoBehaviour
                         else
                         {
                             StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.PoisonTower;
+                            StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.PoisonTowerSprite;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_R.transform);
                             stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<PoisonTower>().Stats[i];
                             stat.name = ReferencesManager.GameManager.currentTower.GetComponent<PoisonTower>().Stats[i];
@@ -136,6 +143,7 @@ public class UIManager_Stat : MonoBehaviour
                         if (isRight)
                         {
                             StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.BombTower;
+                            StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.BombTowerSprite;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_L.transform);
                             stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<BombTower>().Stats[i];
                             stat.name = ReferencesManager.GameManager.currentTower.GetComponent<BombTower>().Stats[i].Replace(" ", "");
@@ -145,6 +153,7 @@ public class UIManager_Stat : MonoBehaviour
                         else
                         {
                             StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.BombTower;
+                            StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.BombTowerSprite;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_R.transform);
                             stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<BombTower>().Stats[i];
                             stat.name = ReferencesManager.GameManager.currentTower.GetComponent<BombTower>().Stats[i].Replace(" ", "");

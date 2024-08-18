@@ -51,6 +51,7 @@ namespace Strings
             public const string StatText = "StatText";
             public const string UpgradeValue = "UpgradeValue";
             public const string TowerTitle = "TowerTitle";
+            public const string TowerImage = "TowerImage";
         }
 
         public class UI_TowerList
