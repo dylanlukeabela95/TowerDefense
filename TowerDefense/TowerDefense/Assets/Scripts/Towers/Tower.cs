@@ -30,6 +30,8 @@ public class Tower : MonoBehaviour
 
     public List<GameObject> EnemiesInRange = new List<GameObject>();
 
+    public List<Sprite> Items = new List<Sprite>();
+
     [Header("Selling Cost")]
     public int SellingCost;
 
