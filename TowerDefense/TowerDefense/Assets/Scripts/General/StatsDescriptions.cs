@@ -14,7 +14,7 @@ namespace Stats_Descriptions
     public class StatsDescriptions_DamageTower
     {
         public const string RangeInfiniteStatDescription = "Range becomes Infinite";
-        public const string CriticalStatDescription = "Gain a chance to deal Critical Damage. Critical Damage is 2 x Damage";
+        public const string CriticalStatDescription = "Gain a chance to deal Critical Damage. Critical Damage is x2 Damage";
         public const string TwoBurstStatDescription = "Gain a chance to shoot in a Burst of Two";
         public const string ThreeBurstStatDescription = "Gain a chance to shoot in a Burst of Three";
         public const string ProjectileStatDescription = "Increase Tower Projectile";

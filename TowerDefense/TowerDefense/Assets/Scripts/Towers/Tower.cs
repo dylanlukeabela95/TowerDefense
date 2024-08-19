@@ -5,6 +5,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
+public class ItemAttached
+{
+    public Item Item { get; set; }
+    public GameObject ItemSlot { get; set; }
+    public ItemAttached()
+    {
+        
+    }
+}
+
 public class Tower : MonoBehaviour
 {
     public ReferencesManager ReferencesManager;
@@ -30,7 +40,7 @@ public class Tower : MonoBehaviour
 
     public List<GameObject> EnemiesInRange = new List<GameObject>();
 
-    public List<Sprite> Items = new List<Sprite>();
+    public List<ItemAttached> ItemsAttached = new List<ItemAttached>();
 
     [Header("Selling Cost")]
     public int SellingCost;

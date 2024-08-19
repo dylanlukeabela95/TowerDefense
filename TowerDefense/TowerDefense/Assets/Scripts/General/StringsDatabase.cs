@@ -173,5 +173,37 @@ namespace Strings
         {
             public const string Waypoints = "Waypoints";
         }
+
+        public class Items
+        {
+            public const string Weight = "Weight";
+            public const string HotPepper = "Hot Pepper";
+            public const string Lens = "Lens";
+            public const string Voucher = "Voucher";
+            public const string PiggyBank = "Piggy Bank";
+            public const string DartBoard = "Dart Board";
+            public const string Scope = "Scope";
+            public const string BoxOfBullets = "Box of Bullets";
+            public const string Matches = "Matches";
+            public const string Blueprint = "Blueprint";
+            public const string RedBall = "Red Ball";
+            public const string Snowflake = "Snowflake";
+            public const string LiquidNitrogen = "Liquid Nitrogen";
+            public const string IceCube = "Ice Cube";
+            public const string Snowball = "Snowball";
+            public const string FrozenBottle = "Frozen Bottle";
+            public const string IceCream = "Ice Cream";
+            public const string PoisonVial = "Poison Vial";
+            public const string HazardSign = "Hazard Sign";
+            public const string MoldyCheese = "Moldy Cheese";
+            public const string SnotTissue = "Snot Tissue";
+            public const string Fungus = "Fungus";
+            public const string Cannonball = "Cannonball";
+            public const string Dynamite = "Dynamite";
+            public const string TNTBox = "TNT Box";
+            public const string Nuke = "Nuke";
+            public const string RPG = "RPG";
+            public const string Firework = "Firework";
+        }
     }
 }
