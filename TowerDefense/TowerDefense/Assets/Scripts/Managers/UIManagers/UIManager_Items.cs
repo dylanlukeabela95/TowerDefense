@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
+using TMPro.Examples;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,6 +15,8 @@ public class Tab
 
 public class UIManager_Items : MonoBehaviour
 {
+    public ReferencesManager ReferencesManager;
+
     [Header("Item Section")]
     public GameObject itemSection;
 
@@ -24,6 +28,9 @@ public class UIManager_Items : MonoBehaviour
 
     [Header("Item Displays")]
     public List<GameObject> itemDisplays = new List<GameObject>();
+
+    [Header("Item Icon")]
+    public GameObject itemIcon;
 
     public List<Tab> itemTabs = new List<Tab>();
 
@@ -43,6 +50,8 @@ public class UIManager_Items : MonoBehaviour
         AlterTabHeight(selectedTabHeight);
 
         itemSection.SetActive(false);
+
+        UpdateItemList();
     }
 
     // Update is called once per frame
@@ -99,6 +108,90 @@ public class UIManager_Items : MonoBehaviour
         Vector2 size = itemTabs.Find(a => a.isSelected == true).TabObject.GetComponent<RectTransform>().sizeDelta;
         size.y = height;
         itemTabs.Find(a => a.isSelected == true).TabObject.GetComponent<RectTransform>().sizeDelta = size;
+    }
+
+    void UpdateItemList()
+    {
+        var itemDisplay_General = itemTabs.Find(a => a.ItemDisplay.name == "ItemDisplay_General").ItemDisplay;
+        var itemDisplay_Damage = itemTabs.Find(a => a.ItemDisplay.name == "ItemDisplay_Damage").ItemDisplay;
+        var itemDisplay_Freeze = itemTabs.Find(a => a.ItemDisplay.name == "ItemDisplay_Freeze").ItemDisplay;
+        var itemDisplay_Poison = itemTabs.Find(a => a.ItemDisplay.name == "ItemDisplay_Poison").ItemDisplay;
+        var itemDisplay_Bomb = itemTabs.Find(a => a.ItemDisplay.name == "ItemDisplay_Bomb").ItemDisplay;
+
+        foreach (var item in ReferencesManager.ItemsManager.GeneralItems)
+        {
+            GameObject itemGeneral = Instantiate(itemIcon, itemDisplay_General.transform.position, Quaternion.identity, itemDisplay_General.transform);
+            itemGeneral.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = item.ItemName;
+
+            if(item.ItemCount > 1)
+            {
+                itemGeneral.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "x " + item.ItemCount;
+            }
+            else
+            {
+                itemGeneral.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "";
+            }
+        }
+
+        foreach (var item in ReferencesManager.ItemsManager.DamageTowerItems)
+        {
+            GameObject itemDamage = Instantiate(itemIcon, itemDisplay_Damage.transform.position, Quaternion.identity, itemDisplay_Damage.transform);
+            itemDamage.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = item.ItemName;
+
+            if (item.ItemCount > 1)
+            {
+                itemDamage.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "x " + item.ItemCount;
+            }
+            else
+            {
+                itemDamage.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "";
+            }
+        }
+
+        foreach (var item in ReferencesManager.ItemsManager.FreezeTowerItems)
+        {
+            GameObject itemFreeze = Instantiate(itemIcon, itemDisplay_Freeze.transform.position, Quaternion.identity, itemDisplay_Freeze.transform);
+            itemFreeze.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = item.ItemName;
+
+            if (item.ItemCount > 1)
+            {
+                itemFreeze.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "x " + item.ItemCount;
+            }
+            else
+            {
+                itemFreeze.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "";
+            }
+        }
+
+        foreach (var item in ReferencesManager.ItemsManager.PoisonTowerItems)
+        {
+            GameObject itemPoison = Instantiate(itemIcon, itemDisplay_Poison.transform.position, Quaternion.identity, itemDisplay_Poison.transform);
+            itemPoison.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = item.ItemName;
+
+            if (item.ItemCount > 1)
+            {
+                itemPoison.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "x " + item.ItemCount;
+            }
+            else
+            {
+                itemPoison.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "";
+            }
+        }
+
+        foreach (var item in ReferencesManager.ItemsManager.BombTowerItems)
+        {
+            GameObject itemBomb = Instantiate(itemIcon, itemDisplay_Bomb.transform.position, Quaternion.identity, itemDisplay_Bomb.transform);
+            itemBomb.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = item.ItemName;
+
+            if (item.ItemCount > 1)
+            {
+                itemBomb.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "x " + item.ItemCount;
+            }
+            else
+            {
+                itemBomb.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "";
+            }
+        }
     }
 
     #region OnClick

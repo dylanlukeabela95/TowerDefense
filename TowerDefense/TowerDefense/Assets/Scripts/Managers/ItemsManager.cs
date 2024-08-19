@@ -10,7 +10,7 @@ public class Item
     public Sprite ItemSprite {  get; set; }
     public string ItemName { get; set; }
     public string ItemDescription { get; set; }
-    public int? ItemCount { get; set; }
+    public int? ItemCount { get; set; } = 0;
 }
 
 public class ItemsManager : MonoBehaviour
@@ -27,19 +27,24 @@ public class ItemsManager : MonoBehaviour
     public List<Item> PoisonTowerItems = new List<Item>();
     public List<Item> BombTowerItems = new List<Item>();
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         SetAllItems();
 
         //For testing
         AddItem(StringsDatabase.Items.Weight, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Weight));
         AddItem(StringsDatabase.Items.Weight, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Weight));
-        AddItem(StringsDatabase.Items.DartBoard, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Weight));
+        AddItem(StringsDatabase.Items.DartBoard, AllItems.Find(a => a.ItemName == StringsDatabase.Items.DartBoard));
         AddItem(StringsDatabase.Items.Scope, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Scope));
         AddItem(StringsDatabase.Items.Snowflake, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Snowflake));
         AddItem(StringsDatabase.Items.HazardSign, AllItems.Find(a => a.ItemName == StringsDatabase.Items.HazardSign));
         AddItem(StringsDatabase.Items.Cannonball, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Cannonball));
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
@@ -318,6 +323,7 @@ public class ItemsManager : MonoBehaviour
                 }
                 else
                 {
+                    item.ItemCount++;
                     GeneralItems.Add(item);
                 }
                 break;
@@ -333,6 +339,7 @@ public class ItemsManager : MonoBehaviour
                 }
                 else
                 {
+                    item.ItemCount++;
                     DamageTowerItems.Add(item);
                 }
                 break;
@@ -349,6 +356,7 @@ public class ItemsManager : MonoBehaviour
                 }
                 else
                 {
+                    item.ItemCount++;
                     FreezeTowerItems.Add(item);
                 }
                 break;
@@ -364,6 +372,7 @@ public class ItemsManager : MonoBehaviour
                 }
                 else
                 {
+                    item.ItemCount++;
                     PoisonTowerItems.Add(item);
                 }
                 break;
@@ -380,6 +389,7 @@ public class ItemsManager : MonoBehaviour
                 }
                 else
                 {
+                    item.ItemCount++;
                     BombTowerItems.Add(item);
                 }
                 break;
