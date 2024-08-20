@@ -1,9 +1,11 @@
 using Strings;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using TMPro.Examples;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -216,31 +218,81 @@ public class UIManager_Items : MonoBehaviour
         itemInfoSection.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = itemName;
         itemInfoSection.transform.Find("ItemDescription").GetComponent<TextMeshProUGUI>().text = itemDescription;
 
-        switch(itemName)
+        int currentInt;
+        int changeInt;
+        float currentFloat;
+        float changeFloat;
+
+        switch (itemName)
         {
             case StringsDatabase.Items.Weight:
-                var damage = ReferencesManager.GameManager.currentTower.GetComponent<Tower>().Damage;
-                var change = ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == StringsDatabase.Items.Weight).Changes[0];
-                SetStatChange("Damage", damage, damage + (int)change);
+                currentInt = ReferencesManager.GameManager.currentTower.GetComponent<Tower>().Damage;
+                changeInt = (int)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == StringsDatabase.Items.Weight).Changes[0];
+                SetStatChange("Damage", currentInt, currentInt + changeInt);
+                break;
+            case StringsDatabase.Items.HotPepper:
+                currentFloat = (float)(1 * 1.0 / ReferencesManager.GameManager.currentTower.GetComponent<Tower>().FireRate);
+                changeFloat = (float)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == StringsDatabase.Items.HotPepper).Changes[0];
+                SetStatChange("Fire Rate", currentFloat, currentFloat + changeFloat);
                 break;
         }
     }
 
-    void SetStatChange(string statName, int oldStat, int newStat)
+    void SetStatChange(string statName, object oldStat, object newStat)
     {
-        if(statsSection.transform.childCount > 0)
+        if (statsSection.transform.childCount > 0)
         {
             for (int i = 0; i < statsSection.transform.childCount; i++)
             {
                 Destroy(statsSection.transform.GetChild(i).gameObject);
-
             }
         }
 
-        //Set sprite later on
-        GameObject statChange = Instantiate(statUI, statsSection.transform.position, Quaternion.identity, statsSection.transform);
-        statChange.transform.Find("ItemOldNewStat_Title").GetComponent<TextMeshProUGUI>().text = statName;
-        statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = oldStat.ToString() + " -> " + "<color=green>" + newStat.ToString() + "</color>";
+        string formattedOldStat = string.Empty;
+        string formattedNewStat = string.Empty;
+
+        if (oldStat is float)
+        {
+            formattedOldStat = oldStat.ToString();
+            double number = Convert.ToDouble(formattedOldStat);
+            if ((float)oldStat % 1 != 0)
+            {
+                formattedOldStat = number.ToString("F2");
+            }
+            else
+            {
+                formattedOldStat = number.ToString("0");
+            }
+        }
+
+        if (newStat is float)
+        {
+            formattedNewStat = newStat.ToString();
+            double number = Convert.ToDouble(formattedNewStat);
+            if ((float)newStat % 1 != 0)
+            {
+                formattedNewStat = number.ToString("F2");
+            }
+            else
+            {
+                formattedNewStat = number.ToString("0");
+            }
+        }
+
+        if (!string.IsNullOrEmpty(formattedOldStat) && !string.IsNullOrEmpty(formattedNewStat))
+        {
+            //Set sprite later on
+            GameObject statChange = Instantiate(statUI, statsSection.transform.position, Quaternion.identity, statsSection.transform);
+            statChange.transform.Find("ItemOldNewStat_Title").GetComponent<TextMeshProUGUI>().text = statName;
+            statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = formattedOldStat + " -> " + "<color=green>" + formattedNewStat + "</color>";
+        }
+        else
+        {
+            //Set sprite later on
+            GameObject statChange = Instantiate(statUI, statsSection.transform.position, Quaternion.identity, statsSection.transform);
+            statChange.transform.Find("ItemOldNewStat_Title").GetComponent<TextMeshProUGUI>().text = statName;
+            statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = oldStat.ToString() + " -> " + "<color=green>" + newStat.ToString() + "</color>";
+        }
     }
 
     #region OnClick
