@@ -1,3 +1,4 @@
+using Strings;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +6,7 @@ using TMPro;
 using TMPro.Examples;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tab
 {
@@ -31,6 +33,10 @@ public class UIManager_Items : MonoBehaviour
 
     [Header("Item Icon")]
     public GameObject itemIcon;
+
+    [Header("Stats Section")]
+    public GameObject statsSection;
+    public GameObject statUI;
 
     public List<Tab> itemTabs = new List<Tab>();
 
@@ -131,6 +137,8 @@ public class UIManager_Items : MonoBehaviour
             {
                 itemGeneral.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "";
             }
+
+            itemGeneral.GetComponent<Button>().onClick.AddListener(() => OnClick_Item(item.ItemName));
         }
 
         foreach (var item in ReferencesManager.ItemsManager.DamageTowerItems)
@@ -146,6 +154,8 @@ public class UIManager_Items : MonoBehaviour
             {
                 itemDamage.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "";
             }
+
+            itemDamage.GetComponent<Button>().onClick.AddListener(() => OnClick_Item(item.ItemName));
         }
 
         foreach (var item in ReferencesManager.ItemsManager.FreezeTowerItems)
@@ -161,6 +171,8 @@ public class UIManager_Items : MonoBehaviour
             {
                 itemFreeze.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "";
             }
+
+            itemFreeze.GetComponent<Button>().onClick.AddListener(() => OnClick_Item(item.ItemName));
         }
 
         foreach (var item in ReferencesManager.ItemsManager.PoisonTowerItems)
@@ -176,6 +188,8 @@ public class UIManager_Items : MonoBehaviour
             {
                 itemPoison.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "";
             }
+
+            itemPoison.GetComponent<Button>().onClick.AddListener(() => OnClick_Item(item.ItemName));
         }
 
         foreach (var item in ReferencesManager.ItemsManager.BombTowerItems)
@@ -191,7 +205,42 @@ public class UIManager_Items : MonoBehaviour
             {
                 itemBomb.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "";
             }
+
+            itemBomb.GetComponent<Button>().onClick.AddListener(() => OnClick_Item(item.ItemName));
+
         }
+    }
+
+    void SetInfo(string itemName, string itemDescription)
+    {
+        itemInfoSection.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = itemName;
+        itemInfoSection.transform.Find("ItemDescription").GetComponent<TextMeshProUGUI>().text = itemDescription;
+
+        switch(itemName)
+        {
+            case StringsDatabase.Items.Weight:
+                var damage = ReferencesManager.GameManager.currentTower.GetComponent<Tower>().Damage;
+                var change = ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == StringsDatabase.Items.Weight).Changes[0];
+                SetStatChange("Damage", damage, damage + (int)change);
+                break;
+        }
+    }
+
+    void SetStatChange(string statName, int oldStat, int newStat)
+    {
+        if(statsSection.transform.childCount > 0)
+        {
+            for (int i = 0; i < statsSection.transform.childCount; i++)
+            {
+                Destroy(statsSection.transform.GetChild(i).gameObject);
+
+            }
+        }
+
+        //Set sprite later on
+        GameObject statChange = Instantiate(statUI, statsSection.transform.position, Quaternion.identity, statsSection.transform);
+        statChange.transform.Find("ItemOldNewStat_Title").GetComponent<TextMeshProUGUI>().text = statName;
+        statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = oldStat.ToString() + " -> " + "<color=green>" + newStat.ToString() + "</color>";
     }
 
     #region OnClick
@@ -215,9 +264,14 @@ public class UIManager_Items : MonoBehaviour
         NewTabSelected(tab);
     }
 
-    public void OnClick_Item()
+    public void OnClick_Item(string itemName)
     {
         isItemSelected = true;
+        itemInfoSection.SetActive(true);
+
+        Item item = ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName);
+
+        SetInfo(item.ItemName, item.ItemDescription);
     }
 
     #endregion

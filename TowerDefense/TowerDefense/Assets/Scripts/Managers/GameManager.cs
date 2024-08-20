@@ -96,4 +96,13 @@ public class GameManager : MonoBehaviour
     {
         enemiesInScreen.Remove(enemy);  
     }
+
+    public object FormulaPercentage(float original, float boostPercentage)
+    {
+        object boostedStat = 0;
+
+        boostedStat = original * (1 + (boostPercentage * 1.0f / 100));
+
+        return boostedStat;
+    }
 }

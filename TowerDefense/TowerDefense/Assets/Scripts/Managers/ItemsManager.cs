@@ -11,6 +11,7 @@ public class Item
     public string ItemName { get; set; }
     public string ItemDescription { get; set; }
     public int? ItemCount { get; set; } = 0;
+    public object[] Changes { get; set; }
 }
 
 public class ItemsManager : MonoBehaviour
@@ -68,42 +69,48 @@ public class ItemsManager : MonoBehaviour
         {
             ItemSprite = ReferencesManager.SpriteManager.WeightSprite,
             ItemName = StringsDatabase.Items.Weight,
-            ItemDescription = "Increases Tower Damage By 5"
+            ItemDescription = "Increases Tower Damage By 5",
+            Changes = new object[] { 5 }
         };
 
         Item hotPepper = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.HotPepperSprite,
             ItemName = StringsDatabase.Items.HotPepper,
-            ItemDescription = "Increasess Tower Fire Rate by 10%"
+            ItemDescription = "Increasess Tower Fire Rate by 10%",
+            Changes = new object[] { 0.1f }
         };
 
         Item lens = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.LensSprite,
             ItemName = StringsDatabase.Items.Lens,
-            ItemDescription = "Increases Tower Range by 1 metre"
+            ItemDescription = "Increases Tower Range by 1 metre",
+            Changes = new object[] { 1 }
         };
 
         Item voucher = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.VoucherSprite,
             ItemName = StringsDatabase.Items.Voucher,
-            ItemDescription = "Reduce the cost of the Tower that it is placed on by 2. (Max 6)"
+            ItemDescription = "Reduce the cost of the Tower that it is placed on by 2. (Max 6)",
+            Changes = new object[] { 2 }
         };
 
         Item piggyBank = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.PiggyBankSprite,
             ItemName = StringsDatabase.Items.PiggyBank,
-            ItemDescription = "Generate +1 coin per kill. This works for all towers"
+            ItemDescription = "Generate +1 coin per kill. This works for all towers",
+            Changes = new object[] { 1 }
         };
 
         Item dartBoard = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.DartBoardSprite,
             ItemName = StringsDatabase.Items.DartBoard,
-            ItemDescription = "Gain 10% chance to deal Critical Damage. Critical Damage is x2 Damage"
+            ItemDescription = "Gain 10% chance to deal Critical Damage. Critical Damage is x2 Damage",
+            Changes = new object[] { 10 }
         };
 
         AllItems.Add(weight);
@@ -120,35 +127,40 @@ public class ItemsManager : MonoBehaviour
         {
             ItemSprite = ReferencesManager.SpriteManager.ScopeSprite,
             ItemName = StringsDatabase.Items.Scope,
-            ItemDescription = "Increases Critical Chance by 10% and Critical Damage by 100%"
+            ItemDescription = "Increases Critical Chance by 10% and Critical Damage by 100%",
+            Changes = new object[] { 10, 100 }
         };
 
         Item boxOfBullets = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.BoxOfBulletSprite,
             ItemName = StringsDatabase.Items.BoxOfBullets,
-            ItemDescription = "Increases Two Round Burst and Three Round Burst Chance by 5%"
+            ItemDescription = "Increases Two Round Burst and Three Round Burst Chance by 5%",
+            Changes = new object[] { 5 }
         };
 
         Item matches = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.MatchesSprite,
             ItemName = StringsDatabase.Items.Matches,
-            ItemDescription = "Damage Towers have a 5% chance to inflict an enemy with Burn. Burned enemies take damage over time and has a high tick rate"
+            ItemDescription = "Damage Towers have a 5% chance to inflict an enemy with Burn. Burned enemies take damage over time and has a high tick rate",
+            Changes = new object[] { 5 }
         };
 
         Item blueprint = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.BlueprintSprite,
             ItemName = StringsDatabase.Items.Blueprint,
-            ItemDescription = "All Damage Towers, currently on the field and future Damage Towers will gain 5 damage"
+            ItemDescription = "All Damage Towers, currently on the field and future Damage Towers will gain 5 damage",
+            Changes = new object[] { 5 }
         };
 
         Item redBall = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.RedBallSprite,
             ItemName = StringsDatabase.Items.RedBall,
-            ItemDescription = "Damage Tower has 5% chance to deal Super Damage. Super Damage is x5 Damage"
+            ItemDescription = "Damage Tower has 5% chance to deal Super Damage. Super Damage is x5 Damage",
+            Changes = new object[] { 5 }
         };
 
         AllItems.Add(scope);
@@ -165,42 +177,49 @@ public class ItemsManager : MonoBehaviour
         {
             ItemSprite = ReferencesManager.SpriteManager.SnowflakeSprite,
             ItemName = StringsDatabase.Items.Snowflake,
-            ItemDescription = "Increase Slow Duration by 1 second"
+            ItemDescription = "Increase Slow Duration by 1 second",
+            Changes = new object[] { 1 }
         };
 
         Item liquidNitrogen = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.LiquidNitrogenSprite,
             ItemName = StringsDatabase.Items.LiquidNitrogen,
-            ItemDescription = "Increase Slow Effect by 10%"
+            ItemDescription = "Increase Slow Effect by 10%",
+            Changes = new object[] { 10 }
+
         };
 
         Item iceCube = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.IceCubeSprite,
             ItemName = StringsDatabase.Items.IceCube,
-            ItemDescription = "Increase Ice Damage By 6 or Frostbite Damage Over Time by 3"
+            ItemDescription = "Increase Ice Damage By 6 or Frostbite Damage Over Time by 3",
+            Changes = new object[] { 6, 3 }
         };
 
         Item snowball = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.SnowballSprite,
             ItemName = StringsDatabase.Items.Snowball,
-            ItemDescription = "Gain 5% chance to shoot a snowball at an enemy at a random enemy, stunning them for 1 second"
+            ItemDescription = "Gain 5% chance to shoot a snowball at an enemy at a random enemy, stunning them for 1 second",
+            Changes = new object[] { 5, 1 }
         };
 
         Item frozenBottle = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.FrozenBottleSprite,
             ItemName = StringsDatabase.Items.FrozenBottle,
-            ItemDescription = "Icicle Spawn Chance increased by 5%"
+            ItemDescription = "Icicle Spawn Chance increased by 5%",
+            Changes = new object[] { 5 }
         };
 
         Item icecream = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.IcecreamSprite,
             ItemName = StringsDatabase.Items.IceCream,
-            ItemDescription = "Increase Immobilize Chance by 5%"
+            ItemDescription = "Increase Immobilize Chance by 5%",
+            Changes = new object[] { 5 }
         };
 
         AllItems.Add(snowflake);
@@ -217,35 +236,40 @@ public class ItemsManager : MonoBehaviour
         {
             ItemSprite = ReferencesManager.SpriteManager.PoisonVialSprite,
             ItemName = StringsDatabase.Items.PoisonVial,
-            ItemDescription = "Increase Poison Damage Over Time by 2"
+            ItemDescription = "Increase Poison Damage Over Time by 2",
+            Changes = new object[] { 2 }
         };
 
         Item hazardSign = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.HazardSignSprite,
             ItemName = StringsDatabase.Items.HazardSign,
-            ItemDescription = "Increases Poison Duration by 1 second"
+            ItemDescription = "Increases Poison Duration by 1 second",
+            Changes = new object[] { 1 }
         };
 
         Item moldyCheese = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.MoldyCheeseSprite,
             ItemName = StringsDatabase.Items.MoldyCheese,
-            ItemDescription = "Increase Poison Tick Rate by 0.1 seconds"
+            ItemDescription = "Increase Poison Tick Rate by 0.1 seconds",
+            Changes = new object[] { 0.1f }
         };
 
         Item snotTissue = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.SnotTissueSprite,
             ItemName = StringsDatabase.Items.SnotTissue,
-            ItemDescription = "When an enemy inflicted with Poison is defeated, there is a 5% chance to realise a poison nova, inflicting Poison to all nearby enemies. This applies to all Poison effects"
+            ItemDescription = "When an enemy inflicted with Poison is defeated, there is a 5% chance to realise a poison nova, inflicting Poison to all nearby enemies. This applies to all Poison effects",
+            Changes = new object[] { 5 }
         };
 
         Item fungus = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.FungusSprite,
             ItemName = StringsDatabase.Items.Fungus,
-            ItemDescription = "Increase Poison Critical Chance by 5% globally"
+            ItemDescription = "Increase Poison Critical Chance by 5% globally",
+            Changes = new object[] { 5 }
         };
 
         AllItems.Add(poisonVial);
@@ -261,42 +285,48 @@ public class ItemsManager : MonoBehaviour
         {
             ItemSprite = ReferencesManager.SpriteManager.CannonballSprite,
             ItemName = StringsDatabase.Items.Cannonball,
-            ItemDescription = "Increase Damage and Splash Damage by 5"
+            ItemDescription = "Increase Damage and Splash Damage by 5",
+            Changes = new object[] { 5, 5 }
         };
 
         Item dynamite = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.DynamiteSprite,
             ItemName = StringsDatabase.Items.Dynamite,
-            ItemDescription = "Increases Splash Radius by 1 m"
+            ItemDescription = "Increases Splash Radius by 1 m",
+            Changes = new object[] { 1 }
         };
 
         Item tntBox = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.TNTBoxSprite,
             ItemName = StringsDatabase.Items.TNTBox,
-            ItemDescription = "Explosion happens after 1 second but increases Splash Damage and Splash Radius by 50%"
+            ItemDescription = "Explosion happens after 1 second but increases Splash Damage and Splash Radius by 50%",
+            Changes = new object[] { 1, 50, 50 }
         };
 
         Item nuke = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.NukeSprite,
             ItemName = StringsDatabase.Items.Nuke,
-            ItemDescription = "Gain 5% chance for this tower to deal Splash Damage to everyone on the screen"
+            ItemDescription = "Gain 5% chance for this tower to deal Splash Damage to everyone on the screen",
+            Changes = new object[] { 5 }
         };
 
         Item rpg = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.RPGSprite,
             ItemName = StringsDatabase.Items.RPG,
-            ItemDescription = "Increase Rocket Spawn Chance by 10%"
+            ItemDescription = "Increase Rocket Spawn Chance by 10%",
+            Changes = new object[] { 10 }
         };
 
         Item firework = new Item()
         {
             ItemSprite = ReferencesManager.SpriteManager.FireworkSprite,
             ItemName = StringsDatabase.Items.Firework,
-            ItemDescription = "Increase Double Explosion Chance by 10%"
+            ItemDescription = "Increase Double Explosion Chance by 10%",
+            Changes = new object[] { 10 }
         };
 
         AllItems.Add(cannonball);
