@@ -8,7 +8,7 @@ using static UnityEngine.GraphicsBuffer;
 public class ItemAttached
 {
     public Item Item { get; set; }
-    public GameObject ItemSlot { get; set; }
+    public GameObject[] ItemSlot { get; set; } //2 since we have two side stat bars
     public ItemAttached()
     {
         
@@ -35,6 +35,8 @@ public class Tower : MonoBehaviour
     public TowerEnum TowerEnum;
 
     public Transform Barrel;
+
+    public int CriticalChance = 0;
 
     public GameObject RangeIndicator;
 

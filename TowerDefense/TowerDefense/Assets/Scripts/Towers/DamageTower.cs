@@ -7,7 +7,6 @@ public class DamageTower : Tower
 {
     public GameObject ProjectileDamage;
     public int ProjectileCount = 1;
-    public int CriticalChance = 0;
 
     public int TwoRoundBurstChance = 0;
     public int ThreeRoundBurstChance = 0;

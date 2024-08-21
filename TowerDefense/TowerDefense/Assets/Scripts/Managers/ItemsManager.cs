@@ -36,6 +36,10 @@ public class ItemsManager : MonoBehaviour
         AddItem(StringsDatabase.Items.Weight, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Weight));
         AddItem(StringsDatabase.Items.Weight, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Weight));
         AddItem(StringsDatabase.Items.HotPepper, AllItems.Find(a => a.ItemName == StringsDatabase.Items.HotPepper));
+        AddItem(StringsDatabase.Items.Lens, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Lens));
+        AddItem(StringsDatabase.Items.Voucher, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Voucher));
+        AddItem(StringsDatabase.Items.PiggyBank, AllItems.Find(a => a.ItemName == StringsDatabase.Items.PiggyBank));
+        AddItem(StringsDatabase.Items.DartBoard, AllItems.Find(a => a.ItemName == StringsDatabase.Items.DartBoard));
         AddItem(StringsDatabase.Items.Scope, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Scope));
         AddItem(StringsDatabase.Items.Snowflake, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Snowflake));
         AddItem(StringsDatabase.Items.HazardSign, AllItems.Find(a => a.ItemName == StringsDatabase.Items.HazardSign));
@@ -86,7 +90,7 @@ public class ItemsManager : MonoBehaviour
             ItemSprite = ReferencesManager.SpriteManager.LensSprite,
             ItemName = StringsDatabase.Items.Lens,
             ItemDescription = "Increases Tower Range by 1 metre",
-            Changes = new object[] { 1 }
+            Changes = new object[] { 1f }
         };
 
         Item voucher = new Item()

@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.CullingGroup;
 
 public class Tab
 {
@@ -222,19 +223,66 @@ public class UIManager_Items : MonoBehaviour
         int changeInt;
         float currentFloat;
         float changeFloat;
+        GameObject currentTower = ReferencesManager.GameManager.currentTower;
 
         switch (itemName)
         {
             case StringsDatabase.Items.Weight:
-                currentInt = ReferencesManager.GameManager.currentTower.GetComponent<Tower>().Damage;
-                changeInt = (int)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == StringsDatabase.Items.Weight).Changes[0];
+                currentInt = currentTower.GetComponent<Tower>().Damage;
+                changeInt = (int)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
                 SetStatChange("Damage", currentInt, currentInt + changeInt);
                 break;
             case StringsDatabase.Items.HotPepper:
-                currentFloat = (float)(1 * 1.0 / ReferencesManager.GameManager.currentTower.GetComponent<Tower>().FireRate);
-                changeFloat = (float)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == StringsDatabase.Items.HotPepper).Changes[0];
+                currentFloat = (float)(1 * 1.0 / currentTower.GetComponent<Tower>().FireRate);
+                changeFloat = (float)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
                 SetStatChange("Fire Rate", currentFloat, currentFloat + changeFloat);
                 break;
+            case StringsDatabase.Items.Lens:
+                currentFloat = currentTower.GetComponent<Tower>().Range;
+                changeFloat =(float)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
+                SetStatChange("Range", currentFloat, currentFloat + changeFloat);
+                break;
+            case StringsDatabase.Items.Voucher:
+                if(currentTower.name.Contains("DamageTower") && ReferencesManager.GameManager.DamageTowerVoucherDiscount < 6)
+                {
+                    currentInt = ReferencesManager.GameManager.DamageTowerVoucherDiscount;
+                    changeInt = (int)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
+                    SetStatChange("Damage Tower Discount", currentInt, currentInt + changeInt);
+                    break;
+                }
+                else if(currentTower.name.Contains("FreezeTower") && ReferencesManager.GameManager.FreezeTowerVoucherDiscount < 6)
+                {
+                    currentInt = ReferencesManager.GameManager.FreezeTowerVoucherDiscount;
+                    changeInt = (int)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
+                    SetStatChange("Freeze Tower Discount", currentInt, currentInt + changeInt);
+                    break;
+                }
+                else if (currentTower.name.Contains("PoisonTower") && ReferencesManager.GameManager.PoisonTowerVoucherDiscount < 6)
+                {
+                    currentInt = ReferencesManager.GameManager.PoisonTowerVoucherDiscount;
+                    changeInt = (int)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
+                    SetStatChange("Poison Tower Discount", currentInt, currentInt + changeInt);
+                    break;
+                }
+                else if (currentTower.name.Contains("BombTower") && ReferencesManager.GameManager.BombTowerVoucherDiscount < 6)
+                {
+                    currentInt = ReferencesManager.GameManager.BombTowerVoucherDiscount;
+                    changeInt = (int)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
+                    SetStatChange("Bomb Tower Discount", currentInt, currentInt + changeInt);
+                    break;
+                }
+                break;
+            case StringsDatabase.Items.PiggyBank:
+                currentInt = ReferencesManager.GameManager.bonusCoinGeneration;
+                changeInt = (int)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
+                SetStatChange("Extra Coin Generation", currentInt, currentInt + changeInt);
+                break;
+            case StringsDatabase.Items.DartBoard:
+                currentInt = currentTower.GetComponent<Tower>().CriticalChance;
+                changeInt = (int)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
+                SetStatChange("Critical Chance", currentInt, currentInt + changeInt);
+                break;
+
         }
     }
 
@@ -250,6 +298,7 @@ public class UIManager_Items : MonoBehaviour
 
         string formattedOldStat = string.Empty;
         string formattedNewStat = string.Empty;
+        GameObject statChange = null;
 
         if (oldStat is float)
         {
@@ -282,16 +331,32 @@ public class UIManager_Items : MonoBehaviour
         if (!string.IsNullOrEmpty(formattedOldStat) && !string.IsNullOrEmpty(formattedNewStat))
         {
             //Set sprite later on
-            GameObject statChange = Instantiate(statUI, statsSection.transform.position, Quaternion.identity, statsSection.transform);
+            statChange = Instantiate(statUI, statsSection.transform.position, Quaternion.identity, statsSection.transform);
             statChange.transform.Find("ItemOldNewStat_Title").GetComponent<TextMeshProUGUI>().text = statName;
-            statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = formattedOldStat + " -> " + "<color=green>" + formattedNewStat + "</color>";
+            statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = formattedOldStat + " -> <color=green>" + formattedNewStat + "</color>";
         }
         else
         {
             //Set sprite later on
-            GameObject statChange = Instantiate(statUI, statsSection.transform.position, Quaternion.identity, statsSection.transform);
+            statChange = Instantiate(statUI, statsSection.transform.position, Quaternion.identity, statsSection.transform);
             statChange.transform.Find("ItemOldNewStat_Title").GetComponent<TextMeshProUGUI>().text = statName;
-            statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = oldStat.ToString() + " -> " + "<color=green>" + newStat.ToString() + "</color>";
+            statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = oldStat.ToString() + " -> <color=green>" + newStat.ToString() + "</color>";
+        }
+
+        if (statChange != null)
+        {
+            switch (statName)
+            {
+                case "Fire Rate":
+                    statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = formattedOldStat + " / s -> <color=green>" + formattedNewStat + " / s</color>";
+                    break;
+                case "Range":
+                    statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = oldStat.ToString() + " m -> <color=green>" + newStat.ToString() + " m</color>";
+                    break;
+                case "Critical Chance":
+                    statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = oldStat.ToString() + " % -> <color=green>" + newStat.ToString() + " %</color>";
+                    break;
+            }
         }
     }
 

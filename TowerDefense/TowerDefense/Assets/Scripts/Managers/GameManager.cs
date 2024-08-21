@@ -21,6 +21,14 @@ public class GameManager : MonoBehaviour
 
     public GameObject currentTower;
 
+    public int DamageTowerVoucherDiscount;
+    public int FreezeTowerVoucherDiscount;
+    public int PoisonTowerVoucherDiscount;
+    public int BombTowerVoucherDiscount;
+
+    public int bonusCoinGeneration;
+
+
     // Start is called before the first frame update
     void Start()
     {
