@@ -41,6 +41,8 @@ public class ItemsManager : MonoBehaviour
         AddItem(StringsDatabase.Items.PiggyBank, AllItems.Find(a => a.ItemName == StringsDatabase.Items.PiggyBank));
         AddItem(StringsDatabase.Items.DartBoard, AllItems.Find(a => a.ItemName == StringsDatabase.Items.DartBoard));
         AddItem(StringsDatabase.Items.Scope, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Scope));
+        AddItem(StringsDatabase.Items.BoxOfBullets, AllItems.Find(a => a.ItemName == StringsDatabase.Items.BoxOfBullets));
+        AddItem(StringsDatabase.Items.Matches, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Matches));
         AddItem(StringsDatabase.Items.Snowflake, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Snowflake));
         AddItem(StringsDatabase.Items.HazardSign, AllItems.Find(a => a.ItemName == StringsDatabase.Items.HazardSign));
         AddItem(StringsDatabase.Items.Cannonball, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Cannonball));
@@ -140,7 +142,7 @@ public class ItemsManager : MonoBehaviour
             ItemSprite = ReferencesManager.SpriteManager.BoxOfBulletSprite,
             ItemName = StringsDatabase.Items.BoxOfBullets,
             ItemDescription = "Increases Two Round Burst and Three Round Burst Chance by 5%",
-            Changes = new object[] { 5 }
+            Changes = new object[] { 5, 5 }
         };
 
         Item matches = new Item()
@@ -148,7 +150,7 @@ public class ItemsManager : MonoBehaviour
             ItemSprite = ReferencesManager.SpriteManager.MatchesSprite,
             ItemName = StringsDatabase.Items.Matches,
             ItemDescription = "Damage Towers have a 5% chance to inflict an enemy with Burn. Burned enemies take damage over time and has a high tick rate",
-            Changes = new object[] { 5 }
+            Changes = new object[] { 5, 2, 2f, 0.2f}
         };
 
         Item blueprint = new Item()

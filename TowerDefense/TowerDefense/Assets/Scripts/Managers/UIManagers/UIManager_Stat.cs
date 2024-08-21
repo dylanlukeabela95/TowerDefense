@@ -364,7 +364,7 @@ public class UIManager_Stat : MonoBehaviour
                 return currentTower.GetComponent<PoisonTower>().PoisonDuration.ToString() + " s";
             case StringsDatabase.Stats.PoisonTickRate:
             case StringsDatabase.Stats_Display.PoisonTickRate:
-                return (1 * 1.0f / currentTower.GetComponent<PoisonTower>().PoisonTickRate).ToString("F2") + " / s";
+                return (1 * 1.0f / currentTower.GetComponent<PoisonTower>().PoisonTickRate).ToString("F2") + " times / s";
             case StringsDatabase.Stats.SplashDamage:
             case StringsDatabase.Stats_Display.SplashDamage:
                 return currentTower.GetComponent<BombTower>().SplashDamage.ToString();
@@ -391,7 +391,7 @@ public class UIManager_Stat : MonoBehaviour
                 return currentTower.GetComponent<FreezeTower>().FrostbiteDamage.ToString();
             case StringsDatabase.Stats.FrostbiteTickRate:
             case StringsDatabase.Stats_Display.FrostbiteTickRate:
-                return (1 * 1.0f / currentTower.GetComponent<FreezeTower>().FrostbiteTickRate).ToString() + " / s";
+                return (1 * 1.0f / currentTower.GetComponent<FreezeTower>().FrostbiteTickRate).ToString() + " times / s";
             case StringsDatabase.Stats.IcicleChance:
             case StringsDatabase.Stats_Display.IcicleChance:
                 return currentTower.GetComponent<FreezeTower>().IcicleChance.ToString() + " %";

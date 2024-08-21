@@ -225,74 +225,115 @@ public class UIManager_Items : MonoBehaviour
         float changeFloat;
         GameObject currentTower = ReferencesManager.GameManager.currentTower;
 
+        var item = ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName);
+
         switch (itemName)
         {
             case StringsDatabase.Items.Weight:
                 currentInt = currentTower.GetComponent<Tower>().Damage;
-                changeInt = (int)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
-                SetStatChange("Damage", currentInt, currentInt + changeInt);
+                changeInt = (int)item.Changes[0];
+                SetStatChange("Damage", currentInt, currentInt + changeInt, true);
                 break;
             case StringsDatabase.Items.HotPepper:
                 currentFloat = (float)(1 * 1.0 / currentTower.GetComponent<Tower>().FireRate);
-                changeFloat = (float)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
-                SetStatChange("Fire Rate", currentFloat, currentFloat + changeFloat);
+                changeFloat = (float)item.Changes[0];
+                SetStatChange("Fire Rate", currentFloat, currentFloat + changeFloat, true);
                 break;
             case StringsDatabase.Items.Lens:
                 currentFloat = currentTower.GetComponent<Tower>().Range;
-                changeFloat =(float)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
-                SetStatChange("Range", currentFloat, currentFloat + changeFloat);
+                changeFloat =(float)item.Changes[0];
+                SetStatChange("Range", currentFloat, currentFloat + changeFloat, true);
                 break;
             case StringsDatabase.Items.Voucher:
                 if(currentTower.name.Contains("DamageTower") && ReferencesManager.GameManager.DamageTowerVoucherDiscount < 6)
                 {
                     currentInt = ReferencesManager.GameManager.DamageTowerVoucherDiscount;
-                    changeInt = (int)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
-                    SetStatChange("Damage Tower Discount", currentInt, currentInt + changeInt);
+                    changeInt = (int)item.Changes[0];
+                    SetStatChange("Damage Tower Discount", currentInt, currentInt + changeInt, true);
                     break;
                 }
                 else if(currentTower.name.Contains("FreezeTower") && ReferencesManager.GameManager.FreezeTowerVoucherDiscount < 6)
                 {
                     currentInt = ReferencesManager.GameManager.FreezeTowerVoucherDiscount;
-                    changeInt = (int)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
-                    SetStatChange("Freeze Tower Discount", currentInt, currentInt + changeInt);
+                    changeInt = (int)item.Changes[0];
+                    SetStatChange("Freeze Tower Discount", currentInt, currentInt + changeInt, true);
                     break;
                 }
                 else if (currentTower.name.Contains("PoisonTower") && ReferencesManager.GameManager.PoisonTowerVoucherDiscount < 6)
                 {
                     currentInt = ReferencesManager.GameManager.PoisonTowerVoucherDiscount;
-                    changeInt = (int)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
-                    SetStatChange("Poison Tower Discount", currentInt, currentInt + changeInt);
+                    changeInt = (int)item.Changes[0];
+                    SetStatChange("Poison Tower Discount", currentInt, currentInt + changeInt, true);
                     break;
                 }
                 else if (currentTower.name.Contains("BombTower") && ReferencesManager.GameManager.BombTowerVoucherDiscount < 6)
                 {
                     currentInt = ReferencesManager.GameManager.BombTowerVoucherDiscount;
-                    changeInt = (int)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
-                    SetStatChange("Bomb Tower Discount", currentInt, currentInt + changeInt);
+                    changeInt = (int)item.Changes[0];
+                    SetStatChange("Bomb Tower Discount", currentInt, currentInt + changeInt, true);
                     break;
                 }
                 break;
             case StringsDatabase.Items.PiggyBank:
                 currentInt = ReferencesManager.GameManager.bonusCoinGeneration;
-                changeInt = (int)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
-                SetStatChange("Extra Coin Generation", currentInt, currentInt + changeInt);
+                changeInt = (int)item.Changes[0];
+                SetStatChange("Extra Coin Generation", currentInt, currentInt + changeInt, true);
                 break;
             case StringsDatabase.Items.DartBoard:
                 currentInt = currentTower.GetComponent<Tower>().CriticalChance;
-                changeInt = (int)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName).Changes[0];
-                SetStatChange("Critical Chance", currentInt, currentInt + changeInt);
+                changeInt = (int)item.Changes[0];
+                SetStatChange("Critical Chance", currentInt, currentInt + changeInt, true);
+                break;
+            case StringsDatabase.Items.Scope:
+                currentInt = currentTower.GetComponent<Tower>().CriticalChance;
+                changeInt = (int)item.Changes[0];
+                SetStatChange("Critical Chance", currentInt, currentInt + changeInt, true);
+
+                currentInt = currentTower.GetComponent<DamageTower>().CriticalDamage;
+                changeInt = (int)ReferencesManager.GameManager.FormulaPercentage(currentTower.GetComponent<Tower>().Damage, currentTower.GetComponent<DamageTower>().CriticalPercentage + (int)item.Changes[1]);
+                SetStatChange("Critical Damage", currentInt, changeInt, false);
+                break;
+            case StringsDatabase.Items.BoxOfBullets:
+                currentInt = currentTower.GetComponent<DamageTower>().TwoRoundBurstChance;
+                changeInt = (int)item.Changes[0];
+                SetStatChange("Two Round Burst Chance", currentInt, currentInt + changeInt, true);
+
+                currentInt = currentTower.GetComponent<DamageTower>().ThreeRoundBurstChance;
+                changeInt = (int)item.Changes[1];
+                SetStatChange("Three Round Burst Chance", currentInt, currentInt + changeInt, false);
+                break;
+            case StringsDatabase.Items.Matches:
+                currentInt = currentTower.GetComponent<DamageTower>().BurnChance;
+                changeInt = (int)item.Changes[0];
+                SetStatChange("Burn Chance", currentInt, currentInt + changeInt, true);
+
+                currentInt = currentTower.GetComponent<DamageTower>().BurnDamage;
+                changeInt = (int)item.Changes[1];
+                SetStatChange("Burn Damage", currentInt, currentInt + changeInt, false);
+
+                currentFloat = currentTower.GetComponent<DamageTower>().BurnDuration;
+                changeFloat = (float)item.Changes[2];
+                SetStatChange("Burn Duration", currentInt, currentInt + changeInt, false);
+
+                currentFloat = currentTower.GetComponent<DamageTower>().BurnTickRate;
+                changeFloat = (float)item.Changes[3];
+                changeFloat = 1 * 1.0f / changeFloat;
+                SetStatChange("Burn Tick Rate", currentFloat, currentFloat + changeFloat, false);
                 break;
 
         }
     }
 
-    void SetStatChange(string statName, object oldStat, object newStat)
+    void SetStatChange(string statName, object oldStat, object newStat, bool destroyPrevious)
     {
-        if (statsSection.transform.childCount > 0)
+        if (destroyPrevious)
         {
-            for (int i = 0; i < statsSection.transform.childCount; i++)
+            if (statsSection.transform.childCount > 0)
             {
-                Destroy(statsSection.transform.GetChild(i).gameObject);
+                for (int i = 0; i < statsSection.transform.childCount; i++)
+                {
+                    Destroy(statsSection.transform.GetChild(i).gameObject);
+                }
             }
         }
 
@@ -354,7 +395,16 @@ public class UIManager_Items : MonoBehaviour
                     statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = oldStat.ToString() + " m -> <color=green>" + newStat.ToString() + " m</color>";
                     break;
                 case "Critical Chance":
+                case "Two Round Burst Chance":
+                case "Three Round Burst Chance":
+                case "Burn Chance":
                     statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = oldStat.ToString() + " % -> <color=green>" + newStat.ToString() + " %</color>";
+                    break;
+                case "Burn Duration":
+                    statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = oldStat.ToString() + " s -> <color=green>" + newStat.ToString() + " s</color>";
+                    break;
+                case "Burn Tick Rate":
+                    statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = oldStat.ToString() + " times / s -> <color=green>" + newStat.ToString() + " times / s</color>";
                     break;
             }
         }

@@ -913,7 +913,8 @@ public class UIManager_Upgrades : MonoBehaviour
                         otherNodes = new List<GameObject>() { adjacentNode1 };
 
                         AlterStat(StringsDatabase.Stats.CriticalChance, currentTower, node, damageTowerCriticalDictionary, "Level3.1", true, otherNodes);
-
+                        currentTower.GetComponent<DamageTower>().CriticalPercentage += 100;
+                        currentTower.GetComponent<DamageTower>().CriticalDamage = (int)(ReferencesManager.GameManager.FormulaPercentage(currentTower.GetComponent<Tower>().Damage, currentTower.GetComponent<DamageTower>().CriticalPercentage));
                         break;
                 }
                 break;
@@ -1581,7 +1582,12 @@ public class UIManager_Upgrades : MonoBehaviour
             };
         }
 
-        if (statName.Contains("Rate"))
+        if(statName.Contains("Tick Rate"))
+        {
+            statComparison.OldStat += " times / s";
+            statComparison.NewStat += " times / s";
+        }
+        else if (statName.Contains("Rate"))
         {
             statComparison.OldStat += " / s";
             statComparison.NewStat += " / s";

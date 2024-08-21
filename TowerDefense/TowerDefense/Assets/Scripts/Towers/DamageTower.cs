@@ -8,9 +8,17 @@ public class DamageTower : Tower
     public GameObject ProjectileDamage;
     public int ProjectileCount = 1;
 
+    public int CriticalDamage;
+    public int CriticalPercentage;
+
     public int TwoRoundBurstChance = 0;
     public int ThreeRoundBurstChance = 0;
     public float BurstFireRate = 0.1f;
+
+    public int BurnChance;
+    public int BurnDamage;
+    public float BurnDuration;
+    public float BurnTickRate;
 
     public List<Transform> Barrels = new List<Transform>();
 
@@ -136,7 +144,7 @@ public class DamageTower : Tower
                 if (random != -1 && random <= CriticalChance)
                 {
                     bullet.GetComponent<TowerProjectile>().isCritical = true;
-                    bullet.GetComponent<TowerProjectile>().CriticalDamage = Damage * 2;
+                    bullet.GetComponent<TowerProjectile>().CriticalDamage = CriticalDamage;
                 }
                 else
                 {
@@ -153,7 +161,7 @@ public class DamageTower : Tower
             if (random != -1 && random <= CriticalChance)
             {
                 bullet.GetComponent<TowerProjectile>().isCritical = true;
-                bullet.GetComponent<TowerProjectile>().CriticalDamage = Damage * 2;
+                bullet.GetComponent<TowerProjectile>().CriticalDamage = CriticalDamage;
             }
             else
             {
