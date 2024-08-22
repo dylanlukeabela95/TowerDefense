@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     public int bonusCoinGeneration;
 
+    public int bonusDamageTowerDamage;
 
     // Start is called before the first frame update
     void Start()

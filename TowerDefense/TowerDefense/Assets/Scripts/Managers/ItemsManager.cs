@@ -43,8 +43,17 @@ public class ItemsManager : MonoBehaviour
         AddItem(StringsDatabase.Items.Scope, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Scope));
         AddItem(StringsDatabase.Items.BoxOfBullets, AllItems.Find(a => a.ItemName == StringsDatabase.Items.BoxOfBullets));
         AddItem(StringsDatabase.Items.Matches, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Matches));
+        AddItem(StringsDatabase.Items.Blueprint, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Blueprint));
+        AddItem(StringsDatabase.Items.RedBall, AllItems.Find(a => a.ItemName == StringsDatabase.Items.RedBall));
         AddItem(StringsDatabase.Items.Snowflake, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Snowflake));
+        AddItem(StringsDatabase.Items.LiquidNitrogen, AllItems.Find(a => a.ItemName == StringsDatabase.Items.LiquidNitrogen));
+        AddItem(StringsDatabase.Items.IceCube, AllItems.Find(a => a.ItemName == StringsDatabase.Items.IceCube));
+        AddItem(StringsDatabase.Items.Snowball, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Snowball));
+        AddItem(StringsDatabase.Items.FrozenBottle, AllItems.Find(a => a.ItemName == StringsDatabase.Items.FrozenBottle));
+        AddItem(StringsDatabase.Items.IceCream, AllItems.Find(a => a.ItemName == StringsDatabase.Items.IceCream));
+        AddItem(StringsDatabase.Items.PoisonVial, AllItems.Find(a => a.ItemName == StringsDatabase.Items.PoisonVial));
         AddItem(StringsDatabase.Items.HazardSign, AllItems.Find(a => a.ItemName == StringsDatabase.Items.HazardSign));
+        AddItem(StringsDatabase.Items.MoldyCheese, AllItems.Find(a => a.ItemName == StringsDatabase.Items.MoldyCheese));
         AddItem(StringsDatabase.Items.Cannonball, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Cannonball));
     }
 
@@ -184,7 +193,7 @@ public class ItemsManager : MonoBehaviour
             ItemSprite = ReferencesManager.SpriteManager.SnowflakeSprite,
             ItemName = StringsDatabase.Items.Snowflake,
             ItemDescription = "Increase Slow Duration by 1 second",
-            Changes = new object[] { 1 }
+            Changes = new object[] { 1f }
         };
 
         Item liquidNitrogen = new Item()
@@ -192,7 +201,7 @@ public class ItemsManager : MonoBehaviour
             ItemSprite = ReferencesManager.SpriteManager.LiquidNitrogenSprite,
             ItemName = StringsDatabase.Items.LiquidNitrogen,
             ItemDescription = "Increase Slow Effect by 10%",
-            Changes = new object[] { 10 }
+            Changes = new object[] { 10f }
 
         };
 
@@ -209,7 +218,7 @@ public class ItemsManager : MonoBehaviour
             ItemSprite = ReferencesManager.SpriteManager.SnowballSprite,
             ItemName = StringsDatabase.Items.Snowball,
             ItemDescription = "Gain 5% chance to shoot a snowball at an enemy at a random enemy, stunning them for 1 second",
-            Changes = new object[] { 5, 1 }
+            Changes = new object[] { 5, 1f }
         };
 
         Item frozenBottle = new Item()
@@ -251,7 +260,7 @@ public class ItemsManager : MonoBehaviour
             ItemSprite = ReferencesManager.SpriteManager.HazardSignSprite,
             ItemName = StringsDatabase.Items.HazardSign,
             ItemDescription = "Increases Poison Duration by 1 second",
-            Changes = new object[] { 1 }
+            Changes = new object[] { 1f }
         };
 
         Item moldyCheese = new Item()

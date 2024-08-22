@@ -41,6 +41,12 @@ public class UIManager_Items : MonoBehaviour
     public GameObject statsSection;
     public GameObject statUI;
 
+    [Header("Alert Text")]
+    public GameObject alertText;
+
+    [Header("Attach Button")]
+    public Button attachButton;
+
     public List<Tab> itemTabs = new List<Tab>();
 
     [Header("Tabs")]
@@ -230,22 +236,34 @@ public class UIManager_Items : MonoBehaviour
         switch (itemName)
         {
             case StringsDatabase.Items.Weight:
+                alertText.SetActive(false);
+                attachButton.interactable = true;
+
                 currentInt = currentTower.GetComponent<Tower>().Damage;
                 changeInt = (int)item.Changes[0];
                 SetStatChange("Damage", currentInt, currentInt + changeInt, true);
                 break;
             case StringsDatabase.Items.HotPepper:
+                alertText.SetActive(false);
+                attachButton.interactable = true;
+
                 currentFloat = (float)(1 * 1.0 / currentTower.GetComponent<Tower>().FireRate);
                 changeFloat = (float)item.Changes[0];
                 SetStatChange("Fire Rate", currentFloat, currentFloat + changeFloat, true);
                 break;
             case StringsDatabase.Items.Lens:
+                alertText.SetActive(false);
+                attachButton.interactable = true;
+
                 currentFloat = currentTower.GetComponent<Tower>().Range;
                 changeFloat =(float)item.Changes[0];
                 SetStatChange("Range", currentFloat, currentFloat + changeFloat, true);
                 break;
             case StringsDatabase.Items.Voucher:
-                if(currentTower.name.Contains("DamageTower") && ReferencesManager.GameManager.DamageTowerVoucherDiscount < 6)
+                alertText.SetActive(false);
+                attachButton.interactable = true;
+
+                if (currentTower.name.Contains("DamageTower") && ReferencesManager.GameManager.DamageTowerVoucherDiscount < 6)
                 {
                     currentInt = ReferencesManager.GameManager.DamageTowerVoucherDiscount;
                     changeInt = (int)item.Changes[0];
@@ -275,50 +293,414 @@ public class UIManager_Items : MonoBehaviour
                 }
                 break;
             case StringsDatabase.Items.PiggyBank:
+                alertText.SetActive(false);
+                attachButton.interactable = true;
+
                 currentInt = ReferencesManager.GameManager.bonusCoinGeneration;
                 changeInt = (int)item.Changes[0];
                 SetStatChange("Extra Coin Generation", currentInt, currentInt + changeInt, true);
                 break;
             case StringsDatabase.Items.DartBoard:
+                alertText.SetActive(false);
+                attachButton.interactable = true;
+
                 currentInt = currentTower.GetComponent<Tower>().CriticalChance;
                 changeInt = (int)item.Changes[0];
                 SetStatChange("Critical Chance", currentInt, currentInt + changeInt, true);
                 break;
             case StringsDatabase.Items.Scope:
-                currentInt = currentTower.GetComponent<Tower>().CriticalChance;
-                changeInt = (int)item.Changes[0];
-                SetStatChange("Critical Chance", currentInt, currentInt + changeInt, true);
+                if (currentTower.GetComponent<DamageTower>())
+                {
+                    alertText.SetActive(false);
+                    attachButton.interactable = true;
 
-                currentInt = currentTower.GetComponent<DamageTower>().CriticalDamage;
-                changeInt = (int)ReferencesManager.GameManager.FormulaPercentage(currentTower.GetComponent<Tower>().Damage, currentTower.GetComponent<DamageTower>().CriticalPercentage + (int)item.Changes[1]);
-                SetStatChange("Critical Damage", currentInt, changeInt, false);
+                    currentInt = currentTower.GetComponent<Tower>().CriticalChance;
+                    changeInt = (int)item.Changes[0];
+                    SetStatChange("Critical Chance", currentInt, currentInt + changeInt, true);
+
+                    currentInt = currentTower.GetComponent<DamageTower>().CriticalDamage;
+                    changeInt = (int)ReferencesManager.GameManager.FormulaPercentage(currentTower.GetComponent<Tower>().Damage, currentTower.GetComponent<DamageTower>().CriticalPercentage + (int)item.Changes[1]);
+                    SetStatChange("Critical Damage", currentInt, changeInt, false);
+                }
+                else
+                {
+                    if (statsSection.transform.childCount > 0)
+                    {
+                        for (int i = 0; i < statsSection.transform.childCount; i++)
+                        {
+                            Destroy(statsSection.transform.GetChild(i).gameObject);
+                        }
+                    }
+
+                    alertText.SetActive(true);
+                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Damage Towers";
+                    attachButton.interactable = false;
+                }
                 break;
             case StringsDatabase.Items.BoxOfBullets:
-                currentInt = currentTower.GetComponent<DamageTower>().TwoRoundBurstChance;
-                changeInt = (int)item.Changes[0];
-                SetStatChange("Two Round Burst Chance", currentInt, currentInt + changeInt, true);
+                if (currentTower.GetComponent<DamageTower>())
+                {
+                    alertText.SetActive(false);
+                    attachButton.interactable = true;
 
-                currentInt = currentTower.GetComponent<DamageTower>().ThreeRoundBurstChance;
-                changeInt = (int)item.Changes[1];
-                SetStatChange("Three Round Burst Chance", currentInt, currentInt + changeInt, false);
+                    currentInt = currentTower.GetComponent<DamageTower>().TwoRoundBurstChance;
+                    changeInt = (int)item.Changes[0];
+                    SetStatChange("Two Round Burst Chance", currentInt, currentInt + changeInt, true);
+
+                    currentInt = currentTower.GetComponent<DamageTower>().ThreeRoundBurstChance;
+                    changeInt = (int)item.Changes[1];
+                    SetStatChange("Three Round Burst Chance", currentInt, currentInt + changeInt, false);
+                }
+                else
+                {
+                    if (statsSection.transform.childCount > 0)
+                    {
+                        for (int i = 0; i < statsSection.transform.childCount; i++)
+                        {
+                            Destroy(statsSection.transform.GetChild(i).gameObject);
+                        }
+                    }
+
+                    alertText.SetActive(true);
+                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Damage Towers";
+                    attachButton.interactable = false;
+                }
                 break;
             case StringsDatabase.Items.Matches:
-                currentInt = currentTower.GetComponent<DamageTower>().BurnChance;
-                changeInt = (int)item.Changes[0];
-                SetStatChange("Burn Chance", currentInt, currentInt + changeInt, true);
+                if (currentTower.GetComponent<DamageTower>())
+                {
+                    alertText.SetActive(false);
+                    attachButton.interactable = true;
 
-                currentInt = currentTower.GetComponent<DamageTower>().BurnDamage;
-                changeInt = (int)item.Changes[1];
-                SetStatChange("Burn Damage", currentInt, currentInt + changeInt, false);
+                    currentInt = currentTower.GetComponent<DamageTower>().BurnChance;
+                    changeInt = (int)item.Changes[0];
+                    SetStatChange("Burn Chance", currentInt, currentInt + changeInt, true);
 
-                currentFloat = currentTower.GetComponent<DamageTower>().BurnDuration;
-                changeFloat = (float)item.Changes[2];
-                SetStatChange("Burn Duration", currentInt, currentInt + changeInt, false);
+                    currentInt = currentTower.GetComponent<DamageTower>().BurnDamage;
+                    changeInt = (int)item.Changes[1];
+                    SetStatChange("Burn Damage", currentInt, currentInt + changeInt, false);
 
-                currentFloat = currentTower.GetComponent<DamageTower>().BurnTickRate;
-                changeFloat = (float)item.Changes[3];
-                changeFloat = 1 * 1.0f / changeFloat;
-                SetStatChange("Burn Tick Rate", currentFloat, currentFloat + changeFloat, false);
+                    currentFloat = currentTower.GetComponent<DamageTower>().BurnDuration;
+                    changeFloat = (float)item.Changes[2];
+                    SetStatChange("Burn Duration", currentInt, currentInt + changeInt, false);
+
+                    if (currentTower.GetComponent<DamageTower>().BurnTickRate == 0)
+                    {
+                        decimal currentDecimal = (decimal)currentTower.GetComponent<DamageTower>().BurnTickRate;
+                        changeFloat = (float)item.Changes[3];
+                        decimal total = 1 / (currentDecimal - (decimal)changeFloat);
+                        total *= -1;
+                        SetStatChange("Burn Tick Rate", currentDecimal, total, false);
+                    }
+
+                }
+                else
+                {
+                    if (statsSection.transform.childCount > 0)
+                    {
+                        for (int i = 0; i < statsSection.transform.childCount; i++)
+                        {
+                            Destroy(statsSection.transform.GetChild(i).gameObject);
+                        }
+                    }
+
+                    alertText.SetActive(true);
+                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Damage Towers";
+                    attachButton.interactable = false;
+                }
+                break;
+            case StringsDatabase.Items.Blueprint:
+                if (currentTower.GetComponent<DamageTower>())
+                {
+                    alertText.SetActive(false);
+                    attachButton.interactable = true;
+
+                    currentInt = ReferencesManager.GameManager.bonusDamageTowerDamage;
+                    changeInt = (int)item.Changes[0];
+                    SetStatChange("Bonus Damage", currentInt, currentInt + changeInt, true);
+                }
+                else
+                {
+                    if (statsSection.transform.childCount > 0)
+                    {
+                        for (int i = 0; i < statsSection.transform.childCount; i++)
+                        {
+                            Destroy(statsSection.transform.GetChild(i).gameObject);
+                        }
+                    }
+
+                    alertText.SetActive(true);
+                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Damage Towers";
+                    attachButton.interactable = false;
+                }
+                break;
+            case StringsDatabase.Items.RedBall:
+                if (currentTower.GetComponent<DamageTower>())
+                {
+                    alertText.SetActive(false);
+                    attachButton.interactable = true;   
+
+                    currentInt = currentTower.GetComponent<DamageTower>().SuperDamageChance;
+                    changeInt = (int)item.Changes[0];
+                    SetStatChange("Super Damage Chance", currentInt, currentInt + changeInt, true);
+
+                    currentInt = currentTower.GetComponent<DamageTower>().SuperDamage;
+                    changeInt = currentTower.GetComponent<DamageTower>().Damage * 5;
+                    SetStatChange("Super Damage", currentInt, currentInt + changeInt, false);
+                }
+                else
+                {
+                    if (statsSection.transform.childCount > 0)
+                    {
+                        for (int i = 0; i < statsSection.transform.childCount; i++)
+                        {
+                            Destroy(statsSection.transform.GetChild(i).gameObject);
+                        }
+                    }
+
+                    alertText.SetActive(true);
+                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Damage Towers";
+                    attachButton.interactable = false;
+                }
+                break;
+            case StringsDatabase.Items.Snowflake:
+                if (currentTower.GetComponent<FreezeTower>())
+                {
+                    alertText.SetActive(false);
+                    attachButton.interactable = true;
+
+                    currentFloat = currentTower.GetComponent<FreezeTower>().SlowDuration;
+                    changeFloat = (float)item.Changes[0];
+                    SetStatChange("Slow Duration", currentFloat, currentFloat + changeFloat, true);
+                }
+                else
+                {
+                    if (statsSection.transform.childCount > 0)
+                    {
+                        for (int i = 0; i < statsSection.transform.childCount; i++)
+                        {
+                            Destroy(statsSection.transform.GetChild(i).gameObject);
+                        }
+                    }
+
+                    alertText.SetActive(true);
+                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Freeze Towers";
+                    attachButton.interactable = false;
+                }
+                break;
+            case StringsDatabase.Items.LiquidNitrogen:
+                if (currentTower.GetComponent<FreezeTower>())
+                {
+                    alertText.SetActive(false);
+                    attachButton.interactable = true;
+
+                    currentFloat = currentTower.GetComponent<FreezeTower>().SlowEffect;
+                    changeFloat = (float)item.Changes[0];
+                    SetStatChange("Slow Effect", currentFloat, currentFloat + changeFloat, true);
+                }
+                else
+                {
+                    if (statsSection.transform.childCount > 0)
+                    {
+                        for (int i = 0; i < statsSection.transform.childCount; i++)
+                        {
+                            Destroy(statsSection.transform.GetChild(i).gameObject);
+                        }
+                    }
+
+                    alertText.SetActive(true);
+                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Freeze Towers";
+                    attachButton.interactable = false;
+                }
+                break;
+            case StringsDatabase.Items.IceCube:
+                if (currentTower.GetComponent<FreezeTower>())
+                {
+                    alertText.SetActive(false);
+                    attachButton.interactable = true;
+
+                    if (currentTower.GetComponent<FreezeTower>().IceDamage > 0)
+                    {
+                        currentInt = currentTower.GetComponent<FreezeTower>().IceDamage;
+                        changeInt = (int)item.Changes[0];
+                        SetStatChange("Ice Damage", currentInt, currentInt + changeInt, true);
+                    }
+                    else
+                    {
+                        currentInt = currentTower.GetComponent<FreezeTower>().FrostbiteDamage;
+                        changeInt = (int)item.Changes[1];
+                        SetStatChange("Frostbite Damage", currentInt, currentInt + changeInt, true);
+                    }
+                }
+                else
+                {
+                    if (statsSection.transform.childCount > 0)
+                    {
+                        for (int i = 0; i < statsSection.transform.childCount; i++)
+                        {
+                            Destroy(statsSection.transform.GetChild(i).gameObject);
+                        }
+                    }
+
+                    alertText.SetActive(true);
+                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Freeze Towers";
+                    attachButton.interactable = false;
+                }
+                break;
+            case StringsDatabase.Items.Snowball:
+                if (currentTower.GetComponent<FreezeTower>())
+                {
+                    alertText.SetActive(false);
+                    attachButton.interactable = true;
+
+                    currentInt = currentTower.GetComponent<FreezeTower>().SnowballChance;
+                    changeInt = (int)item.Changes[0];
+                    SetStatChange("Snowball Chance", currentInt, currentInt + changeInt, true);
+
+                    currentFloat = currentTower.GetComponent<FreezeTower>().SnowballStunDuration;
+                    changeFloat = (float)item.Changes[1];
+                    SetStatChange("Snowball Stun Duration", currentFloat, currentFloat + changeFloat, false);
+                }
+                else
+                {
+                    if (statsSection.transform.childCount > 0)
+                    {
+                        for (int i = 0; i < statsSection.transform.childCount; i++)
+                        {
+                            Destroy(statsSection.transform.GetChild(i).gameObject);
+                        }
+                    }
+
+                    alertText.SetActive(true);
+                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Freeze Towers";
+                    attachButton.interactable = false;
+                }
+                break;
+            case StringsDatabase.Items.FrozenBottle:
+                if (currentTower.GetComponent<FreezeTower>())
+                {
+                    alertText.SetActive(false);
+                    attachButton.interactable = true;
+
+                    currentInt = currentTower.GetComponent<FreezeTower>().IcicleChance;
+                    changeInt = (int)item.Changes[0];
+                    SetStatChange("Icicle Spawn Chance", currentInt, currentInt + changeInt, true);
+                }
+                else
+                {
+                    if (statsSection.transform.childCount > 0)
+                    {
+                        for (int i = 0; i < statsSection.transform.childCount; i++)
+                        {
+                            Destroy(statsSection.transform.GetChild(i).gameObject);
+                        }
+                    }
+
+                    alertText.SetActive(true);
+                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Freeze Towers";
+                    attachButton.interactable = false;
+                }
+                break;
+            case StringsDatabase.Items.IceCream:
+                if (currentTower.GetComponent<FreezeTower>())
+                {
+                    alertText.SetActive(false);
+                    attachButton.interactable = true;
+
+                    currentInt = currentTower.GetComponent<FreezeTower>().ImmobilizeChance;
+                    changeInt = (int)item.Changes[0];
+                    SetStatChange("Immobilize Chance", currentInt, currentInt + changeInt, true);
+                }
+                else
+                {
+                    if (statsSection.transform.childCount > 0)
+                    {
+                        for (int i = 0; i < statsSection.transform.childCount; i++)
+                        {
+                            Destroy(statsSection.transform.GetChild(i).gameObject);
+                        }
+                    }
+
+                    alertText.SetActive(true);
+                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Freeze Towers";
+                    attachButton.interactable = false;
+                }
+                break;
+            case StringsDatabase.Items.PoisonVial:
+                if (currentTower.GetComponent<PoisonTower>())
+                {
+                    alertText.SetActive(false);
+                    attachButton.interactable = true;
+
+                    currentInt = currentTower.GetComponent<PoisonTower>().PoisonDamageOverTime;
+                    changeInt = (int)item.Changes[0];
+                    SetStatChange("Poison Damage Over Time", currentInt, currentInt + changeInt, true);
+                }
+                else
+                {
+                    if (statsSection.transform.childCount > 0)
+                    {
+                        for (int i = 0; i < statsSection.transform.childCount; i++)
+                        {
+                            Destroy(statsSection.transform.GetChild(i).gameObject);
+                        }
+                    }
+
+                    alertText.SetActive(true);
+                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Poison Towers";
+                    attachButton.interactable = false;
+                }
+                break;
+            case StringsDatabase.Items.HazardSign:
+                if (currentTower.GetComponent<PoisonTower>())
+                {
+                    alertText.SetActive(false);
+                    attachButton.interactable = true;
+
+                    currentFloat = currentTower.GetComponent<PoisonTower>().PoisonDuration;
+                    changeFloat = (float)item.Changes[0];
+                    SetStatChange("Poison Duration", currentFloat, currentFloat + changeFloat, true);
+                }
+                else
+                {
+                    if (statsSection.transform.childCount > 0)
+                    {
+                        for (int i = 0; i < statsSection.transform.childCount; i++)
+                        {
+                            Destroy(statsSection.transform.GetChild(i).gameObject);
+                        }
+                    }
+
+                    alertText.SetActive(true);
+                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Poison Towers";
+                    attachButton.interactable = false;
+                }
+                break;
+            case StringsDatabase.Items.MoldyCheese:
+                if (currentTower.GetComponent<PoisonTower>())
+                {
+                    alertText.SetActive(false);
+                    attachButton.interactable = true;
+
+                    decimal currentDecimal = (decimal)currentTower.GetComponent<PoisonTower>().PoisonTickRate;
+                    changeFloat = (float)item.Changes[0];
+                    decimal total = 1 / (currentDecimal - (decimal)changeFloat);
+                    SetStatChange("Poison Tick Rate", 1/ currentDecimal, total, true);
+                }
+                else
+                {
+                    if (statsSection.transform.childCount > 0)
+                    {
+                        for (int i = 0; i < statsSection.transform.childCount; i++)
+                        {
+                            Destroy(statsSection.transform.GetChild(i).gameObject);
+                        }
+                    }
+
+                    alertText.SetActive(true);
+                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Poison Towers";
+                    attachButton.interactable = false;
+                }
                 break;
 
         }
@@ -369,6 +751,34 @@ public class UIManager_Items : MonoBehaviour
             }
         }
 
+        if (oldStat is decimal)
+        {
+            formattedOldStat = oldStat.ToString();
+            double number = Convert.ToDouble(formattedOldStat);
+            if ((decimal)oldStat % 1 != 0)
+            {
+                formattedOldStat = number.ToString("0.##");
+            }
+            else
+            {
+                formattedOldStat = number.ToString("0");
+            }
+        }
+
+        if (newStat is decimal)
+        {
+            formattedNewStat = newStat.ToString();
+            double number = Convert.ToDouble(formattedNewStat);
+            if ((decimal)newStat % 1 != 0)
+            {
+                formattedNewStat = number.ToString("0.##");
+            }
+            else
+            {
+                formattedNewStat = number.ToString("0");
+            }
+        }
+
         if (!string.IsNullOrEmpty(formattedOldStat) && !string.IsNullOrEmpty(formattedNewStat))
         {
             //Set sprite later on
@@ -398,13 +808,22 @@ public class UIManager_Items : MonoBehaviour
                 case "Two Round Burst Chance":
                 case "Three Round Burst Chance":
                 case "Burn Chance":
+                case "Super Damage Chance":
+                case "Slow Effect":
+                case "Snowball Chance":
+                case "Icicle Spawn Chance":
+                case "Immobilize Chance":
                     statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = oldStat.ToString() + " % -> <color=green>" + newStat.ToString() + " %</color>";
                     break;
                 case "Burn Duration":
+                case "Slow Duration":
+                case "Snowball Stun Duration":
+                case "Poison Duration":
                     statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = oldStat.ToString() + " s -> <color=green>" + newStat.ToString() + " s</color>";
                     break;
                 case "Burn Tick Rate":
-                    statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = oldStat.ToString() + " times / s -> <color=green>" + newStat.ToString() + " times / s</color>";
+                case "Poison Tick Rate":
+                    statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = formattedOldStat.ToString() + " times / s -> <color=green>" + formattedNewStat.ToString() + " times / s</color>";
                     break;
             }
         }

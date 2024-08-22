@@ -27,6 +27,10 @@ public class FreezeTower : Tower
     public bool CanImmobilize;
     public int ImmobilizeChance;
 
+    [Header("Snowball")]
+    public int SnowballChance;
+    public float SnowballStunDuration;
+
     // Start is called before the first frame update
     protected override void Start()
     {

@@ -11,6 +11,9 @@ public class DamageTower : Tower
     public int CriticalDamage;
     public int CriticalPercentage;
 
+    public int SuperDamage;
+    public int SuperDamageChance;
+
     public int TwoRoundBurstChance = 0;
     public int ThreeRoundBurstChance = 0;
     public float BurstFireRate = 0.1f;

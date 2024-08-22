@@ -1553,36 +1553,40 @@ public class UIManager_Upgrades : MonoBehaviour
         string oldStat = oldTowerStat.ToString();
         string newStat = newTowerStat.ToString();
 
+        var decimalOldStat = decimal.Parse(oldStat);
+        var decimalNewStat = decimal.Parse(newStat);
+
         StatComparison statComparison = new StatComparison();
 
-        if (
-                statName == StringsDatabase.Stats_Display.FireRate ||
-                statName == StringsDatabase.Stats_Display.PoisonTickRate
-           )
+        if (decimalOldStat % 1 == 0)
         {
-            oldStat = Convert.ToDouble(oldTowerStat).ToString("F2");
-            newStat = Convert.ToDouble(newTowerStat).ToString("F2");
-
-            statComparison = new StatComparison()
-            {
-                OldStat = oldStat,
-                NewStat = newStat,
-                StatName = statName,
-                Increased = increased
-            };
+            oldStat = Convert.ToDouble(oldTowerStat).ToString("F0");
         }
         else
         {
-            statComparison = new StatComparison()
-            {
-                OldStat = oldStat,
-                NewStat = newStat,
-                StatName = statName,
-                Increased = increased
-            };
+            oldStat = Convert.ToDouble(oldTowerStat).ToString("F2");
         }
 
-        if(statName.Contains("Tick Rate"))
+        if (decimalNewStat % 1 == 0)
+        {
+            newStat = Convert.ToDouble(newTowerStat).ToString("F0");
+        }
+        else
+        {
+            newStat = Convert.ToDouble(newTowerStat).ToString("F2");
+        }
+
+
+        statComparison = new StatComparison()
+        {
+            OldStat = oldStat,
+            NewStat = newStat,
+            StatName = statName,
+            Increased = increased
+        };
+
+
+        if (statName.Contains("Tick Rate"))
         {
             statComparison.OldStat += " times / s";
             statComparison.NewStat += " times / s";
@@ -1816,7 +1820,7 @@ public class UIManager_Upgrades : MonoBehaviour
                 statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, "", increased));
 
                 oldStat = (float)currentTower.GetComponent<FreezeTower>().FrostbiteTickRate;
-                newStat = (float)(0.5f);
+                newStat = (float)(1 * 1.0f / 0.5f);
                 statName = StringsDatabase.Stats_Display.FrostbiteTickRate;
 
                 statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, "", increased));
@@ -1857,11 +1861,15 @@ public class UIManager_Upgrades : MonoBehaviour
                 statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
                 break;
             case StringsDatabase.Stats_Display.PoisonTickRate:
-                oldStat = (1 * 1.0f) / (float)currentTower.GetComponent<PoisonTower>().PoisonTickRate;
-                newStat = (1 * 1.0f) / (float)((currentTower.GetComponent<PoisonTower>().PoisonTickRate - (float)upgradesManager.PoisonTowerTickRate[level]));
+                decimal oldStat2 = 1 / (decimal)currentTower.GetComponent<PoisonTower>().PoisonTickRate;
+                decimal newStat2 = 1 / (decimal)(currentTower.GetComponent<PoisonTower>().PoisonTickRate - upgradesManager.PoisonTowerTickRate[level]);
+
+                string formattedNumber = newStat2 % 1 == 0
+                    ? newStat2.ToString("F0") // No decimal places
+                    : newStat2.ToString("F2"); // Two decimal places
                 statName = StringsDatabase.Stats_Display.PoisonTickRate;
                 statDescription = StatsDescriptions_PoisonTower.PoisonTickRateStatDescription;
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
+                statsComparison.Add(AddOldNewStats(oldStat2, formattedNumber, statName, statDescription, increased));
                 break;
             case StringsDatabase.Stats_Display.PoisonCriticalChance:
                 oldStat = ReferencesManager.GameManager.PoisonCriticalChance;
