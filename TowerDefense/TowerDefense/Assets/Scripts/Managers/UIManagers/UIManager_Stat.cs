@@ -1,4 +1,5 @@
 using Strings;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,9 +28,11 @@ public class UIManager_Stat : MonoBehaviour
     
     public GameObject StatContainer_L;
     public GameObject StatDisplay_L;
+    public List<GameObject> StatItems_L;
 
     public GameObject StatContainer_R;
     public GameObject StatDisplay_R;
+    public List<GameObject> StatItems_R;
 
     public List<Page> Pages = new List<Page>();
     public int CurrentPage = 1;
@@ -39,6 +42,9 @@ public class UIManager_Stat : MonoBehaviour
 
     public GameObject downArrow_R;
     public GameObject upArrow_R;
+
+    public GameObject itemSprite;
+    public GameObject plusSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -63,12 +69,65 @@ public class UIManager_Stat : MonoBehaviour
             switch (towerEnum)
             {
                 case TowerEnum.DamageTower:
+
+                    if (isRight)
+                    {
+                        StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.DamageTower;
+                        StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.DamageTowerSprite;
+                        for (int i = 0; i < StatItems_L.Count; i++)
+                        {
+                            if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_L[i].name)
+                            {
+                                if (StatItems_L[i].transform.Find("Plus"))
+                                {
+                                    Destroy(StatItems_L[i].transform.Find("Plus").gameObject);
+                                    GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
+                                    //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                }
+                            }
+                            else
+                            {
+                                if (!StatItems_L[i].transform.GetChild(0).gameObject.name.Contains("Plus"))
+                                {
+                                    Destroy(StatItems_L[i].transform.GetChild(0).gameObject);
+                                    GameObject plus = Instantiate(plusSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
+                                    plus.name = "Plus";
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.DamageTower;
+                        StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.DamageTowerSprite;
+
+                        for (int i = 0; i < StatItems_R.Count; i++)
+                        {
+                            if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_R[i].name)
+                            {
+                                if (StatItems_R[i].transform.Find("Plus"))
+                                {
+                                    Destroy(StatItems_R[i].transform.Find("Plus").gameObject);
+                                    GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
+                                    //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                }
+                            }
+                            else
+                            {
+                                if (!StatItems_R[i].transform.GetChild(0).gameObject.name.Contains("Plus"))
+                                {
+                                    Destroy(StatItems_R[i].transform.GetChild(0).gameObject);
+                                    GameObject plus = Instantiate(plusSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
+                                    plus.name = "Plus";
+                                }
+                            }
+                        }
+                    }
+
                     for (int i = start; i <= end; i++)
                     {
                         if (isRight)
                         {
-                            StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.DamageTower;
-                            StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.DamageTowerSprite;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_L.transform);
                             stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<DamageTower>().GetStat(i);
                             stat.name = ReferencesManager.GameManager.currentTower.GetComponent<DamageTower>().GetStat(i).Replace(" ", "");
@@ -77,8 +136,6 @@ public class UIManager_Stat : MonoBehaviour
                         }
                         else
                         {
-                            StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.DamageTower;
-                            StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.DamageTowerSprite;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_R.transform);
                             stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<DamageTower>().GetStat(i);
                             stat.name = ReferencesManager.GameManager.currentTower.GetComponent<DamageTower>().GetStat(i).Replace(" ", "");
@@ -88,12 +145,66 @@ public class UIManager_Stat : MonoBehaviour
                     }
                     break;
                 case TowerEnum.FreezeTower:
+
+                    if(isRight)
+                    {
+                        StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.FreezeTower;
+                        StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.FreezeTowerSprite;
+
+                        for (int i = 0; i < StatItems_L.Count; i++)
+                        {
+                            if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_L[i].name)
+                            {
+                                if (StatItems_L[i].transform.Find("Plus"))
+                                {
+                                    Destroy(StatItems_L[i].transform.Find("Plus").gameObject);
+                                    GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
+                                    //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                }
+                            }
+                            else
+                            {
+                                if (!StatItems_L[i].transform.Find("Plus"))
+                                {
+                                    Destroy(StatItems_L[i].transform.GetChild(0).gameObject);
+                                    GameObject plus = Instantiate(plusSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
+                                    plus.name = "Plus";
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.FreezeTower;
+                        StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.FreezeTowerSprite;
+
+                        for (int i = 0; i < StatItems_R.Count; i++)
+                        {
+                            if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_R[i].name)
+                            {
+                                if (StatItems_R[i].transform.Find("Plus"))
+                                {
+                                    Destroy(StatItems_R[i].transform.Find("Plus").gameObject);
+                                    GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
+                                    //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                }
+                            }
+                            else
+                            {
+                                if (!StatItems_R[i].transform.Find("Plus"))
+                                {
+                                    Destroy(StatItems_R[i].transform.GetChild(0).gameObject);
+                                    GameObject plus = Instantiate(plusSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
+                                    plus.name = "Plus";
+                                }
+                            }
+                        }
+                    }
+
                     for (int i = start; i <= end; i++)
                     {
                         if (isRight)
                         {
-                            StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.FreezeTower;
-                            StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.FreezeTowerSprite;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_L.transform);
                             stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<FreezeTower>().Stats[i];
                             stat.name = ReferencesManager.GameManager.currentTower.GetComponent<FreezeTower>().Stats[i].Replace(" ", "");
@@ -101,9 +212,7 @@ public class UIManager_Stat : MonoBehaviour
                             stats.Add(stat);
                         }
                         else
-                        {
-                            StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.FreezeTower;
-                            StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.FreezeTowerSprite;
+                        {  
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_R.transform);
                             stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<FreezeTower>().Stats[i];
                             stat.name = ReferencesManager.GameManager.currentTower.GetComponent<FreezeTower>().Stats[i].Replace(" ", "");
@@ -113,12 +222,66 @@ public class UIManager_Stat : MonoBehaviour
                     }
                     break;
                 case TowerEnum.PoisonTower:
+
+                    if(isRight)
+                    {
+                        StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.PoisonTower;
+                        StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.PoisonTowerSprite;
+
+                        for (int i = 0; i < StatItems_L.Count; i++)
+                        {
+                            if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_L[i].name)
+                            {
+                                if (StatItems_L[i].transform.Find("Plus"))
+                                {
+                                    Destroy(StatItems_L[i].transform.Find("Plus").gameObject);
+                                    GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
+                                    //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                }
+                            }
+                            else
+                            {
+                                if (!StatItems_L[i].transform.Find("Plus"))
+                                {
+                                    Destroy(StatItems_L[i].transform.GetChild(0).gameObject);
+                                    GameObject plus = Instantiate(plusSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
+                                    plus.name = "Plus";
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.PoisonTower;
+                        StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.PoisonTowerSprite;
+
+                        for (int i = 0; i < StatItems_R.Count; i++)
+                        {
+                            if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_R[i].name)
+                            {
+                                if (StatItems_R[i].transform.Find("Plus"))
+                                {
+                                    Destroy(StatItems_R[i].transform.Find("Plus").gameObject);
+                                    GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
+                                    //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                }
+                            }
+                            else
+                            {
+                                if (!StatItems_R[i].transform.GetChild(0).gameObject.name.Contains("Plus"))
+                                {
+                                    Destroy(StatItems_R[i].transform.GetChild(0).gameObject);
+                                    GameObject plus = Instantiate(plusSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
+                                    plus.name = "Plus";
+                                }
+                            }
+                        }
+                    }
+
                     for (int i = start; i <= end; i++)
                     {
                         if (isRight)
-                        {
-                            StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.PoisonTower;
-                            StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.PoisonTowerSprite;
+                        {   
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_L.transform);
                             stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<PoisonTower>().Stats[i];
                             stat.name = ReferencesManager.GameManager.currentTower.GetComponent<PoisonTower>().Stats[i].Replace(" ", "");
@@ -127,8 +290,6 @@ public class UIManager_Stat : MonoBehaviour
                         }
                         else
                         {
-                            StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.PoisonTower;
-                            StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.PoisonTowerSprite;
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_R.transform);
                             stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<PoisonTower>().Stats[i];
                             stat.name = ReferencesManager.GameManager.currentTower.GetComponent<PoisonTower>().Stats[i];
@@ -138,12 +299,66 @@ public class UIManager_Stat : MonoBehaviour
                     }
                     break;
                 case TowerEnum.BombTower:
+
+                    if(isRight)
+                    {
+                        StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.BombTower;
+                        StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.BombTowerSprite;
+
+                        for (int i = 0; i < StatItems_L.Count; i++)
+                        {
+                            if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_L[i].name)
+                            {
+                                if (StatItems_L[i].transform.Find("Plus"))
+                                {
+                                    Destroy(StatItems_L[i].transform.Find("Plus").gameObject);
+                                    GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
+                                    //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                }
+                            }
+                            else
+                            {
+                                if (!StatItems_L[i].transform.Find("Plus"))
+                                {
+                                    Destroy(StatItems_L[i].transform.GetChild(0).gameObject);
+                                    GameObject plus = Instantiate(plusSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
+                                    plus.name = "Plus";
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.BombTower;
+                        StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.BombTowerSprite;
+
+                        for (int i = 0; i < StatItems_R.Count; i++)
+                        {
+                            if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_R[i].name)
+                            {
+                                if (StatItems_R[i].transform.Find("Plus"))
+                                {
+                                    Destroy(StatItems_R[i].transform.Find("Plus").gameObject);
+                                    GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
+                                    //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                }
+                            }
+                            else
+                            {
+                                if (!StatItems_R[i].transform.Find("Plus"))
+                                {
+                                    Destroy(StatItems_R[i].transform.GetChild(0).gameObject);
+                                    GameObject plus = Instantiate(plusSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
+                                    plus.name = "Plus";
+                                }
+                            }
+                        }
+                    }
+
                     for (int i = start; i <= end; i++)
                     {
                         if (isRight)
-                        {
-                            StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.BombTower;
-                            StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.BombTowerSprite;
+                        { 
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_L.transform);
                             stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<BombTower>().Stats[i];
                             stat.name = ReferencesManager.GameManager.currentTower.GetComponent<BombTower>().Stats[i].Replace(" ", "");
@@ -151,9 +366,7 @@ public class UIManager_Stat : MonoBehaviour
                             stats.Add(stat);
                         }
                         else
-                        {
-                            StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.BombTower;
-                            StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.BombTowerSprite;
+                        {   
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_R.transform);
                             stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<BombTower>().Stats[i];
                             stat.name = ReferencesManager.GameManager.currentTower.GetComponent<BombTower>().Stats[i].Replace(" ", "");

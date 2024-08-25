@@ -41,6 +41,12 @@ public class BombTowerProjectile : TowerProjectile
         Gizmos.DrawWireSphere(transform.position, splashRadius/2);
     }
 
+    //For the delay
+    void OnDestroy()
+    {
+        Debug.Log("OnDestroy1");
+    }
+
     void ApplySplashDamage()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, splashRadius/2);

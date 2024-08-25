@@ -16,6 +16,10 @@ public class BombTower : Tower
     public int RocketChance;
     public int RocketDamage;
 
+    public int ExplosionDelay;
+
+    public int NukeChance;
+
     // Start is called before the first frame update
     protected override void Start()
     {

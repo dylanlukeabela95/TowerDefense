@@ -16,6 +16,8 @@ public class PoisonTower : Tower
 
     public bool CanPoisonCrit;
 
+    public int DoubleTickRateChance;
+
     // Start is called before the first frame update
     protected override void Start()
     {

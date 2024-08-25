@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Item
 {
@@ -33,28 +34,35 @@ public class ItemsManager : MonoBehaviour
         SetAllItems();
 
         //For testing
-        AddItem(StringsDatabase.Items.Weight, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Weight));
-        AddItem(StringsDatabase.Items.Weight, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Weight));
-        AddItem(StringsDatabase.Items.HotPepper, AllItems.Find(a => a.ItemName == StringsDatabase.Items.HotPepper));
-        AddItem(StringsDatabase.Items.Lens, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Lens));
-        AddItem(StringsDatabase.Items.Voucher, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Voucher));
-        AddItem(StringsDatabase.Items.PiggyBank, AllItems.Find(a => a.ItemName == StringsDatabase.Items.PiggyBank));
-        AddItem(StringsDatabase.Items.DartBoard, AllItems.Find(a => a.ItemName == StringsDatabase.Items.DartBoard));
-        AddItem(StringsDatabase.Items.Scope, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Scope));
-        AddItem(StringsDatabase.Items.BoxOfBullets, AllItems.Find(a => a.ItemName == StringsDatabase.Items.BoxOfBullets));
-        AddItem(StringsDatabase.Items.Matches, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Matches));
-        AddItem(StringsDatabase.Items.Blueprint, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Blueprint));
-        AddItem(StringsDatabase.Items.RedBall, AllItems.Find(a => a.ItemName == StringsDatabase.Items.RedBall));
-        AddItem(StringsDatabase.Items.Snowflake, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Snowflake));
-        AddItem(StringsDatabase.Items.LiquidNitrogen, AllItems.Find(a => a.ItemName == StringsDatabase.Items.LiquidNitrogen));
-        AddItem(StringsDatabase.Items.IceCube, AllItems.Find(a => a.ItemName == StringsDatabase.Items.IceCube));
-        AddItem(StringsDatabase.Items.Snowball, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Snowball));
-        AddItem(StringsDatabase.Items.FrozenBottle, AllItems.Find(a => a.ItemName == StringsDatabase.Items.FrozenBottle));
-        AddItem(StringsDatabase.Items.IceCream, AllItems.Find(a => a.ItemName == StringsDatabase.Items.IceCream));
-        AddItem(StringsDatabase.Items.PoisonVial, AllItems.Find(a => a.ItemName == StringsDatabase.Items.PoisonVial));
-        AddItem(StringsDatabase.Items.HazardSign, AllItems.Find(a => a.ItemName == StringsDatabase.Items.HazardSign));
-        AddItem(StringsDatabase.Items.MoldyCheese, AllItems.Find(a => a.ItemName == StringsDatabase.Items.MoldyCheese));
-        AddItem(StringsDatabase.Items.Cannonball, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Cannonball));
+        AddItemToInventory(StringsDatabase.Items.Weight, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Weight));
+        AddItemToInventory(StringsDatabase.Items.Weight, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Weight));
+        AddItemToInventory(StringsDatabase.Items.HotPepper, AllItems.Find(a => a.ItemName == StringsDatabase.Items.HotPepper));
+        AddItemToInventory(StringsDatabase.Items.Lens, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Lens));
+        AddItemToInventory(StringsDatabase.Items.Voucher, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Voucher));
+        AddItemToInventory(StringsDatabase.Items.PiggyBank, AllItems.Find(a => a.ItemName == StringsDatabase.Items.PiggyBank));
+        AddItemToInventory(StringsDatabase.Items.DartBoard, AllItems.Find(a => a.ItemName == StringsDatabase.Items.DartBoard));
+        AddItemToInventory(StringsDatabase.Items.Scope, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Scope));
+        AddItemToInventory(StringsDatabase.Items.BoxOfBullets, AllItems.Find(a => a.ItemName == StringsDatabase.Items.BoxOfBullets));
+        AddItemToInventory(StringsDatabase.Items.Matches, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Matches));
+        AddItemToInventory(StringsDatabase.Items.Blueprint, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Blueprint));
+        AddItemToInventory(StringsDatabase.Items.RedBall, AllItems.Find(a => a.ItemName == StringsDatabase.Items.RedBall));
+        AddItemToInventory(StringsDatabase.Items.Snowflake, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Snowflake));
+        AddItemToInventory(StringsDatabase.Items.LiquidNitrogen, AllItems.Find(a => a.ItemName == StringsDatabase.Items.LiquidNitrogen));
+        AddItemToInventory(StringsDatabase.Items.IceCube, AllItems.Find(a => a.ItemName == StringsDatabase.Items.IceCube));
+        AddItemToInventory(StringsDatabase.Items.Snowball, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Snowball));
+        AddItemToInventory(StringsDatabase.Items.FrozenBottle, AllItems.Find(a => a.ItemName == StringsDatabase.Items.FrozenBottle));
+        AddItemToInventory(StringsDatabase.Items.IceCream, AllItems.Find(a => a.ItemName == StringsDatabase.Items.IceCream));
+        AddItemToInventory(StringsDatabase.Items.PoisonVial, AllItems.Find(a => a.ItemName == StringsDatabase.Items.PoisonVial));
+        AddItemToInventory(StringsDatabase.Items.HazardSign, AllItems.Find(a => a.ItemName == StringsDatabase.Items.HazardSign));
+        AddItemToInventory(StringsDatabase.Items.MoldyCheese, AllItems.Find(a => a.ItemName == StringsDatabase.Items.MoldyCheese));
+        AddItemToInventory(StringsDatabase.Items.SnotTissue, AllItems.Find(a => a.ItemName == StringsDatabase.Items.SnotTissue));
+        AddItemToInventory(StringsDatabase.Items.Fungus, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Fungus));
+        AddItemToInventory(StringsDatabase.Items.Cannonball, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Cannonball));
+        AddItemToInventory(StringsDatabase.Items.Dynamite, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Dynamite));
+        AddItemToInventory(StringsDatabase.Items.TNTBox, AllItems.Find(a => a.ItemName == StringsDatabase.Items.TNTBox));
+        AddItemToInventory(StringsDatabase.Items.Nuke, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Nuke));
+        AddItemToInventory(StringsDatabase.Items.RPG, AllItems.Find(a => a.ItemName == StringsDatabase.Items.RPG));
+        AddItemToInventory(StringsDatabase.Items.Firework, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Firework));
     }
 
     // Start is called before the first frame update
@@ -275,7 +283,7 @@ public class ItemsManager : MonoBehaviour
         {
             ItemSprite = ReferencesManager.SpriteManager.SnotTissueSprite,
             ItemName = StringsDatabase.Items.SnotTissue,
-            ItemDescription = "When an enemy inflicted with Poison is defeated, there is a 5% chance to realise a poison nova, inflicting Poison to all nearby enemies. This applies to all Poison effects",
+            ItemDescription = "Poison Tick Rate has 5% chance to trigger twice",
             Changes = new object[] { 5 }
         };
 
@@ -309,7 +317,7 @@ public class ItemsManager : MonoBehaviour
             ItemSprite = ReferencesManager.SpriteManager.DynamiteSprite,
             ItemName = StringsDatabase.Items.Dynamite,
             ItemDescription = "Increases Splash Radius by 1 m",
-            Changes = new object[] { 1 }
+            Changes = new object[] { 1f }
         };
 
         Item tntBox = new Item()
@@ -352,7 +360,7 @@ public class ItemsManager : MonoBehaviour
         AllItems.Add(firework);
     }
 
-    void AddItem(string itemName, Item item)
+    public void AddItemToInventory(string itemName, Item item)
     {
         switch (itemName)
         {
@@ -436,6 +444,95 @@ public class ItemsManager : MonoBehaviour
                 {
                     item.ItemCount++;
                     BombTowerItems.Add(item);
+                }
+                break;
+        }
+    }
+
+    public void ReduceItemFromInventory(string itemName, Item item)
+    {
+        switch (itemName)
+        {
+            case StringsDatabase.Items.Weight:
+            case StringsDatabase.Items.HotPepper:
+            case StringsDatabase.Items.Lens:
+            case StringsDatabase.Items.Voucher:
+            case StringsDatabase.Items.PiggyBank:
+            case StringsDatabase.Items.DartBoard:
+                if (GeneralItems.Any(a => a.ItemName == itemName) && GeneralItems.Find(a => a.ItemName == itemName).ItemCount > 1)
+                {
+                    GeneralItems.Find(a => a.ItemName == itemName).ItemCount--;
+                }
+                else if (GeneralItems.Any(a => a.ItemName == itemName) && GeneralItems.Find(a => a.ItemName == itemName).ItemCount == 1)
+                {
+                    GeneralItems.Find(a => a.ItemName == itemName).ItemCount--;
+                    GeneralItems.Remove(item);
+                }
+                break;
+
+            case StringsDatabase.Items.Scope:
+            case StringsDatabase.Items.BoxOfBullets:
+            case StringsDatabase.Items.Matches:
+            case StringsDatabase.Items.Blueprint:
+            case StringsDatabase.Items.RedBall:
+                if (DamageTowerItems.Any(a => a.ItemName == itemName) && DamageTowerItems.Find(a => a.ItemName == itemName).ItemCount > 1)
+                {
+                    DamageTowerItems.Find(a => a.ItemName == itemName).ItemCount--;
+                }
+                else if (DamageTowerItems.Any(a => a.ItemName == itemName) && DamageTowerItems.Find(a => a.ItemName == itemName).ItemCount == 1)
+                {
+                    DamageTowerItems.Find(a => a.ItemName == itemName).ItemCount--;
+                    DamageTowerItems.Remove(item);
+                }
+                break;
+
+            case StringsDatabase.Items.Snowflake:
+            case StringsDatabase.Items.LiquidNitrogen:
+            case StringsDatabase.Items.IceCube:
+            case StringsDatabase.Items.Snowball:
+            case StringsDatabase.Items.FrozenBottle:
+            case StringsDatabase.Items.IceCream:
+                if (FreezeTowerItems.Any(a => a.ItemName == itemName) && FreezeTowerItems.Find(a => a.ItemName == itemName).ItemCount > 1)
+                {
+                    FreezeTowerItems.Find(a => a.ItemName == itemName).ItemCount--;
+                }
+                else if (FreezeTowerItems.Any(a => a.ItemName == itemName) && FreezeTowerItems.Find(a => a.ItemName == itemName).ItemCount == 1)
+                {
+                    FreezeTowerItems.Find(a => a.ItemName == itemName).ItemCount--;
+                    FreezeTowerItems.Remove(item);
+                }
+                break;
+
+            case StringsDatabase.Items.PoisonVial:
+            case StringsDatabase.Items.HazardSign:
+            case StringsDatabase.Items.MoldyCheese:
+            case StringsDatabase.Items.SnotTissue:
+            case StringsDatabase.Items.Fungus:
+                if (PoisonTowerItems.Any(a => a.ItemName == itemName) && PoisonTowerItems.Find(a => a.ItemName == itemName).ItemCount > 1)
+                {
+                    PoisonTowerItems.Find(a => a.ItemName == itemName).ItemCount--;
+                }
+                else if (PoisonTowerItems.Any(a => a.ItemName == itemName) && PoisonTowerItems.Find(a => a.ItemName == itemName).ItemCount == 1)
+                {
+                    PoisonTowerItems.Find(a => a.ItemName == itemName).ItemCount--;
+                    PoisonTowerItems.Remove(item);
+                }
+                break;
+
+            case StringsDatabase.Items.Cannonball:
+            case StringsDatabase.Items.Dynamite:
+            case StringsDatabase.Items.TNTBox:
+            case StringsDatabase.Items.Nuke:
+            case StringsDatabase.Items.RPG:
+            case StringsDatabase.Items.Firework:
+                if (BombTowerItems.Any(a => a.ItemName == itemName) && BombTowerItems.Find(a => a.ItemName == itemName).ItemCount > 1)
+                {
+                    BombTowerItems.Find(a => a.ItemName == itemName).ItemCount--;
+                }
+                else if (BombTowerItems.Any(a => a.ItemName == itemName) && BombTowerItems.Find(a => a.ItemName == itemName).ItemCount == 1)
+                {
+                    BombTowerItems.Find(a => a.ItemName == itemName).ItemCount--;
+                    BombTowerItems.Remove(item);
                 }
                 break;
         }

@@ -3,12 +3,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static UnityEngine.GraphicsBuffer;
 
 public class ItemAttached
 {
     public Item Item { get; set; }
-    public GameObject[] ItemSlot { get; set; } //2 since we have two side stat bars
+    public GameObject ItemSlot { get; set; } //2 since we have two side stat bars
     public ItemAttached()
     {
         
@@ -42,7 +43,7 @@ public class Tower : MonoBehaviour
 
     public List<GameObject> EnemiesInRange = new List<GameObject>();
 
-    public List<ItemAttached> ItemsAttached = new List<ItemAttached>();
+    public ItemAttached[] ItemsAttached = new ItemAttached[5];
 
     [Header("Selling Cost")]
     public int SellingCost;
@@ -104,6 +105,12 @@ public class Tower : MonoBehaviour
 
     protected virtual void OnMouseDown()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            // Pointer is over a UI element, so we return early and do not execute the rest of the OnMouseDown function
+            return;
+        }
+
         if (!ReferencesManager.UIManager_Upgrades.isInSkillTree)
         {
             if (ReferencesManager.GameManager.currentTower == this.gameObject)
