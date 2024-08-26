@@ -114,4 +114,13 @@ public class GameManager : MonoBehaviour
 
         return boostedStat;
     }
+
+    public float FormulaPercentage_ForAddSub(float original, float boostPercentage)
+    {
+        float boostedStat = 0;
+
+        boostedStat = original * (boostPercentage * 1.0f / 100);
+
+        return boostedStat;
+    }
 }

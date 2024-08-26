@@ -130,10 +130,17 @@ public class DamageTower : Tower
 
     public void ShootProjectile(GameObject projectile)
     {
-        var random = -1;
+        var randomCritical = -1;
+        var randomSuper = -1;
+
         if (CriticalChance > 0)
         {
-            random = Random.Range(0, 101);
+            randomCritical = Random.Range(0, 101);
+        }
+
+        if (SuperDamageChance > 0)
+        {
+            randomCritical = Random.Range(0, 101);
         }
 
         if (ProjectileCount > 1)
@@ -144,7 +151,7 @@ public class DamageTower : Tower
                 bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
                 bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;
 
-                if (random != -1 && random <= CriticalChance)
+                if (randomCritical != -1 && randomCritical <= CriticalChance)
                 {
                     bullet.GetComponent<TowerProjectile>().isCritical = true;
                     bullet.GetComponent<TowerProjectile>().CriticalDamage = CriticalDamage;
@@ -161,7 +168,7 @@ public class DamageTower : Tower
             bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
             bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;
 
-            if (random != -1 && random <= CriticalChance)
+            if (randomCritical != -1 && randomCritical <= CriticalChance)
             {
                 bullet.GetComponent<TowerProjectile>().isCritical = true;
                 bullet.GetComponent<TowerProjectile>().CriticalDamage = CriticalDamage;

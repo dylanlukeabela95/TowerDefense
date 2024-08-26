@@ -24,8 +24,6 @@ public class UIManager_Tower : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ReferencesManager = GameObject.FindObjectOfType<ReferencesManager>();
-
         SwitchArrows(IsTowerMenuShown, !IsTowerMenuShown);
 
         OffScreenPosition = new Vector2(TowerSelectionUI.anchoredPosition.x, -TowerSelectionUI.rect.height);

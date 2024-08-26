@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class Item
 {
@@ -225,8 +224,8 @@ public class ItemsManager : MonoBehaviour
         {
             ItemSprite = ReferencesManager.SpriteManager.SnowballSprite,
             ItemName = StringsDatabase.Items.Snowball,
-            ItemDescription = "Gain 5% chance to shoot a snowball at an enemy at a random enemy, stunning them for 1 second",
-            Changes = new object[] { 5, 1f }
+            ItemDescription = "Gain 5% chance to shoot a snowball at an enemy at a random enemy, stunning them for 1 second (Adding more will add the duration by 0.5 seconds",
+            Changes = new object[] { 5, 1f, 0.5f }
         };
 
         Item frozenBottle = new Item()

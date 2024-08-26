@@ -48,9 +48,9 @@ public class UIManager_Cost : MonoBehaviour
 
     public void SetupTowerCost_UI()
     {
-        UpdateCoins(DamageTowerCost, ReferencesManager.CostManager.DamageTowerCost);
-        UpdateCoins(FreezeTowerCost, ReferencesManager.CostManager.FreezeTowerCost);
-        UpdateCoins(PoisonTowerCost, ReferencesManager.CostManager.PoisonTowerCost);
-        UpdateCoins(BombTowerCost, ReferencesManager.CostManager.BombTowerCost);
+        UpdateCoins(DamageTowerCost, ReferencesManager.CostManager.DamageTowerCost - ReferencesManager.GameManager.DamageTowerVoucherDiscount);
+        UpdateCoins(FreezeTowerCost, ReferencesManager.CostManager.FreezeTowerCost - ReferencesManager.GameManager.FreezeTowerVoucherDiscount);
+        UpdateCoins(PoisonTowerCost, ReferencesManager.CostManager.PoisonTowerCost - ReferencesManager.GameManager.PoisonTowerVoucherDiscount);
+        UpdateCoins(BombTowerCost, ReferencesManager.CostManager.BombTowerCost - ReferencesManager.GameManager.BombTowerVoucherDiscount);
     }
 }

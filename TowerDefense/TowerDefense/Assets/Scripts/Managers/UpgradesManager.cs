@@ -41,6 +41,7 @@ public class UpgradesManager : MonoBehaviour
     public Dictionary<string, int> BombTowerDoubleExplosionChance = new Dictionary<string, int>();
 
     public int RocketDamage = 15;
+    public int IcicleDamage = 15;
 
     private void Start()
     {
@@ -157,7 +158,7 @@ public class UpgradesManager : MonoBehaviour
         FreezeTowerDamage.Add("Level4", 5);
         FreezeTowerIceDamage.Add("Level4", 5);
 
-        FreezeTowerIcicle.Add("Level5", 15); //10% chance to shoot icicle dealing 15
+        FreezeTowerIcicle.Add("Level5", 10); //10% chance to shoot icicle dealing 15
     }
 
     public void FreezeRightBranch()

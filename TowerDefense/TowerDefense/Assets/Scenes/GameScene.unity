@@ -15459,7 +15459,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 0
+  m_Spacing: -7.62
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -18097,7 +18097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b92ec7a1d3b31b40ac9ef9ff878a62c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReferencesManager: {fileID: 0}
+  ReferencesManager: {fileID: 1548454249}
   DownArrow: {fileID: 372246586}
   UpArrow: {fileID: 1160418013}
   TowerSelectionUI: {fileID: 140140259}
@@ -18345,6 +18345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RocketDamage: 15
+  IcicleDamage: 15
 --- !u!1 &988021860
 GameObject:
   m_ObjectHideFlags: 0
