@@ -323,8 +323,8 @@ public class ItemsManager : MonoBehaviour
         {
             ItemSprite = ReferencesManager.SpriteManager.TNTBoxSprite,
             ItemName = StringsDatabase.Items.TNTBox,
-            ItemDescription = "Explosion happens after 1 second but increases Splash Damage and Splash Radius by 50%",
-            Changes = new object[] { 1, 50, 50 }
+            ItemDescription = "Explosion happens after 1 second but increases Splash Damage by 10 and Splash Radius by 1 m",
+            Changes = new object[] { 1, 10, 1f }
         };
 
         Item nuke = new Item()

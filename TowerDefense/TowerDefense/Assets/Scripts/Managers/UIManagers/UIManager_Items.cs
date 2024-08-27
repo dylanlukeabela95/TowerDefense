@@ -370,17 +370,34 @@ public class UIManager_Items : MonoBehaviour
         float changeFloat;
         GameObject currentTower = ReferencesManager.GameManager.currentTower;
 
+        if (itemName == StringsDatabase.Items.Matches)
+        {
+            statsSection.GetComponent<VerticalLayoutGroup>().spacing = -12;
+        }
+        else
+        {
+            statsSection.GetComponent<VerticalLayoutGroup>().spacing = -7.62f;
+        }
+
         var item = ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == itemName);
+
+        var itemInSlot = currentTower.GetComponent<Tower>().ItemsAttached.Where(a => a != null && a.ItemSlot.name == itemSlotSelected.name).FirstOrDefault();
 
         switch (itemName)
         {
             case StringsDatabase.Items.Weight:
-                alertText.SetActive(false);
-                attachButton.interactable = true;
+                if (
+                    (itemInSlot != null && itemInSlot.Item.ItemName != StringsDatabase.Items.Cannonball) ||
+                    itemInSlot == null
+                   )
+                {
+                    alertText.SetActive(false);
+                    attachButton.interactable = true;
 
-                currentInt = currentTower.GetComponent<Tower>().Damage;
-                changeInt = (int)item.Changes[0];
-                SetStatChange("Damage", currentInt, currentInt + changeInt, true);
+                    currentInt = currentTower.GetComponent<Tower>().Damage;
+                    changeInt = (int)item.Changes[0];
+                    SetStatChange("Damage", currentInt, currentInt + changeInt, true);
+                }
                 break;
             case StringsDatabase.Items.HotPepper:
                 alertText.SetActive(false);
@@ -904,13 +921,26 @@ public class UIManager_Items : MonoBehaviour
                     alertText.SetActive(false);
                     attachButton.interactable = true;
 
-                    currentInt = currentTower.GetComponent<Tower>().Damage;
-                    changeInt = (int)item.Changes[0];
-                    SetStatChange("Damage", currentInt, currentInt + changeInt, true);
+                    if (
+                            (itemInSlot != null && itemInSlot.Item.ItemName != StringsDatabase.Items.Weight) ||
+                            itemInSlot == null
+                       )
+                    {
+                        currentInt = currentTower.GetComponent<Tower>().Damage;
+                        changeInt = (int)item.Changes[0];
+                        SetStatChange("Damage", currentInt, currentInt + changeInt, true);
 
-                    currentInt = currentTower.GetComponent<BombTower>().SplashDamage;
-                    changeInt = (int)item.Changes[1];
-                    SetStatChange("Splash Damage", currentInt, currentInt + changeInt, false);
+                        currentInt = currentTower.GetComponent<BombTower>().SplashDamage;
+                        changeInt = (int)item.Changes[1];
+                        SetStatChange("Splash Damage", currentInt, currentInt + changeInt, false);
+                    }
+                    else
+                    {
+                        currentInt = currentTower.GetComponent<BombTower>().SplashDamage;
+                        changeInt = (int)item.Changes[1];
+                        SetStatChange("Splash Damage", currentInt, currentInt + changeInt, true);
+                    }
+                    
                 }
                 else
                 {
@@ -963,12 +993,12 @@ public class UIManager_Items : MonoBehaviour
                     SetStatChange("Explosion Delay", currentInt, currentInt + changeInt, true);
 
                     currentInt = currentTower.GetComponent<BombTower>().SplashDamage;
-                    changeFloat = ReferencesManager.GameManager.FormulaPercentage(currentTower.GetComponent<BombTower>().SplashDamage,  (int)item.Changes[1]);
-                    SetStatChange("Splash Damage", currentInt, Mathf.CeilToInt(changeFloat), false);
+                    changeInt = (int)item.Changes[1];
+                    SetStatChange("Splash Damage", currentInt, currentInt + changeInt, false);
 
                     currentFloat = currentTower.GetComponent<BombTower>().SplashRadius;
-                    changeFloat = ReferencesManager.GameManager.FormulaPercentage(currentTower.GetComponent<BombTower>().SplashRadius, (int)item.Changes[2]);
-                    SetStatChange("Splash Radius", currentFloat, changeFloat, false);
+                    changeFloat = (float)item.Changes[2];
+                    SetStatChange("Splash Radius", currentFloat, currentFloat + changeFloat, false);
                 }
                 else
                 {
@@ -1081,12 +1111,24 @@ public class UIManager_Items : MonoBehaviour
 
         var item = ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == previousItemName);
 
+        if(itemSelected.name == StringsDatabase.Items.Matches || previousItemName == StringsDatabase.Items.Matches)
+        {
+            statsSection.GetComponent<VerticalLayoutGroup>().spacing = -12;
+        }
+        else
+        {
+            statsSection.GetComponent<VerticalLayoutGroup>().spacing = -7.62f;
+        }
+
         switch (previousItemName)
         {
             case StringsDatabase.Items.Weight:
-                currentInt = currentTower.GetComponent<Tower>().Damage;
-                changeInt = (int)item.Changes[0];
-                SetStatChange("Damage", currentInt, currentInt - changeInt, false, true, true);
+                if (itemSelected.name != StringsDatabase.Items.Cannonball)
+                {
+                    currentInt = currentTower.GetComponent<Tower>().Damage;
+                    changeInt = (int)item.Changes[0];
+                    SetStatChange("Damage", currentInt, currentInt - changeInt, false, true, true);
+                }
                 break;
             case StringsDatabase.Items.HotPepper:
                 alertText.SetActive(false);
@@ -1601,13 +1643,24 @@ public class UIManager_Items : MonoBehaviour
                     alertText.SetActive(false);
                     attachButton.interactable = true;
 
-                    currentInt = currentTower.GetComponent<Tower>().Damage;
-                    changeInt = (int)item.Changes[0];
-                    SetStatChange("Damage", currentInt, currentInt - changeInt, true, true, true);
+                    if (itemSelected.name != StringsDatabase.Items.Weight)
+                    {
+                        currentInt = currentTower.GetComponent<Tower>().Damage;
+                        changeInt = (int)item.Changes[0];
+                        SetStatChange("Damage", currentInt, currentInt - changeInt, true, true, true);
 
-                    currentInt = currentTower.GetComponent<BombTower>().SplashDamage;
-                    changeInt = (int)item.Changes[1];
-                    SetStatChange("Splash Damage", currentInt, currentInt - changeInt, false, false, true);
+                        currentInt = currentTower.GetComponent<BombTower>().SplashDamage;
+                        changeInt = (int)item.Changes[1];
+                        SetStatChange("Splash Damage", currentInt, currentInt - changeInt, false, false, true);
+                    }
+                    else
+                    {
+                        currentInt = currentTower.GetComponent<BombTower>().SplashDamage;
+                        changeInt = (int)item.Changes[1];
+                        SetStatChange("Splash Damage", currentInt, currentInt - changeInt, true, false, true);
+                    }
+
+                    
                 }
                 else
                 {
@@ -1660,11 +1713,11 @@ public class UIManager_Items : MonoBehaviour
                     SetStatChange("Explosion Delay", currentInt, currentInt - changeInt, false, true, true);
 
                     currentInt = currentTower.GetComponent<BombTower>().SplashDamage;
-                    changeFloat = ReferencesManager.GameManager.FormulaPercentage_ForAddSub(currentTower.GetComponent<BombTower>().SplashDamage, (int)item.Changes[1]);
-                    SetStatChange("Splash Damage", currentInt, currentInt - changeFloat, false, false, true);
+                    changeInt = (int)item.Changes[1];
+                    SetStatChange("Splash Damage", currentInt, currentInt - changeInt, false, false, true);
 
                     currentFloat = currentTower.GetComponent<BombTower>().SplashRadius;
-                    changeFloat = ReferencesManager.GameManager.FormulaPercentage_ForAddSub(currentTower.GetComponent<BombTower>().SplashRadius, (int)item.Changes[2]);
+                    changeFloat = (float)item.Changes[2];
                     SetStatChange("Splash Radius", currentFloat, currentFloat - changeFloat, false, false, true);
                 }
                 else
@@ -1909,6 +1962,7 @@ public class UIManager_Items : MonoBehaviour
                     case "Poison Critical Damage Chance":
                     case "Rocket Chance":
                     case "Double Explosion Chance":
+                    case "Nuke Chance":
                         statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = oldStat.ToString() + " % -> <color=red>" + newStat.ToString() + " %</color>";
                         break;
                     case "Burn Duration":
@@ -1950,6 +2004,7 @@ public class UIManager_Items : MonoBehaviour
                     case "Poison Critical Damage Chance":
                     case "Rocket Chance":
                     case "Double Explosion Chance":
+                    case "Nuke Chance":
                         statChange.transform.Find("ItemOldNewStat").GetComponent<TextMeshProUGUI>().text = oldStat.ToString() + " % -> <color=green>" + newStat.ToString() + " %</color>";
                         break;
                     case "Burn Duration":
@@ -2070,11 +2125,11 @@ public class UIManager_Items : MonoBehaviour
             case StringsDatabase.Items.Lens:
                 if (isRemoved)
                 {
-                    currentTower.GetComponent<Tower>().Range += (float)item.Changes[0];
+                    currentTower.GetComponent<Tower>().Range -= (float)item.Changes[0];
                 }
                 else
                 {
-                    currentTower.GetComponent<Tower>().Range -= (float)item.Changes[0];
+                    currentTower.GetComponent<Tower>().Range += (float)item.Changes[0];
                 }
                 break;
             case StringsDatabase.Items.Voucher:
@@ -2323,6 +2378,15 @@ public class UIManager_Items : MonoBehaviour
                 {
                     currentTower.GetComponent<FreezeTower>().ImmobilizeChance += (int)item.Changes[0];
                 }
+
+                if(currentTower.GetComponent<FreezeTower>().ImmobilizeChance > 0)
+                {
+                    currentTower.GetComponent<FreezeTower>().CanImmobilize = true;
+                }
+                else
+                {
+                    currentTower.GetComponent<FreezeTower>().CanImmobilize = false;
+                }
                 break;
 
             //Poison
@@ -2404,8 +2468,8 @@ public class UIManager_Items : MonoBehaviour
                 if (isRemoved)
                 {
                     currentTower.GetComponent<BombTower>().ExplosionDelay -= (int)item.Changes[0];
-                    var newSplashDamage = ReferencesManager.GameManager.FormulaPercentage_ForAddSub((float)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.SplashDamage], (int)item.Changes[1]);
-                    var newSplashRadius = ReferencesManager.GameManager.FormulaPercentage_ForAddSub((float)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.SplashRadius], (int)item.Changes[2]);
+                    var newSplashDamage = (int)item.Changes[1];
+                    var newSplashRadius = (float)item.Changes[2];
 
                     currentTower.GetComponent<BombTower>().SplashDamage -= Mathf.CeilToInt(newSplashDamage);
                     currentTower.GetComponent<BombTower>().SplashRadius -= newSplashRadius;
@@ -2413,10 +2477,10 @@ public class UIManager_Items : MonoBehaviour
                 else
                 {
                     currentTower.GetComponent<BombTower>().ExplosionDelay += (int)item.Changes[0];
-                    var newSplashDamage = ReferencesManager.GameManager.FormulaPercentage_ForAddSub((float)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.SplashDamage], (int)item.Changes[1]);
-                    var newSplashRadius = ReferencesManager.GameManager.FormulaPercentage_ForAddSub((float)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.SplashRadius], (int)item.Changes[2]);
+                    var newSplashDamage = (int)item.Changes[1];
+                    var newSplashRadius = (float)item.Changes[2];
 
-                    currentTower.GetComponent<BombTower>().SplashDamage += Mathf.CeilToInt(newSplashDamage);
+                    currentTower.GetComponent<BombTower>().SplashDamage += newSplashDamage;
                     currentTower.GetComponent<BombTower>().SplashRadius += newSplashRadius;
                 }
                 break;
@@ -2699,6 +2763,12 @@ public class UIManager_Items : MonoBehaviour
         itemSlotSelected.transform.Find("Selection").gameObject.SetActive(true);
 
         itemInfoSection.SetActive(false);
+
+        if (itemSelected != null)
+        {
+            itemSelected.transform.Find("Selection").gameObject.SetActive(false);
+            itemSelected = null;
+        }
     }
     #endregion
 }
