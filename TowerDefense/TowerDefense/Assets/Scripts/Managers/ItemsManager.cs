@@ -149,8 +149,8 @@ public class ItemsManager : MonoBehaviour
         {
             ItemSprite = ReferencesManager.SpriteManager.ScopeSprite,
             ItemName = StringsDatabase.Items.Scope,
-            ItemDescription = "Increases Critical Chance by 10% and Critical Damage by 100%",
-            Changes = new object[] { 10, 100 }
+            ItemDescription = "Increases Critical Chance by 10% and 5% chance to Mark an enemy. Enemies that are marked will take 30% more damage",
+            Changes = new object[] { 10, 5 }
         };
 
         Item boxOfBullets = new Item()
@@ -324,7 +324,7 @@ public class ItemsManager : MonoBehaviour
             ItemSprite = ReferencesManager.SpriteManager.TNTBoxSprite,
             ItemName = StringsDatabase.Items.TNTBox,
             ItemDescription = "Explosion happens after 1 second but increases Splash Damage by 10 and Splash Radius by 1 m",
-            Changes = new object[] { 1, 10, 1f }
+            Changes = new object[] { 1, 10 , 1f }
         };
 
         Item nuke = new Item()

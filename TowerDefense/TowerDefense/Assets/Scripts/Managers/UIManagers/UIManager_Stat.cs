@@ -60,7 +60,7 @@ public class UIManager_Stat : MonoBehaviour
 
     }
 
-    public List<GameObject> SetStats(TowerEnum towerEnum, int start, int end, bool isRight)
+    public List<GameObject> SetStats(TowerEnum towerEnum, int start, int end, bool isRight, bool itemSet)
     {
         List<GameObject> stats = new List<GameObject>();
 
@@ -74,24 +74,27 @@ public class UIManager_Stat : MonoBehaviour
                     {
                         StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.DamageTower;
                         StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.DamageTowerSprite;
-                        for (int i = 0; i < StatItems_L.Count; i++)
+                        if (!itemSet)
                         {
-                            if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_L[i].name)
+                            for (int i = 0; i < StatItems_L.Count; i++)
                             {
-                                if (StatItems_L[i].transform.Find("Plus"))
+                                if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_L[i].name)
                                 {
-                                    Destroy(StatItems_L[i].transform.Find("Plus").gameObject);
-                                    GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
-                                    //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                    if (StatItems_L[i].transform.Find("Plus"))
+                                    {
+                                        Destroy(StatItems_L[i].transform.Find("Plus").gameObject);
+                                        GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
+                                        //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                if (!StatItems_L[i].transform.GetChild(0).gameObject.name.Contains("Plus"))
+                                else
                                 {
-                                    Destroy(StatItems_L[i].transform.GetChild(0).gameObject);
-                                    GameObject plus = Instantiate(plusSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
-                                    plus.name = "Plus";
+                                    if (!StatItems_L[i].transform.GetChild(0).gameObject.name.Contains("Plus"))
+                                    {
+                                        Destroy(StatItems_L[i].transform.GetChild(0).gameObject);
+                                        GameObject plus = Instantiate(plusSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
+                                        plus.name = "Plus";
+                                    }
                                 }
                             }
                         }
@@ -101,24 +104,27 @@ public class UIManager_Stat : MonoBehaviour
                         StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.DamageTower;
                         StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.DamageTowerSprite;
 
-                        for (int i = 0; i < StatItems_R.Count; i++)
+                        if (!itemSet)
                         {
-                            if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_R[i].name)
+                            for (int i = 0; i < StatItems_R.Count; i++)
                             {
-                                if (StatItems_R[i].transform.Find("Plus"))
+                                if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_R[i].name)
                                 {
-                                    Destroy(StatItems_R[i].transform.Find("Plus").gameObject);
-                                    GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
-                                    //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                    if (StatItems_R[i].transform.Find("Plus"))
+                                    {
+                                        Destroy(StatItems_R[i].transform.Find("Plus").gameObject);
+                                        GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
+                                        //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                if (!StatItems_R[i].transform.GetChild(0).gameObject.name.Contains("Plus"))
+                                else
                                 {
-                                    Destroy(StatItems_R[i].transform.GetChild(0).gameObject);
-                                    GameObject plus = Instantiate(plusSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
-                                    plus.name = "Plus";
+                                    if (!StatItems_R[i].transform.GetChild(0).gameObject.name.Contains("Plus"))
+                                    {
+                                        Destroy(StatItems_R[i].transform.GetChild(0).gameObject);
+                                        GameObject plus = Instantiate(plusSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
+                                        plus.name = "Plus";
+                                    }
                                 }
                             }
                         }
@@ -151,24 +157,27 @@ public class UIManager_Stat : MonoBehaviour
                         StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.FreezeTower;
                         StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.FreezeTowerSprite;
 
-                        for (int i = 0; i < StatItems_L.Count; i++)
+                        if (!itemSet)
                         {
-                            if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_L[i].name)
+                            for (int i = 0; i < StatItems_L.Count; i++)
                             {
-                                if (StatItems_L[i].transform.Find("Plus"))
+                                if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_L[i].name)
                                 {
-                                    Destroy(StatItems_L[i].transform.Find("Plus").gameObject);
-                                    GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
-                                    //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                    if (StatItems_L[i].transform.Find("Plus"))
+                                    {
+                                        Destroy(StatItems_L[i].transform.Find("Plus").gameObject);
+                                        GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
+                                        //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                if (!StatItems_L[i].transform.Find("Plus"))
+                                else
                                 {
-                                    Destroy(StatItems_L[i].transform.GetChild(0).gameObject);
-                                    GameObject plus = Instantiate(plusSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
-                                    plus.name = "Plus";
+                                    if (!StatItems_L[i].transform.Find("Plus"))
+                                    {
+                                        Destroy(StatItems_L[i].transform.GetChild(0).gameObject);
+                                        GameObject plus = Instantiate(plusSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
+                                        plus.name = "Plus";
+                                    }
                                 }
                             }
                         }
@@ -178,24 +187,27 @@ public class UIManager_Stat : MonoBehaviour
                         StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.FreezeTower;
                         StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.FreezeTowerSprite;
 
-                        for (int i = 0; i < StatItems_R.Count; i++)
+                        if (!itemSet)
                         {
-                            if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_R[i].name)
+                            for (int i = 0; i < StatItems_R.Count; i++)
                             {
-                                if (StatItems_R[i].transform.Find("Plus"))
+                                if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_R[i].name)
                                 {
-                                    Destroy(StatItems_R[i].transform.Find("Plus").gameObject);
-                                    GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
-                                    //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                    if (StatItems_R[i].transform.Find("Plus"))
+                                    {
+                                        Destroy(StatItems_R[i].transform.Find("Plus").gameObject);
+                                        GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
+                                        //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                if (!StatItems_R[i].transform.Find("Plus"))
+                                else
                                 {
-                                    Destroy(StatItems_R[i].transform.GetChild(0).gameObject);
-                                    GameObject plus = Instantiate(plusSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
-                                    plus.name = "Plus";
+                                    if (!StatItems_R[i].transform.Find("Plus"))
+                                    {
+                                        Destroy(StatItems_R[i].transform.GetChild(0).gameObject);
+                                        GameObject plus = Instantiate(plusSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
+                                        plus.name = "Plus";
+                                    }
                                 }
                             }
                         }
@@ -228,24 +240,27 @@ public class UIManager_Stat : MonoBehaviour
                         StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.PoisonTower;
                         StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.PoisonTowerSprite;
 
-                        for (int i = 0; i < StatItems_L.Count; i++)
+                        if (!itemSet)
                         {
-                            if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_L[i].name)
+                            for (int i = 0; i < StatItems_L.Count; i++)
                             {
-                                if (StatItems_L[i].transform.Find("Plus"))
+                                if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_L[i].name)
                                 {
-                                    Destroy(StatItems_L[i].transform.Find("Plus").gameObject);
-                                    GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
-                                    //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                    if (StatItems_L[i].transform.Find("Plus"))
+                                    {
+                                        Destroy(StatItems_L[i].transform.Find("Plus").gameObject);
+                                        GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
+                                        //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                if (!StatItems_L[i].transform.Find("Plus"))
+                                else
                                 {
-                                    Destroy(StatItems_L[i].transform.GetChild(0).gameObject);
-                                    GameObject plus = Instantiate(plusSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
-                                    plus.name = "Plus";
+                                    if (!StatItems_L[i].transform.Find("Plus"))
+                                    {
+                                        Destroy(StatItems_L[i].transform.GetChild(0).gameObject);
+                                        GameObject plus = Instantiate(plusSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
+                                        plus.name = "Plus";
+                                    }
                                 }
                             }
                         }
@@ -255,24 +270,27 @@ public class UIManager_Stat : MonoBehaviour
                         StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.PoisonTower;
                         StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.PoisonTowerSprite;
 
-                        for (int i = 0; i < StatItems_R.Count; i++)
+                        if (!itemSet)
                         {
-                            if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_R[i].name)
+                            for (int i = 0; i < StatItems_R.Count; i++)
                             {
-                                if (StatItems_R[i].transform.Find("Plus"))
+                                if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_R[i].name)
                                 {
-                                    Destroy(StatItems_R[i].transform.Find("Plus").gameObject);
-                                    GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
-                                    //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                    if (StatItems_R[i].transform.Find("Plus"))
+                                    {
+                                        Destroy(StatItems_R[i].transform.Find("Plus").gameObject);
+                                        GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
+                                        //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                if (!StatItems_R[i].transform.GetChild(0).gameObject.name.Contains("Plus"))
+                                else
                                 {
-                                    Destroy(StatItems_R[i].transform.GetChild(0).gameObject);
-                                    GameObject plus = Instantiate(plusSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
-                                    plus.name = "Plus";
+                                    if (!StatItems_R[i].transform.GetChild(0).gameObject.name.Contains("Plus"))
+                                    {
+                                        Destroy(StatItems_R[i].transform.GetChild(0).gameObject);
+                                        GameObject plus = Instantiate(plusSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
+                                        plus.name = "Plus";
+                                    }
                                 }
                             }
                         }
@@ -305,24 +323,27 @@ public class UIManager_Stat : MonoBehaviour
                         StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.BombTower;
                         StatDisplay_L.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.BombTowerSprite;
 
-                        for (int i = 0; i < StatItems_L.Count; i++)
+                        if (!itemSet)
                         {
-                            if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_L[i].name)
+                            for (int i = 0; i < StatItems_L.Count; i++)
                             {
-                                if (StatItems_L[i].transform.Find("Plus"))
+                                if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_L[i].name)
                                 {
-                                    Destroy(StatItems_L[i].transform.Find("Plus").gameObject);
-                                    GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
-                                    //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                    if (StatItems_L[i].transform.Find("Plus"))
+                                    {
+                                        Destroy(StatItems_L[i].transform.Find("Plus").gameObject);
+                                        GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
+                                        //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                if (!StatItems_L[i].transform.Find("Plus"))
+                                else
                                 {
-                                    Destroy(StatItems_L[i].transform.GetChild(0).gameObject);
-                                    GameObject plus = Instantiate(plusSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
-                                    plus.name = "Plus";
+                                    if (!StatItems_L[i].transform.Find("Plus"))
+                                    {
+                                        Destroy(StatItems_L[i].transform.GetChild(0).gameObject);
+                                        GameObject plus = Instantiate(plusSprite, StatItems_L[i].transform.position, Quaternion.identity, StatItems_L[i].transform);
+                                        plus.name = "Plus";
+                                    }
                                 }
                             }
                         }
@@ -332,24 +353,27 @@ public class UIManager_Stat : MonoBehaviour
                         StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerTitle).GetComponent<TextMeshProUGUI>().text = StringsDatabase.TowerNames.BombTower;
                         StatDisplay_R.transform.Find(StringsDatabase.UI_Stats.TowerImage).GetComponent<Image>().sprite = ReferencesManager.SpriteManager.BombTowerSprite;
 
-                        for (int i = 0; i < StatItems_R.Count; i++)
+                        if (!itemSet)
                         {
-                            if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_R[i].name)
+                            for (int i = 0; i < StatItems_R.Count; i++)
                             {
-                                if (StatItems_R[i].transform.Find("Plus"))
+                                if (ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i] != null && ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].ItemSlot.name == StatItems_R[i].name)
                                 {
-                                    Destroy(StatItems_R[i].transform.Find("Plus").gameObject);
-                                    GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
-                                    //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                    if (StatItems_R[i].transform.Find("Plus"))
+                                    {
+                                        Destroy(StatItems_R[i].transform.Find("Plus").gameObject);
+                                        GameObject itemSpriteObject = Instantiate(itemSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
+                                        //itemSpriteObject.GetComponent<Image>().sprite = ReferencesManager.SpriteManager.GetSpriteByItemName(ReferencesManager.GameManager.currentTower.GetComponent<Tower>().ItemsAttached[i].Item.ItemName);
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                if (!StatItems_R[i].transform.Find("Plus"))
+                                else
                                 {
-                                    Destroy(StatItems_R[i].transform.GetChild(0).gameObject);
-                                    GameObject plus = Instantiate(plusSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
-                                    plus.name = "Plus";
+                                    if (!StatItems_R[i].transform.Find("Plus"))
+                                    {
+                                        Destroy(StatItems_R[i].transform.GetChild(0).gameObject);
+                                        GameObject plus = Instantiate(plusSprite, StatItems_R[i].transform.position, Quaternion.identity, StatItems_R[i].transform);
+                                        plus.name = "Plus";
+                                    }
                                 }
                             }
                         }
@@ -394,16 +418,16 @@ public class UIManager_Stat : MonoBehaviour
             switch (towerEnum)
             {
                 case TowerEnum.DamageTower:
-                    newPage.StatsInPage = SetStats(towerEnum, 0, stats.Count - 1, isRight);
+                    newPage.StatsInPage = SetStats(towerEnum, 0, stats.Count - 1, isRight, false);
                     break;
                 case TowerEnum.FreezeTower:
-                    newPage.StatsInPage = SetStats(towerEnum, 0, stats.Count - 1, isRight);
+                    newPage.StatsInPage = SetStats(towerEnum, 0, stats.Count - 1, isRight, false);
                     break;
                 case TowerEnum.PoisonTower:
-                    newPage.StatsInPage = SetStats(towerEnum, 0, stats.Count - 1, isRight);
+                    newPage.StatsInPage = SetStats(towerEnum, 0, stats.Count - 1, isRight, false);
                     break;
                 case TowerEnum.BombTower:
-                    newPage.StatsInPage = SetStats(towerEnum, 0, stats.Count - 1, isRight);
+                    newPage.StatsInPage = SetStats(towerEnum, 0, stats.Count - 1, isRight, false);
                     break;
 
             }
@@ -412,6 +436,7 @@ public class UIManager_Stat : MonoBehaviour
         }
         else
         {
+            var itemSet = false;
             for (int i = 0; i < stats.Count; i++)
             {
                 Page newPage = new Page()
@@ -435,6 +460,11 @@ public class UIManager_Stat : MonoBehaviour
                     }
                 }
 
+                if(x > 0)
+                {
+                    itemSet = true;
+                }
+
                 if (z < stats.Count)
                 {
                     newPage.Stats.Add(stats[x]);
@@ -444,16 +474,16 @@ public class UIManager_Stat : MonoBehaviour
                     switch (towerEnum)
                     {
                         case TowerEnum.DamageTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, z, isRight);
+                            newPage.StatsInPage = SetStats(towerEnum, x, z, isRight, itemSet);
                             break;
                         case TowerEnum.FreezeTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, z, isRight);
+                            newPage.StatsInPage = SetStats(towerEnum, x, z, isRight, itemSet);
                             break;
                         case TowerEnum.PoisonTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, z, isRight);
+                            newPage.StatsInPage = SetStats(towerEnum, x, z, isRight, itemSet);
                             break;
                         case TowerEnum.BombTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, z, isRight);
+                            newPage.StatsInPage = SetStats(towerEnum, x, z, isRight, itemSet);
                             break;
                     }
                 }
@@ -465,16 +495,16 @@ public class UIManager_Stat : MonoBehaviour
                     switch (towerEnum)
                     {
                         case TowerEnum.DamageTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, y, isRight);
+                            newPage.StatsInPage = SetStats(towerEnum, x, y, isRight, itemSet);
                             break;
                         case TowerEnum.FreezeTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, y, isRight);
+                            newPage.StatsInPage = SetStats(towerEnum, x, y, isRight, itemSet);
                             break;
                         case TowerEnum.PoisonTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, y, isRight);
+                            newPage.StatsInPage = SetStats(towerEnum, x, y, isRight, itemSet);
                             break;
                         case TowerEnum.BombTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, y, isRight);
+                            newPage.StatsInPage = SetStats(towerEnum, x, y, isRight, itemSet);
                             break;
                     }
                 }
@@ -485,16 +515,16 @@ public class UIManager_Stat : MonoBehaviour
                     switch (towerEnum)
                     {
                         case TowerEnum.DamageTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, x, isRight);
+                            newPage.StatsInPage = SetStats(towerEnum, x, x, isRight, itemSet);
                             break;
                         case TowerEnum.FreezeTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, x, isRight);
+                            newPage.StatsInPage = SetStats(towerEnum, x, x, isRight, itemSet);
                             break;
                         case TowerEnum.PoisonTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, x, isRight);
+                            newPage.StatsInPage = SetStats(towerEnum, x, x, isRight, itemSet);
                             break;
                         case TowerEnum.BombTower:
-                            newPage.StatsInPage = SetStats(towerEnum, x, x, isRight);
+                            newPage.StatsInPage = SetStats(towerEnum, x, x, isRight, itemSet);
                             break;
                     }
                 }

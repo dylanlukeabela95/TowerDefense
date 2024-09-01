@@ -32,6 +32,9 @@ public class DamageTower : Tower
 
     bool canTwoRoundBurst;
     bool canThreeRoundBurst;
+
+    public int MarkChance;
+
     void Awake()
     {
 
