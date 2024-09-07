@@ -664,6 +664,16 @@ public class UIManager_Upgrades : MonoBehaviour
         {
             case StringsDatabase.Stats.Damage:
                 currentTower.GetComponent<Tower>().Damage += (int)upgradeCollection[key];
+
+                if(currentTower.GetComponent<Tower>().CriticalChance > 0)
+                {
+                    currentTower.GetComponent<Tower>().CriticalDamage = currentTower.GetComponent<Tower>().Damage * 2;
+                }
+
+                if(currentTower.GetComponent<DamageTower>() != null && currentTower.GetComponent<DamageTower>().SuperDamageChance > 0)
+                {
+                    currentTower.GetComponent<DamageTower>().SuperDamage = currentTower.GetComponent<DamageTower>().Damage * 5;
+                }
                 break;
             case StringsDatabase.Stats.FireRate:
                 currentTower.GetComponent<Tower>().FireRate -= (float)upgradeCollection[key];
@@ -913,8 +923,7 @@ public class UIManager_Upgrades : MonoBehaviour
                         otherNodes = new List<GameObject>() { adjacentNode1 };
 
                         AlterStat(StringsDatabase.Stats.CriticalChance, currentTower, node, damageTowerCriticalDictionary, "Level3.1", true, otherNodes);
-                        currentTower.GetComponent<DamageTower>().CriticalPercentage += 100;
-                        currentTower.GetComponent<DamageTower>().CriticalDamage = (int)(ReferencesManager.GameManager.FormulaPercentage(currentTower.GetComponent<Tower>().Damage, currentTower.GetComponent<DamageTower>().CriticalPercentage));
+                        currentTower.GetComponent<DamageTower>().CriticalDamage = currentTower.GetComponent<Tower>().Damage * 2;
                         break;
                 }
                 break;
@@ -1767,11 +1776,13 @@ public class UIManager_Upgrades : MonoBehaviour
                 statDescription = StatsDescriptions_DamageTower.CriticalStatDescription;
                 statsComparison.Add(AddOldNewStats(oldStat, newStat, statName,statDescription, increased));
 
-                oldStat = (int)0;
-                newStat = (int)(currentTower.GetComponent<DamageTower>().Damage * 2);
-                statName = StringsDatabase.Stats_Display.CriticalDamage;
-
-                statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
+                if (currentTower.GetComponent<Tower>().CriticalChance == 0)
+                {
+                    oldStat = (int)currentTower.GetComponent<Tower>().CriticalDamage;
+                    newStat = (int)(currentTower.GetComponent<DamageTower>().Damage * 2);
+                    statName = StringsDatabase.Stats_Display.CriticalDamage;
+                    statsComparison.Add(AddOldNewStats(oldStat, newStat, statName, statDescription, increased));
+                }
                 break;
             case StringsDatabase.Stats_Display.IceDamage:
                 if ((int)currentTower.GetComponent<FreezeTower>().IceDamage > 0)

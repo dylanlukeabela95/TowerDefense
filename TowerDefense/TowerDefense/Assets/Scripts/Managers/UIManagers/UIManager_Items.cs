@@ -66,6 +66,8 @@ public class UIManager_Items : MonoBehaviour
     private float selectedTabHeight = 54.4776f;
 
     private bool isItemSelected;
+    private bool canPlaceOnTower;
+
 
     // Start is called before the first frame update
     void Start()
@@ -135,7 +137,7 @@ public class UIManager_Items : MonoBehaviour
         itemTabs.Find(a => a.isSelected == true).TabObject.GetComponent<RectTransform>().sizeDelta = size;
     }
 
-    void UpdateItemList(Item? itemAttached = null, bool? swappedItem = null)
+    public void UpdateItemList(Item? itemAttached = null, bool? swappedItem = null)
     {
         var itemDisplay_General = itemTabs.Find(a => a.ItemDisplay.name == "ItemDisplay_General").ItemDisplay;
         var itemDisplay_Damage = itemTabs.Find(a => a.ItemDisplay.name == "ItemDisplay_Damage").ItemDisplay;
@@ -248,7 +250,7 @@ public class UIManager_Items : MonoBehaviour
                 case StringsDatabase.Items.PiggyBank:
                 case StringsDatabase.Items.DartBoard:
                     item = itemDisplay_General.transform.Find(itemAttached.ItemName);
-                    if (swappedItem == true && item == null)
+                    if (swappedItem == true && item == null || item == null)
                     {
                         GameObject itemGeneral = Instantiate(itemIcon, itemDisplay_General.transform.position, Quaternion.identity, itemDisplay_General.transform);
                         itemGeneral.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = itemAttached.ItemName;
@@ -267,7 +269,7 @@ public class UIManager_Items : MonoBehaviour
                 case StringsDatabase.Items.Blueprint:
                 case StringsDatabase.Items.RedBall:
                     item = itemDisplay_Damage.transform.Find(itemAttached.ItemName);
-                    if (swappedItem == true && item == null)
+                    if (swappedItem == true && item == null || item == null)
                     {
                         GameObject itemDamage = Instantiate(itemIcon, itemDisplay_Damage.transform.position, Quaternion.identity, itemDisplay_Damage.transform);
                         itemDamage.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = itemAttached.ItemName;
@@ -287,7 +289,7 @@ public class UIManager_Items : MonoBehaviour
                 case StringsDatabase.Items.FrozenBottle:
                 case StringsDatabase.Items.IceCream:
                     item = itemDisplay_Freeze.transform.Find(itemAttached.ItemName);
-                    if (swappedItem == true && item == null)
+                    if (swappedItem == true && item == null || item == null)
                     {
                         GameObject itemFreeze = Instantiate(itemIcon, itemDisplay_Freeze.transform.position, Quaternion.identity, itemDisplay_Freeze.transform);
                         itemFreeze.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = itemAttached.ItemName;
@@ -306,7 +308,7 @@ public class UIManager_Items : MonoBehaviour
                 case StringsDatabase.Items.SnotTissue:
                 case StringsDatabase.Items.Fungus:
                     item = itemDisplay_Poison.transform.Find(itemAttached.ItemName);
-                    if (swappedItem == true && item == null)
+                    if (swappedItem == true && item == null || item == null)
                     {
                         GameObject itemPoison = Instantiate(itemIcon, itemDisplay_Poison.transform.position, Quaternion.identity, itemDisplay_Poison.transform);
                         itemPoison.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = itemAttached.ItemName;
@@ -326,7 +328,7 @@ public class UIManager_Items : MonoBehaviour
                 case StringsDatabase.Items.RPG:
                 case StringsDatabase.Items.Firework:
                     item = itemDisplay_Bomb.transform.Find(itemAttached.ItemName);
-                    if (swappedItem == true && item == null)
+                    if (swappedItem == true && item == null || item == null)
                     {
                         GameObject itemBomb = Instantiate(itemIcon, itemDisplay_Bomb.transform.position, Quaternion.identity, itemDisplay_Bomb.transform);
                         itemBomb.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = itemAttached.ItemName;
@@ -361,15 +363,34 @@ public class UIManager_Items : MonoBehaviour
 
     void SetInfo(string itemName, string itemDescription)
     {
+        GameObject currentTower = ReferencesManager.GameManager.currentTower;
+
         itemInfoSection.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = itemName;
-        itemInfoSection.transform.Find("ItemDescription").GetComponent<TextMeshProUGUI>().text = itemDescription;
+
+        if (itemName == StringsDatabase.Items.IceCube)
+        {
+            string[] itemDescriptions = itemDescription.Split(" or ");
+
+            if (currentTower.GetComponent<FreezeTower>().IceDamage > 0)
+            {
+                itemInfoSection.transform.Find("ItemDescription").GetComponent<TextMeshProUGUI>().text = itemDescriptions[0];
+            }
+            else
+            {
+                itemInfoSection.transform.Find("ItemDescription").GetComponent<TextMeshProUGUI>().text = itemDescriptions[1];
+            }
+        }
+        else
+        {
+            itemInfoSection.transform.Find("ItemDescription").GetComponent<TextMeshProUGUI>().text = itemDescription;
+        }
 
         int currentInt;
         int changeInt;
         float currentFloat;
         float changeFloat;
-        GameObject currentTower = ReferencesManager.GameManager.currentTower;
         var itemInSlot = currentTower.GetComponent<Tower>().ItemsAttached.Where(a => a != null && a.ItemSlot.name == itemSlotSelected.name).FirstOrDefault();
+        canPlaceOnTower = true;
 
         if (itemName == StringsDatabase.Items.Matches && itemInSlot != null && itemInSlot.Item.ItemName != StringsDatabase.Items.Scope)
         {
@@ -474,8 +495,8 @@ public class UIManager_Items : MonoBehaviour
 
                     if(currentTower.GetComponent<Tower>().CriticalChance == 0)
                     {
-                        currentInt = currentTower.GetComponent<DamageTower>().CriticalDamage;
-                        changeInt = currentTower.GetComponent<DamageTower>().Damage * 2;
+                        currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                        changeInt = currentTower.GetComponent<Tower>().Damage * 2;
                         SetStatChange("Critical Damage", currentInt, changeInt, false);
                     }
                 }
@@ -515,6 +536,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -544,6 +566,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -587,6 +610,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -612,6 +636,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -641,6 +666,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -666,6 +692,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -691,6 +718,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -725,6 +753,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -754,6 +783,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -786,6 +816,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -811,6 +842,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -836,6 +868,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -861,6 +894,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -887,6 +921,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -912,6 +947,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -937,6 +973,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -989,6 +1026,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -1020,6 +1058,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -1083,6 +1122,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -1108,6 +1148,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -1140,6 +1181,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -1165,6 +1207,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
+                    canPlaceOnTower = false;
                     if (statsSection.transform.childCount > 0)
                     {
                         for (int i = 0; i < statsSection.transform.childCount; i++)
@@ -1294,7 +1337,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 break;
             case StringsDatabase.Items.Scope:
-                if (currentTower.GetComponent<DamageTower>())
+                if (currentTower.GetComponent<DamageTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1323,23 +1366,9 @@ public class UIManager_Items : MonoBehaviour
                         SetStatChange("Mark Chance", currentInt, currentInt - changeInt, true, true, true);
                     }
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Damage Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.BoxOfBullets:
-                if (currentTower.GetComponent<DamageTower>())
+                if (currentTower.GetComponent<DamageTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1352,23 +1381,9 @@ public class UIManager_Items : MonoBehaviour
                     changeInt = (int)item.Changes[1];
                     SetStatChange("Three Round Burst Chance", currentInt, currentInt - changeInt, false, false, true);
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Damage Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.Matches:
-                if (currentTower.GetComponent<DamageTower>())
+                if (currentTower.GetComponent<DamageTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1389,23 +1404,9 @@ public class UIManager_Items : MonoBehaviour
                     changeFloat = (float)item.Changes[3];
                     SetStatChange("Burn Tick Rate", 1 / currentDecimal, currentDecimal - (decimal)changeFloat, false, false, true);
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Damage Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.Blueprint:
-                if (currentTower.GetComponent<DamageTower>())
+                if (currentTower.GetComponent<DamageTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1414,23 +1415,9 @@ public class UIManager_Items : MonoBehaviour
                     changeInt = (int)item.Changes[0];
                     SetStatChange("Bonus Damage", currentInt, currentInt - changeInt, false, true, true);
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Damage Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.RedBall:
-                if (currentTower.GetComponent<DamageTower>())
+                if (currentTower.GetComponent<DamageTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1443,23 +1430,9 @@ public class UIManager_Items : MonoBehaviour
                     changeInt = currentTower.GetComponent<DamageTower>().Damage * 5;
                     SetStatChange("Super Damage", currentInt, currentInt - changeInt, false, false, true);
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Damage Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.Snowflake:
-                if (currentTower.GetComponent<FreezeTower>())
+                if (currentTower.GetComponent<FreezeTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1468,23 +1441,9 @@ public class UIManager_Items : MonoBehaviour
                     changeFloat = (float)item.Changes[0];
                     SetStatChange("Slow Duration", currentFloat, currentFloat - changeFloat, false, true, true);
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Freeze Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.LiquidNitrogen:
-                if (currentTower.GetComponent<FreezeTower>())
+                if (currentTower.GetComponent<FreezeTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1493,23 +1452,9 @@ public class UIManager_Items : MonoBehaviour
                     changeFloat = (float)item.Changes[0];
                     SetStatChange("Slow Effect", currentFloat, currentFloat - changeFloat, false, true, true);
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Freeze Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.IceCube:
-                if (currentTower.GetComponent<FreezeTower>())
+                if (currentTower.GetComponent<FreezeTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1527,23 +1472,9 @@ public class UIManager_Items : MonoBehaviour
                         SetStatChange("Frostbite Damage", currentInt, currentInt - changeInt, false, true, true);
                     }
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Freeze Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.Snowball:
-                if (currentTower.GetComponent<FreezeTower>())
+                if (currentTower.GetComponent<FreezeTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1556,23 +1487,9 @@ public class UIManager_Items : MonoBehaviour
                     changeFloat = (float)item.Changes[1];
                     SetStatChange("Snowball Stun Duration", currentFloat, currentFloat - changeFloat, false, false, true);
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Freeze Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.FrozenBottle:
-                if (currentTower.GetComponent<FreezeTower>())
+                if (currentTower.GetComponent<FreezeTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1586,23 +1503,9 @@ public class UIManager_Items : MonoBehaviour
                     SetStatChange("Icicle Damage", currentInt, currentInt - changeInt, false, false, true);
 
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Freeze Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.IceCream:
-                if (currentTower.GetComponent<FreezeTower>())
+                if (currentTower.GetComponent<FreezeTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1611,23 +1514,9 @@ public class UIManager_Items : MonoBehaviour
                     changeInt = (int)item.Changes[0];
                     SetStatChange("Immobilize Chance", currentInt, currentInt - changeInt, false, true, true);
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Freeze Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.PoisonVial:
-                if (currentTower.GetComponent<PoisonTower>())
+                if (currentTower.GetComponent<PoisonTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1636,23 +1525,9 @@ public class UIManager_Items : MonoBehaviour
                     changeInt = (int)item.Changes[0];
                     SetStatChange("Poison Damage Over Time", currentInt, currentInt - changeInt, false, true, true);
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Poison Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.HazardSign:
-                if (currentTower.GetComponent<PoisonTower>())
+                if (currentTower.GetComponent<PoisonTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1661,23 +1536,9 @@ public class UIManager_Items : MonoBehaviour
                     changeFloat = (float)item.Changes[0];
                     SetStatChange("Poison Duration", currentFloat, currentFloat - changeFloat, false, true, true);
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Poison Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.MoldyCheese:
-                if (currentTower.GetComponent<PoisonTower>())
+                if (currentTower.GetComponent<PoisonTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1687,23 +1548,9 @@ public class UIManager_Items : MonoBehaviour
                     decimal total = 1 / (currentDecimal + (decimal)changeFloat);
                     SetStatChange("Poison Tick Rate", 1 / currentDecimal, total, false, true, true);
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Poison Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.SnotTissue:
-                if (currentTower.GetComponent<PoisonTower>())
+                if (currentTower.GetComponent<PoisonTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1712,23 +1559,9 @@ public class UIManager_Items : MonoBehaviour
                     changeInt = (int)item.Changes[0];
                     SetStatChange("Poison Double Tick Rate Chance", currentInt, currentInt - changeInt, false, true, true);
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Poison Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.Fungus:
-                if (currentTower.GetComponent<PoisonTower>())
+                if (currentTower.GetComponent<PoisonTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1737,23 +1570,9 @@ public class UIManager_Items : MonoBehaviour
                     changeInt = (int)item.Changes[0];
                     SetStatChange("Poison Critical Damage Chance", currentInt, currentInt - changeInt, false, true, true);
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Poison Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.Cannonball:
-                if (currentTower.GetComponent<BombTower>())
+                if (currentTower.GetComponent<BombTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1783,23 +1602,9 @@ public class UIManager_Items : MonoBehaviour
 
                     
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Bomb Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.Dynamite:
-                if (currentTower.GetComponent<BombTower>())
+                if (currentTower.GetComponent<BombTower>() && canPlaceOnTower)
                 {
                     if (itemSelected.name != StringsDatabase.Items.TNTBox)
                     {
@@ -1811,23 +1616,9 @@ public class UIManager_Items : MonoBehaviour
                         SetStatChange("Splash Radius", currentFloat, currentFloat - changeFloat, false, true, true);
                     }
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Bomb Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.TNTBox:
-                if (currentTower.GetComponent<BombTower>())
+                if (currentTower.GetComponent<BombTower>() && canPlaceOnTower)
                 {
                     if (itemSelected.name != StringsDatabase.Items.Dynamite && itemSelected.name != StringsDatabase.Items.Cannonball)
                     {
@@ -1872,23 +1663,9 @@ public class UIManager_Items : MonoBehaviour
                         SetStatChange("Splash Damage", currentInt, currentInt - changeInt, false, false, true);
                     }
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Bomb Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.Nuke:
-                if (currentTower.GetComponent<BombTower>())
+                if (currentTower.GetComponent<BombTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1897,23 +1674,9 @@ public class UIManager_Items : MonoBehaviour
                     changeInt = (int)item.Changes[0];
                     SetStatChange("Nuke Chance", currentInt, currentInt - changeInt, false, true, true);
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Bomb Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.RPG:
-                if (currentTower.GetComponent<BombTower>())
+                if (currentTower.GetComponent<BombTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1926,23 +1689,9 @@ public class UIManager_Items : MonoBehaviour
                     changeInt = ReferencesManager.UpgradesManager.RocketDamage;
                     SetStatChange("Rocket Damage", currentInt, currentInt - changeInt, false, false, true);
                 }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Bomb Towers";
-                    attachButton.interactable = false;
-                }
                 break;
             case StringsDatabase.Items.Firework:
-                if (currentTower.GetComponent<BombTower>())
+                if (currentTower.GetComponent<BombTower>() && canPlaceOnTower)
                 {
                     alertText.SetActive(false);
                     attachButton.interactable = true;
@@ -1950,20 +1699,6 @@ public class UIManager_Items : MonoBehaviour
                     currentInt = currentTower.GetComponent<BombTower>().DoubleExplosionChance;
                     changeInt = (int)item.Changes[0];
                     SetStatChange("Double Explosion Chance", currentInt, currentInt - changeInt, false, true, true);
-                }
-                else
-                {
-                    if (statsSection.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < statsSection.transform.childCount; i++)
-                        {
-                            Destroy(statsSection.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    alertText.SetActive(true);
-                    alertText.GetComponent<TextMeshProUGUI>().text = "Can only be placed on Bomb Towers";
-                    attachButton.interactable = false;
                 }
                 break;
         }
@@ -2265,6 +2000,16 @@ public class UIManager_Items : MonoBehaviour
                 {
                     currentTower.GetComponent<Tower>().Damage += (int)item.Changes[0];
                 }
+
+                if (currentTower.GetComponent<Tower>().CriticalChance > 0)
+                {
+                    currentTower.GetComponent<Tower>().CriticalDamage = currentTower.GetComponent<Tower>().Damage * 2;
+                }
+
+                if (currentTower.GetComponent<DamageTower>() != null && currentTower.GetComponent<DamageTower>().SuperDamageChance > 0)
+                {
+                    currentTower.GetComponent<DamageTower>().SuperDamage = currentTower.GetComponent<Tower>().Damage * 5;
+                }
                 break;
             case StringsDatabase.Items.HotPepper:
                 if (isRemoved)
@@ -2343,10 +2088,21 @@ public class UIManager_Items : MonoBehaviour
                 if (isRemoved)
                 {
                     currentTower.GetComponent<Tower>().CriticalChance -= (int)item.Changes[0];
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Critical Chance") && currentTower.GetComponent<Tower>().CriticalChance == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Critical Chance");
+                        currentTower.GetComponent<Tower>().RemoveStat("Critical Damage");
+                    }
                 }
                 else
                 {
                     currentTower.GetComponent<Tower>().CriticalChance += (int)item.Changes[0];
+                    if (!currentTower.GetComponent<Tower>().Stats.Contains("Critical Chance"))
+                    {
+                        currentTower.GetComponent<Tower>().AddStat("Critical Chance");
+                        currentTower.GetComponent<Tower>().AddStat("Critical Damage");
+                    }
                 }
                 break;
 
@@ -2362,6 +2118,17 @@ public class UIManager_Items : MonoBehaviour
                     }
 
                     currentTower.GetComponent<DamageTower>().MarkChance -= (int)item.Changes[1];
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Critical Chance") && currentTower.GetComponent<Tower>().CriticalChance == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Critical Chance");
+                        currentTower.GetComponent<Tower>().RemoveStat("Critical Damage");
+                    }
+
+                    if(currentTower.GetComponent<Tower>().Stats.Contains("Mark Chance") && currentTower.GetComponent<DamageTower>().MarkChance == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Mark Chance");
+                    }
                 }
                 else
                 {
@@ -2373,6 +2140,17 @@ public class UIManager_Items : MonoBehaviour
                     currentTower.GetComponent<DamageTower>().CriticalChance += (int)item.Changes[0];
 
                     currentTower.GetComponent<DamageTower>().MarkChance += (int)item.Changes[1];
+
+                    if (!currentTower.GetComponent<Tower>().Stats.Contains("Critical Chance"))
+                    {
+                        currentTower.GetComponent<Tower>().AddStat("Critical Chance");
+                        currentTower.GetComponent<Tower>().AddStat("Critical Damage");
+                    }
+
+                    if(!currentTower.GetComponent<DamageTower>().Stats.Contains("Mark Chance"))
+                    {
+                        currentTower.GetComponent<DamageTower>().AddStat("Mark Chance");
+                    }
                 }
                 break;
             case StringsDatabase.Items.BoxOfBullets:
@@ -2380,11 +2158,31 @@ public class UIManager_Items : MonoBehaviour
                 {
                     currentTower.GetComponent<DamageTower>().TwoRoundBurstChance -= (int)item.Changes[0];
                     currentTower.GetComponent<DamageTower>().ThreeRoundBurstChance -= (int)item.Changes[1];
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Two Round Burst Chance") && currentTower.GetComponent<DamageTower>().TwoRoundBurstChance == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Two Round Burst Chance");
+                    }
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Three Round Burst Chance") && currentTower.GetComponent<DamageTower>().ThreeRoundBurstChance == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Three Round Burst Chance");
+                    }
                 }
                 else
                 {
                     currentTower.GetComponent<DamageTower>().TwoRoundBurstChance += (int)item.Changes[0];
                     currentTower.GetComponent<DamageTower>().ThreeRoundBurstChance += (int)item.Changes[1];
+
+                    if (!currentTower.GetComponent<DamageTower>().Stats.Contains("Two Round Burst Chance"))
+                    {
+                        currentTower.GetComponent<DamageTower>().AddStat("Two Round Burst Chance");
+                    }
+
+                    if (!currentTower.GetComponent<DamageTower>().Stats.Contains("Three Round Burst Chance"))
+                    {
+                        currentTower.GetComponent<DamageTower>().AddStat("Three Round Burst Chance");
+                    }
                 }
                 break;
             case StringsDatabase.Items.Matches:
@@ -2394,6 +2192,26 @@ public class UIManager_Items : MonoBehaviour
                     currentTower.GetComponent<DamageTower>().BurnDamage -= (int)item.Changes[1];
                     currentTower.GetComponent<DamageTower>().BurnDuration -= (float)item.Changes[2];
                     currentTower.GetComponent<DamageTower>().BurnTickRate = 0;
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Burn Chance") && currentTower.GetComponent<DamageTower>().BurnChance == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Burn Chance");
+                    }
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Burn Damage") && currentTower.GetComponent<DamageTower>().BurnDamage == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Burn Damage");
+                    }
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Burn Duration") && currentTower.GetComponent<DamageTower>().BurnDuration == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Burn Duration");
+                    }
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Burn Tick Rate") && currentTower.GetComponent<DamageTower>().BurnTickRate == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Burn Tick Rate");
+                    }
                 }
                 else
                 {
@@ -2401,6 +2219,26 @@ public class UIManager_Items : MonoBehaviour
                     currentTower.GetComponent<DamageTower>().BurnDamage += (int)item.Changes[1];
                     currentTower.GetComponent<DamageTower>().BurnDuration += (float)item.Changes[2];
                     currentTower.GetComponent<DamageTower>().BurnTickRate = (float)item.Changes[3];
+
+                    if (!currentTower.GetComponent<DamageTower>().Stats.Contains("Burn Chance"))
+                    {
+                        currentTower.GetComponent<DamageTower>().AddStat("Burn Chance");
+                    }
+
+                    if (!currentTower.GetComponent<DamageTower>().Stats.Contains("Burn Damage"))
+                    {
+                        currentTower.GetComponent<DamageTower>().AddStat("Burn Damage");
+                    }
+
+                    if (!currentTower.GetComponent<DamageTower>().Stats.Contains("Burn Duration"))
+                    {
+                        currentTower.GetComponent<DamageTower>().AddStat("Burn Duration");
+                    }
+
+                    if (!currentTower.GetComponent<DamageTower>().Stats.Contains("Burn Tick Rate"))
+                    {
+                        currentTower.GetComponent<DamageTower>().AddStat("Burn Tick Rate");
+                    }
                 }
                 break;
             case StringsDatabase.Items.Blueprint:
@@ -2411,6 +2249,16 @@ public class UIManager_Items : MonoBehaviour
                         if (tower.name.Contains("DamageTower"))
                         {
                             tower.GetComponent<DamageTower>().Damage -= (int)item.Changes[0];
+
+                            if (tower.GetComponent<DamageTower>().CriticalChance > 0)
+                            {
+                                tower.GetComponent<DamageTower>().CriticalDamage = tower.GetComponent<DamageTower>().Damage * 2;
+                            }
+
+                            if (tower.GetComponent<DamageTower>().SuperDamageChance > 0)
+                            {
+                                tower.GetComponent<DamageTower>().SuperDamage = tower.GetComponent<DamageTower>().Damage * 5;
+                            }
                         }
                     }
 
@@ -2425,6 +2273,16 @@ public class UIManager_Items : MonoBehaviour
                         if (tower.name.Contains("DamageTower"))
                         {
                             tower.GetComponent<DamageTower>().Damage += (int)item.Changes[0];
+                            
+                            if(tower.GetComponent<DamageTower>().CriticalChance > 0)
+                            {
+                                tower.GetComponent<DamageTower>().CriticalDamage = tower.GetComponent<DamageTower>().Damage * 2;
+                            }
+
+                            if(tower.GetComponent<DamageTower>().SuperDamageChance > 0)
+                            {
+                                tower.GetComponent<DamageTower>().SuperDamage = tower.GetComponent <DamageTower>().Damage * 5;
+                            }
                         }
                     }
 
@@ -2440,11 +2298,23 @@ public class UIManager_Items : MonoBehaviour
                 {
                     currentTower.GetComponent<DamageTower>().SuperDamageChance -= (int)item.Changes[0];
                     currentTower.GetComponent<DamageTower>().SuperDamage = 0;
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Super Damage Chance") && currentTower.GetComponent<DamageTower>().SuperDamageChance == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Super Damage Chance");
+                        currentTower.GetComponent<Tower>().RemoveStat("Super Damage");
+                    }
                 }
                 else
                 {
                     currentTower.GetComponent<DamageTower>().SuperDamageChance += (int)item.Changes[0];
                     currentTower.GetComponent<DamageTower>().SuperDamage = currentTower.GetComponent<DamageTower>().Damage * 5;
+
+                    if(!currentTower.GetComponent<DamageTower>().Stats.Contains("Super Damage Chance"))
+                    {
+                        currentTower.GetComponent<DamageTower>().AddStat("Super Damage Chance");
+                        currentTower.GetComponent<DamageTower>().AddStat("Super Damage");
+                    }
                 }
                 break;
 
@@ -2505,6 +2375,12 @@ public class UIManager_Items : MonoBehaviour
                     {
                         currentTower.GetComponent<FreezeTower>().SnowballStunDuration -= (float)item.Changes[2];
                     }
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Snowball Chance") && currentTower.GetComponent<FreezeTower>().SnowballChance == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Snowball Chance");
+                        currentTower.GetComponent<Tower>().RemoveStat("Snowball Stun Duration");
+                    }
                 }
                 else
                 {
@@ -2517,6 +2393,12 @@ public class UIManager_Items : MonoBehaviour
                     {
                         currentTower.GetComponent<FreezeTower>().SnowballStunDuration += (float)item.Changes[2];
                     }
+
+                    if (!currentTower.GetComponent<Tower>().Stats.Contains("Snowball Chance"))
+                    {
+                        currentTower.GetComponent<Tower>().AddStat("Snowball Chance");
+                        currentTower.GetComponent<Tower>().AddStat("Snowball Stun Duration");
+                    }
                 }
                 break;
             case StringsDatabase.Items.FrozenBottle:
@@ -2524,6 +2406,12 @@ public class UIManager_Items : MonoBehaviour
                 {
                     currentTower.GetComponent<FreezeTower>().IcicleDamage -= ReferencesManager.UpgradesManager.IcicleDamage;
                     currentTower.GetComponent<FreezeTower>().IcicleChance -= (int)item.Changes[0];
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Icicle Chance") && currentTower.GetComponent<FreezeTower>().IcicleChance == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Icicle Chance");
+                        currentTower.GetComponent<Tower>().RemoveStat("Icicle Damage");
+                    }
                 }
                 else
                 {
@@ -2533,19 +2421,35 @@ public class UIManager_Items : MonoBehaviour
                     }
 
                     currentTower.GetComponent<FreezeTower>().IcicleChance += (int)item.Changes[0];
+
+                    if (!currentTower.GetComponent<Tower>().Stats.Contains("Icicle Chance"))
+                    {
+                        currentTower.GetComponent<Tower>().AddStat("Icicle Chance");
+                        currentTower.GetComponent<Tower>().AddStat("Icicle Damage");
+                    }
                 }
                 break;
             case StringsDatabase.Items.IceCream:
                 if (isRemoved)
                 {
                     currentTower.GetComponent<FreezeTower>().ImmobilizeChance -= (int)item.Changes[0];
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Immobilize Chance") && currentTower.GetComponent<FreezeTower>().ImmobilizeChance == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Immobilize Chance");
+                    }
                 }
                 else
                 {
                     currentTower.GetComponent<FreezeTower>().ImmobilizeChance += (int)item.Changes[0];
+
+                    if (!currentTower.GetComponent<Tower>().Stats.Contains("Immobilize Chance"))
+                    {
+                        currentTower.GetComponent<Tower>().AddStat("Immobilize Chance");
+                    }
                 }
 
-                if(currentTower.GetComponent<FreezeTower>().ImmobilizeChance > 0)
+                if (currentTower.GetComponent<FreezeTower>().ImmobilizeChance > 0)
                 {
                     currentTower.GetComponent<FreezeTower>().CanImmobilize = true;
                 }
@@ -2590,20 +2494,42 @@ public class UIManager_Items : MonoBehaviour
                 if (isRemoved)
                 {
                     currentTower.GetComponent<PoisonTower>().DoubleTickRateChance -= (int)item.Changes[0];
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Double Tick Rate Chance") && currentTower.GetComponent<PoisonTower>().DoubleTickRateChance == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Double Tick Rate Chance");
+                    }
                 }
                 else
                 {
                     currentTower.GetComponent<PoisonTower>().DoubleTickRateChance += (int)item.Changes[0];
+
+                    if (!currentTower.GetComponent<Tower>().Stats.Contains("Double Tick Rate Chance"))
+                    {
+                        currentTower.GetComponent<Tower>().AddStat("Double Tick Rate Chance");
+                    }
                 }
                 break;
             case StringsDatabase.Items.Fungus:
                 if (isRemoved)
                 {
                     ReferencesManager.GameManager.PoisonCriticalChance -= (int)item.Changes[0];
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Poison Critical Chance") && ReferencesManager.GameManager.PoisonCriticalChance == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Poison Critical Chance");
+                        currentTower.GetComponent<Tower>().RemoveStat("Poison Critical Damage");
+                    }
                 }
                 else
                 {
                     ReferencesManager.GameManager.PoisonCriticalChance += (int)item.Changes[0];
+
+                    if (!currentTower.GetComponent<Tower>().Stats.Contains("Poison Critical Chance"))
+                    {
+                        currentTower.GetComponent<Tower>().AddStat("Poison Critical Chance");
+                        currentTower.GetComponent<Tower>().AddStat("Poison Critical Damage");
+                    }
                 }
                 break;
 
@@ -2618,6 +2544,11 @@ public class UIManager_Items : MonoBehaviour
                 {
                     currentTower.GetComponent<BombTower>().Damage += (int)item.Changes[0];
                     currentTower.GetComponent<BombTower>().SplashDamage += (int)item.Changes[1];
+                }
+
+                if (currentTower.GetComponent<Tower>().CriticalChance > 0)
+                {
+                    currentTower.GetComponent<Tower>().CriticalDamage = currentTower.GetComponent<BombTower>().Damage * 2;
                 }
                 break;
             case StringsDatabase.Items.Dynamite:
@@ -2639,6 +2570,11 @@ public class UIManager_Items : MonoBehaviour
 
                     currentTower.GetComponent<BombTower>().SplashDamage -= Mathf.CeilToInt(newSplashDamage);
                     currentTower.GetComponent<BombTower>().SplashRadius -= newSplashRadius;
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Explosion Delay") && currentTower.GetComponent<BombTower>().ExplosionDelay == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Explosion Delay");
+                    }
                 }
                 else
                 {
@@ -2648,23 +2584,45 @@ public class UIManager_Items : MonoBehaviour
 
                     currentTower.GetComponent<BombTower>().SplashDamage += newSplashDamage;
                     currentTower.GetComponent<BombTower>().SplashRadius += newSplashRadius;
+
+                    if (!currentTower.GetComponent<Tower>().Stats.Contains("Explosion Delay"))
+                    {
+                        currentTower.GetComponent<Tower>().AddStat("Explosion Delay");
+                    }
                 }
                 break;
             case StringsDatabase.Items.Nuke:
                 if (isRemoved)
                 {
                     currentTower.GetComponent<BombTower>().NukeChance -= (int)item.Changes[0];
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Nuke Chance") && currentTower.GetComponent<BombTower>().NukeChance == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Nuke Chance");
+                    }
                 }
                 else
                 {
                     currentTower.GetComponent<BombTower>().NukeChance += (int)item.Changes[0];
+
+                    if (!currentTower.GetComponent<Tower>().Stats.Contains("Nuke Chance"))
+                    {
+                        currentTower.GetComponent<Tower>().AddStat("Nuke Chance");
+                    }
                 }
                 break;
             case StringsDatabase.Items.RPG:
                 if (isRemoved)
                 {
-                    currentTower.GetComponent<BombTower>().RocketDamage -= ReferencesManager.UpgradesManager.RocketDamage;
                     currentTower.GetComponent<BombTower>().RocketChance -= (int)item.Changes[0];
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Rocket Chance") && currentTower.GetComponent<BombTower>().RocketChance == 0)
+                    {
+                        currentTower.GetComponent<BombTower>().RocketDamage -= ReferencesManager.UpgradesManager.RocketDamage;
+
+                        currentTower.GetComponent<Tower>().RemoveStat("Rocket Chance");
+                        currentTower.GetComponent<Tower>().RemoveStat("Rocket Damage");
+                    }
                 }
                 else
                 {
@@ -2673,16 +2631,32 @@ public class UIManager_Items : MonoBehaviour
                         currentTower.GetComponent<BombTower>().RocketDamage = ReferencesManager.UpgradesManager.RocketDamage;
                     }
                     currentTower.GetComponent<BombTower>().RocketChance += (int)item.Changes[0];
+
+                    if (!currentTower.GetComponent<Tower>().Stats.Contains("Rocket Chance"))
+                    {
+                        currentTower.GetComponent<Tower>().AddStat("Rocket Chance");
+                        currentTower.GetComponent<Tower>().AddStat("Rocket Damage");
+                    }
                 }
                 break;
             case StringsDatabase.Items.Firework:
                 if (isRemoved)
                 {
                     currentTower.GetComponent<BombTower>().DoubleExplosionChance -= (int)item.Changes[0];
+
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Double Explosion Chance") && currentTower.GetComponent<BombTower>().DoubleExplosionChance == 0)
+                    {
+                        currentTower.GetComponent<Tower>().RemoveStat("Double Explosion Chance");
+                    }
                 }
                 else
                 {
                     currentTower.GetComponent<BombTower>().DoubleExplosionChance += (int)item.Changes[0];
+
+                    if (!currentTower.GetComponent<Tower>().Stats.Contains("Double Explosion Chance"))
+                    {
+                        currentTower.GetComponent<Tower>().AddStat("Double Explosion Chance");
+                    }
                 }
                 break;
         }
@@ -2693,6 +2667,15 @@ public class UIManager_Items : MonoBehaviour
     {
         itemSection.SetActive(true);
         itemInfoSection.SetActive(false);
+
+        if (ReferencesManager.UIManager_Stat.StatDisplay_L.activeSelf)
+        {
+            ReferencesManager.UIManager_Stat.StatDisplay_L.SetActive(false);
+        }
+        else
+        {
+            ReferencesManager.UIManager_Stat.StatDisplay_R.SetActive(false);
+        }
 
         var currentTower = ReferencesManager.GameManager.currentTower.GetComponent<Tower>();
 
@@ -2714,10 +2697,27 @@ public class UIManager_Items : MonoBehaviour
 
         itemSlotSelected.transform.Find("Selection").gameObject.SetActive(false);
         itemSlotSelected = null;
+
+        if (itemSelected != null)
+        {
+            itemSelected.transform.Find("Selection").gameObject.SetActive(false);
+            itemSelected = null;
+        }
+
+        ReferencesManager.GameManager.currentTower.GetComponent<Tower>().DeselectTower();
+
     }
 
     public void OnClick_SelectTab(GameObject tab)
-    {
+    {        
+        if (itemSelected != null)
+        {
+            itemSelected.transform.Find("Selection").gameObject.SetActive(false);
+            itemSelected = null;
+        }
+        
+        itemInfoSection.SetActive(false);
+        
         NewTabSelected(tab);
     }
 

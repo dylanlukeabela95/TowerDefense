@@ -57,16 +57,6 @@ public class FreezeTower : Tower
         SlowEffect = (float)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.SlowEffect];
     }
 
-    public void AddStat(string stat)
-    {
-        Stats.Add(stat);
-    }
-
-    public void RemoveStat(string stat)
-    {
-        Stats.Remove(stat);
-    }
-
     public override IEnumerator Shoot(GameObject projectile)
     {
         GameObject icicle = null;

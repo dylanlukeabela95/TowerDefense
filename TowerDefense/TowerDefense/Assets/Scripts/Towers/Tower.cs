@@ -38,6 +38,7 @@ public class Tower : MonoBehaviour
     public Transform Barrel;
 
     public int CriticalChance = 0;
+    public int CriticalDamage;
 
     public GameObject RangeIndicator;
 
@@ -162,9 +163,39 @@ public class Tower : MonoBehaviour
         }
     }
 
+    public void AddStat(string stat)
+    {
+        Stats.Add(stat);
+    }
+
+    public string GetStat(int pos)
+    {
+        return Stats[pos];
+    }
+
+    public List<string> GetStats()
+    {
+        return Stats;
+    }
+
+    public void RemoveStat(string stat)
+    {
+        Stats.Remove(stat);
+    }
+
     public virtual void SellTower()
     {
         ReferencesManager.GameManager.coins += SellingCost;
+
+        for(int i = 0; i < ItemsAttached.Length;i++)
+        {
+            if (ItemsAttached[i] != null)
+            {
+                ReferencesManager.ItemsManager.AddItemToInventory(ItemsAttached[i].Item.ItemName, ItemsAttached[i].Item);
+                ReferencesManager.UIManager_Items.UpdateItemList(ItemsAttached[i].Item);
+            }
+        }
+
         Destroy(this.gameObject);
     }
 

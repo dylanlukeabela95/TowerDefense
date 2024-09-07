@@ -35,6 +35,10 @@ public class Enemy : MonoBehaviour
     public bool firstSetFrostbite;
     public bool isImmobilize;
 
+    [Header("Marked")]
+    public bool isMarked;
+    public int markedBonusDamagePercentage;
+
     [Header("Waypoints")]
     public List<GameObject> waypoints = new List<GameObject>();
     private Vector3 currentWaypointToGo;

@@ -310,7 +310,7 @@ public class UIManager_Stat : MonoBehaviour
                         {
                             GameObject stat = Instantiate(Stat, transform.position, Quaternion.identity, StatContainer_R.transform);
                             stat.transform.Find(StringsDatabase.UI_Stats.StatText).GetComponent<TextMeshProUGUI>().text = ReferencesManager.GameManager.currentTower.GetComponent<PoisonTower>().Stats[i];
-                            stat.name = ReferencesManager.GameManager.currentTower.GetComponent<PoisonTower>().Stats[i];
+                            stat.name = ReferencesManager.GameManager.currentTower.GetComponent<PoisonTower>().Stats[i].Replace(" ", "");
                             stat.transform.Find(StringsDatabase.UI_Stats.UpgradeValue).GetComponent<TextMeshProUGUI>().text = SetStatValue(stat.name, ReferencesManager.GameManager.currentTower);
                             stats.Add(stat);
                         }
@@ -647,6 +647,7 @@ public class UIManager_Stat : MonoBehaviour
             case StringsDatabase.Stats.PoisonCriticalDamage:
             case StringsDatabase.Stats_Display.PoisonCriticalDamage:
                 return (currentTower.GetComponent<PoisonTower>().PoisonDamageOverTime * 2).ToString();
+            case StringsDatabase.Stats.PoisonCriticalChance:
             case StringsDatabase.Stats_Display.PoisonCriticalChance:
                 return ReferencesManager.GameManager.PoisonCriticalChance.ToString() + " %";
             case StringsDatabase.Stats.PoisonSpread:
@@ -659,6 +660,30 @@ public class UIManager_Stat : MonoBehaviour
                 return currentTower.GetComponent<BombTower>().RocketChance.ToString() + " %";
             case StringsDatabase.Stats.RocketDamage:
                 return currentTower.GetComponent<BombTower>().RocketDamage.ToString();
+            case "MarkChance":
+                return currentTower.GetComponent<DamageTower>().MarkChance.ToString() + " %";
+            case "BurnChance":
+                return currentTower.GetComponent<DamageTower>().BurnChance.ToString() + " %";
+            case "BurnDamage":
+                return currentTower.GetComponent<DamageTower>().BurnDamage.ToString();
+            case "BurnDuration":
+                return currentTower.GetComponent<DamageTower>().BurnDuration.ToString() + " s";
+            case "BurnTickRate":
+                return (1 * 1.0f / currentTower.GetComponent<DamageTower>().BurnTickRate).ToString() + " times / s";
+            case "SuperDamageChance":
+                return currentTower.GetComponent<DamageTower>().SuperDamageChance.ToString() + " %";
+            case "SuperDamage":
+                return currentTower.GetComponent<DamageTower>().SuperDamage.ToString();
+            case "SnowballChance":
+                return currentTower.GetComponent<FreezeTower>().SnowballChance.ToString() + " %";
+            case "SnowballStunDuration":
+                return currentTower.GetComponent<FreezeTower>().SnowballStunDuration.ToString() + " s";
+            case "ExplosionDelay":
+                return currentTower.GetComponent<BombTower>().ExplosionDelay.ToString() + " s";
+            case "DoubleTickRateChance":
+                return currentTower.GetComponent<PoisonTower>().DoubleTickRateChance.ToString() + " %";
+            case "NukeChance":
+                return currentTower.GetComponent<BombTower>().NukeChance.ToString() + " %";
             default:
                 return string.Empty;
         }

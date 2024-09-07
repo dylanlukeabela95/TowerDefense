@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7334246426068341809}
   - component: {fileID: 7334246426068341808}
-  - component: {fileID: 6956710181678670309}
   - component: {fileID: 3232703336658505948}
   - component: {fileID: 1964328158402098779}
+  - component: {fileID: 4795462127023849854}
   m_Layer: 0
   m_Name: Projectile_Damage
   m_TagString: Untagged
@@ -87,26 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6956710181678670309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7334246426068341823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f35e52db8cd34454cae64f28c83bd774, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageText: {fileID: 2213591993939883431, guid: b8ba5d80bbc671946b50fbc7a99bfe00, type: 3}
-  ProjectileSpeed: 50
-  Damage: 0
-  CriticalDamage: 0
-  isCritical: 0
-  target: {fileID: 0}
-  isInfinityRange: 0
-  FromTower: 
 --- !u!58 &3232703336658505948
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -144,3 +124,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &4795462127023849854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7334246426068341823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8554087bc7e27644d81944247afa576e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageText: {fileID: 2213591993939883431, guid: b8ba5d80bbc671946b50fbc7a99bfe00, type: 3}
+  ProjectileSpeed: 50
+  Damage: 0
+  CriticalDamage: 0
+  isCritical: 0
+  target: {fileID: 0}
+  FromTower: 
+  isSuperDamage: 0
+  superDamage: 0
+  isMarked: 0
+  markBonusDamage: 0

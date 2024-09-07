@@ -86,8 +86,8 @@ namespace Strings
             public const string SplashDamage = "SplashDamage";
             public const string SplashRadius = "SplashRadius";
             public const string ProjectileCount = "ProjectileCount";
-            public const string TwoRoundBurstChance = "2RoundBurstChance";
-            public const string ThreeRoundBurstChance = "3RoundBurstChance";
+            public const string TwoRoundBurstChance = "TwoRoundBurstChance";
+            public const string ThreeRoundBurstChance = "ThreeRoundBurstChance";
             public const string CriticalChance = "CriticalChance";
             public const string CriticalDamage = "CriticalDamage";
             public const string Frostbite = "Frostbite";
