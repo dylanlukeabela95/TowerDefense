@@ -85,7 +85,16 @@ public class BombTower : Tower
                             rocket.GetComponent<Rocket>().doubleExplosionChance = DoubleExplosionChance;
                         }
                     }
-                    
+                }
+
+                if(ExplosionDelay > 0)
+                {
+                    bullet.GetComponent<BombTowerProjectile>().explosionDelay = ExplosionDelay;
+                }
+
+                if(NukeChance > 0)
+                {
+                    bullet.GetComponent<BombTowerProjectile>().nukeChance = NukeChance;
                 }
 
                 yield return new WaitForSeconds(FireRate);

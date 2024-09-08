@@ -35,6 +35,8 @@ public class FreezeTowerProjectile : TowerProjectile
 
         if (other.gameObject.CompareTag(StringsDatabase.Tag.EnemyTag))
         {
+            Destroy(this.gameObject);
+
             if (IceDamage > 0)
             {
                 GameObject text2 = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);

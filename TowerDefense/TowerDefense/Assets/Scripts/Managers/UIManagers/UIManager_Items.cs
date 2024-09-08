@@ -777,9 +777,22 @@ public class UIManager_Items : MonoBehaviour
                     changeInt = (int)item.Changes[0];
                     SetStatChange("Snowball Chance", currentInt, currentInt + changeInt, true);
 
-                    currentFloat = currentTower.GetComponent<FreezeTower>().SnowballStunDuration;
-                    changeFloat = (float)item.Changes[1];
-                    SetStatChange("Snowball Stun Duration", currentFloat, currentFloat + changeFloat, false);
+                    if (currentTower.GetComponent<FreezeTower>().SnowballStunDuration > 0)
+                    {
+                        currentFloat = currentTower.GetComponent<FreezeTower>().SnowballStunDuration;
+                        changeFloat = (float)item.Changes[2];
+                        SetStatChange("Snowball Stun Duration", currentFloat, currentFloat + changeFloat, false);
+                    }
+                    else
+                    {
+                        currentFloat = currentTower.GetComponent<FreezeTower>().SnowballStunDuration;
+                        changeFloat = (float)item.Changes[1];
+                        SetStatChange("Snowball Stun Duration", currentFloat, currentFloat + changeFloat, false);
+                    }
+
+                    currentInt = currentTower.GetComponent<FreezeTower>().SnowballDamage;
+                    changeInt = (int)item.Changes[3];
+                    SetStatChange("Snowball Damage", currentInt, changeInt, false);
                 }
                 else
                 {
@@ -941,7 +954,7 @@ public class UIManager_Items : MonoBehaviour
                     alertText.SetActive(false);
                     attachButton.interactable = true;
 
-                    currentInt = currentTower.GetComponent<PoisonTower>().DoubleTickRateChance;
+                    currentInt = currentTower.GetComponent<PoisonTower>().DoublePoisonTickRateChance;
                     changeInt = (int)item.Changes[0];
                     SetStatChange("Poison Double Tick Rate Chance", currentInt, currentInt + changeInt, true);
                 }
@@ -1483,9 +1496,22 @@ public class UIManager_Items : MonoBehaviour
                     changeInt = (int)item.Changes[0];
                     SetStatChange("Snowball Chance", currentInt, currentInt - changeInt, false, true, true);
 
-                    currentFloat = currentTower.GetComponent<FreezeTower>().SnowballStunDuration;
-                    changeFloat = (float)item.Changes[1];
-                    SetStatChange("Snowball Stun Duration", currentFloat, currentFloat - changeFloat, false, false, true);
+                    if (currentTower.GetComponent<FreezeTower>().SnowballChance - changeInt == 0)
+                    {
+                        currentFloat = currentTower.GetComponent<FreezeTower>().SnowballStunDuration;
+                        changeFloat = (float)item.Changes[1];
+                        SetStatChange("Snowball Stun Duration", currentFloat, currentFloat - changeFloat, false, false, true);
+                    }
+                    else
+                    {
+                        currentFloat = currentTower.GetComponent<FreezeTower>().SnowballStunDuration;
+                        changeFloat = (float)item.Changes[2];
+                        SetStatChange("Snowball Stun Duration", currentFloat, currentFloat - changeFloat, false, false, true);
+                    }
+
+                    currentInt = currentTower.GetComponent<FreezeTower>().SnowballDamage;
+                    changeInt = (int)item.Changes[3];
+                    SetStatChange("Snowball Damage", currentInt, currentInt - changeInt, false, false, true);
                 }
                 break;
             case StringsDatabase.Items.FrozenBottle:
@@ -1555,7 +1581,7 @@ public class UIManager_Items : MonoBehaviour
                     alertText.SetActive(false);
                     attachButton.interactable = true;
 
-                    currentInt = currentTower.GetComponent<PoisonTower>().DoubleTickRateChance;
+                    currentInt = currentTower.GetComponent<PoisonTower>().DoublePoisonTickRateChance;
                     changeInt = (int)item.Changes[0];
                     SetStatChange("Poison Double Tick Rate Chance", currentInt, currentInt - changeInt, false, true, true);
                 }
@@ -2375,11 +2401,13 @@ public class UIManager_Items : MonoBehaviour
                     {
                         currentTower.GetComponent<FreezeTower>().SnowballStunDuration -= (float)item.Changes[2];
                     }
+                    currentTower.GetComponent<FreezeTower>().SnowballDamage -= (int)item.Changes[3];
 
                     if (currentTower.GetComponent<Tower>().Stats.Contains("Snowball Chance") && currentTower.GetComponent<FreezeTower>().SnowballChance == 0)
                     {
                         currentTower.GetComponent<Tower>().RemoveStat("Snowball Chance");
                         currentTower.GetComponent<Tower>().RemoveStat("Snowball Stun Duration");
+                        currentTower.GetComponent<Tower>().RemoveStat("Snowball Damage");
                     }
                 }
                 else
@@ -2393,11 +2421,13 @@ public class UIManager_Items : MonoBehaviour
                     {
                         currentTower.GetComponent<FreezeTower>().SnowballStunDuration += (float)item.Changes[2];
                     }
+                    currentTower.GetComponent<FreezeTower>().SnowballDamage += (int)item.Changes[3];
 
                     if (!currentTower.GetComponent<Tower>().Stats.Contains("Snowball Chance"))
                     {
                         currentTower.GetComponent<Tower>().AddStat("Snowball Chance");
                         currentTower.GetComponent<Tower>().AddStat("Snowball Stun Duration");
+                        currentTower.GetComponent<Tower>().AddStat("Snowball Damage");
                     }
                 }
                 break;
@@ -2493,16 +2523,16 @@ public class UIManager_Items : MonoBehaviour
             case StringsDatabase.Items.SnotTissue:
                 if (isRemoved)
                 {
-                    currentTower.GetComponent<PoisonTower>().DoubleTickRateChance -= (int)item.Changes[0];
+                    currentTower.GetComponent<PoisonTower>().DoublePoisonTickRateChance -= (int)item.Changes[0];
 
-                    if (currentTower.GetComponent<Tower>().Stats.Contains("Double Tick Rate Chance") && currentTower.GetComponent<PoisonTower>().DoubleTickRateChance == 0)
+                    if (currentTower.GetComponent<Tower>().Stats.Contains("Double Tick Rate Chance") && currentTower.GetComponent<PoisonTower>().DoublePoisonTickRateChance == 0)
                     {
                         currentTower.GetComponent<Tower>().RemoveStat("Double Tick Rate Chance");
                     }
                 }
                 else
                 {
-                    currentTower.GetComponent<PoisonTower>().DoubleTickRateChance += (int)item.Changes[0];
+                    currentTower.GetComponent<PoisonTower>().DoublePoisonTickRateChance += (int)item.Changes[0];
 
                     if (!currentTower.GetComponent<Tower>().Stats.Contains("Double Tick Rate Chance"))
                     {

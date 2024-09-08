@@ -168,7 +168,7 @@ public class ItemsManager : MonoBehaviour
             ItemSprite = ReferencesManager.SpriteManager.MatchesSprite,
             ItemName = StringsDatabase.Items.Matches,
             ItemDescription = "Damage Towers have a 5% <color=grey>(+ 5% per item stack)</color> chance to inflict an enemy with Burn. Burned targets take 2 <color=grey>(+ 2 per item stack)</color> damage per tick, Burn Duration is 2 <color=grey>(+ 2 per item stack)</color> seconds and Burn Tick Rate is 5 times per second",
-            Changes = new object[] { 5, 2, 2f, 0.2f}
+            Changes = new object[] { 10, 2, 2f, 0.2f}
         };
 
         Item blueprint = new Item()
@@ -226,8 +226,8 @@ public class ItemsManager : MonoBehaviour
         {
             ItemSprite = ReferencesManager.SpriteManager.SnowballSprite,
             ItemName = StringsDatabase.Items.Snowball,
-            ItemDescription = "Gain 5% <color=grey>(+ 5% per item stack)</color> chance to shoot a snowball at an enemy at a random enemy, stunning them for 1 <color=grey>(+ 0.5 per item stack)</color> seconds",
-            Changes = new object[] { 5, 1f, 0.5f }
+            ItemDescription = "Gain 5% <color=grey>(+ 5% per item stack)</color> chance to shoot a snowball at an enemy at a random enemy, stunning them for 1 <color=grey>(+ 0.5 per item stack)</color> seconds. Snowball deals 5 <color=grey>(+ 5 per item stack)</color> damage",
+            Changes = new object[] { 5, 1f, 0.5f, 5 }
         };
 
         Item frozenBottle = new Item()

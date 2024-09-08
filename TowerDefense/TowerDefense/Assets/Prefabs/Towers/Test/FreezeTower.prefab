@@ -395,8 +395,11 @@ MonoBehaviour:
   Stats: []
   TowerEnum: 0
   Barrel: {fileID: 3933563551055692357}
+  CriticalChance: 0
+  CriticalDamage: 0
   RangeIndicator: {fileID: 2475059837793757122}
   EnemiesInRange: []
+  SellingCost: 0
   projectileFreeze: {fileID: 6282616619044169572, guid: 40f8bb8f979e0fa47be005204d6f2135, type: 3}
   IceDamage: 0
   SlowDuration: 0
@@ -410,6 +413,10 @@ MonoBehaviour:
   IcicleChance: 0
   CanImmobilize: 0
   ImmobilizeChance: 0
+  Snowball: {fileID: 2749875444677095333, guid: dcc6963dfc776a148b4f8b6ed1c004c6, type: 3}
+  SnowballDamage: 0
+  SnowballChance: 0
+  SnowballStunDuration: 0
 --- !u!61 &4632902437883730588
 BoxCollider2D:
   m_ObjectHideFlags: 0

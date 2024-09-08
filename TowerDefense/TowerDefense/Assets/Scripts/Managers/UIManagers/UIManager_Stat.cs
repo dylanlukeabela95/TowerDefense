@@ -678,10 +678,12 @@ public class UIManager_Stat : MonoBehaviour
                 return currentTower.GetComponent<FreezeTower>().SnowballChance.ToString() + " %";
             case "SnowballStunDuration":
                 return currentTower.GetComponent<FreezeTower>().SnowballStunDuration.ToString() + " s";
+            case "SnowballDamage":
+                return currentTower.GetComponent<FreezeTower>().SnowballDamage.ToString();
             case "ExplosionDelay":
                 return currentTower.GetComponent<BombTower>().ExplosionDelay.ToString() + " s";
             case "DoubleTickRateChance":
-                return currentTower.GetComponent<PoisonTower>().DoubleTickRateChance.ToString() + " %";
+                return currentTower.GetComponent<PoisonTower>().DoublePoisonTickRateChance.ToString() + " %";
             case "NukeChance":
                 return currentTower.GetComponent<BombTower>().NukeChance.ToString() + " %";
             default:

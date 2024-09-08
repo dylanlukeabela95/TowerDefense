@@ -118,6 +118,7 @@ public class DamageTower : Tower
         var randomCritical = -1;
         var randomSuper = -1;
         var randomMark = -1;
+        var randomBurn = -1;
 
         if (CriticalChance > 0)
         {
@@ -132,6 +133,11 @@ public class DamageTower : Tower
         if (MarkChance > 0)
         {
             randomMark = Random.Range(0, 101);
+        }
+
+        if(BurnChance > 0)
+        {
+            randomBurn = Random.Range(0, 101);
         }
 
         if (ProjectileCount > 1)
@@ -161,6 +167,14 @@ public class DamageTower : Tower
                 {
                     bullet.GetComponent<DamageTowerProjectile>().isMarked = true;
                 }
+
+                if(randomBurn != -1 && randomBurn <= BurnChance)
+                {
+                    bullet.GetComponent<DamageTowerProjectile>().isBurn = true;
+                    bullet.GetComponent<DamageTowerProjectile>().burnDamage = BurnDamage;
+                    bullet.GetComponent<DamageTowerProjectile>().burnDuration = BurnDuration;
+                    bullet.GetComponent<DamageTowerProjectile>().burnTickRate = BurnTickRate;
+                }
             }
         }
         else
@@ -187,6 +201,14 @@ public class DamageTower : Tower
             if (randomMark != -1 && randomMark <= MarkChance)
             {
                 bullet.GetComponent<DamageTowerProjectile>().isMarked = true;
+            }
+
+            if (randomBurn != -1 && randomBurn <= BurnChance)
+            {
+                bullet.GetComponent<DamageTowerProjectile>().isBurn = true;
+                bullet.GetComponent<DamageTowerProjectile>().burnDamage = BurnDamage;
+                bullet.GetComponent<DamageTowerProjectile>().burnDuration = BurnDuration;
+                bullet.GetComponent<DamageTowerProjectile>().burnTickRate = BurnTickRate;
             }
         }
     }

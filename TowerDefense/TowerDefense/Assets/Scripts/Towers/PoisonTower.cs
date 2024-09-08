@@ -16,7 +16,7 @@ public class PoisonTower : Tower
 
     public bool CanPoisonCrit;
 
-    public int DoubleTickRateChance;
+    public int DoublePoisonTickRateChance;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -76,6 +76,11 @@ public class PoisonTower : Tower
                 {
                     bullet.GetComponent<PoisonTowerProjectile>().poisonSpread = true;
                     bullet.GetComponent<PoisonTowerProjectile>().poisonSpreadRadius = PoisonSpreadRadius;
+                }
+
+                if(DoublePoisonTickRateChance > 0)
+                {
+                    bullet.GetComponent<PoisonTowerProjectile>().doublePoisonTickRateChance = DoublePoisonTickRateChance;
                 }
                 yield return new WaitForSeconds(FireRate);
             }

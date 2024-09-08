@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
     public float poisonTickRate;
     private float dummyTickRate_Poison;
     private bool firstSetPoison;
+    public int doublePoisonTickRateChance;
 
     [Header("Freeze")]
     public bool isFrozen;
@@ -38,6 +39,18 @@ public class Enemy : MonoBehaviour
     [Header("Marked")]
     public bool isMarked;
     public int markedBonusDamagePercentage;
+
+    [Header("Burn")]
+    public bool isBurn;
+    public int burnDamage;
+    public float burnDuration;
+    public float burnTickRate;
+    private float dummyTickRate_Burn;
+    private bool firstSetBurn;
+
+    [Header("Snowball")]
+    public bool isStun;
+    public float stunDuration;
 
     [Header("Waypoints")]
     public List<GameObject> waypoints = new List<GameObject>();
@@ -58,7 +71,7 @@ public class Enemy : MonoBehaviour
     {
         if (isFrozen)
         {
-            if (isImmobilize)
+            if (isImmobilize || isStun || (isImmobilize && isStun))
             {
                 GoToWaypoint(0);
             }
@@ -67,6 +80,10 @@ public class Enemy : MonoBehaviour
                 GoToWaypoint(slowEffectMovementSpeed);
             }
         }
+        else if(isStun)
+        {
+            GoToWaypoint(0);
+        }
         else
         {
             GoToWaypoint(movementSpeed);
@@ -74,6 +91,8 @@ public class Enemy : MonoBehaviour
 
         Poisoned();
         Slow();
+        Burn();
+        Stun();
     }
 
     void SetWaypoints()
@@ -90,6 +109,9 @@ public class Enemy : MonoBehaviour
     {
         if (isPoisoned)
         {
+            TextMeshPro[] damageTexts; //used for double tick rate
+            TextMeshPro damageText; //used for normal tick rate
+
             GetComponent<SpriteRenderer>().color = Color.green;
             //If target is poisoned and dummyTickRate is still 0, set it and decrease from it
             if (dummyTickRate_Poison <= 0 && isPoisoned && !firstSetPoison)
@@ -100,14 +122,53 @@ public class Enemy : MonoBehaviour
             else if (dummyTickRate_Poison <= 0 && isPoisoned)
             {
                 dummyTickRate_Poison = poisonTickRate;
-                TextMeshPro damageText = Instantiate(DamageText, transform.position, Quaternion.identity);
-                if (ReferencesManager.GameManager.PoisonCriticalChance != 0)
+                if (doublePoisonTickRateChance > 0 && Random.Range(0, 101) <= doublePoisonTickRateChance)
                 {
-                    var random = Random.Range(0, 101);
-                    if (random <= ReferencesManager.GameManager.PoisonCriticalChance)
+                    damageTexts = new TextMeshPro[2];
+
+                    damageTexts[0] = Instantiate(DamageText, transform.position, Quaternion.identity);
+                    damageTexts[1] = Instantiate(DamageText, transform.position, Quaternion.identity);
+
+                    foreach (var damageText_item in damageTexts)
                     {
-                        damageText.text = (poisonDamage * 2).ToString();
-                        damageText.color = new Color32(206, 250, 5, 255);
+                        if (ReferencesManager.GameManager.PoisonCriticalChance != 0)
+                        {
+                            var random = Random.Range(0, 101);
+                            if (random <= ReferencesManager.GameManager.PoisonCriticalChance)
+                            {
+                                damageText_item.text = (poisonDamage * 2).ToString();
+                                damageText_item.color = new Color32(206, 250, 5, 255);
+                            }
+                            else
+                            {
+                                damageText_item.text = poisonDamage.ToString();
+                                damageText_item.color = Color.green;
+                            }
+                        }
+                        else
+                        {
+                            damageText_item.text = poisonDamage.ToString();
+                            damageText_item.color = Color.green;
+                        }
+                    }
+                }
+                else
+                {
+                    damageText = Instantiate(DamageText, transform.position, Quaternion.identity);
+
+                    if (ReferencesManager.GameManager.PoisonCriticalChance != 0)
+                    {
+                        var random = Random.Range(0, 101);
+                        if (random <= ReferencesManager.GameManager.PoisonCriticalChance)
+                        {
+                            damageText.text = (poisonDamage * 2).ToString();
+                            damageText.color = new Color32(206, 250, 5, 255);
+                        }
+                        else
+                        {
+                            damageText.text = poisonDamage.ToString();
+                            damageText.color = Color.green;
+                        }
                     }
                     else
                     {
@@ -115,11 +176,7 @@ public class Enemy : MonoBehaviour
                         damageText.color = Color.green;
                     }
                 }
-                else
-                {
-                    damageText.text = poisonDamage.ToString();
-                    damageText.color = Color.green;
-                }
+
             }
 
             dummyTickRate_Poison -= Time.deltaTime;
@@ -176,6 +233,51 @@ public class Enemy : MonoBehaviour
                 {
                     isImmobilize = false;
                 }
+            }
+        }
+    }
+
+    void Burn()
+    {
+        if (isBurn)
+        {
+            GetComponent<SpriteRenderer>().color = Color.red;
+            //If target is poisoned and dummyTickRate is still 0, set it and decrease from it
+            if (dummyTickRate_Burn <= 0 && isBurn && !firstSetBurn)
+            {
+                dummyTickRate_Burn = burnTickRate;
+                firstSetBurn = true;
+            }
+            else if (dummyTickRate_Burn <= 0 && isBurn)
+            {
+                dummyTickRate_Burn = burnTickRate;
+                TextMeshPro damageText = Instantiate(DamageText, transform.position, Quaternion.identity);
+                damageText.text = burnDamage.ToString();
+                damageText.color = new Color32(255, 165, 0, 255);
+            }
+
+            dummyTickRate_Burn -= Time.deltaTime;
+            burnDuration -= Time.deltaTime;
+
+            if (burnDuration <= 0)
+            {
+                isBurn = false;
+                dummyTickRate_Burn = 0;
+                firstSetBurn = false;
+                GetComponent<SpriteRenderer>().color = Color.white;
+            }
+        }
+    }
+
+    void Stun()
+    {
+        if (isStun)
+        {
+            stunDuration -= Time.deltaTime;
+
+            if(stunDuration <= 0)
+            {
+                isStun = false;
             }
         }
     }

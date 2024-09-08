@@ -10,6 +10,7 @@ public class PoisonTowerProjectile : TowerProjectile
     public int poisonDamageOverTime;
     public float poisonDuration;
     public float poisonTickRate;
+    public int doublePoisonTickRateChance;
 
     [Header("Poison Spread")]
     public bool poisonSpread;
@@ -33,12 +34,19 @@ public class PoisonTowerProjectile : TowerProjectile
 
         if (other.gameObject.CompareTag(StringsDatabase.Tag.EnemyTag))
         {
+            Destroy(this.gameObject);
+
             if (!other.GetComponent<Enemy>().isPoisoned)
             {
                 other.GetComponent<Enemy>().isPoisoned = true;
                 other.GetComponent<Enemy>().poisonDamage = poisonDamageOverTime;
                 other.GetComponent<Enemy>().poisonTimer = poisonDuration;
                 other.GetComponent<Enemy>().poisonTickRate = poisonTickRate;
+
+                if(doublePoisonTickRateChance > 0)
+                {
+                    other.GetComponent<Enemy>().doublePoisonTickRateChance = doublePoisonTickRateChance;
+                }
             }
 
             if(poisonSpread)

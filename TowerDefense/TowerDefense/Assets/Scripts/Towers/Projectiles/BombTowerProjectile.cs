@@ -13,6 +13,10 @@ public class BombTowerProjectile : TowerProjectile
     public bool canDoubleExplosion;
     public int doubleExplosionChance;
 
+    public int explosionDelay;
+
+    public int nukeChance;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -31,7 +35,16 @@ public class BombTowerProjectile : TowerProjectile
 
         if(other.gameObject.CompareTag(StringsDatabase.Tag.EnemyTag))
         {
-            ApplySplashDamage();
+            if (explosionDelay == 0)
+            {
+                Destroy(this.gameObject);
+                ApplySplashDamage();
+            }
+            else
+            {
+                transform.parent = other.gameObject.transform;
+                Destroy(this.gameObject, explosionDelay);
+            }
         }
     }
 
@@ -44,12 +57,24 @@ public class BombTowerProjectile : TowerProjectile
     //For the delay
     void OnDestroy()
     {
-        Debug.Log("OnDestroy1");
+        if(explosionDelay > 0)
+        {
+            ApplySplashDamage();
+        }
     }
 
     void ApplySplashDamage()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, splashRadius/2);
+        Collider2D[] colliders = new CircleCollider2D[] { };
+
+        if(nukeChance > 0 && Random.Range(0,101) <= nukeChance)
+        {
+            colliders = Physics2D.OverlapCircleAll(transform.position, Mathf.Infinity);
+        }
+        else
+        {
+            colliders = Physics2D.OverlapCircleAll(transform.position, splashRadius / 2);
+        }
 
         if (canDoubleExplosion)
         {

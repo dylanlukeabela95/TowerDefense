@@ -28,6 +28,8 @@ public class FreezeTower : Tower
     public int ImmobilizeChance;
 
     [Header("Snowball")]
+    public GameObject Snowball;
+    public int SnowballDamage;
     public int SnowballChance;
     public float SnowballStunDuration;
 
@@ -101,6 +103,17 @@ public class FreezeTower : Tower
                 {
                     bullet.GetComponent<FreezeTowerProjectile>().canImmobilize = true;
                     bullet.GetComponent<FreezeTowerProjectile>().immobilizeChance = ImmobilizeChance;
+                }
+
+                if(SnowballChance > 0)
+                {
+                    if(Random.Range(0,101) <= SnowballChance)
+                    {
+                        GameObject snowball = Instantiate(Snowball, transform.position, Quaternion.identity);
+                        snowball.GetComponent<Snowball>().ReferencesManager = ReferencesManager;
+                        snowball.GetComponent<Snowball>().snowballDamage = SnowballDamage;
+                        snowball.GetComponent<Snowball>().stunDuration = SnowballStunDuration;
+                    }
                 }
 
                 yield return new WaitForSeconds(FireRate);

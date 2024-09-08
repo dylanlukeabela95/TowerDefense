@@ -11,6 +11,11 @@ public class DamageTowerProjectile : TowerProjectile
 
     public bool isMarked;
 
+    public bool isBurn;
+    public int burnDamage;
+    public float burnDuration;
+    public float burnTickRate;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -79,6 +84,14 @@ public class DamageTowerProjectile : TowerProjectile
             {
                 other.GetComponent<Enemy>().isMarked = true;
                 other.GetComponent<Enemy>().markedBonusDamagePercentage = 30;
+            }
+
+            if(isBurn && !other.GetComponent<Enemy>().isBurn)
+            {
+                other.GetComponent<Enemy>().isBurn = true;
+                other.GetComponent<Enemy>().burnDamage = burnDamage;
+                other.GetComponent<Enemy>().burnDuration = burnDuration;
+                other.GetComponent<Enemy>().burnTickRate = burnTickRate;
             }
         }
     }
