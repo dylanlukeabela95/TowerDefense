@@ -42,10 +42,12 @@ public class ItemsManager : MonoBehaviour
         AddItemToInventory(StringsDatabase.Items.Voucher, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Voucher));
         AddItemToInventory(StringsDatabase.Items.PiggyBank, AllItems.Find(a => a.ItemName == StringsDatabase.Items.PiggyBank));
         AddItemToInventory(StringsDatabase.Items.DartBoard, AllItems.Find(a => a.ItemName == StringsDatabase.Items.DartBoard));
+        AddItemToInventory(StringsDatabase.Items.DartBoard, AllItems.Find(a => a.ItemName == StringsDatabase.Items.DartBoard));
         AddItemToInventory(StringsDatabase.Items.Scope, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Scope));
         AddItemToInventory(StringsDatabase.Items.BoxOfBullets, AllItems.Find(a => a.ItemName == StringsDatabase.Items.BoxOfBullets));
         AddItemToInventory(StringsDatabase.Items.Matches, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Matches));
         AddItemToInventory(StringsDatabase.Items.Blueprint, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Blueprint));
+        AddItemToInventory(StringsDatabase.Items.RedBall, AllItems.Find(a => a.ItemName == StringsDatabase.Items.RedBall));
         AddItemToInventory(StringsDatabase.Items.RedBall, AllItems.Find(a => a.ItemName == StringsDatabase.Items.RedBall));
         AddItemToInventory(StringsDatabase.Items.Snowflake, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Snowflake));
         AddItemToInventory(StringsDatabase.Items.LiquidNitrogen, AllItems.Find(a => a.ItemName == StringsDatabase.Items.LiquidNitrogen));
@@ -101,7 +103,7 @@ public class ItemsManager : MonoBehaviour
         {
             ItemSprite = ReferencesManager.SpriteManager.HotPepperSprite,
             ItemName = StringsDatabase.Items.HotPepper,
-            ItemDescription = "Increasess Tower Fire Rate by 10% <color=grey>(+ 10% per item stack)</color>",
+            ItemDescription = "Increases Tower Fire Rate by 10% <color=grey>(+ 10% per item stack)</color>",
             Changes = new object[] { 0.1f }
         };
 

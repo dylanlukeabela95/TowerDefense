@@ -84,7 +84,7 @@ public class UIManager_Items : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void SetTabs(List<GameObject> tabs, List<GameObject> itemDisplays)
@@ -99,17 +99,17 @@ public class UIManager_Items : MonoBehaviour
                 isSelected = false,
             };
             counter++;
-            
+
             itemTabs.Add(tabObject);
 
-            if(itemTabs.Count == 1)
+            if (itemTabs.Count == 1)
             {
                 itemTabs[0].isSelected = true;
                 itemTabs[0].ItemDisplay.SetActive(true);
             }
             else
             {
-                itemTabs[counter-1].ItemDisplay.SetActive(false);
+                itemTabs[counter - 1].ItemDisplay.SetActive(false);
             }
         }
 
@@ -117,7 +117,7 @@ public class UIManager_Items : MonoBehaviour
 
     void NewTabSelected(GameObject newTab)
     {
-        if(newTab != null)
+        if (newTab != null)
         {
             AlterTabHeight(unSelectedTabHeight);
 
@@ -162,7 +162,7 @@ public class UIManager_Items : MonoBehaviour
                     itemGeneral.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "";
                 }
 
-                itemGeneral.GetComponent<Button>().onClick.AddListener(() => OnClick_Item(itemGeneral ,item.ItemName));
+                itemGeneral.GetComponent<Button>().onClick.AddListener(() => OnClick_Item(itemGeneral, item.ItemName));
             }
 
             foreach (var item in ReferencesManager.ItemsManager.DamageTowerItems)
@@ -241,7 +241,7 @@ public class UIManager_Items : MonoBehaviour
         else
         {
             Transform item = null;
-            switch(itemAttached.ItemName)
+            switch (itemAttached.ItemName)
             {
                 case StringsDatabase.Items.Weight:
                 case StringsDatabase.Items.HotPepper:
@@ -258,9 +258,9 @@ public class UIManager_Items : MonoBehaviour
                         item = itemGeneral.transform;
                         itemGeneral.GetComponent<Button>().onClick.AddListener(() => OnClick_Item(itemGeneral, itemAttached.ItemName));
                     }
-                    else if(swappedItem == true && item != null)
+                    else if (swappedItem == true && item != null)
                     {
-                        item.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "x "+itemAttached.ItemCount.ToString();
+                        item.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "x " + itemAttached.ItemCount.ToString();
                     }
                     break;
                 case StringsDatabase.Items.Scope:
@@ -355,7 +355,7 @@ public class UIManager_Items : MonoBehaviour
                 }
                 else
                 {
-                    item.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = ""; 
+                    item.transform.Find("ItemCount").GetComponent<TextMeshProUGUI>().text = "";
                 }
             }
         }
@@ -392,11 +392,84 @@ public class UIManager_Items : MonoBehaviour
         var itemInSlot = currentTower.GetComponent<Tower>().ItemsAttached.Where(a => a != null && a.ItemSlot.name == itemSlotSelected.name).FirstOrDefault();
         canPlaceOnTower = true;
 
-        if (itemName == StringsDatabase.Items.Matches && itemInSlot != null && itemInSlot.Item.ItemName != StringsDatabase.Items.Scope)
+        //8 stat changes
+        if (
+            (
+                itemInSlot != null &&
+                itemInSlot.Item.ItemName == StringsDatabase.Items.Matches &&
+                itemName == StringsDatabase.Items.Blueprint &&
+                currentTower.GetComponent<Tower>().CriticalChance > 0 &&
+                currentTower.GetComponent<DamageTower>() != null &&
+                currentTower.GetComponent<DamageTower>().SuperDamageChance > 0
+            ) ||
+            (
+                itemInSlot != null &&
+                itemInSlot.Item.ItemName == StringsDatabase.Items.Blueprint &&
+                itemName == StringsDatabase.Items.Matches &&
+                currentTower.GetComponent<Tower>().CriticalChance > 0 &&
+                currentTower.GetComponent<DamageTower>() != null &&
+                currentTower.GetComponent<DamageTower>().SuperDamageChance > 0
+            )
+          )
         {
-            statsSection.GetComponent<VerticalLayoutGroup>().spacing = -14.98f;
+            statsSection.GetComponent<VerticalLayoutGroup>().spacing = -17.22f;
         }
-        else if(itemName == StringsDatabase.Items.Matches)
+        //7 stat changes
+        else if (
+            (
+                itemName == StringsDatabase.Items.Weight &&
+                itemInSlot != null &&
+                itemInSlot.Item.ItemName == StringsDatabase.Items.Matches &&
+                currentTower.GetComponent<Tower>().CriticalChance > 0 &&
+                currentTower.GetComponent<DamageTower>() != null &&
+                currentTower.GetComponent<DamageTower>().SuperDamageChance > 0
+            ) ||
+            (
+                itemName == StringsDatabase.Items.Matches &&
+                itemInSlot != null &&
+                itemInSlot.Item.ItemName == StringsDatabase.Items.Weight &&
+                currentTower.GetComponent<Tower>().CriticalChance > 0 &&
+                currentTower.GetComponent<DamageTower>() != null &&
+                currentTower.GetComponent<DamageTower>().SuperDamageChance > 0
+            ) ||
+            (
+                itemName == StringsDatabase.Items.Matches && itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.Scope && currentTower.GetComponent<Tower>().CriticalChance == 0
+            ) ||
+            (
+                itemName == StringsDatabase.Items.Scope && itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.Matches && currentTower.GetComponent<Tower>().CriticalChance == 0
+            ) ||
+            (
+                itemName == StringsDatabase.Items.Matches && itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.Blueprint && currentTower.GetComponent<Tower>().CriticalChance > 0 && currentTower.GetComponent<DamageTower>() != null && currentTower.GetComponent<DamageTower>().SuperDamageChance == 0
+            ) ||
+            (
+                itemName == StringsDatabase.Items.Blueprint && itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.Matches && currentTower.GetComponent<Tower>().CriticalChance > 0 && currentTower.GetComponent<DamageTower>() != null && currentTower.GetComponent<DamageTower>().SuperDamageChance == 0
+            )
+          )
+        {
+            statsSection.GetComponent<VerticalLayoutGroup>().spacing = -15.5f;
+        }
+        //6 stat changes
+        else if (
+                    itemName == StringsDatabase.Items.Matches && itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.Scope && currentTower.GetComponent<Tower>().CriticalChance > 0 ||
+                    itemName == StringsDatabase.Items.Scope && itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.Matches && currentTower.GetComponent<Tower>().CriticalChance > 0 ||
+                    itemName == StringsDatabase.Items.BoxOfBullets && itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.Matches ||
+                    itemName == StringsDatabase.Items.Matches && itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.BoxOfBullets ||
+                    itemName == StringsDatabase.Items.Matches && itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.Blueprint && currentTower.GetComponent<Tower>().CriticalChance == 0 && currentTower.GetComponent<DamageTower>() != null && currentTower.GetComponent<DamageTower>().SuperDamageChance == 0 ||
+                    itemName == StringsDatabase.Items.Blueprint && itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.Matches && currentTower.GetComponent<Tower>().CriticalChance == 0 && currentTower.GetComponent<DamageTower>() != null && currentTower.GetComponent<DamageTower>().SuperDamageChance == 0 ||
+                    itemName == StringsDatabase.Items.Matches && itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.RedBall && currentTower.GetComponent<DamageTower>() != null && currentTower.GetComponent<DamageTower>().SuperDamageChance == 0 ||
+                    itemName == StringsDatabase.Items.RedBall && itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.Matches && currentTower.GetComponent<DamageTower>() != null && currentTower.GetComponent<DamageTower>().SuperDamageChance == 0 ||
+                    itemName == StringsDatabase.Items.Matches && itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.DartBoard && currentTower.GetComponent<Tower>().CriticalChance == 0 ||
+                    itemName == StringsDatabase.Items.DartBoard && itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.Matches && currentTower.GetComponent<Tower>().CriticalChance == 0 ||
+                    itemName == StringsDatabase.Items.Matches && itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.Weight && currentTower.GetComponent<Tower>().CriticalChance > 0 ||
+                    itemName == StringsDatabase.Items.Weight && itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.Matches && currentTower.GetComponent<Tower>().CriticalChance > 0
+                )
+        {
+            statsSection.GetComponent<VerticalLayoutGroup>().spacing = -12.7f;
+        }
+        else if (
+                    (itemInSlot != null && itemName == StringsDatabase.Items.Blueprint && currentTower.GetComponent<Tower>().CriticalChance > 0 && currentTower.GetComponent<DamageTower>() != null && currentTower.GetComponent<DamageTower>().SuperDamageChance > 0) ||
+                    (itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.Blueprint && currentTower.GetComponent<Tower>().CriticalChance > 0 && currentTower.GetComponent<DamageTower>() != null && currentTower.GetComponent<DamageTower>().SuperDamageChance > 0)
+                )
         {
             statsSection.GetComponent<VerticalLayoutGroup>().spacing = -12;
         }
@@ -421,6 +494,74 @@ public class UIManager_Items : MonoBehaviour
                     currentInt = currentTower.GetComponent<Tower>().Damage;
                     changeInt = (int)item.Changes[0];
                     SetStatChange("Damage", currentInt, currentInt + changeInt, true);
+
+                    if (currentTower.GetComponent<Tower>().CriticalChance > 0)
+                    {
+                        if (itemInSlot != null)
+                        {
+                            if (itemInSlot.Item.ItemName != StringsDatabase.Items.DartBoard && itemInSlot.Item.ItemName != StringsDatabase.Items.Scope)
+                            {
+                                currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                                changeInt = (currentTower.GetComponent<Tower>().Damage + (int)item.Changes[0]) * 2;
+                                SetStatChange("Critical Damage", currentInt, changeInt, false);
+                            }
+                            else if (itemInSlot.Item.ItemName != StringsDatabase.Items.DartBoard)
+                            {
+                                var dartBoardItem = ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == StringsDatabase.Items.DartBoard);
+
+                                if (currentTower.GetComponent<Tower>().CriticalChance - (int)dartBoardItem.Changes[0] > 0)
+                                {
+                                    currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                                    changeInt = (currentTower.GetComponent<Tower>().Damage + (int)item.Changes[0]) * 2;
+                                    SetStatChange("Critical Damage", currentInt, changeInt, false);
+                                }
+                            }
+                            else if (itemInSlot.Item.ItemName != StringsDatabase.Items.Scope)
+                            {
+                                var scopeItem = ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == StringsDatabase.Items.Scope);
+
+                                if (currentTower.GetComponent<Tower>().CriticalChance - (int)scopeItem.Changes[0] > 0)
+                                {
+                                    currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                                    changeInt = (currentTower.GetComponent<Tower>().Damage + (int)item.Changes[0]) * 2;
+                                    SetStatChange("Critical Damage", currentInt, changeInt, false);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                            changeInt = (currentTower.GetComponent<Tower>().Damage + (int)item.Changes[0]) * 2;
+                            SetStatChange("Critical Damage", currentInt, changeInt, false);
+                        }
+                    }
+
+                    if(currentTower.GetComponent<DamageTower>() != null && currentTower.GetComponent<DamageTower>().SuperDamageChance > 0)
+                    {
+                        if(itemInSlot != null && itemInSlot.Item.ItemName != StringsDatabase.Items.RedBall)
+                        {
+                            currentInt = currentTower.GetComponent<DamageTower>().SuperDamage;
+                            changeInt = (currentTower.GetComponent<DamageTower>().Damage + (int)item.Changes[0]) * 5;
+                            SetStatChange("Super Damage", currentInt, changeInt, false);
+                        }
+                        else if(itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.RedBall)
+                        {
+                            var redBallItem = ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == StringsDatabase.Items.RedBall);
+
+                            if(currentTower.GetComponent<DamageTower>().SuperDamageChance - (int)redBallItem.Changes[0] != 0)
+                            {
+                                currentInt = currentTower.GetComponent<DamageTower>().SuperDamage;
+                                changeInt = (currentTower.GetComponent<DamageTower>().Damage + (int)item.Changes[0]) * 5;
+                                SetStatChange("Super Damage", currentInt, changeInt, false);
+                            }
+                        }
+                        else if(itemInSlot == null)
+                        {
+                            currentInt = currentTower.GetComponent<DamageTower>().SuperDamage;
+                            changeInt = (currentTower.GetComponent<DamageTower>().Damage + (int)item.Changes[0]) * 5;
+                            SetStatChange("Super Damage", currentInt, changeInt, false);
+                        }    
+                    }
                 }
                 break;
             case StringsDatabase.Items.HotPepper:
@@ -495,9 +636,45 @@ public class UIManager_Items : MonoBehaviour
 
                     if(currentTower.GetComponent<Tower>().CriticalChance == 0)
                     {
-                        currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
-                        changeInt = currentTower.GetComponent<Tower>().Damage * 2;
-                        SetStatChange("Critical Damage", currentInt, changeInt, false);
+                        if (itemInSlot != null)
+                        {
+                            if (
+                                    itemInSlot.Item.ItemName != StringsDatabase.Items.Weight &&
+                                    itemInSlot.Item.ItemName != StringsDatabase.Items.Blueprint
+                               )
+                            {
+                                currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                                changeInt = currentTower.GetComponent<Tower>().Damage * 2;
+                                SetStatChange("Critical Damage", currentInt, changeInt, false);
+                            }
+                            else
+                            {
+                                currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                                changeInt = (currentTower.GetComponent<Tower>().Damage - (int)itemInSlot.Item.Changes[0]) * 2;
+                                SetStatChange("Critical Damage", currentInt, changeInt, false);
+                            }
+                        }
+                        else
+                        {
+                            currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                            changeInt = currentTower.GetComponent<Tower>().Damage * 2;
+                            SetStatChange("Critical Damage", currentInt, changeInt, false);
+                        }
+                    }
+                    else
+                    {
+                        if (itemInSlot != null)
+                        {
+                            if (
+                                    itemInSlot.Item.ItemName == StringsDatabase.Items.Weight ||
+                                    itemInSlot.Item.ItemName == StringsDatabase.Items.Blueprint
+                               )
+                            {
+                                currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                                changeInt = (currentTower.GetComponent<Tower>().Damage - (int)itemInSlot.Item.Changes[0]) * 2;
+                                SetStatChange("Critical Damage", currentInt, changeInt, false, false, true);
+                            }
+                        }
                     }
                 }
                 break;
@@ -518,9 +695,42 @@ public class UIManager_Items : MonoBehaviour
 
                         if (currentTower.GetComponent<Tower>().CriticalChance == 0)
                         {
-                            currentInt = currentTower.GetComponent<DamageTower>().CriticalDamage;
-                            changeInt = currentTower.GetComponent<Tower>().Damage * 2;
-                            SetStatChange("Critical Damage", currentInt, changeInt, false);
+                            if (itemInSlot != null)
+                            {
+                                if (itemInSlot.Item.ItemName != StringsDatabase.Items.Weight && itemInSlot.Item.ItemName != StringsDatabase.Items.Blueprint)
+                                {
+                                    currentInt = currentTower.GetComponent<DamageTower>().CriticalDamage;
+                                    changeInt = currentTower.GetComponent<Tower>().Damage * 2;
+                                    SetStatChange("Critical Damage", currentInt, changeInt, false);
+                                }
+                                else
+                                {
+                                    currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                                    changeInt = (currentTower.GetComponent<Tower>().Damage - (int)itemInSlot.Item.Changes[0]) * 2;
+                                    SetStatChange("Critical Damage", currentInt, changeInt, false);
+                                }
+                            }
+                            else
+                            {
+                                currentInt = currentTower.GetComponent<DamageTower>().CriticalDamage;
+                                changeInt = currentTower.GetComponent<Tower>().Damage * 2;
+                                SetStatChange("Critical Damage", currentInt, changeInt, false);
+                            }
+                        }
+                        else
+                        {
+                            if (itemInSlot != null)
+                            {
+                                if (
+                                    itemInSlot.Item.ItemName == StringsDatabase.Items.Weight ||
+                                    itemInSlot.Item.ItemName == StringsDatabase.Items.Blueprint
+                                   )
+                                {
+                                    currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                                    changeInt = (currentTower.GetComponent<Tower>().Damage - (int)itemInSlot.Item.Changes[0]) * 2;
+                                    SetStatChange("Critical Damage", currentInt, changeInt, false, false, true);
+                                }
+                            }
                         }
 
                         currentInt = currentTower.GetComponent<DamageTower>().MarkChance;
@@ -633,6 +843,78 @@ public class UIManager_Items : MonoBehaviour
                     currentInt = ReferencesManager.GameManager.bonusDamageTowerDamage;
                     changeInt = (int)item.Changes[0];
                     SetStatChange("Bonus Damage", currentInt, currentInt + changeInt, true);
+
+                    if(itemInSlot == null || itemInSlot.Item.ItemName != StringsDatabase.Items.Weight)
+                    {
+                        currentInt = currentTower.GetComponent<Tower>().Damage;
+                        changeInt = (int)item.Changes[0];
+                        SetStatChange("Damage", currentInt, currentInt + changeInt, false);
+
+                        if(currentTower.GetComponent<Tower>().CriticalChance > 0)
+                        {
+                            if (itemInSlot != null && itemInSlot.Item.ItemName != StringsDatabase.Items.DartBoard && itemInSlot.Item.ItemName != StringsDatabase.Items.Scope)
+                            {
+                                currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                                changeInt = (currentTower.GetComponent<Tower>().Damage + (int)item.Changes[0]) * 2;
+                                SetStatChange("Critical Damage", currentInt, changeInt, false);
+                            }
+                            else if(itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.DartBoard)
+                            {
+                                var dartBoardItem = ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == StringsDatabase.Items.DartBoard);
+
+                                if(currentTower.GetComponent<Tower>().CriticalChance - (int)dartBoardItem.Changes[0] != 0)
+                                {
+                                    currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                                    changeInt = (currentTower.GetComponent<Tower>().Damage + (int)item.Changes[0]) * 2;
+                                    SetStatChange("Critical Damage", currentInt, changeInt, false);
+                                }
+                            }
+                            else if (itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.Scope)
+                            {
+                                var scopeItem = ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == StringsDatabase.Items.Scope);
+
+                                if (currentTower.GetComponent<Tower>().CriticalChance - (int)scopeItem.Changes[0] != 0)
+                                {
+                                    currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                                    changeInt = (currentTower.GetComponent<Tower>().Damage + (int)item.Changes[0]) * 2;
+                                    SetStatChange("Critical Damage", currentInt, changeInt, false);
+                                }
+                            }
+                            else
+                            {
+                                currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                                changeInt = (currentTower.GetComponent<Tower>().Damage + (int)item.Changes[0]) * 2;
+                                SetStatChange("Critical Damage", currentInt, changeInt, false);
+                            }
+                        }
+
+                        if(currentTower.GetComponent<DamageTower>() != null && currentTower.GetComponent<DamageTower>().SuperDamageChance > 0)
+                        {
+                            if(itemInSlot != null && itemInSlot.Item.ItemName != StringsDatabase.Items.RedBall)
+                            {
+                                currentInt = currentTower.GetComponent<DamageTower>().SuperDamage;
+                                changeInt = (currentTower.GetComponent<Tower>().Damage + (int)item.Changes[0]) * 5;
+                                SetStatChange("Super Damage", currentInt, changeInt, false);
+                            }
+                            else if(itemInSlot != null && itemInSlot.Item.ItemName == StringsDatabase.Items.RedBall)
+                            {
+                                var redBallItem = ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == StringsDatabase.Items.RedBall);
+
+                                if(currentTower.GetComponent<DamageTower>().SuperDamageChance - (int)redBallItem.Changes[0] != 0)
+                                {
+                                    currentInt = currentTower.GetComponent<DamageTower>().SuperDamage;
+                                    changeInt = (currentTower.GetComponent<Tower>().Damage + (int)item.Changes[0]) * 5;
+                                    SetStatChange("Super Damage", currentInt, changeInt, false);
+                                }
+                            }
+                            else if(itemInSlot == null)
+                            {
+                                currentInt = currentTower.GetComponent<DamageTower>().SuperDamage;
+                                changeInt = (currentTower.GetComponent<Tower>().Damage + (int)item.Changes[0]) * 5;
+                                SetStatChange("Super Damage", currentInt, changeInt, false);
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -660,9 +942,42 @@ public class UIManager_Items : MonoBehaviour
                     changeInt = (int)item.Changes[0];
                     SetStatChange("Super Damage Chance", currentInt, currentInt + changeInt, true);
 
-                    currentInt = currentTower.GetComponent<DamageTower>().SuperDamage;
-                    changeInt = currentTower.GetComponent<DamageTower>().Damage * 5;
-                    SetStatChange("Super Damage", currentInt, currentInt + changeInt, false);
+                    if (currentTower.GetComponent<DamageTower>().SuperDamageChance == 0)
+                    {
+                        if (itemInSlot != null)
+                        {
+                            if (itemInSlot.Item.ItemName != StringsDatabase.Items.Weight && itemInSlot.Item.ItemName != StringsDatabase.Items.Blueprint)
+                            {
+                                currentInt = currentTower.GetComponent<DamageTower>().SuperDamage;
+                                changeInt = currentTower.GetComponent<DamageTower>().Damage * 5;
+                                SetStatChange("Super Damage", currentInt, changeInt, false);
+                            }
+                            else
+                            {
+                                currentInt = currentTower.GetComponent<DamageTower>().SuperDamage;
+                                changeInt = (currentTower.GetComponent<DamageTower>().Damage - (int)itemInSlot.Item.Changes[0]) * 5;
+                                SetStatChange("Super Damage", currentInt, changeInt, false);
+                            }
+                        }
+                        else
+                        {
+                            currentInt = currentTower.GetComponent<DamageTower>().SuperDamage;
+                            changeInt = currentTower.GetComponent<DamageTower>().Damage * 5;
+                            SetStatChange("Super Damage", currentInt, changeInt, false);
+                        }
+                    }
+                    else
+                    {
+                        if (itemInSlot != null)
+                        {
+                            if (itemInSlot.Item.ItemName == StringsDatabase.Items.Weight || itemInSlot.Item.ItemName == StringsDatabase.Items.Blueprint)
+                            {
+                                currentInt = currentTower.GetComponent<DamageTower>().SuperDamage;
+                                changeInt = (currentTower.GetComponent<DamageTower>().Damage - (int)itemInSlot.Item.Changes[0]) * 5;
+                                SetStatChange("Super Damage", currentInt, changeInt, false, false, true);
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -1007,9 +1322,30 @@ public class UIManager_Items : MonoBehaviour
                     attachButton.interactable = true;
 
                     if (
-                            (itemInSlot != null && itemInSlot.Item.ItemName != StringsDatabase.Items.Weight && itemInSlot.Item.ItemName != StringsDatabase.Items.TNTBox) ||
+                            (itemInSlot != null && 
+                            itemInSlot.Item.ItemName != StringsDatabase.Items.Weight && 
+                            itemInSlot.Item.ItemName != StringsDatabase.Items.TNTBox && 
+                            itemInSlot.Item.ItemName != StringsDatabase.Items.DartBoard &&
+                            itemInSlot.Item.ItemName != StringsDatabase.Items.Scope) ||
                             itemInSlot == null
                        )
+                    {
+                        currentInt = currentTower.GetComponent<Tower>().Damage;
+                        changeInt = (int)item.Changes[0];
+                        SetStatChange("Damage", currentInt, currentInt + changeInt, true);
+
+                        if(currentTower.GetComponent<Tower>().CriticalChance > 0)
+                        {
+                            currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                            changeInt = (currentTower.GetComponent<Tower>().Damage + (int)item.Changes[0]) * 2;
+                            SetStatChange("Critical Damage", currentInt, changeInt, false);
+                        }
+
+                        currentInt = currentTower.GetComponent<BombTower>().SplashDamage;
+                        changeInt = (int)item.Changes[1];
+                        SetStatChange("Splash Damage", currentInt, currentInt + changeInt, false);
+                    }
+                    else if(itemInSlot.Item.ItemName == StringsDatabase.Items.DartBoard)
                     {
                         currentInt = currentTower.GetComponent<Tower>().Damage;
                         changeInt = (int)item.Changes[0];
@@ -1018,6 +1354,18 @@ public class UIManager_Items : MonoBehaviour
                         currentInt = currentTower.GetComponent<BombTower>().SplashDamage;
                         changeInt = (int)item.Changes[1];
                         SetStatChange("Splash Damage", currentInt, currentInt + changeInt, false);
+
+                        if (itemInSlot.Item.ItemName == StringsDatabase.Items.DartBoard)
+                        {
+                            var dartBoardItem = ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == StringsDatabase.Items.DartBoard);
+
+                            if(currentTower.GetComponent<Tower>().CriticalChance - (int)dartBoardItem.Changes[0] > 0)
+                            {
+                                currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                                changeInt = (currentTower.GetComponent<Tower>().Damage + (int)item.Changes[0]) * 2;
+                                SetStatChange("Critical Damage", currentInt, changeInt, false);
+                            }
+                        }
                     }
                     else if(itemInSlot.Item.ItemName == StringsDatabase.Items.TNTBox)
                     {
@@ -1248,19 +1596,6 @@ public class UIManager_Items : MonoBehaviour
 
         var item = ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == previousItemName);
 
-        if((itemSelected.name == StringsDatabase.Items.Matches && previousItemName == StringsDatabase.Items.Scope) || (previousItemName == StringsDatabase.Items.Matches && itemSelected.name == StringsDatabase.Items.Scope))
-        {
-            statsSection.GetComponent<VerticalLayoutGroup>().spacing = -14.98f;
-        }
-        else if(itemSelected.name == StringsDatabase.Items.Matches || previousItemName == StringsDatabase.Items.Matches)
-        {
-            statsSection.GetComponent<VerticalLayoutGroup>().spacing = -12;
-        }
-        else
-        {
-            statsSection.GetComponent<VerticalLayoutGroup>().spacing = -7.62f;
-        }
-
         switch (previousItemName)
         {
             case StringsDatabase.Items.Weight:
@@ -1269,9 +1604,45 @@ public class UIManager_Items : MonoBehaviour
                     alertText.SetActive(false);
                     attachButton.interactable = true;
 
-                    currentInt = currentTower.GetComponent<Tower>().Damage;
-                    changeInt = (int)item.Changes[0];
-                    SetStatChange("Damage", currentInt, currentInt - changeInt, false, true, true);
+                    if (itemSelected.name != StringsDatabase.Items.DartBoard && itemSelected.name != StringsDatabase.Items.RedBall && itemSelected.name != StringsDatabase.Items.Scope && itemSelected.name != StringsDatabase.Items.Blueprint)
+                    {
+                        currentInt = currentTower.GetComponent<Tower>().Damage;
+                        changeInt = (int)item.Changes[0];
+                        SetStatChange("Damage", currentInt, currentInt - changeInt, false, true, true);
+
+                        if (currentTower.GetComponent<Tower>().CriticalChance > 0)
+                        {
+                            currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                            changeInt = (currentTower.GetComponent<Tower>().Damage - (int)item.Changes[0]) * 2;
+                            SetStatChange("Critical Damage", currentInt, changeInt, false, false, true);
+                        }
+
+                        if (currentTower.GetComponent<DamageTower>() != null && currentTower.GetComponent<DamageTower>().SuperDamageChance > 0)
+                        {
+                            currentInt = currentTower.GetComponent<DamageTower>().SuperDamage;
+                            changeInt = (currentTower.GetComponent<Tower>().Damage - (int)item.Changes[0]) * 5;
+                            SetStatChange("Damage", currentInt, changeInt, false, false, true);
+                        }
+                    }
+                    else if(itemSelected.name == StringsDatabase.Items.RedBall)
+                    {
+                        currentInt = currentTower.GetComponent<Tower>().Damage;
+                        changeInt = (int)item.Changes[0];
+                        SetStatChange("Damage", currentInt, currentInt - changeInt, false, false, true);
+
+                        if (currentTower.GetComponent<Tower>().CriticalChance > 0)
+                        {
+                            currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                            changeInt = (currentTower.GetComponent<Tower>().Damage - (int)item.Changes[0]) * 2;
+                            SetStatChange("Critical Damage", currentInt, changeInt, false, false, true);
+                        }
+                    }
+                    else if(itemSelected.name != StringsDatabase.Items.Blueprint)
+                    {
+                        currentInt = currentTower.GetComponent<Tower>().Damage;
+                        changeInt = (int)item.Changes[0];
+                        SetStatChange("Damage", currentInt, currentInt - changeInt, false, false, true);
+                    }
                 }
                 break;
             case StringsDatabase.Items.HotPepper:
@@ -1343,7 +1714,7 @@ public class UIManager_Items : MonoBehaviour
 
                     if (currentInt - changeInt == 0)
                     {
-                        currentInt = currentTower.GetComponent<DamageTower>().CriticalDamage;
+                        currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
                         changeInt = 0;
                         SetStatChange("Critical Damage", currentInt, changeInt, false, false, true);
                     }
@@ -1427,6 +1798,24 @@ public class UIManager_Items : MonoBehaviour
                     currentInt = ReferencesManager.GameManager.bonusDamageTowerDamage;
                     changeInt = (int)item.Changes[0];
                     SetStatChange("Bonus Damage", currentInt, currentInt - changeInt, false, true, true);
+
+                    currentInt = currentTower.GetComponent<Tower>().Damage;
+                    changeInt = (int)item.Changes[0];
+                    SetStatChange("Damage", currentInt, currentInt - changeInt, false, false, true);
+
+                    if(currentTower.GetComponent<Tower>().CriticalChance > 0)
+                    {
+                        currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                        changeInt = (currentTower.GetComponent<Tower>().Damage - (int)item.Changes[0]) * 2;
+                        SetStatChange("Critical Damage", currentInt, changeInt, false, false, true);
+                    }
+
+                    if(currentTower.GetComponent<DamageTower>() != null && currentTower.GetComponent<DamageTower>().SuperDamageChance > 0)
+                    {
+                        currentInt = currentTower.GetComponent<DamageTower>().SuperDamage;
+                        changeInt = (currentTower.GetComponent<Tower>().Damage - (int)item.Changes[0]) * 5;
+                        SetStatChange("Super Damage", currentInt, changeInt, false, false, true);
+                    }
                 }
                 break;
             case StringsDatabase.Items.RedBall:
@@ -1439,9 +1828,12 @@ public class UIManager_Items : MonoBehaviour
                     changeInt = (int)item.Changes[0];
                     SetStatChange("Super Damage Chance", currentInt, currentInt - changeInt, false, true, true);
 
-                    currentInt = currentTower.GetComponent<DamageTower>().SuperDamage;
-                    changeInt = currentTower.GetComponent<DamageTower>().Damage * 5;
-                    SetStatChange("Super Damage", currentInt, currentInt - changeInt, false, false, true);
+                    if (currentTower.GetComponent<DamageTower>().SuperDamageChance - (int)item.Changes[0] == 0)
+                    {
+                        currentInt = currentTower.GetComponent<DamageTower>().SuperDamage;
+                        changeInt = 0;
+                        SetStatChange("Super Damage", currentInt, changeInt, false, false, true);
+                    }
                 }
                 break;
             case StringsDatabase.Items.Snowflake:
@@ -1608,6 +2000,13 @@ public class UIManager_Items : MonoBehaviour
                         currentInt = currentTower.GetComponent<Tower>().Damage;
                         changeInt = (int)item.Changes[0];
                         SetStatChange("Damage", currentInt, currentInt - changeInt, false, true, true);
+
+                        if (currentTower.GetComponent<Tower>().CriticalChance > 0)
+                        {
+                            currentInt = currentTower.GetComponent<Tower>().CriticalDamage;
+                            changeInt = (currentTower.GetComponent<Tower>().Damage - (int)item.Changes[0]) * 2;
+                            SetStatChange("Critical Damage", currentInt, changeInt, false, false, true);
+                        }
 
                         currentInt = currentTower.GetComponent<BombTower>().SplashDamage;
                         changeInt = (int)item.Changes[1];
@@ -2117,6 +2516,7 @@ public class UIManager_Items : MonoBehaviour
 
                     if (currentTower.GetComponent<Tower>().Stats.Contains("Critical Chance") && currentTower.GetComponent<Tower>().CriticalChance == 0)
                     {
+                        currentTower.GetComponent<Tower>().CriticalDamage = 0;
                         currentTower.GetComponent<Tower>().RemoveStat("Critical Chance");
                         currentTower.GetComponent<Tower>().RemoveStat("Critical Damage");
                     }
@@ -2126,6 +2526,7 @@ public class UIManager_Items : MonoBehaviour
                     currentTower.GetComponent<Tower>().CriticalChance += (int)item.Changes[0];
                     if (!currentTower.GetComponent<Tower>().Stats.Contains("Critical Chance"))
                     {
+                        currentTower.GetComponent<Tower>().CriticalDamage = currentTower.GetComponent<Tower>().Damage * 2;
                         currentTower.GetComponent<Tower>().AddStat("Critical Chance");
                         currentTower.GetComponent<Tower>().AddStat("Critical Damage");
                     }
@@ -2323,10 +2724,10 @@ public class UIManager_Items : MonoBehaviour
                 if (isRemoved)
                 {
                     currentTower.GetComponent<DamageTower>().SuperDamageChance -= (int)item.Changes[0];
-                    currentTower.GetComponent<DamageTower>().SuperDamage = 0;
 
                     if (currentTower.GetComponent<Tower>().Stats.Contains("Super Damage Chance") && currentTower.GetComponent<DamageTower>().SuperDamageChance == 0)
                     {
+                        currentTower.GetComponent<DamageTower>().SuperDamage = 0;
                         currentTower.GetComponent<Tower>().RemoveStat("Super Damage Chance");
                         currentTower.GetComponent<Tower>().RemoveStat("Super Damage");
                     }
@@ -2334,10 +2735,10 @@ public class UIManager_Items : MonoBehaviour
                 else
                 {
                     currentTower.GetComponent<DamageTower>().SuperDamageChance += (int)item.Changes[0];
-                    currentTower.GetComponent<DamageTower>().SuperDamage = currentTower.GetComponent<DamageTower>().Damage * 5;
 
                     if(!currentTower.GetComponent<DamageTower>().Stats.Contains("Super Damage Chance"))
                     {
+                        currentTower.GetComponent<DamageTower>().SuperDamage = currentTower.GetComponent<DamageTower>().Damage * 5;
                         currentTower.GetComponent<DamageTower>().AddStat("Super Damage Chance");
                         currentTower.GetComponent<DamageTower>().AddStat("Super Damage");
                     }
