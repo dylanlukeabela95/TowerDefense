@@ -14,7 +14,8 @@ public class PoisonTower : Tower
     public bool PoisonSpread;
     public float PoisonSpreadRadius;
 
-    public bool CanPoisonCrit;
+    public bool CanPoisonCrit_Node;
+    public Dictionary<string, bool> CanPoisonCrit_Item = new Dictionary<string, bool>();
 
     public int DoublePoisonTickRateChance;
 
@@ -22,6 +23,8 @@ public class PoisonTower : Tower
     protected override void Start()
     {
         base.Start();
+
+        AssignDictionary();
         AssignStats(TowerEnum.PoisonTower);
         AssignStats();
         SetStats(ReferencesManager.StatsManager.PoisonTowerStats);
@@ -37,6 +40,15 @@ public class PoisonTower : Tower
         base.Update();
     }
 
+    void AssignDictionary()
+    {
+        CanPoisonCrit_Item.Add("Fungus 1", false);
+        CanPoisonCrit_Item.Add("Fungus 2", false);
+        CanPoisonCrit_Item.Add("Fungus 3", false);
+        CanPoisonCrit_Item.Add("Fungus 4", false);
+        CanPoisonCrit_Item.Add("Fungus 5", false);
+    }
+
     void AssignStats()
     {
         PoisonDamageOverTime = (int)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.PoisonDamageOverTime];
@@ -44,16 +56,28 @@ public class PoisonTower : Tower
         PoisonTickRate = (float)ReferencesManager.TowerManager.PoisonStats[StringsDatabase.Stats.PoisonTickRate];
     }
 
-    public void AddStat(string stat)
-    {
-        Stats.Add(stat);
-    }
-
     public override void SellTower()
     {
-        if (CanPoisonCrit)
+        for (int i = 1; i <= 5; i++)
+        {
+            if (CanPoisonCrit_Item["Fungus "+i])
+            {
+                ReferencesManager.GameManager.PoisonCriticalChance -= (int)ReferencesManager.ItemsManager.AllItems.Find(a => a.ItemName == StringsDatabase.Items.Fungus).Changes[0];
+            }
+        }
+
+        if (CanPoisonCrit_Node)
         {
             ReferencesManager.GameManager.PoisonCriticalChance -= (int)ReferencesManager.UpgradesManager.PoisonTowerPoisonCriticalChance["Level5"];
+        }
+
+        if (ReferencesManager.GameManager.PoisonCriticalChance == 0)
+        {
+            foreach (var poisonTower in ReferencesManager.GameManager.AllTowers.FindAll(a => a.name.Contains("PoisonTower")))
+            {
+                poisonTower.GetComponent<PoisonTower>().RemoveStat(StringsDatabase.Stats_Display.PoisonCriticalChance);
+                poisonTower.GetComponent<PoisonTower>().RemoveStat(StringsDatabase.Stats_Display.PoisonCriticalDamage);
+            }
         }
         base.SellTower();
     }

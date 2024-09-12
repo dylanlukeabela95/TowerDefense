@@ -53,12 +53,15 @@ public class ItemsManager : MonoBehaviour
         AddItemToInventory(StringsDatabase.Items.LiquidNitrogen, AllItems.Find(a => a.ItemName == StringsDatabase.Items.LiquidNitrogen));
         AddItemToInventory(StringsDatabase.Items.IceCube, AllItems.Find(a => a.ItemName == StringsDatabase.Items.IceCube));
         AddItemToInventory(StringsDatabase.Items.Snowball, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Snowball));
+        AddItemToInventory(StringsDatabase.Items.Snowball, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Snowball));
         AddItemToInventory(StringsDatabase.Items.FrozenBottle, AllItems.Find(a => a.ItemName == StringsDatabase.Items.FrozenBottle));
         AddItemToInventory(StringsDatabase.Items.IceCream, AllItems.Find(a => a.ItemName == StringsDatabase.Items.IceCream));
         AddItemToInventory(StringsDatabase.Items.PoisonVial, AllItems.Find(a => a.ItemName == StringsDatabase.Items.PoisonVial));
         AddItemToInventory(StringsDatabase.Items.HazardSign, AllItems.Find(a => a.ItemName == StringsDatabase.Items.HazardSign));
         AddItemToInventory(StringsDatabase.Items.MoldyCheese, AllItems.Find(a => a.ItemName == StringsDatabase.Items.MoldyCheese));
         AddItemToInventory(StringsDatabase.Items.SnotTissue, AllItems.Find(a => a.ItemName == StringsDatabase.Items.SnotTissue));
+        AddItemToInventory(StringsDatabase.Items.Fungus, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Fungus));
+        AddItemToInventory(StringsDatabase.Items.Fungus, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Fungus));
         AddItemToInventory(StringsDatabase.Items.Fungus, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Fungus));
         AddItemToInventory(StringsDatabase.Items.Cannonball, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Cannonball));
         AddItemToInventory(StringsDatabase.Items.Dynamite, AllItems.Find(a => a.ItemName == StringsDatabase.Items.Dynamite));

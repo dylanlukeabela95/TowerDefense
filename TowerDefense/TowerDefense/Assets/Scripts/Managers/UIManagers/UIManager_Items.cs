@@ -2794,7 +2794,7 @@ public class UIManager_Items : MonoBehaviour
                 if (isRemoved)
                 {
                     currentTower.GetComponent<FreezeTower>().SnowballChance -= (int)item.Changes[0];
-                    if (currentTower.GetComponent<FreezeTower>().SnowballStunDuration == 0)
+                    if (currentTower.GetComponent<FreezeTower>().SnowballChance == 0)
                     {
                         currentTower.GetComponent<FreezeTower>().SnowballStunDuration -= (float)item.Changes[1];
                     }
@@ -2946,20 +2946,52 @@ public class UIManager_Items : MonoBehaviour
                 {
                     ReferencesManager.GameManager.PoisonCriticalChance -= (int)item.Changes[0];
 
-                    if (currentTower.GetComponent<Tower>().Stats.Contains("Poison Critical Chance") && ReferencesManager.GameManager.PoisonCriticalChance == 0)
+                    if (ReferencesManager.GameManager.PoisonCriticalChance == 0 && ReferencesManager.StatsManager.PoisonTowerStats.Contains(StringsDatabase.Stats_Display.PoisonCriticalChance))
                     {
-                        currentTower.GetComponent<Tower>().RemoveStat("Poison Critical Chance");
-                        currentTower.GetComponent<Tower>().RemoveStat("Poison Critical Damage");
+                        ReferencesManager.StatsManager.RemoveFromList(ReferencesManager.StatsManager.PoisonTowerStats, StringsDatabase.Stats_Display.PoisonCriticalChance);
+                        ReferencesManager.StatsManager.RemoveFromList(ReferencesManager.StatsManager.PoisonTowerStats, StringsDatabase.Stats_Display.PoisonCriticalDamage);
+
+                        var poisonTowers = ReferencesManager.GameManager.AllTowers.Where(a => a.name.Contains("PoisonTower"));
+                        foreach (var poisonTower in poisonTowers)
+                        {
+                            poisonTower.GetComponent<PoisonTower>().RemoveStat(StringsDatabase.Stats_Display.PoisonCriticalChance);
+                            poisonTower.GetComponent<PoisonTower>().RemoveStat(StringsDatabase.Stats_Display.PoisonCriticalDamage);
+                        }
+                    }
+
+                    for (int i = 5; i >= 1; i--)
+                    {
+                        if (currentTower.GetComponent<PoisonTower>().CanPoisonCrit_Item["Fungus " + i])
+                        {
+                            currentTower.GetComponent<PoisonTower>().CanPoisonCrit_Item["Fungus " + i] = false;
+                            break;
+                        }
                     }
                 }
                 else
                 {
                     ReferencesManager.GameManager.PoisonCriticalChance += (int)item.Changes[0];
 
-                    if (!currentTower.GetComponent<Tower>().Stats.Contains("Poison Critical Chance"))
+                    if (ReferencesManager.GameManager.PoisonCriticalChance > 0 && !ReferencesManager.StatsManager.PoisonTowerStats.Contains(StringsDatabase.Stats_Display.PoisonCriticalChance))
                     {
-                        currentTower.GetComponent<Tower>().AddStat("Poison Critical Chance");
-                        currentTower.GetComponent<Tower>().AddStat("Poison Critical Damage");
+                        ReferencesManager.StatsManager.AddToList(ReferencesManager.StatsManager.PoisonTowerStats, StringsDatabase.Stats_Display.PoisonCriticalChance);
+                        ReferencesManager.StatsManager.AddToList(ReferencesManager.StatsManager.PoisonTowerStats, StringsDatabase.Stats_Display.PoisonCriticalDamage);
+
+                        var poisonTowers = ReferencesManager.GameManager.AllTowers.Where(a => a.name.Contains("PoisonTower"));
+                        foreach (var poisonTower in poisonTowers)
+                        {
+                            poisonTower.GetComponent<PoisonTower>().Stats.Add(StringsDatabase.Stats_Display.PoisonCriticalChance);
+                            poisonTower.GetComponent<PoisonTower>().Stats.Add(StringsDatabase.Stats_Display.PoisonCriticalDamage);
+                        }
+                    }
+
+                    for (int i = 1; i <= 5; i++)
+                    {
+                        if (!currentTower.GetComponent<PoisonTower>().CanPoisonCrit_Item["Fungus " + i])
+                        {
+                            currentTower.GetComponent<PoisonTower>().CanPoisonCrit_Item["Fungus " + i] = true;
+                            break;
+                        }
                     }
                 }
                 break;

@@ -792,7 +792,7 @@ public class UIManager_Upgrades : MonoBehaviour
                         poisonTower.GetComponent<PoisonTower>().Stats.Add(StringsDatabase.Stats_Display.PoisonCriticalDamage);
                     }
 
-                    currentTower.GetComponent<PoisonTower>().CanPoisonCrit = true;
+                    currentTower.GetComponent<PoisonTower>().CanPoisonCrit_Node = true;
                 }
                 break;
             case StringsDatabase.Stats.PoisonSpread:
