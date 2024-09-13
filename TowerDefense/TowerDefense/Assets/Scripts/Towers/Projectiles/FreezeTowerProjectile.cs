@@ -39,9 +39,7 @@ public class FreezeTowerProjectile : TowerProjectile
 
             if (IceDamage > 0)
             {
-                GameObject text2 = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
-                text2.GetComponent<TextMeshPro>().text = IceDamage.ToString();
-                text2.GetComponent<TextMeshPro>().color = Color.cyan;
+                ReferencesManager.GameManager.CreateDamageText(other.gameObject, IceDamage, false, false, false, false, false, true);
             }
 
             if (!other.GetComponent<Enemy>().isFrozen)
@@ -64,10 +62,7 @@ public class FreezeTowerProjectile : TowerProjectile
                     {
                         other.GetComponent<Enemy>().isImmobilize = true;
 
-                        GameObject text = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
-                        text.GetComponent<TextMeshPro>().text = "Immobilized";
-                        text.GetComponent<TextMeshPro>().color = Color.cyan;
-                        text.GetComponent<DamageText>().goDown = true;
+                        ReferencesManager.GameManager.CreateDamageText(other.gameObject, "Immobilize", true, false);
                     }
                 }
             }

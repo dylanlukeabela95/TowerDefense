@@ -4,19 +4,22 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class UIManager_Pause : MonoBehaviour
 {
     private bool isPauseMenuShowing;
 
     public bool isOptionsButtonSelected;
+    public bool isDamageNumbersButtonSelected;
+    public bool showDamageNumbers;
 
     [Header("Pause Menu Section")]
     public GameObject pauseMenuSection;
 
     [Header("Button Section")]
     public GameObject mainButtonSection;
-    public GameObject[] mainButtons;
+    public List<GameObject> mainButtons = new List<GameObject>();
 
     [Header("Sections")]
     public GameObject leftSection;
@@ -25,13 +28,22 @@ public class UIManager_Pause : MonoBehaviour
 
     [Header("Options Section")]
     public GameObject optionsSection;
-    public GameObject[] optionsButtons;
+    public List<GameObject> optionsButtons = new List<GameObject>();
+
+    [Header("Damage Numbers Section")]
+    public GameObject damageNumbersSection;
+
+    [Header("Damage Numbers Checkbox")]
+    public GameObject damageNumberCheckbox;
 
     // Start is called before the first frame update
     void Start()
     {
         pauseMenuSection.SetActive(false);
         optionsSection.SetActive(false);
+        damageNumbersSection.SetActive(false);
+
+        SetDamageNumbersCheckmark();
     }
 
     // Update is called once per frame
@@ -75,7 +87,7 @@ public class UIManager_Pause : MonoBehaviour
         ChangeBorder(mainButtons);
     }
 
-    void ChangeBorder(GameObject[] buttons)
+    void ChangeBorder(List<GameObject> buttons)
     {
         foreach (var button in buttons)
         {
@@ -93,6 +105,11 @@ public class UIManager_Pause : MonoBehaviour
         buttonSection.transform.localPosition = Vector3.zero;
     }
 
+    void SetDamageNumbersCheckmark()
+    {
+        damageNumberCheckbox.transform.GetChild(0).gameObject.SetActive(showDamageNumbers);
+    }
+
     #region OnClick
 
     public void OnClick_ResmueButton(GameObject resumeButton)
@@ -108,6 +125,18 @@ public class UIManager_Pause : MonoBehaviour
 
         optionsSection.SetActive(true);
         ChangeSection(optionsSection, middleSection);
+    }
+
+    public void OnClick_DamageNumbersButton(GameObject damageNumbersButton)
+    {
+        isDamageNumbersButtonSelected = true;
+        damageNumbersSection.SetActive(true);
+    }
+
+    public void OnClick_DamageNumbersCheckbox()
+    {
+        showDamageNumbers = !showDamageNumbers;
+        SetDamageNumbersCheckmark();
     }
 
     #endregion

@@ -145,6 +145,7 @@ public class DamageTower : Tower
             for (int i = 0; i < ProjectileCount; i++)
             {
                 GameObject bullet = Instantiate(projectile, Barrels[i].position, Barrels[i].rotation);
+                bullet.GetComponent<TowerProjectile>().ReferencesManager = ReferencesManager;
                 bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
                 bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;
 
@@ -180,6 +181,7 @@ public class DamageTower : Tower
         else
         {
             GameObject bullet = Instantiate(projectile, Barrel.position, Barrel.rotation);
+            bullet.GetComponent<TowerProjectile>().ReferencesManager = ReferencesManager;
             bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
             bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;
 

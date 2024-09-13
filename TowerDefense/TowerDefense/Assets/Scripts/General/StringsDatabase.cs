@@ -211,6 +211,7 @@ namespace Strings
         {
             public const string OptionsButton = "OptionsButton";
             public const string OptionsSection = "OptionsSection";
+            public const string DamageNumbersButton = "DamageNumbersButton";
         }
     }
 }

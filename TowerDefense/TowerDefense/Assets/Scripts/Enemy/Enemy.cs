@@ -109,9 +109,6 @@ public class Enemy : MonoBehaviour
     {
         if (isPoisoned)
         {
-            TextMeshPro[] damageTexts; //used for double tick rate
-            TextMeshPro damageText; //used for normal tick rate
-
             GetComponent<SpriteRenderer>().color = Color.green;
             //If target is poisoned and dummyTickRate is still 0, set it and decrease from it
             if (dummyTickRate_Poison <= 0 && isPoisoned && !firstSetPoison)
@@ -124,56 +121,43 @@ public class Enemy : MonoBehaviour
                 dummyTickRate_Poison = poisonTickRate;
                 if (doublePoisonTickRateChance > 0 && Random.Range(0, 101) <= doublePoisonTickRateChance)
                 {
-                    damageTexts = new TextMeshPro[2];
-
-                    damageTexts[0] = Instantiate(DamageText, transform.position, Quaternion.identity);
-                    damageTexts[1] = Instantiate(DamageText, transform.position, Quaternion.identity);
-
-                    foreach (var damageText_item in damageTexts)
+                    for (int i = 0; i <= 1; i++)
                     {
                         if (ReferencesManager.GameManager.PoisonCriticalChance != 0)
                         {
                             var random = Random.Range(0, 101);
                             if (random <= ReferencesManager.GameManager.PoisonCriticalChance)
                             {
-                                damageText_item.text = (poisonDamage * 2).ToString();
-                                damageText_item.color = new Color32(206, 250, 5, 255);
+                                ReferencesManager.GameManager.CreateDamageText(this.gameObject, poisonDamage * 2, false, false, false, false, true, false);
                             }
                             else
                             {
-                                damageText_item.text = poisonDamage.ToString();
-                                damageText_item.color = Color.green;
+                                ReferencesManager.GameManager.CreateDamageText(this.gameObject, poisonDamage, false, false, false, true, false, false);
                             }
                         }
                         else
                         {
-                            damageText_item.text = poisonDamage.ToString();
-                            damageText_item.color = Color.green;
+                            ReferencesManager.GameManager.CreateDamageText(this.gameObject, poisonDamage, false, false, false, true, false, false);
                         }
                     }
                 }
                 else
                 {
-                    damageText = Instantiate(DamageText, transform.position, Quaternion.identity);
-
                     if (ReferencesManager.GameManager.PoisonCriticalChance != 0)
                     {
                         var random = Random.Range(0, 101);
                         if (random <= ReferencesManager.GameManager.PoisonCriticalChance)
                         {
-                            damageText.text = (poisonDamage * 2).ToString();
-                            damageText.color = new Color32(206, 250, 5, 255);
+                            ReferencesManager.GameManager.CreateDamageText(this.gameObject, poisonDamage * 2, false, false, false, false, true, false);
                         }
                         else
                         {
-                            damageText.text = poisonDamage.ToString();
-                            damageText.color = Color.green;
+                            ReferencesManager.GameManager.CreateDamageText(this.gameObject, poisonDamage, false, false, false, true, false, false);
                         }
                     }
                     else
                     {
-                        damageText.text = poisonDamage.ToString();
-                        damageText.color = Color.green;
+                        ReferencesManager.GameManager.CreateDamageText(this.gameObject, poisonDamage, false, false, false, true, false, false);
                     }
                 }
 
@@ -207,9 +191,7 @@ public class Enemy : MonoBehaviour
                 else if (dummyTickRate_Frostbite <= 0 && isFrozen)
                 {
                     dummyTickRate_Frostbite = frostbiteTickRate;
-                    TextMeshPro damageText = Instantiate(DamageText, transform.position, Quaternion.identity);
-                    damageText.text = frostbiteDamage.ToString();
-                    damageText.color = Color.cyan;
+                    ReferencesManager.GameManager.CreateDamageText(this.gameObject, frostbiteDamage, false, false, false, false, false, true);
                 }
 
                 dummyTickRate_Frostbite -= Time.deltaTime;
@@ -251,9 +233,7 @@ public class Enemy : MonoBehaviour
             else if (dummyTickRate_Burn <= 0 && isBurn)
             {
                 dummyTickRate_Burn = burnTickRate;
-                TextMeshPro damageText = Instantiate(DamageText, transform.position, Quaternion.identity);
-                damageText.text = burnDamage.ToString();
-                damageText.color = new Color32(255, 165, 0, 255);
+                ReferencesManager.GameManager.CreateDamageText(this.gameObject, burnDamage, false, false, false, false, false, false, true);
             }
 
             dummyTickRate_Burn -= Time.deltaTime;

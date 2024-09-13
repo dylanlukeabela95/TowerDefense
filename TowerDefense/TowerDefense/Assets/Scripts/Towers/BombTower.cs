@@ -45,11 +45,6 @@ public class BombTower : Tower
         SplashRadius = (float)ReferencesManager.TowerManager.BombStats[StringsDatabase.Stats.SplashRadius];
     }
 
-    public void AddStat(string stat)
-    {
-        Stats.Add(stat);
-    }
-
     public override IEnumerator Shoot(GameObject projectile)
     {
         while (true)
@@ -57,6 +52,7 @@ public class BombTower : Tower
             if (EnemiesInRange.Count > 0)
             {
                 GameObject bullet = Instantiate(projectile, Barrel.position, Barrel.rotation);
+                bullet.GetComponent<TowerProjectile>().ReferencesManager = ReferencesManager;
                 bullet.GetComponent<TowerProjectile>().target = EnemiesInRange[0].gameObject;
                 bullet.GetComponent<TowerProjectile>().Damage = Damage;
                 bullet.GetComponent<TowerProjectile>().FromTower = this.gameObject.name;

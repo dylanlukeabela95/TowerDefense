@@ -14,19 +14,18 @@ public class PauseMenuButtonHoverListener : MonoBehaviour, IPointerEnterHandler,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(ReferencesManager.UIManager_Pause.isOptionsButtonSelected && this.name == StringsDatabase.PauseMenu.OptionsButton)
-        {
-        }
-        else
-        {
-            GetComponent<Image>().color = hoverColor;
-        }
+        GetComponent<Image>().color = hoverColor;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (ReferencesManager.UIManager_Pause.isOptionsButtonSelected && this.name == StringsDatabase.PauseMenu.OptionsButton)
         {
+
+        }
+        else if (ReferencesManager.UIManager_Pause.isOptionsButtonSelected && ReferencesManager.UIManager_Pause.isDamageNumbersButtonSelected && this.name == StringsDatabase.PauseMenu.DamageNumbersButton)
+        {
+
         }
         else
         {

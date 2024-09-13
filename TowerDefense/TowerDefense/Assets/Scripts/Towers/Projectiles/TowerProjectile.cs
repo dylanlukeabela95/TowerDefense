@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class TowerProjectile : MonoBehaviour
 {
+    public ReferencesManager ReferencesManager;
+
     public TextMeshPro DamageText;
 
     public float ProjectileSpeed;
@@ -51,29 +53,23 @@ public class TowerProjectile : MonoBehaviour
                 if (isCritical)
                 {
                     markedDamage = CriticalDamage + (CriticalDamage * (other.GetComponent<Enemy>().markedBonusDamagePercentage * 1.0f / 100));
-                    GameObject text = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
-                    text.GetComponent<TextMeshPro>().text = Mathf.CeilToInt(markedDamage).ToString();
-                    text.GetComponent<TextMeshPro>().color = Color.yellow;
+                    ReferencesManager.GameManager.CreateDamageText(other.gameObject, Mathf.CeilToInt(markedDamage), true, false, false, false, false, false);
                 }
                 else
                 {
                     markedDamage = Damage + (Damage * (other.GetComponent<Enemy>().markedBonusDamagePercentage * 1.0f / 100));
-                    GameObject text = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
-                    text.GetComponent<TextMeshPro>().text = Mathf.CeilToInt(markedDamage).ToString();
+                    ReferencesManager.GameManager.CreateDamageText(other.gameObject, Mathf.CeilToInt(markedDamage), false, false, false, false, false, false);
                 }
             }
             else
             {
                 if (isCritical)
                 {
-                    GameObject text = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
-                    text.GetComponent<TextMeshPro>().text = CriticalDamage.ToString();
-                    text.GetComponent<TextMeshPro>().color = Color.yellow;
+                    ReferencesManager.GameManager.CreateDamageText(other.gameObject, CriticalDamage, true, false, false, false, false, false);
                 }
                 else
                 {
-                    GameObject text = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
-                    text.GetComponent<TextMeshPro>().text = Damage.ToString();
+                    ReferencesManager.GameManager.CreateDamageText(other.gameObject, Damage, false, false, false, false, false, false);
                 }
             }
         }

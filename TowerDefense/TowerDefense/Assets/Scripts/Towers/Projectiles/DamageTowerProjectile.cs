@@ -41,42 +41,32 @@ public class DamageTowerProjectile : TowerProjectile
                 if (isSuperDamage)
                 {
                     markedDamage = superDamage + (superDamage * (other.GetComponent<Enemy>().markedBonusDamagePercentage * 1.0f / 100));
-                    GameObject text = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
-                    text.GetComponent<TextMeshPro>().text = Mathf.CeilToInt(markedDamage).ToString();
-                    text.GetComponent<TextMeshPro>().color = new Color32(160, 32, 240, 255);
+                    ReferencesManager.GameManager.CreateDamageText(other.gameObject, Mathf.CeilToInt(markedDamage), false, true, false, false, false, false);
                 }
                 else if (isCritical)
                 {
                     markedDamage = CriticalDamage + (CriticalDamage * (other.GetComponent<Enemy>().markedBonusDamagePercentage * 1.0f / 100));
-                    GameObject text = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
-                    text.GetComponent<TextMeshPro>().text = Mathf.CeilToInt(markedDamage).ToString();
-                    text.GetComponent<TextMeshPro>().color = Color.yellow;
+                    ReferencesManager.GameManager.CreateDamageText(other.gameObject, Mathf.CeilToInt(markedDamage), true, false, false, false, false, false);
                 }
                 else
                 {
                     markedDamage = Damage + (Damage * (other.GetComponent<Enemy>().markedBonusDamagePercentage * 1.0f / 100));
-                    GameObject text = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
-                    text.GetComponent<TextMeshPro>().text = Mathf.CeilToInt(markedDamage).ToString();
+                    ReferencesManager.GameManager.CreateDamageText(other.gameObject, Mathf.CeilToInt(markedDamage), false, false, false, false, false, false);
                 }
             }
             else
             {
                 if (isSuperDamage)
                 {
-                    GameObject text = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
-                    text.GetComponent<TextMeshPro>().text = superDamage.ToString();
-                    text.GetComponent<TextMeshPro>().color = new Color32(160, 32, 240, 255);
+                    ReferencesManager.GameManager.CreateDamageText(other.gameObject, superDamage, false, true, false, false, false, false);
                 }
                 else if (isCritical)
                 {
-                    GameObject text = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
-                    text.GetComponent<TextMeshPro>().text = CriticalDamage.ToString();
-                    text.GetComponent<TextMeshPro>().color = Color.yellow;
+                    ReferencesManager.GameManager.CreateDamageText(other.gameObject, CriticalDamage, true, false, false, false, false, false);
                 }
                 else
                 {
-                    GameObject text = Instantiate(DamageText.gameObject, other.transform.position, Quaternion.identity);
-                    text.GetComponent<TextMeshPro>().text = Damage.ToString();
+                    ReferencesManager.GameManager.CreateDamageText(other.gameObject, Damage, false, false, false, false, false, false);
                 }
             }
 

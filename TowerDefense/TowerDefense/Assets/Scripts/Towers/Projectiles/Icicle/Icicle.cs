@@ -56,8 +56,6 @@ public class Icicle : MonoBehaviour
     {
         if(other.gameObject.CompareTag(StringsDatabase.Tag.EnemyTag) && other.gameObject == target)
         {
-            TextMeshPro damageText = Instantiate(DamageText, other.transform.position, Quaternion.identity);
-
             if(!other.GetComponent<Enemy>().isFrozen)
             {
                 other.GetComponent<Enemy>().isFrozen = true;
@@ -70,13 +68,11 @@ public class Icicle : MonoBehaviour
                     other.GetComponent<Enemy>().frostbiteTickRate = frostbiteTickRate;
                 }    
 
-                damageText.text = icicleDamage.ToString();
-                damageText.color = Color.cyan;
+                GameManager.CreateDamageText(other.gameObject, icicleDamage, false, false, false, false, false, true);
             }
             else
             {
-                damageText.text = (icicleDamage * 2).ToString();
-                damageText.color = Color.cyan;
+                GameManager.CreateDamageText(other.gameObject, icicleDamage * 2, false, false, false, false, false, true);
             }
 
             Destroy(this.gameObject);

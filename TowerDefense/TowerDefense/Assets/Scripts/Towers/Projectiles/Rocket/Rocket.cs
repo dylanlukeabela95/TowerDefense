@@ -54,8 +54,7 @@ public class Rocket : MonoBehaviour
     {
         if(other.gameObject.CompareTag(StringsDatabase.Tag.EnemyTag) && target == other.gameObject)
         {
-            TextMeshPro damageText_Rocket = Instantiate(DamageText, other.transform.position, Quaternion.identity);
-            damageText_Rocket.text = rocketDamage.ToString();
+            GameManager.CreateDamageText(other.gameObject, rocketDamage, false, false, false, false, false, false);
 
             ApplySplashDamage();
 
@@ -79,14 +78,8 @@ public class Rocket : MonoBehaviour
                     if (enemy != null)
                     {
                         //enemy.TakeDamage(damage);
-
-                        TextMeshPro damageText = Instantiate(DamageText, enemy.transform.position, Quaternion.identity);
-                        damageText.text = splashDamage.ToString();
-                        damageText.color = new Color32(255, 211, 0, 255);
-
-                        TextMeshPro damageText2 = Instantiate(DamageText, enemy.transform.position, Quaternion.identity);
-                        damageText2.text = splashDamage.ToString();
-                        damageText2.color = new Color32(255, 211, 0, 255);
+                        GameManager.CreateDamageText(enemy.gameObject, splashDamage, false, false, true, false, false, false);
+                        GameManager.CreateDamageText(enemy.gameObject, splashDamage, false, false, true, false, false, false);
                     }
                 }
             }
@@ -98,10 +91,7 @@ public class Rocket : MonoBehaviour
                     if (enemy != null)
                     {
                         //enemy.TakeDamage(damage);
-
-                        TextMeshPro damageText = Instantiate(DamageText, enemy.transform.position, Quaternion.identity);
-                        damageText.text = splashDamage.ToString();
-                        damageText.color = new Color32(255, 211, 0, 255);
+                        GameManager.CreateDamageText(enemy.gameObject, splashDamage, false, false, true, false, false, false);
                     }
                 }
             }
@@ -114,10 +104,7 @@ public class Rocket : MonoBehaviour
                 if (enemy != null)
                 {
                     //enemy.TakeDamage(damage);
-
-                    TextMeshPro damageText = Instantiate(DamageText, enemy.transform.position, Quaternion.identity);
-                    damageText.text = splashDamage.ToString();
-                    damageText.color = new Color32(255, 211, 0, 255);
+                    GameManager.CreateDamageText(enemy.gameObject, splashDamage, false, false, true, false, false, false);
                 }
             }
         }

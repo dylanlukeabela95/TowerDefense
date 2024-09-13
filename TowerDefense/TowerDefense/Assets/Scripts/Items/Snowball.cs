@@ -55,14 +55,13 @@ public class Snowball : MonoBehaviour
     {
         if(other.gameObject.CompareTag(StringsDatabase.Tag.EnemyTag))
         {
-            TextMeshPro damageText = Instantiate(DamageText, other.transform.position, Quaternion.identity);
-            damageText.color = Color.cyan;
-            damageText.text = snowballDamage.ToString();
+            ReferencesManager.GameManager.CreateDamageText(other.gameObject, snowballDamage, false, false, false, false, false, true);
 
             if (!other.GetComponent<Enemy>().isStun)
             {
                 other.GetComponent<Enemy>().isStun = true;
                 other.GetComponent<Enemy>().stunDuration = stunDuration;
+                ReferencesManager.GameManager.CreateDamageText(other.gameObject, "Stunned", false, true);
             }
             Destroy(this.gameObject);
         }
