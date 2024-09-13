@@ -19,4 +19,5 @@ public class ReferencesManager : MonoBehaviour
     public UIManager_Upgrades UIManager_Upgrades;
     public UIManager_SpeechBubble UIManager_SpeechBubble;
     public UIManager_Items UIManager_Items;
+    public UIManager_Pause UIManager_Pause;
 }

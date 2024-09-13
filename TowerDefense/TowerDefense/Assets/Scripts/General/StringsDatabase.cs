@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Strings
 {
@@ -204,6 +205,12 @@ namespace Strings
             public const string Nuke = "Nuke";
             public const string RPG = "RPG";
             public const string Firework = "Firework";
+        }
+
+        public class PauseMenu
+        {
+            public const string OptionsButton = "OptionsButton";
+            public const string OptionsSection = "OptionsSection";
         }
     }
 }
