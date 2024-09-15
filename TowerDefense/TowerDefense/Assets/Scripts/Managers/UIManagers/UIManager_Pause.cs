@@ -5,13 +5,19 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using TMPro;
 
 public class UIManager_Pause : MonoBehaviour
 {
+    [SerializeField]
+    private ReferencesManager ReferencesManager;
+
     private bool isPauseMenuShowing;
 
     public bool isOptionsButtonSelected;
     public bool isDamageNumbersButtonSelected;
+    public bool isMusicVolumeButtonSelected;
+
     public bool showDamageNumbers;
 
     [Header("Pause Menu Section")]
@@ -36,12 +42,18 @@ public class UIManager_Pause : MonoBehaviour
     [Header("Damage Numbers Checkbox")]
     public GameObject damageNumberCheckbox;
 
+    [Header("Music Volume Section")]
+    public GameObject musicVolumeSection;
+    public TextMeshProUGUI musicVolumeAmount;
+    public RectTransform musicVolumeBar;
+
+
     // Start is called before the first frame update
     void Start()
     {
         pauseMenuSection.SetActive(false);
         optionsSection.SetActive(false);
-        damageNumbersSection.SetActive(false);
+        ShowSection(false, false);
 
         SetDamageNumbersCheckmark();
     }
@@ -79,6 +91,9 @@ public class UIManager_Pause : MonoBehaviour
 
                 optionsSection.SetActive(false);
                 optionsSection.transform.parent = pauseMenuSection.transform;
+
+                isDamageNumbersButtonSelected = false;
+                damageNumbersSection.SetActive(false);
             }
 
             ChangeSection(mainButtonSection, middleSection);
@@ -110,6 +125,23 @@ public class UIManager_Pause : MonoBehaviour
         damageNumberCheckbox.transform.GetChild(0).gameObject.SetActive(showDamageNumbers);
     }
 
+    void ShowSection(bool isDamageNumberSection, bool isMusicVolumeSection)
+    {
+        damageNumbersSection.SetActive(isDamageNumberSection);
+        musicVolumeSection.SetActive(isMusicVolumeSection);
+    }
+
+    void UpdateVolume(TextMeshProUGUI volumeText, int volume)
+    {
+        volumeText.text = volume.ToString();
+
+        Vector2 size = musicVolumeBar.sizeDelta;
+
+        // Set the new width while keeping the current height
+        size.x = volume * 2;
+        musicVolumeBar.sizeDelta = size;
+    }
+
     #region OnClick
 
     public void OnClick_ResmueButton(GameObject resumeButton)
@@ -130,13 +162,63 @@ public class UIManager_Pause : MonoBehaviour
     public void OnClick_DamageNumbersButton(GameObject damageNumbersButton)
     {
         isDamageNumbersButtonSelected = true;
-        damageNumbersSection.SetActive(true);
+
+        if(isMusicVolumeButtonSelected)
+        {
+            isMusicVolumeButtonSelected = false;
+            optionsButtons.Find(a => a.name == StringsDatabase.PauseMenu.MusicVolumeButton).GetComponent<Image>().color = optionsButtons.Find(a => a.name == StringsDatabase.PauseMenu.MusicVolumeButton).GetComponent<PauseMenuButtonHoverListener>().defaultColor;
+        }
+
+        ShowSection(true, false);
     }
 
     public void OnClick_DamageNumbersCheckbox()
     {
         showDamageNumbers = !showDamageNumbers;
         SetDamageNumbersCheckmark();
+    }
+
+    public void OnClick_MusicVolumeButton()
+    {
+        if(isDamageNumbersButtonSelected)
+        {
+            isDamageNumbersButtonSelected = false;
+            optionsButtons.Find(a => a.name == StringsDatabase.PauseMenu.DamageNumbersButton).GetComponent<Image>().color = optionsButtons.Find(a => a.name == StringsDatabase.PauseMenu.DamageNumbersButton).GetComponent<PauseMenuButtonHoverListener>().defaultColor;
+        }
+
+        isMusicVolumeButtonSelected = true;
+        ShowSection(false, true);
+        UpdateVolume(musicVolumeAmount, ReferencesManager.SoundManager.musicVolume);
+    }
+
+    public void OnClick_MusicVolume(GameObject button)
+    {
+        switch(button.name)
+        {
+            case "Add":
+                ReferencesManager.SoundManager.AlterVolume(true, false, true, false);
+                break;
+
+            case "Subtract":
+                ReferencesManager.SoundManager.AlterVolume(true, false, false, true);
+                break;
+        }
+
+        UpdateVolume(musicVolumeAmount, ReferencesManager.SoundManager.musicVolume);
+    }
+
+    public void OnClick_SoundEffectVolume(GameObject button)
+    {
+        switch (button.name)
+        {
+            case "Add":
+                ReferencesManager.SoundManager.AlterVolume(false, true, true, false);
+                break;
+
+            case "Subtract":
+                ReferencesManager.SoundManager.AlterVolume(false, true, false, true);
+                break;
+        }
     }
 
     #endregion

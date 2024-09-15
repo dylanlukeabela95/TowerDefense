@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.Rendering;
 
 namespace Strings
@@ -212,6 +213,9 @@ namespace Strings
             public const string OptionsButton = "OptionsButton";
             public const string OptionsSection = "OptionsSection";
             public const string DamageNumbersButton = "DamageNumbersButton";
+            public const string MusicVolumeButton = "MusicVolumeButton";
+            public const string AddButton = "Add";
+            public const string SubtractButton = "Subtract";
         }
     }
 }

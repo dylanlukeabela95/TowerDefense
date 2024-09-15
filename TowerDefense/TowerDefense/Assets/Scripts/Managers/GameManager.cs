@@ -139,63 +139,68 @@ public class GameManager : MonoBehaviour
 
     public void CreateDamageText(GameObject target, int damage, bool isCritical, bool isSuper, bool isSplash, bool isPoison, bool isPoisonCritical, bool isIce, bool? isBurn = null)
     {
-        GameObject damageText = Instantiate(DamageText, target.transform.position, Quaternion.identity);
-        
-        if(isCritical)
+        if (ReferencesManager.UIManager_Pause.showDamageNumbers)
         {
-            damageText.GetComponent<TextMeshPro>().color = Color.yellow;
+            GameObject damageText = Instantiate(DamageText, target.transform.position, Quaternion.identity);
+
+            if (isCritical)
+            {
+                damageText.GetComponent<TextMeshPro>().color = Color.yellow;
+            }
+
+            if (isSuper)
+            {
+                damageText.GetComponent<TextMeshPro>().color = new Color32(160, 32, 240, 255);
+            }
+
+            if (isSplash)
+            {
+                damageText.GetComponent<TextMeshPro>().color = new Color32(255, 211, 0, 255);
+            }
+
+            if (isPoison)
+            {
+                damageText.GetComponent<TextMeshPro>().color = Color.green;
+            }
+
+            if (isPoisonCritical)
+            {
+                damageText.GetComponent<TextMeshPro>().color = new Color32(206, 250, 5, 255);
+            }
+
+            if (isIce)
+            {
+                damageText.GetComponent<TextMeshPro>().color = Color.cyan;
+            }
+
+            if (isBurn != null && isBurn == true)
+            {
+                damageText.GetComponent<TextMeshPro>().color = new Color32(255, 165, 0, 255);
+            }
+
+            damageText.GetComponent<TextMeshPro>().text = damage.ToString();
         }
-
-        if(isSuper)
-        {
-            damageText.GetComponent<TextMeshPro>().color = new Color32(160, 32, 240, 255);
-        }
-
-        if(isSplash)
-        {
-            damageText.GetComponent<TextMeshPro>().color = new Color32(255, 211, 0, 255);
-        }
-
-        if(isPoison)
-        {
-            damageText.GetComponent<TextMeshPro>().color = Color.green;
-        }    
-
-        if(isPoisonCritical)
-        {
-            damageText.GetComponent<TextMeshPro>().color = new Color32(206, 250, 5, 255);
-        }
-
-        if(isIce)
-        {
-            damageText.GetComponent<TextMeshPro>().color = Color.cyan;
-        }
-
-        if(isBurn != null && isBurn == true)
-        {
-            damageText.GetComponent<TextMeshPro>().color = new Color32(255, 165, 0, 255);
-        }
-
-        damageText.GetComponent<TextMeshPro>().text = damage.ToString();
     }
 
     public void CreateDamageText(GameObject target, string status, bool isImmobilize, bool isStun)
     {
-        GameObject damageText = Instantiate(DamageText, target.transform.position, Quaternion.identity);
-
-        if(isImmobilize)
+        if (ReferencesManager.UIManager_Pause.showDamageNumbers)
         {
-            damageText.GetComponent<TextMeshPro>().text = "Immobilize";
-            damageText.GetComponent<TextMeshPro>().color = Color.cyan;
+            GameObject damageText = Instantiate(DamageText, target.transform.position, Quaternion.identity);
+
+            if (isImmobilize)
+            {
+                damageText.GetComponent<TextMeshPro>().text = "Immobilize";
+                damageText.GetComponent<TextMeshPro>().color = Color.cyan;
+            }
+
+            if (isStun)
+            {
+                damageText.GetComponent<TextMeshPro>().text = "Stun";
+                damageText.GetComponent<TextMeshPro>().color = Color.yellow;
+            }
+
+            damageText.GetComponent<DamageText>().goDown = true;
         }
-
-        if(isStun)
-        {
-            damageText.GetComponent<TextMeshPro>().text = "Stun";
-            damageText.GetComponent<TextMeshPro>().color = Color.yellow;
-        }
-
-        damageText.GetComponent<DamageText>().goDown = true;
-
     }
 }

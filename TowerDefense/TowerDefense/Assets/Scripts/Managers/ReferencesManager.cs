@@ -11,6 +11,7 @@ public class ReferencesManager : MonoBehaviour
     public CostManager CostManager;
     public SpriteManager SpriteManager;
     public ItemsManager ItemsManager;
+    public SoundManager SoundManager;
 
     [Header("UI Managers")]
     public UIManager_Tower UIManager_Tower;
