@@ -13,10 +13,14 @@ public class UIManager_Pause : MonoBehaviour
     private ReferencesManager ReferencesManager;
 
     private bool isPauseMenuShowing;
+    private bool isDamageTowerInfoShowing;
+    private bool isFreezeTowerInfoShowing;
 
     public bool isOptionsButtonSelected;
     public bool isDamageNumbersButtonSelected;
     public bool isMusicVolumeButtonSelected;
+    public bool isSoundEffectVolumeButtonSelected;
+    public bool isTowerInfoSelected;
 
     public bool showDamageNumbers;
 
@@ -47,13 +51,27 @@ public class UIManager_Pause : MonoBehaviour
     public TextMeshProUGUI musicVolumeAmount;
     public RectTransform musicVolumeBar;
 
+    [Header("Sound Effect Volume Section")]
+    public GameObject soundEffectVolumeSection;
+    public TextMeshProUGUI soundEffectVolumeAmount;
+    public RectTransform soundEffectVolumeBar;
+
+    [Header("Tower Info Section")]
+    public GameObject towerInfoSection;
+
+    [Header("Tower Info SubStats")]
+    public GameObject damageTowerSubStats;
+    public GameObject freezeTowerSubStats;
 
     // Start is called before the first frame update
     void Start()
     {
         pauseMenuSection.SetActive(false);
         optionsSection.SetActive(false);
-        ShowSection(false, false);
+        ShowOptionsSection(false, false, false);
+        towerInfoSection.SetActive(false);
+        damageTowerSubStats.SetActive(false);
+        freezeTowerSubStats.SetActive(false);
 
         SetDamageNumbersCheckmark();
     }
@@ -92,8 +110,21 @@ public class UIManager_Pause : MonoBehaviour
                 optionsSection.SetActive(false);
                 optionsSection.transform.parent = pauseMenuSection.transform;
 
-                isDamageNumbersButtonSelected = false;
-                damageNumbersSection.SetActive(false);
+                if (isDamageNumbersButtonSelected)
+                {
+                    isDamageNumbersButtonSelected = false;
+                    damageNumbersSection.SetActive(false);
+                }
+                else if(isMusicVolumeButtonSelected)
+                {
+                    isMusicVolumeButtonSelected = false;
+                    musicVolumeSection.SetActive(false);
+                }
+                else if(isSoundEffectVolumeButtonSelected)
+                {
+                    isSoundEffectVolumeButtonSelected = false;
+                    soundEffectVolumeSection.SetActive(false);
+                }
             }
 
             ChangeSection(mainButtonSection, middleSection);
@@ -114,6 +145,14 @@ public class UIManager_Pause : MonoBehaviour
         }
     }
 
+    void ChangeBorder(GameObject button)
+    {
+        if (button.GetComponent<Image>().color == button.GetComponent<PauseMenuButtonHoverListener>().hoverColor)
+        {
+            button.GetComponent<Image>().color = button.GetComponent<PauseMenuButtonHoverListener>().defaultColor;
+        }
+    }
+
     void ChangeSection(GameObject buttonSection, GameObject newSection)
     {
         buttonSection.transform.parent = newSection.transform;
@@ -125,21 +164,22 @@ public class UIManager_Pause : MonoBehaviour
         damageNumberCheckbox.transform.GetChild(0).gameObject.SetActive(showDamageNumbers);
     }
 
-    void ShowSection(bool isDamageNumberSection, bool isMusicVolumeSection)
+    void ShowOptionsSection(bool isDamageNumberSection, bool isMusicVolumeSection, bool isSoundEffectVolumeSection)
     {
         damageNumbersSection.SetActive(isDamageNumberSection);
         musicVolumeSection.SetActive(isMusicVolumeSection);
+        soundEffectVolumeSection.SetActive(isSoundEffectVolumeSection);
     }
 
-    void UpdateVolume(TextMeshProUGUI volumeText, int volume)
+    void UpdateVolume(TextMeshProUGUI volumeText, int volume, RectTransform volumeBar)
     {
         volumeText.text = volume.ToString();
 
-        Vector2 size = musicVolumeBar.sizeDelta;
+        Vector2 size = volumeBar.sizeDelta;
 
         // Set the new width while keeping the current height
         size.x = volume * 2;
-        musicVolumeBar.sizeDelta = size;
+        volumeBar.sizeDelta = size;
     }
 
     #region OnClick
@@ -157,6 +197,13 @@ public class UIManager_Pause : MonoBehaviour
 
         optionsSection.SetActive(true);
         ChangeSection(optionsSection, middleSection);
+
+        if(isTowerInfoSelected)
+        {
+            isTowerInfoSelected = false;
+            towerInfoSection.SetActive(false);
+            ChangeBorder(mainButtons.Find(a => a.name == StringsDatabase.PauseMenu.TowerInfoButton));
+        }
     }
 
     public void OnClick_DamageNumbersButton(GameObject damageNumbersButton)
@@ -169,7 +216,13 @@ public class UIManager_Pause : MonoBehaviour
             optionsButtons.Find(a => a.name == StringsDatabase.PauseMenu.MusicVolumeButton).GetComponent<Image>().color = optionsButtons.Find(a => a.name == StringsDatabase.PauseMenu.MusicVolumeButton).GetComponent<PauseMenuButtonHoverListener>().defaultColor;
         }
 
-        ShowSection(true, false);
+        if (isSoundEffectVolumeButtonSelected)
+        {
+            isSoundEffectVolumeButtonSelected = false;
+            optionsButtons.Find(a => a.name == StringsDatabase.PauseMenu.SoundEffectVolumeButton).GetComponent<Image>().color = optionsButtons.Find(a => a.name == StringsDatabase.PauseMenu.SoundEffectVolumeButton).GetComponent<PauseMenuButtonHoverListener>().defaultColor;
+        }
+
+        ShowOptionsSection(true, false, false);
     }
 
     public void OnClick_DamageNumbersCheckbox()
@@ -186,9 +239,15 @@ public class UIManager_Pause : MonoBehaviour
             optionsButtons.Find(a => a.name == StringsDatabase.PauseMenu.DamageNumbersButton).GetComponent<Image>().color = optionsButtons.Find(a => a.name == StringsDatabase.PauseMenu.DamageNumbersButton).GetComponent<PauseMenuButtonHoverListener>().defaultColor;
         }
 
+        if(isSoundEffectVolumeButtonSelected)
+        {
+            isSoundEffectVolumeButtonSelected = false;
+            optionsButtons.Find(a => a.name == StringsDatabase.PauseMenu.SoundEffectVolumeButton).GetComponent<Image>().color = optionsButtons.Find(a => a.name == StringsDatabase.PauseMenu.SoundEffectVolumeButton).GetComponent<PauseMenuButtonHoverListener>().defaultColor;
+        }
+
         isMusicVolumeButtonSelected = true;
-        ShowSection(false, true);
-        UpdateVolume(musicVolumeAmount, ReferencesManager.SoundManager.musicVolume);
+        ShowOptionsSection(false, true, false);
+        UpdateVolume(musicVolumeAmount, ReferencesManager.SoundManager.musicVolume, musicVolumeBar);
     }
 
     public void OnClick_MusicVolume(GameObject button)
@@ -204,7 +263,7 @@ public class UIManager_Pause : MonoBehaviour
                 break;
         }
 
-        UpdateVolume(musicVolumeAmount, ReferencesManager.SoundManager.musicVolume);
+        UpdateVolume(musicVolumeAmount, ReferencesManager.SoundManager.musicVolume, musicVolumeBar);
     }
 
     public void OnClick_SoundEffectVolume(GameObject button)
@@ -219,6 +278,53 @@ public class UIManager_Pause : MonoBehaviour
                 ReferencesManager.SoundManager.AlterVolume(false, true, false, true);
                 break;
         }
+
+        UpdateVolume(musicVolumeAmount, ReferencesManager.SoundManager.musicVolume, musicVolumeBar);
+    }
+    public void OnClick_SoundEffectVolumeButton()
+    {
+        if (isDamageNumbersButtonSelected)
+        {
+            isDamageNumbersButtonSelected = false;
+            optionsButtons.Find(a => a.name == StringsDatabase.PauseMenu.DamageNumbersButton).GetComponent<Image>().color = optionsButtons.Find(a => a.name == StringsDatabase.PauseMenu.DamageNumbersButton).GetComponent<PauseMenuButtonHoverListener>().defaultColor;
+        }
+
+        if (isMusicVolumeButtonSelected)
+        {
+            isMusicVolumeButtonSelected = false;
+            optionsButtons.Find(a => a.name == StringsDatabase.PauseMenu.MusicVolumeButton).GetComponent<Image>().color = optionsButtons.Find(a => a.name == StringsDatabase.PauseMenu.MusicVolumeButton).GetComponent<PauseMenuButtonHoverListener>().defaultColor;
+        }
+
+        isSoundEffectVolumeButtonSelected = true;
+        ShowOptionsSection(false, false, true);
+        UpdateVolume(soundEffectVolumeAmount, ReferencesManager.SoundManager.soundEffectVolume, soundEffectVolumeBar);
+    }
+
+    public void OnClick_TowerInfo()
+    {
+        isTowerInfoSelected = true;
+        towerInfoSection.SetActive(true);
+
+        if(isOptionsButtonSelected)
+        {
+            isOptionsButtonSelected = false;
+            ChangeSection(mainButtonSection, middleSection);
+            optionsSection.SetActive(false);
+            ChangeBorder(optionsButtons);
+            ChangeBorder(mainButtons.Find(a => a.name == StringsDatabase.PauseMenu.OptionsButton));
+        }
+    }
+
+    public void OnClick_DamageTowerInfo()
+    {
+        isDamageTowerInfoShowing = !isDamageTowerInfoShowing;
+        damageTowerSubStats.SetActive(isDamageTowerInfoShowing);
+    }
+
+    public void OnClick_FreezeTowerInfo()
+    {
+        isFreezeTowerInfoShowing = !isFreezeTowerInfoShowing;
+        freezeTowerSubStats.SetActive(isFreezeTowerInfoShowing);
     }
 
     #endregion

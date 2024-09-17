@@ -31,6 +31,14 @@ public class PauseMenuButtonHoverListener : MonoBehaviour, IPointerEnterHandler,
         {
 
         }
+        else if (ReferencesManager.UIManager_Pause.isOptionsButtonSelected && ReferencesManager.UIManager_Pause.isSoundEffectVolumeButtonSelected && this.name == StringsDatabase.PauseMenu.SoundEffectVolumeButton)
+        {
+
+        }
+        else if(ReferencesManager.UIManager_Pause.isTowerInfoSelected && this.name == StringsDatabase.PauseMenu.TowerInfoButton)
+        {
+
+        }
         else
         {
             GetComponent<Image>().color = defaultColor;

@@ -210,12 +210,18 @@ namespace Strings
 
         public class PauseMenu
         {
-            public const string OptionsButton = "OptionsButton";
             public const string OptionsSection = "OptionsSection";
+
+            public const string OptionsButton = "OptionsButton";
             public const string DamageNumbersButton = "DamageNumbersButton";
             public const string MusicVolumeButton = "MusicVolumeButton";
+            public const string SoundEffectVolumeButton = "SoundEffectVolumeButton";
+            public const string TowerInfoButton = "TowerInfoButton";
+
             public const string AddButton = "Add";
             public const string SubtractButton = "Subtract";
+
+            public const string SubStats = "SubStats";
         }
     }
 }
