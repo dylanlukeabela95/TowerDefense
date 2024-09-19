@@ -650,8 +650,7 @@ public class UIManager_Stat : MonoBehaviour
             case StringsDatabase.Stats.PoisonCriticalChance:
             case StringsDatabase.Stats_Display.PoisonCriticalChance:
                 return ReferencesManager.GameManager.PoisonCriticalChance.ToString() + " %";
-            case StringsDatabase.Stats.PoisonSpread:
-            case StringsDatabase.Stats_Display.PoisonSpreadRadius:
+            case "PoisonSpreadRadius":
                 return currentTower.GetComponent<PoisonTower>().PoisonSpreadRadius.ToString() + " m";
             case StringsDatabase.Stats.DoubleExplosionChance:
             case StringsDatabase.Stats_Display.DoubleExplosionChance:

@@ -15,6 +15,8 @@ public class UIManager_Pause : MonoBehaviour
     private bool isPauseMenuShowing;
     private bool isDamageTowerInfoShowing;
     private bool isFreezeTowerInfoShowing;
+    private bool isPoisonTowerInfoShowing;
+    private bool isBombTowerInfoShowing;
 
     public bool isOptionsButtonSelected;
     public bool isDamageNumbersButtonSelected;
@@ -62,6 +64,8 @@ public class UIManager_Pause : MonoBehaviour
     [Header("Tower Info SubStats")]
     public GameObject damageTowerSubStats;
     public GameObject freezeTowerSubStats;
+    public GameObject poisonTowerSubStats;
+    public GameObject bombTowerSubStats;
 
     // Start is called before the first frame update
     void Start()
@@ -72,6 +76,10 @@ public class UIManager_Pause : MonoBehaviour
         towerInfoSection.SetActive(false);
         damageTowerSubStats.SetActive(false);
         freezeTowerSubStats.SetActive(false);
+        poisonTowerSubStats.SetActive(false);
+        bombTowerSubStats.SetActive(false);
+
+        SetStats(StringsDatabase.TowerNames.DamageTower);
 
         SetDamageNumbersCheckmark();
     }
@@ -180,6 +188,16 @@ public class UIManager_Pause : MonoBehaviour
         // Set the new width while keeping the current height
         size.x = volume * 2;
         volumeBar.sizeDelta = size;
+    }
+
+    void SetStats(string towerName)
+    {
+        switch(towerName)
+        {
+            case StringsDatabase.TowerNames.DamageTower:
+                damageTowerSubStats.transform.Find("Stats").transform.Find("Stat_Damage").transform.Find("Background").transform.Find("StatValue").GetComponent<TextMeshProUGUI>().text = ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Damage].ToString();
+                break;
+        }
     }
 
     #region OnClick
@@ -319,12 +337,88 @@ public class UIManager_Pause : MonoBehaviour
     {
         isDamageTowerInfoShowing = !isDamageTowerInfoShowing;
         damageTowerSubStats.SetActive(isDamageTowerInfoShowing);
+
+        if(isFreezeTowerInfoShowing)
+        {
+            isFreezeTowerInfoShowing = false;
+            freezeTowerSubStats.SetActive(isFreezeTowerInfoShowing);
+        }
+        else if(isPoisonTowerInfoShowing)
+        {
+            isPoisonTowerInfoShowing = false;
+            poisonTowerSubStats.SetActive(isPoisonTowerInfoShowing);
+        }
+        else if(isBombTowerInfoShowing)
+        {
+            isBombTowerInfoShowing = false;
+            bombTowerSubStats.SetActive(isBombTowerInfoShowing);
+        }
     }
 
     public void OnClick_FreezeTowerInfo()
     {
         isFreezeTowerInfoShowing = !isFreezeTowerInfoShowing;
         freezeTowerSubStats.SetActive(isFreezeTowerInfoShowing);
+
+        if (isDamageTowerInfoShowing)
+        {
+            isDamageTowerInfoShowing = false;
+            damageTowerSubStats.SetActive(isDamageTowerInfoShowing);
+        }
+        else if (isPoisonTowerInfoShowing)
+        {
+            isPoisonTowerInfoShowing = false;
+            poisonTowerSubStats.SetActive(isPoisonTowerInfoShowing);
+        }
+        else if(isBombTowerInfoShowing)
+        {
+            isBombTowerInfoShowing = false;
+            bombTowerSubStats.SetActive(isBombTowerInfoShowing);
+        }
+    }
+
+    public void OnClick_PoisonTowerInfo()
+    {
+        isPoisonTowerInfoShowing = !isPoisonTowerInfoShowing;
+        poisonTowerSubStats.SetActive(isPoisonTowerInfoShowing);
+
+        if (isDamageTowerInfoShowing)
+        {
+            isDamageTowerInfoShowing = false;
+            damageTowerSubStats.SetActive(isDamageTowerInfoShowing);
+        }
+        else if (isFreezeTowerInfoShowing)
+        {
+            isFreezeTowerInfoShowing = false;
+            freezeTowerSubStats.SetActive(isFreezeTowerInfoShowing);
+        }
+        else if(isBombTowerInfoShowing)
+        {
+            isBombTowerInfoShowing = false;
+            bombTowerSubStats.SetActive(isBombTowerInfoShowing);
+        }
+    }
+
+    public void OnClick_BombTowerInfo()
+    {
+        isBombTowerInfoShowing = true;
+        bombTowerSubStats.SetActive(isBombTowerInfoShowing);
+
+        if(isDamageTowerInfoShowing)
+        {
+            isDamageTowerInfoShowing = false;
+            damageTowerSubStats.SetActive(isDamageTowerInfoShowing);
+        }
+        else if(isFreezeTowerInfoShowing)
+        {
+            isFreezeTowerInfoShowing = false;
+            freezeTowerSubStats.SetActive(isFreezeTowerInfoShowing);
+        }
+        else if(isPoisonTowerInfoShowing)
+        {
+            isPoisonTowerInfoShowing = false;
+            poisonTowerSubStats.SetActive(isPoisonTowerInfoShowing);
+        }
     }
 
     #endregion
