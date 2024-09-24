@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Style/style_pausemenu.uss?fileID=7433441132597879392&amp;guid=5a0abadbb232e93469b57601fc8814de&amp;type=3#style_pausemenu" />
+    <ui:VisualElement name="pause-menu-section-global" style="height: 1080px; background-color: rgba(0, 0, 0, 0.47); justify-content: center; align-items: center;">
+        <ui:VisualElement name="pause-menu-section" style="height: 748px; width: 516px; background-color: rgba(0, 0, 0, 0); align-items: center; justify-content: center; margin-top: -88px;">
+            <ui:Button text="Resume" display-tooltip-when-elided="true" enable-rich-text="true" name="resume-button" class="border-style" />
+            <ui:Button text="Options" display-tooltip-when-elided="true" enable-rich-text="true" name="options-button" class="border-style" style="top: 20px;" />
+            <ui:Button text="Tower Info" display-tooltip-when-elided="true" enable-rich-text="true" name="tower-info-button" class="border-style" style="top: 40px;" />
+            <ui:Button text="Item Info" display-tooltip-when-elided="true" enable-rich-text="true" name="item-info-button" class="border-style" style="top: 60px;" />
+            <ui:Button text="Quit To Main Menu" display-tooltip-when-elided="true" enable-rich-text="true" name="quit-to-main-menu" class="border-style" style="top: 80px;" />
+            <ui:Button text="Quit To Desktop" display-tooltip-when-elided="true" enable-rich-text="true" name="quit-to-desktop" class="border-style" style="top: 100px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

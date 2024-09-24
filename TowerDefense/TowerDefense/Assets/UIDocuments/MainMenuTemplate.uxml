@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Style/style.uss?fileID=7433441132597879392&amp;guid=f5e1adacfdde7f6499ca4a2323a9098f&amp;type=3#style" />
+    <ui:VisualElement name="Background" style="height: 482px; background-color: rgba(0, 0, 0, 0); flex-grow: 1; align-items: center; justify-content: center; -unity-background-image-tint-color: rgb(255, 255, 255);">
+        <ui:VisualElement style="height: 600px; width: 419px; background-color: rgb(255, 255, 255); border-top-left-radius: 15px; border-bottom-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; align-items: center; justify-content: center;">
+            <ui:Label text="Main Menu" display-tooltip-when-elided="true" style="font-size: 20px; -unity-font: url(&apos;project://database/Assets/TextMesh%20Pro/Examples%20&amp;%20Extras/Fonts/Oswald-Bold.ttf?fileID=12800000&amp;guid=c9f6d0e7bc8541498c9a4799ba184ede&amp;type=3#Oswald-Bold&apos;); position: absolute; top: 20px;" />
+            <ui:Button text="Start Game" display-tooltip-when-elided="true" name="start-button" class="button-style" />
+            <ui:Button text="Show Message" display-tooltip-when-elided="true" name="message-button" class="button-style" />
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="message-text" style="display: none;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

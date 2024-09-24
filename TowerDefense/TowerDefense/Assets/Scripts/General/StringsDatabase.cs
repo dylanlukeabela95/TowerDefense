@@ -217,6 +217,10 @@ namespace Strings
             public const string MusicVolumeButton = "MusicVolumeButton";
             public const string SoundEffectVolumeButton = "SoundEffectVolumeButton";
             public const string TowerInfoButton = "TowerInfoButton";
+            public const string DamageTowerTowerInfoButton = "DamageTowerTowerInfoButton";
+            public const string FreezeTowerTowerInfoButton = "FreezeTowerTowerInfoButton";
+            public const string PoisonTowerTowerInfoButton = "PoisonTowerTowerInfoButton";
+            public const string BombTowerTowerInfoButton = "BombTowerTowerInfoButton";
 
             public const string AddButton = "Add";
             public const string SubtractButton = "Subtract";

@@ -80,6 +80,9 @@ public class UIManager_Pause : MonoBehaviour
         bombTowerSubStats.SetActive(false);
 
         SetStats(StringsDatabase.TowerNames.DamageTower);
+        SetStats(StringsDatabase.TowerNames.FreezeTower);
+        SetStats(StringsDatabase.TowerNames.PoisonTower);
+        SetStats(StringsDatabase.TowerNames.BombTower);
 
         SetDamageNumbersCheckmark();
     }
@@ -87,10 +90,10 @@ public class UIManager_Pause : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            AlterPauseMenu();
-        }
+        //if(Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    AlterPauseMenu();
+        //}
     }
 
     void AlterPauseMenu()
@@ -134,7 +137,11 @@ public class UIManager_Pause : MonoBehaviour
                     soundEffectVolumeSection.SetActive(false);
                 }
             }
+            else if(isTowerInfoSelected)
+            {
+                isTowerInfoSelected = false;
 
+            }
             ChangeSection(mainButtonSection, middleSection);
         }
 
@@ -195,7 +202,20 @@ public class UIManager_Pause : MonoBehaviour
         switch(towerName)
         {
             case StringsDatabase.TowerNames.DamageTower:
-                damageTowerSubStats.transform.Find("Stats").transform.Find("Stat_Damage").transform.Find("Background").transform.Find("StatValue").GetComponent<TextMeshProUGUI>().text = ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Damage].ToString();
+                damageTowerSubStats.transform.Find("Stats").transform.Find("Stat_Damage").transform.Find("Background_Inner").transform.Find("StatValue").GetComponent<TextMeshProUGUI>().text = ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Damage].ToString();
+                damageTowerSubStats.transform.Find("Stats").transform.Find("Stat_FireRate").transform.Find("Background_Inner").transform.Find("StatValue").GetComponent<TextMeshProUGUI>().text = (1 * 1.0f / (float)ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.FireRate]).ToString("F2") + " / s";
+                damageTowerSubStats.transform.Find("Stats").transform.Find("Stat_Range").transform.Find("Background_Inner").transform.Find("StatValue").GetComponent<TextMeshProUGUI>().text = ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Range].ToString() + " m";
+                damageTowerSubStats.transform.Find("Stats").transform.Find("Stat_Cost").transform.Find("Background_Inner").transform.Find("StatValue").GetComponent<TextMeshProUGUI>().text = ReferencesManager.TowerManager.DamageStats[StringsDatabase.Stats.Cost].ToString();
+                break;
+
+            case StringsDatabase.TowerNames.FreezeTower:
+                freezeTowerSubStats.transform.Find("Stats").transform.Find("Stat_Damage").transform.Find("Background_Inner").transform.Find("StatValue").GetComponent<TextMeshProUGUI>().text = ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Damage].ToString();
+                freezeTowerSubStats.transform.Find("Stats").transform.Find("Stat_FireRate").transform.Find("Background_Inner").transform.Find("StatValue").GetComponent<TextMeshProUGUI>().text = (1 * 1.0f / (float)ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.FireRate]).ToString("F2") + " / s";
+                freezeTowerSubStats.transform.Find("Stats").transform.Find("Stat_Range").transform.Find("Background_Inner").transform.Find("StatValue").GetComponent<TextMeshProUGUI>().text = ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Range].ToString() + " m";
+                freezeTowerSubStats.transform.Find("Stats").transform.Find("Stat_Cost").transform.Find("Background_Inner").transform.Find("StatValue").GetComponent<TextMeshProUGUI>().text = ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.Cost].ToString();
+                freezeTowerSubStats.transform.Find("Stats").transform.Find("Stat_IceDamage").transform.Find("Background_Inner").transform.Find("StatValue").GetComponent<TextMeshProUGUI>().text = ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.IceDamage].ToString();
+                freezeTowerSubStats.transform.Find("Stats").transform.Find("Stat_SlowDuration").transform.Find("Background_Inner").transform.Find("StatValue").GetComponent<TextMeshProUGUI>().text = ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.SlowDuration].ToString() + " s";
+                freezeTowerSubStats.transform.Find("Stats").transform.Find("Stat_SlowEffect").transform.Find("Background_Inner").transform.Find("StatValue").GetComponent<TextMeshProUGUI>().text = ReferencesManager.TowerManager.FreezeStats[StringsDatabase.Stats.SlowEffect].ToString() + " %";
                 break;
         }
     }
@@ -299,6 +319,7 @@ public class UIManager_Pause : MonoBehaviour
 
         UpdateVolume(musicVolumeAmount, ReferencesManager.SoundManager.musicVolume, musicVolumeBar);
     }
+    
     public void OnClick_SoundEffectVolumeButton()
     {
         if (isDamageNumbersButtonSelected)
@@ -318,15 +339,16 @@ public class UIManager_Pause : MonoBehaviour
         UpdateVolume(soundEffectVolumeAmount, ReferencesManager.SoundManager.soundEffectVolume, soundEffectVolumeBar);
     }
 
-    public void OnClick_TowerInfo()
+    public void OnClick_TowerInfoButton()
     {
         isTowerInfoSelected = true;
         towerInfoSection.SetActive(true);
+        ChangeSection(mainButtonSection, leftSection);
+        ChangeSection(towerInfoSection, middleSection);
 
         if(isOptionsButtonSelected)
         {
             isOptionsButtonSelected = false;
-            ChangeSection(mainButtonSection, middleSection);
             optionsSection.SetActive(false);
             ChangeBorder(optionsButtons);
             ChangeBorder(mainButtons.Find(a => a.name == StringsDatabase.PauseMenu.OptionsButton));

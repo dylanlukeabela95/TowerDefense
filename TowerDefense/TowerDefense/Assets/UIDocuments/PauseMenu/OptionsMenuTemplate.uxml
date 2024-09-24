@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Style/style_pausemenu.uss?fileID=7433441132597879392&amp;guid=5a0abadbb232e93469b57601fc8814de&amp;type=3#style_pausemenu" />
+    <ui:VisualElement name="options-menu-section-global" style="height: 1080px; background-color: rgba(0, 0, 0, 0.47); align-items: center; justify-content: center; border-left-color: rgba(48, 107, 172, 0); border-right-color: rgba(48, 107, 172, 0); border-top-color: rgba(48, 107, 172, 0); border-bottom-color: rgba(48, 107, 172, 0); border-left-width: 5px; border-right-width: 5px; border-top-width: 5px; border-bottom-width: 5px;">
+        <ui:VisualElement name="options-menu-section" style="height: 611px; width: 394px; background-color: rgba(0, 0, 0, 0); justify-content: center; align-items: center;">
+            <ui:Button text="Damage Numbers" display-tooltip-when-elided="true" name="damage-numbers-button" class="border-style" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
